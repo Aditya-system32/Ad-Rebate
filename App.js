@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from './components/login'
+import AppLoading from 'expo-app-loading'
+
 
 const getFonts = () => {
   return Font.loadAsync({
@@ -19,7 +21,6 @@ export default function App() {
       <Login />
     );
   }else{
-    render()
     return(
       <AppLoading 
       startAsync={getFonts}
