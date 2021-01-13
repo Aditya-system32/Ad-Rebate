@@ -1,37 +1,30 @@
-import React , {useState} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Login from './components/login'
-import AppLoading from 'expo-app-loading'
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { Button, View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import EarningScreen from './Screens/Earning'
+import CouponScreen from './Screens/Coupon'
+import HomeScreen from './Screens/Home'
+import LogInScreen from './Screens/LogIn'
+import SignUpScreen from './Screens/SignUp'
+import VerificationScreen from './Screens/Verification'
 
+const Stack = createStackNavigator();
 
-const getFonts = () => {
-  return Font.loadAsync({
-    'poppins-medium':require('./assets/fonts/Poppins-Medium.ttf'),
-    'poppins-semibold':require('./assets/fonts/Poppins-SemiBold.ttf')
-  });
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Earning" component={EarningScreen} />
+        <Stack.Screen name="Coupon" component={CouponScreen} />
+        <Stack.Screen name="LogIn" component={LogInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="Verification" component={VerificationScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
-
-export default function App() {
-  const [fontsLoaded,setFontsLoaded] = useState(false);
-  
-  if(fontsLoaded){
-    return(
-      <Login />
-    );
-  }else{
-    return(
-      <AppLoading />
-    )
-  }
-}
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
