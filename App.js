@@ -1,5 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React , {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from './components/login'
 import AppLoading from 'expo-app-loading'
@@ -22,10 +21,7 @@ export default function App() {
     );
   }else{
     return(
-      <AppLoading 
-      startAsync={getFonts}
-      onFinish={()=>setFontsLoaded(true)}
-      />
+      <AppLoading />
     )
   }
 }
