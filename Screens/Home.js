@@ -7,7 +7,7 @@ import { Button, View, Text, StyleSheet } from 'react-native';
 export default function HomeScreen({ navigation }) {
   return (
     <View style = {styles.container}>
-      <Text>Home Screen</Text>
+      <Text style={styles.texts}>Home Screen</Text>
       <Button
         title="Go to Earnings"
         onPress={() => navigation.navigate('Earning')}
@@ -30,6 +30,10 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container:{
-    flex: 1, alignItems: 'center', justifyContent: 'center' 
+    flex: 1, alignItems: 'center', justifyContent: 'center' ,
+  },
+  texts:{
+    fontFamily:"Poppins-Medium",
+    fontSize:50,
   }
 })

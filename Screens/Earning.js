@@ -6,7 +6,7 @@ import { Button, View, Text, StyleSheet } from 'react-native';
 export default function EarningScreen({ navigation }) {
   return (
     <View style = {styles.container}>
-      <Text>Earning Screen</Text>
+      <Text style = {styles.texts}>Earning Screen</Text>
         <Button
           title="Go to Earning... again"
           onPress={() => navigation.push('Earning')}
@@ -20,5 +20,9 @@ export default function EarningScreen({ navigation }) {
 const styles = StyleSheet.create({
   container:{
     flex: 1, alignItems: 'center', justifyContent: 'center' 
+  },
+  texts:{
+    fontFamily:'Poppins-SemiBold',
+    fontSize:50,
   }
 })
