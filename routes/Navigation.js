@@ -15,7 +15,7 @@ export default function Navigation(){
     return(
     <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} options={{
-          title: 'My home',
+          title: 'Ad-Rebate',
           headerTitleAlign:"center",
           headerStyle: {
             backgroundColor: '#000000',
