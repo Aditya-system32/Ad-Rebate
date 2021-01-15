@@ -7,11 +7,13 @@ import {
   StyleSheet,
   TouchableNativeFeedback,
   Image,
+  StatusBar,
 } from "react-native";
 
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
+    <StatusBar backgroundColor='white' barStyle="dark-content" />
       <View style={styles.banner}>
         <Image></Image>
       </View>

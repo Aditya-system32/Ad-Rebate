@@ -1,11 +1,13 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { Button, View, Text, StyleSheet,StatusBar} from 'react-native';
 
 
 export default function EarningScreen({ navigation }) {
   return (
+
     <View style = {styles.container}>
+    <StatusBar backgroundColor='white' barStyle="dark-content" />
       <Text style = {styles.texts}>Earning Screen</Text>
         <Button
           title="Go to Earning... again"
@@ -24,5 +26,9 @@ const styles = StyleSheet.create({
   texts:{
     fontFamily:'Poppins-SemiBold',
     fontSize:50,
+  },
+  direction:{
+    flexDirection:"column",
+    flex:0
   }
 })

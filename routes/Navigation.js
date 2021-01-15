@@ -15,11 +15,11 @@ export default function Navigation(){
   
     return(
     <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{
+        <Stack.Screen  name="Home" component={HomeScreen} options={{
           title: 'Ad-Rebate',
           headerTitleAlign:"center",
           headerStyle: {
-            backgroundColor: "#000000", 
+           backgroundColor:"#000000"
           },
           headerTintColor: '#FFFFFF',
           headerTitleStyle: {
