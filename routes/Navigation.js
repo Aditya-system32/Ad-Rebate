@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, View, Text } from "react-native";
+import { Button, View, Text,StatusBar } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import EarningScreen from "../Screens/Earning";
 import CouponScreen from "../Screens/Coupon";
@@ -12,18 +12,26 @@ import VerificationScreen from "../Screens/Verification";
 const Stack = createStackNavigator();
 
 export default function Navigation(){
+  
     return(
     <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} options={{
           title: 'Ad-Rebate',
           headerTitleAlign:"center",
           headerStyle: {
-            backgroundColor: '#000000',
+            backgroundColor: "#000000", 
           },
           headerTintColor: '#FFFFFF',
           headerTitleStyle: {
             fontFamily:'Poppins-SemiBold',
           },
+          headerLeft: () => (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Info"
+              color="#fff"
+            />
+          ),
         }}/>
         <Stack.Screen name="Earning" component={EarningScreen} />
         <Stack.Screen name="Coupon" component={CouponScreen} />
