@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   textPassword: {
-    marginBottom: 14,
+    marginBottom: 16,
   },
   forgetPass: {
     color: "#fff",

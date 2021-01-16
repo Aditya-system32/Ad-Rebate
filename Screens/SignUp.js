@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import * as React from "react";
+import CheckBox from "@react-native-community/checkbox";
 import {
   Button,
   View,
@@ -10,6 +11,7 @@ import {
   Image,
   TouchableNativeFeedback,
 } from "react-native";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 
 export default function SignUpScreen({ navigation }) {
   return (
@@ -39,8 +41,9 @@ export default function SignUpScreen({ navigation }) {
           color="#fff"
         ></TextInput>
       </View>
-      <View>
-        <Text style={styles.forgetPass}>Forgot Password?</Text>
+      <View style={styles.termsCondition}>
+        <CheckBox tintColors={{ true: "#F15927", false: "#Fff" }} />
+        <Text style={styles.forgetPass}>Agree to terms and conditions</Text>
       </View>
       <View style={styles.loginWrapper}>
         <TouchableNativeFeedback
@@ -60,12 +63,17 @@ export default function SignUpScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  termsCondition: {
+    flexDirection: "row",
+    width: "80%",
+    alignSelf: "center",
+  },
   container: {
     flex: 1,
     backgroundColor: "#000",
   },
   loginWrapper: {
-    marginTop: 90,
+    marginTop: 80,
   },
   registerHere: {
     color: "#D3D3D3",
@@ -119,7 +127,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   textPassword: {
-    marginBottom: 14,
+    marginBottom: 16,
   },
   forgetPass: {
     color: "#fff",
