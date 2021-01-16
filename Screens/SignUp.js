@@ -55,7 +55,7 @@ export default function SignUpScreen({ navigation }) {
           </View>
         </TouchableNativeFeedback>
         <View>
-          <Text style={styles.registerHere}>New here ? Register</Text>
+          <Text style={styles.registerHere}>Already a user? Login</Text>
         </View>
       </View>
     </View>

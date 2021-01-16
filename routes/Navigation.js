@@ -34,10 +34,42 @@ const HomeStackScreen = ({navigation}) => {
       <FontAwesome name="navicon" size={24} color="white" style = {styles.icons} onPress={() => navigation.openDrawer()}/>
     ),
   }}/>
-  <HomeStack.Screen name="LogIn" component={LogInScreen} />
-  <HomeStack.Screen name="SignUp" component={SignUpScreen} />
-  <HomeStack.Screen name="Verification" component={VerificationScreen} />
-  <HomeStack.Screen name="Earning" component={EarningScreen} /> 
+  <HomeStack.Screen name="LogIn" component={LogInScreen} options={{
+    headerStyle: {
+     backgroundColor:"#000000"
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: {
+      fontFamily:'Poppins-SemiBold',
+    },
+  }} />
+  <HomeStack.Screen name="SignUp" component={SignUpScreen} options={{
+    headerStyle: {
+     backgroundColor:"#000000"
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: {
+      fontFamily:'Poppins-SemiBold',
+    },
+  }} />
+  <HomeStack.Screen name="Verification" component={VerificationScreen} options={{
+    headerStyle: {
+     backgroundColor:"#000000"
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: {
+      fontFamily:'Poppins-SemiBold',
+    },
+  }}/>
+  <HomeStack.Screen name="Earning" component={EarningScreen} options={{
+    headerStyle: {
+     backgroundColor:"#000000"
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: {
+      fontFamily:'Poppins-SemiBold',
+    },
+  }}/> 
   </HomeStack.Navigator>
   )
 }
@@ -46,8 +78,6 @@ const CouponStackScreen = ({navigation}) => {
   return(
   <CouponStack.Navigator>
   <CouponStack.Screen name="Coupon" component={CouponScreen} options={{
-    title: 'Ad-Rebate',
-    headerTitleAlign:"center",
     headerStyle: {
      backgroundColor:"#000000"
     },
