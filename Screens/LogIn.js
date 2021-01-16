@@ -11,9 +11,11 @@ import {
   TextInput,
 } from "react-native";
 
+import {globalstyles} from '../styles/global'
+
 export default function LogInScreen({ navigation }) {
   return (
-    <View style={styles.container}>
+    <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
 
       <View style={styles.banner}>
@@ -60,10 +62,6 @@ export default function LogInScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-  },
   loginWrapper: {
     marginTop: 90,
   },
