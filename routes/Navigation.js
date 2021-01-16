@@ -10,6 +10,7 @@ import VerificationScreen from "../Screens/Verification";
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import {DrawerContent} from './DrawerContent'
 
 
 const HomeStack = createStackNavigator();
@@ -97,10 +98,9 @@ const CouponStackScreen = ({navigation}) => {
 export default function Navigation(){
   
     return(
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />}>
         <Drawer.Screen name="Home" component={HomeStackScreen} />
-        <Drawer.Screen name="Coupon" component={CouponStackScreen} />
-        
+        <Drawer.Screen name="Coupon" component={CouponStackScreen} /> 
       </Drawer.Navigator>)
     {/*<Stack.Navigator initialRouteName="Home">
         <Stack.Screen  name="Home" component={HomeScreen} options={{
