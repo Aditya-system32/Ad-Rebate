@@ -15,7 +15,7 @@ import {globalstyles} from '../styles/global'
 export default function HomeScreen({ navigation }) {
   return (
     <View style={globalstyles.container}>
-    <StatusBar backgroundColor='white' barStyle="dark-content" />
+      <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.banner}>
         <Image></Image>
       </View>
@@ -23,12 +23,12 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.locationText}>Current location : Bhilai</Text>
       </View>
       <View style={styles.wrapper}>
-        <TouchableNativeFeedback onPress={() => navigation.navigate('Earning')}>
+        <TouchableNativeFeedback onPress={() => navigation.navigate("Earning")}>
           <View style={styles.card}>
             <Text style={styles.texts}>paisa</Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback onPress={() => navigation.navigate('Coupon')}>
+        <TouchableNativeFeedback onPress={() => navigation.navigate("Coupon")}>
           <View style={styles.card}>
             <Text style={styles.texts}>paisa</Text>
           </View>
@@ -44,12 +44,15 @@ export default function HomeScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.buttonWrapper}>
-        <TouchableNativeFeedback useForeground={true} onPress={() => navigation.navigate('LogIn')}>
+        <TouchableNativeFeedback
+          useForeground={true}
+          onPress={() => navigation.navigate("LogIn")}
+        >
           <View style={styles.loginButton}>
             <Text style={styles.loginButtonTitle}>Login</Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback onPress={() => navigation.navigate('SignUp')}>
+        <TouchableNativeFeedback onPress={() => navigation.navigate("SignUp")}>
           <View style={styles.registerButton}>
             <Text style={styles.registerButtonTitle}>Register</Text>
           </View>
