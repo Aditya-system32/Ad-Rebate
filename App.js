@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Navigation from './routes/Navigation'
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
-import { createDrawerNavigator } from '@react-navigation/drawer';
+
 
 
 const fetchfonts = () => {
