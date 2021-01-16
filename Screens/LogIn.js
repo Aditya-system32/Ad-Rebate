@@ -54,7 +54,7 @@ export default function LogInScreen({ navigation }) {
           </View>
         </TouchableNativeFeedback>
         <View>
-          <Text style={styles.registerHere}>New here ? Register</Text>
+          <Text style={styles.registerHere} onPress={() => navigation.navigate('SignUp')}>New here ? Register</Text>
         </View>
       </View>
     </View>
