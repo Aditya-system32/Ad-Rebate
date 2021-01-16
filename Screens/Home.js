@@ -9,8 +9,9 @@ import {
   Image,
   StatusBar,
 } from "react-native";
-import {globalstyles} from '../styles/global'
-
+import { globalstyles } from "../styles/global";
+import cash from "../assets/svgs/cash.png";
+import coupons from "../assets/svgs/coupons.png";
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -25,12 +26,12 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.wrapper}>
         <TouchableNativeFeedback onPress={() => navigation.navigate("Earning")}>
           <View style={styles.card}>
-            <Text style={styles.texts}>paisa</Text>
+            <Image source={cash}></Image>
           </View>
         </TouchableNativeFeedback>
         <TouchableNativeFeedback onPress={() => navigation.navigate("Coupon")}>
           <View style={styles.card}>
-            <Text style={styles.texts}>paisa</Text>
+            <Image source={coupons}></Image>
           </View>
         </TouchableNativeFeedback>
       </View>
