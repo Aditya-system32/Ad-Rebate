@@ -16,7 +16,7 @@ import { FlatList, ScrollView } from "react-native-gesture-handler";
 export default function SignUpScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="white" barStyle="dark-content" />
+      <StatusBar backgroundColor="black" barStyle="light-content" />
 
       <View style={styles.banner}>
         <Image></Image>
