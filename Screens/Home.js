@@ -9,10 +9,12 @@ import {
   Image,
   StatusBar,
 } from "react-native";
+import {globalstyles} from '../styles/global'
+
 
 export default function HomeScreen({ navigation }) {
   return (
-    <View style={styles.container}>
+    <View style={globalstyles.container}>
     <StatusBar backgroundColor='white' barStyle="dark-content" />
       <View style={styles.banner}>
         <Image></Image>
@@ -93,7 +95,6 @@ const styles = StyleSheet.create({
   categoryHeading: {
     fontSize: 18,
     color: "#FFFFFF",
-    fontFamily: "Poppins-Regular",
     marginBottom: "2%",
   },
   category: {
@@ -135,10 +136,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#FF005C",
     height: "100%",
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
   },
   texts: {
     borderRadius: 20,
