@@ -9,13 +9,15 @@ import {
     Drawer,
     Text,
     TouchableRipple,
-    Switch
+    Switch,
+    Portal,
 }from 'react-native-paper';
 import{
     DrawerContentScrollView,
     DrawerItem,
 } from '@react-navigation/drawer'
 import {globalstyles} from '../styles/global'
+import { color } from 'react-native-reanimated';
 
 export function DrawerContent(props){
     return(
@@ -40,17 +42,34 @@ export function DrawerContent(props){
                         </View>
                     </View>
                 </View>
+                
                 <Drawer.Section style={styles.drawerSection}>
-                    <Text style = {styles.drawerSectionTitle}>Home</Text>
+                    <DrawerItem 
+                        label="HOME"
+                        labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",fontFamily:"Poppins-Medium"}}
+                        onPress={()=>{props.navigation.navigate('Home')}}
+                    />
                 </Drawer.Section>
                 <Drawer.Section style={styles.drawerSection}>
-                    <Text style = {styles.drawerSectionTitle}>COUPONS</Text>
+                    <DrawerItem 
+                        label="COUPONS"
+                        labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",paddingLeft:6,fontFamily:"Poppins-Medium"}}
+                        onPress={()=>{props.navigation.navigate('Coupon')}}
+                    />
                 </Drawer.Section>
                 <Drawer.Section style={styles.drawerSection}>
-                    <Text style = {styles.drawerSectionTitle}>ABOUT US</Text>
+                    <DrawerItem 
+                        label="ABOUT US"
+                        labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",paddingLeft:6,fontFamily:"Poppins-Medium"}}
+                        onPress={()=>{props.navigation.navigate('About')}}
+                    />
                 </Drawer.Section>
                 <Drawer.Section style={styles.drawerSection}>
-                    <Text style = {styles.drawerSectionTitle}>LOG OUT</Text>
+                    <DrawerItem 
+                        label="LOG OUT"
+                        labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",paddingLeft:6,fontFamily:"Poppins-Medium"}}
+                        onPress={()=>props.navigation.closeDrawer(alert("Are you sure?"))}
+                    />
                 </Drawer.Section>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerWrapper}>
@@ -64,6 +83,7 @@ const styles = StyleSheet.create({
 
     container:{
         borderColor:"#525252",
+        backgroundColor:"white"
     },
     
     drawerContent: {
@@ -85,14 +105,10 @@ const styles = StyleSheet.create({
       drawerSection: {
         marginTop:-6,
         justifyContent:"center",
-        alignItems:"center",
+        alignContent:"center",
         borderColor:"#272727",
         borderWidth:1,
         height:58
-      },
-      drawerSectionTitle:{
-        color:"#EDEDED",
-        fontSize:14
       },
       profileWrapper:{
           marginTop:50,
