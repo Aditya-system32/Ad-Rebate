@@ -1,6 +1,6 @@
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import {View,StyleSheet,TouchableNativeFeedback} from 'react-native'
+import {View,StyleSheet,TouchableNativeFeedback, Button} from 'react-native'
 import {
     Avatar,
     Title,
@@ -18,6 +18,7 @@ import{
 } from '@react-navigation/drawer'
 import {globalstyles} from '../styles/global'
 import { color } from 'react-native-reanimated';
+import { back } from 'react-native/Libraries/Animated/src/Easing';
 
 export function DrawerContent(props){
     return(
@@ -31,13 +32,18 @@ export function DrawerContent(props){
                         <View style={styles.profileWrapper}>
                             <Avatar.Image 
                                 source={{
-                                    uri:'https://www.iconsdb.com/icons/preview/white/circle-xxl.png'
+                                    uri:'https://d338t8kmirgyke.cloudfront.net/icons/icon_pngs/000/004/088/original/user.png'
                                 }}
                                 size={50}
                             />
                             <View style={{marginLeft:20}}>
-                                <Title style = {styles.title}>User_Name </Title>
-                                <Caption style = {styles.caption}>@1015246</Caption>
+                                <Title style = {styles.title} >User_Name </Title>
+                                <Caption style = {styles.caption} >@1015246</Caption>
+                                <TouchableNativeFeedback onPress={()=>props.navigation.navigate('Profile')}>
+                                    <View style= {{marginTop:2}}>
+                                        <Text style = {styles.Edit}>Edit</Text>
+                                    </View>
+                                </TouchableNativeFeedback>
                             </View>
                         </View>
                     </View>
@@ -123,5 +129,18 @@ const styles = StyleSheet.create({
         fontSize:12,
         color:"#808080",
     },
+    Edit:{
+        color:"#EDEDED",
+        backgroundColor:"#000000",
+        fontSize:14,
+        marginTop:4,
+        width:60,
+        textAlign:"center",
+        fontFamily:"Poppins-Medium",
+        borderWidth:1,
+        borderColor:"#525252",
+        borderRadius:3,
+        paddingTop:4,
+    }
 })
 

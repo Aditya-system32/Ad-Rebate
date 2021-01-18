@@ -8,6 +8,7 @@ import LogInScreen from "../Screens/LogIn";
 import SignUpScreen from "../Screens/SignUp";
 import VerificationScreen from "../Screens/Verification";
 import AboutScreen from "../Screens/About"
+import ProfileScreen from '../Screens/Profile'
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -15,7 +16,7 @@ import {DrawerContent} from './DrawerContent'
 
 
 const HomeStack = createStackNavigator();
-const CouponStack = createStackNavigator();
+//const CouponStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 
@@ -37,6 +38,15 @@ const HomeStackScreen = ({navigation}) => {
     ),
   }}/>
   <HomeStack.Screen name="Coupon" component={CouponScreen} options={{
+    headerStyle: {
+     backgroundColor:"#000000"
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: {
+      fontFamily:'Poppins-SemiBold',
+    },
+  }} />
+  <HomeStack.Screen name="Profile" component={ProfileScreen} options={{
     headerStyle: {
      backgroundColor:"#000000"
     },
@@ -150,5 +160,5 @@ export default function Navigation(){
 const styles = StyleSheet.create({
   icons:{
     marginLeft:10
-  }
+  },
 })
