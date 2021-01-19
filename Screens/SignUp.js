@@ -39,6 +39,7 @@ export default function SignUpScreen({ navigation }) {
           placeholder="Password"
           placeholderTextColor="#EDEDED"
           color="#fff"
+          secureTextEntry={true}
         ></TextInput>
       </View>
       <View style={styles.termsCondition}>
