@@ -46,17 +46,7 @@ const HomeStackScreen = ({navigation}) => {
       fontFamily:'Poppins-SemiBold',
     },
   }} />
-  
-  <HomeStack.Screen name="LogIn" component={LogInScreen} options={{
-    headerStyle: {
-     backgroundColor:"#000000"
-    },
-    headerTintColor: '#FFFFFF',
-    headerTitleStyle: {
-      fontFamily:'Poppins-SemiBold',
-    },
-  }} />
-  <HomeStack.Screen name="SignUp" component={SignUpScreen} options={{
+  <HomeStack.Screen name="Profile" component={ProfileScreen} options={{
     headerStyle: {
      backgroundColor:"#000000"
     },
@@ -66,15 +56,6 @@ const HomeStackScreen = ({navigation}) => {
     },
   }} />
   <HomeStack.Screen name="About" component={AboutScreen} options={{
-    headerStyle: {
-     backgroundColor:"#000000"
-    },
-    headerTintColor: '#FFFFFF',
-    headerTitleStyle: {
-      fontFamily:'Poppins-SemiBold',
-    },
-  }}/>
-  <HomeStack.Screen name="Verification" component={VerificationScreen} options={{
     headerStyle: {
      backgroundColor:"#000000"
     },
@@ -116,7 +97,7 @@ const HomeStackScreen = ({navigation}) => {
 
 
 
-export default function Navigation(){
+export default function NavigationLogged(){
   
     return(
       <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />}>

@@ -8,6 +8,7 @@ import AppLoading from "expo-app-loading";
 import { AuthContext } from "./routes/AuthProvider";
 import * as firebase from 'firebase';
 import { set } from "react-native-reanimated";
+import NavigationLogged from "./routes/NavigationLogged";
 
 
 const fetchfonts = () => {
@@ -48,7 +49,7 @@ function MainRoute() {
   }
   return (
     <NavigationContainer>
-      {user ? <Navigation /> : <Navigation />}
+      {user ? <NavigationLogged /> : <Navigation />}
     </NavigationContainer>
   );
 }

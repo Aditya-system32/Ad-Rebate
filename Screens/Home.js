@@ -12,9 +12,13 @@ import {
 import { globalstyles } from "../styles/global";
 import cash from "../assets/svgs/cash.png";
 import coupons from "../assets/svgs/coupons.png";
+import {AuthContext} from '../routes/AuthProvider'
 
 
 export default function HomeScreen({ navigation }) {
+  const {user} = useContext(AuthContext)
+
+  if(!user){
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -61,7 +65,40 @@ export default function HomeScreen({ navigation }) {
         </TouchableNativeFeedback>
       </View>
     </View>
-  );
+  )}else{
+    return (
+      <View style={globalstyles.container}>
+        <StatusBar backgroundColor="black" barStyle="light-content" />
+        <View style={styles.banner}>
+          <Image></Image>
+        </View>
+        <View style={styles.location}>
+          <Text style={styles.locationText}>Current location : Bhilai</Text>
+        </View>
+        <View style={styles.wrapper}>
+          <TouchableNativeFeedback onPress={() => navigation.navigate("Earning")}>
+            <View style={styles.card}>
+              <Image source={cash}></Image>
+            </View>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback onPress={() => navigation.navigate("Coupon")}>
+            <View style={styles.card}>
+              <Image source={coupons}></Image>
+            </View>
+          </TouchableNativeFeedback>
+        </View>
+        <View style={styles.categoryWrapper}>
+          <Text style={styles.categoryHeading}>Categories</Text>
+          <View style={styles.category}>
+            <View style={styles.categoryItem}>
+              <Image></Image>
+              <Text>xyz</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    )
+  };
 }
 
 const styles = StyleSheet.create({
