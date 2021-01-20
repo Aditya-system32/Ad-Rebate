@@ -7,7 +7,6 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 
 
-
 const fetchfonts = () => {
   return Font.loadAsync({
     "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),

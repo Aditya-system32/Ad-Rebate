@@ -39,6 +39,7 @@ export default function SignUpScreen({ navigation }) {
           placeholder="Password"
           placeholderTextColor="#EDEDED"
           color="#fff"
+          secureTextEntry={true}
         ></TextInput>
       </View>
       <View style={styles.termsCondition}>
@@ -48,14 +49,14 @@ export default function SignUpScreen({ navigation }) {
       <View style={styles.loginWrapper}>
         <TouchableNativeFeedback
           useForeground={true}
-          onPress={() => navigation.navigate("LogIn")}
+          onPress={() => navigation.navigate("Verification")}
         >
           <View style={styles.loginButton}>
             <Text style={styles.loginButtonTitle}>Register</Text>
           </View>
         </TouchableNativeFeedback>
         <View>
-          <Text style={styles.registerHere}>Already a user? Login</Text>
+          <Text style={styles.registerHere} onPress={()=>navigation.navigate('LogIn')}>Already a user? Login</Text>
         </View>
       </View>
     </View>

@@ -7,7 +7,7 @@ export default function EarningScreen({ navigation }) {
   return (
 
     <View style = {styles.container}>
-    <StatusBar backgroundColor='white' barStyle="dark-content" />
+    <StatusBar backgroundColor="black" barStyle="light-content" />
       <Text style = {styles.texts}>Earning Screen</Text>
         <Button
           title="Go to Earning... again"

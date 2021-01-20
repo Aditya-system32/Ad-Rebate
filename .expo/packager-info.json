@@ -4,5 +4,7 @@
   "devToolsPort": 19002,
   "expoServerNgrokUrl": null,
   "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "ngrokPid": null,
+  "packagerPid": null,
+  "webpackServerPort": null
 }

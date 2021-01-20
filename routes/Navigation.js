@@ -7,13 +7,16 @@ import HomeScreen from "../Screens/Home";
 import LogInScreen from "../Screens/LogIn";
 import SignUpScreen from "../Screens/SignUp";
 import VerificationScreen from "../Screens/Verification";
+import AboutScreen from "../Screens/About"
+import ProfileScreen from '../Screens/Profile'
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import {DrawerContent} from './DrawerContent'
 
 
 const HomeStack = createStackNavigator();
-const CouponStack = createStackNavigator();
+//const CouponStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 
@@ -34,6 +37,24 @@ const HomeStackScreen = ({navigation}) => {
       <FontAwesome name="navicon" size={24} color="white" style = {styles.icons} onPress={() => navigation.openDrawer()}/>
     ),
   }}/>
+  <HomeStack.Screen name="Coupon" component={CouponScreen} options={{
+    headerStyle: {
+     backgroundColor:"#000000"
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: {
+      fontFamily:'Poppins-SemiBold',
+    },
+  }} />
+  <HomeStack.Screen name="Profile" component={ProfileScreen} options={{
+    headerStyle: {
+     backgroundColor:"#000000"
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: {
+      fontFamily:'Poppins-SemiBold',
+    },
+  }} />
   <HomeStack.Screen name="LogIn" component={LogInScreen} options={{
     headerStyle: {
      backgroundColor:"#000000"
@@ -52,6 +73,15 @@ const HomeStackScreen = ({navigation}) => {
       fontFamily:'Poppins-SemiBold',
     },
   }} />
+  <HomeStack.Screen name="About" component={AboutScreen} options={{
+    headerStyle: {
+     backgroundColor:"#000000"
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: {
+      fontFamily:'Poppins-SemiBold',
+    },
+  }}/>
   <HomeStack.Screen name="Verification" component={VerificationScreen} options={{
     headerStyle: {
      backgroundColor:"#000000"
@@ -74,7 +104,7 @@ const HomeStackScreen = ({navigation}) => {
   )
 }
 
-const CouponStackScreen = ({navigation}) => {
+/*const CouponStackScreen = ({navigation}) => {
   return(
   <CouponStack.Navigator>
   <CouponStack.Screen name="Coupon" component={CouponScreen} options={{
@@ -90,17 +120,16 @@ const CouponStackScreen = ({navigation}) => {
     ),
   }}/>
   </CouponStack.Navigator>
-  )}
+  )}*/
 
 
 
 export default function Navigation(){
   
     return(
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />}>
         <Drawer.Screen name="Home" component={HomeStackScreen} />
-        <Drawer.Screen name="Coupon" component={CouponStackScreen} />
-        
+        {/*<Drawer.Screen name="Coupon" component={CouponStackScreen} /> */}
       </Drawer.Navigator>)
     {/*<Stack.Navigator initialRouteName="Home">
         <Stack.Screen  name="Home" component={HomeScreen} options={{
@@ -131,5 +160,5 @@ export default function Navigation(){
 const styles = StyleSheet.create({
   icons:{
     marginLeft:10
-  }
+  },
 })
