@@ -1,6 +1,7 @@
 import "react-native-gesture-handler";
 import * as React from "react";
 import CheckBox from "@react-native-community/checkbox";
+import {AuthContext} from '../routes/AuthProvider'
 import {
   Button,
   View,
@@ -14,6 +15,11 @@ import {
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 
 export default function SignUpScreen({ navigation }) {
+  const {register} = React.useContext(AuthContext)
+  const [email, setEmail] = React.useState();
+  const [password, setPassword] = React.useState();
+
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -31,6 +37,7 @@ export default function SignUpScreen({ navigation }) {
           placeholder="Phone no."
           placeholderTextColor="#EDEDED"
           color="#fff"
+          onChangeText={(userEmail) => setEmail(userEmail)}
         ></TextInput>
       </View>
       <View>
@@ -40,6 +47,7 @@ export default function SignUpScreen({ navigation }) {
           placeholderTextColor="#EDEDED"
           color="#fff"
           secureTextEntry={true}
+          onChangeText={(userPassword) => setPassword(userPassword)}
         ></TextInput>
       </View>
       <View style={styles.termsCondition}>
@@ -49,7 +57,7 @@ export default function SignUpScreen({ navigation }) {
       <View style={styles.loginWrapper}>
         <TouchableNativeFeedback
           useForeground={true}
-          onPress={() => navigation.navigate("Verification")}
+          onPress={() => register(email, password)}
         >
           <View style={styles.loginButton}>
             <Text style={styles.loginButtonTitle}>Register</Text>

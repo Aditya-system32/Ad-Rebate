@@ -5,6 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import Navigation from './routes/Navigation'
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import { AuthContext } from "./routes/AuthProvider";
+import * as firebase from 'firebase';
+import { set } from "react-native-reanimated";
 
 
 const fetchfonts = () => {
@@ -21,10 +24,20 @@ const fontLoadingError = () => {
 
 function MainRoute() {
   const [fontLoaded, setFontLoaded] = React.useState(false);
+  const {user, setUser} = React.useContext(AuthContext) 
+  const [initializing, setInitializing] = React.useState(true);
+ 
+  const onAuthStateChanged = (user) =>{
+    setUser(user);
+    if(initializing) setInitializing(false);
+  }    
 
-  
+  React.useEffect(() => {
+      const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+      return subscriber
+  }, []);
 
-  if (!fontLoaded) {
+  if (!fontLoaded && initializing) {
     return (
       <AppLoading
         startAsync={fetchfonts}
@@ -35,7 +48,7 @@ function MainRoute() {
   }
   return (
     <NavigationContainer>
-      <Navigation />
+      {user ? <Navigation /> : <Navigation />}
     </NavigationContainer>
   );
 }

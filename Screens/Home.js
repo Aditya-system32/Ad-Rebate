@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Button,
   View,
@@ -12,6 +12,7 @@ import {
 import { globalstyles } from "../styles/global";
 import cash from "../assets/svgs/cash.png";
 import coupons from "../assets/svgs/coupons.png";
+
 
 export default function HomeScreen({ navigation }) {
   return (

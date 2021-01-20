@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext,useState} from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import {View,StyleSheet,TouchableNativeFeedback, Button} from 'react-native'
 import {
@@ -17,10 +17,15 @@ import{
     DrawerItem,
 } from '@react-navigation/drawer'
 import {globalstyles} from '../styles/global'
+import {AuthContext} from '../routes/AuthProvider'
 import { color } from 'react-native-reanimated';
 import { back } from 'react-native/Libraries/Animated/src/Easing';
 
+
+
 export function DrawerContent(props){
+    const {user , logout} = useContext(AuthContext)
+
     return(
         <View style={globalstyles.container}>
             <DrawerContentScrollView {...props}>
@@ -38,7 +43,7 @@ export function DrawerContent(props){
                             />
                             <View style={{marginLeft:20}}>
                                 <Title style = {styles.title} >User_Name </Title>
-                                <Caption style = {styles.caption} >@1015246</Caption>
+                                <Caption style = {styles.caption} >@45751</Caption>
                                 <TouchableNativeFeedback onPress={()=>props.navigation.navigate('Profile')}>
                                     <View style= {{marginTop:2}}>
                                         <Text style = {styles.Edit}>Edit</Text>
@@ -74,7 +79,7 @@ export function DrawerContent(props){
                     <DrawerItem 
                         label="LOG OUT"
                         labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",paddingLeft:6,fontFamily:"Poppins-Medium"}}
-                        onPress={()=>props.navigation.closeDrawer(alert("Are you sure?"))}
+                        onPress={()=> logout()}
                     />
                 </Drawer.Section>
             </DrawerContentScrollView>
