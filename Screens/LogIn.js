@@ -63,7 +63,7 @@ export default function LogInScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   loginWrapper: {
-    marginTop: 90,
+    marginTop: 70,
   },
   registerHere: {
     color: "#D3D3D3",

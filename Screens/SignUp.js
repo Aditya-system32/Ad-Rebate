@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   loginWrapper: {
-    marginTop: 80,
+    marginTop: 70,
   },
   registerHere: {
     color: "#D3D3D3",

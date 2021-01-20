@@ -25,7 +25,7 @@ export default function HomeScreen({ navigation }) {
       </View>
       <View style={styles.wrapper}>
         <TouchableNativeFeedback onPress={() => navigation.navigate("Earning")}>
-          <View style={styles.card}>
+          <View style={[styles.card, styles.cashCard]}>
             <Image source={cash}></Image>
           </View>
         </TouchableNativeFeedback>
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF005C",
     height: "100%",
   },
+  cashCard: { backgroundColor: "#2bff00" },
   texts: {
     borderRadius: 20,
     fontFamily: "Poppins-Medium",
