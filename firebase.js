@@ -1,6 +1,4 @@
-import * as firebase from 'firebase';
-
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyCcZGKDOiNpwoEkfLxdsKWNLtZmEYipvZE",
     authDomain: "ad-rebate2020.firebaseapp.com",
     projectId: "ad-rebate2020",
@@ -9,5 +7,3 @@ const firebaseConfig = {
     appId: "1:232463419755:web:58512a957beefe3fc5e42e",
     measurementId: "G-37C30FHGQS"
   };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);

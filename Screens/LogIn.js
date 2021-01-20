@@ -14,6 +14,7 @@ import {
 import {globalstyles} from '../styles/global'
 
 export default function LogInScreen({ navigation }) {
+
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
