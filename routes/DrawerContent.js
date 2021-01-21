@@ -25,43 +25,6 @@ import { back } from 'react-native/Libraries/Animated/src/Easing';
 
 export function DrawerContent(props){
     const {user , logout} = useContext(AuthContext)
-
-    if(!user){                              // When user Don't Log In
-    return(
-        <View style={globalstyles.container}>
-            <DrawerContentScrollView {...props}>
-                <View style={styles.drawerContent}>
-                    <View style={{alignItems:"flex-end",marginRight:15}}>
-                        <AntDesign name="close" size={24} color="white"  onPress={()=>props.navigation.closeDrawer()}/>
-                    </View>
-                </View>
-                <Drawer.Section style={{marginTop:80,justifyContent:"center",alignContent:"center",borderColor:"#272727",borderWidth:1,height:58}}>
-                    <DrawerItem 
-                        label="HOME"
-                        labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",fontFamily:"Poppins-Medium"}}
-                        onPress={()=>{props.navigation.navigate('Home')}}
-                    />
-                </Drawer.Section>
-                <Drawer.Section style={styles.drawerSection}>
-                    <DrawerItem 
-                        label="COUPONS"
-                        labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",paddingLeft:6,fontFamily:"Poppins-Medium"}}
-                        onPress={()=>{props.navigation.navigate('Coupon')}}
-                    />
-                </Drawer.Section>
-                <Drawer.Section style={styles.drawerSection}>
-                    <DrawerItem 
-                        label="ABOUT US"
-                        labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",paddingLeft:6,fontFamily:"Poppins-Medium"}}
-                        onPress={()=>{props.navigation.navigate('About')}}
-                    />
-                </Drawer.Section>
-            </DrawerContentScrollView>
-            <Drawer.Section style={styles.bottomDrawerWrapper}>
-                <Text style={styles.bottomDrawer}>version v0.1</Text>
-            </Drawer.Section>
-        </View>
-    )}else{                                 // When User Logged In
         return(
             <View style={globalstyles.container}>
                 <DrawerContentScrollView {...props}>
@@ -69,7 +32,11 @@ export function DrawerContent(props){
                         <View style={{alignItems:"flex-end",marginRight:15}}>
                             <AntDesign name="close" size={24} color="white"  onPress={()=>props.navigation.closeDrawer()}/>
                         </View>
-                        <View style={styles.userInfoSection}>
+
+                        {!user ? (
+                            null
+                        ):(
+                            <View style={styles.userInfoSection}>
                             <View style={styles.profileWrapper}>
                                 <Avatar.Image 
                                     source={{
@@ -88,15 +55,33 @@ export function DrawerContent(props){
                                 </View>
                             </View>
                         </View>
+                        )}    
                     </View>
-                    
-                    <Drawer.Section style={styles.drawerSection}>
+                    {!user ? (
+                        <Drawer.Section style={{
+                        marginTop:80,
+                        justifyContent:"center",
+                        alignContent:"center",
+                        borderColor:"#272727",
+                        borderWidth:1,
+                        height:58
+                        }}>
                         <DrawerItem 
                             label="HOME"
                             labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",fontFamily:"Poppins-Medium"}}
                             onPress={()=>{props.navigation.navigate('Home')}}
                         />
                     </Drawer.Section>
+                    ) : (
+                        <Drawer.Section style={styles.drawerSection}>
+                        <DrawerItem 
+                            label="HOME"
+                            labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",fontFamily:"Poppins-Medium"}}
+                            onPress={()=>{props.navigation.navigate('Home')}}
+                        />
+                    </Drawer.Section>
+                    )}
+                    
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
                             label="COUPONS"
@@ -111,13 +96,15 @@ export function DrawerContent(props){
                             onPress={()=>{props.navigation.navigate('About')}}
                         />
                     </Drawer.Section>
-                    <Drawer.Section style={styles.drawerSection}>
+                    {!user ? null : (
+                        <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
                             label="LOG OUT"
                             labelStyle={{color:"#EDEDED",fontSize:14,alignSelf:"center",paddingLeft:6,fontFamily:"Poppins-Medium"}}
                             onPress={()=> logout() ? props.navigation.closeDrawer() : console.log('not closed')}
                         />
                     </Drawer.Section>
+                    )}
                 </DrawerContentScrollView>
                 <Drawer.Section style={styles.bottomDrawerWrapper}>
                     <Text style={styles.bottomDrawer}>version v0.1</Text>
@@ -125,7 +112,7 @@ export function DrawerContent(props){
             </View>
         )
     }
-}
+
 
 const styles = StyleSheet.create({
 

@@ -47,7 +47,7 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
       </View>
-      {user !== false ? (
+      {!user ? (
         <View style={styles.buttonWrapper}>
           <TouchableNativeFeedback
             useForeground={true}
