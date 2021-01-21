@@ -26,7 +26,7 @@ import { back } from 'react-native/Libraries/Animated/src/Easing';
 export function DrawerContent(props){
     const {user , logout} = useContext(AuthContext)
 
-    if(!user){
+    if(!user){                              // When user Don't Log In
     return(
         <View style={globalstyles.container}>
             <DrawerContentScrollView {...props}>
@@ -61,7 +61,7 @@ export function DrawerContent(props){
                 <Text style={styles.bottomDrawer}>version v0.1</Text>
             </Drawer.Section>
         </View>
-    )}else{
+    )}else{                                 // When User Logged In
         return(
             <View style={globalstyles.container}>
                 <DrawerContentScrollView {...props}>

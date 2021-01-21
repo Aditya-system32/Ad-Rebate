@@ -18,7 +18,7 @@ import {AuthContext} from '../routes/AuthProvider'
 export default function HomeScreen({ navigation }) {
   const {user} = useContext(AuthContext)
 
-  if(!user){
+  if(!user){                    // When user not Logged In
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -31,7 +31,7 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.wrapper}>
         <TouchableNativeFeedback onPress={() => navigation.navigate("Earning")}>
           <View style={styles.card}>
-            <Image source={cash}></Image>
+            <Image source={cash}></Image> 
           </View>
         </TouchableNativeFeedback>
         <TouchableNativeFeedback onPress={() => navigation.navigate("Coupon")}>
@@ -65,7 +65,7 @@ export default function HomeScreen({ navigation }) {
         </TouchableNativeFeedback>
       </View>
     </View>
-  )}else{
+  )}else{                       // When the user is Logged In
     return (
       <View style={globalstyles.container}>
         <StatusBar backgroundColor="black" barStyle="light-content" />

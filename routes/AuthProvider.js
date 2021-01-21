@@ -5,7 +5,7 @@ firebase.initializeApp(firebaseConfig);
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({children,navigation}) => {
+export const AuthProvider = ({children}) => {
     const [user,setUser] = useState(false);
     return(
         <AuthContext.Provider
