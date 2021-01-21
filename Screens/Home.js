@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Button,
   View,
@@ -12,8 +12,11 @@ import {
 import { globalstyles } from "../styles/global";
 import cash from "../assets/svgs/cash.png";
 import coupons from "../assets/svgs/coupons.png";
+import { AuthContext } from "../routes/AuthProvider";
 
 export default function HomeScreen({ navigation }) {
+  const { user } = useContext(AuthContext);
+  // When user not Logged In
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -25,7 +28,7 @@ export default function HomeScreen({ navigation }) {
       </View>
       <View style={styles.wrapper}>
         <TouchableNativeFeedback onPress={() => navigation.navigate("Earning")}>
-          <View style={[styles.card, styles.cashCard]}>
+          <View style={styles.card}>
             <Image source={cash}></Image>
           </View>
         </TouchableNativeFeedback>
@@ -44,21 +47,25 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
       </View>
-      <View style={styles.buttonWrapper}>
-        <TouchableNativeFeedback
-          useForeground={true}
-          onPress={() => navigation.navigate("LogIn")}
-        >
-          <View style={styles.loginButton}>
-            <Text style={styles.loginButtonTitle}>Login</Text>
-          </View>
-        </TouchableNativeFeedback>
-        <TouchableNativeFeedback onPress={() => navigation.navigate("SignUp")}>
-          <View style={styles.registerButton}>
-            <Text style={styles.registerButtonTitle}>Register</Text>
-          </View>
-        </TouchableNativeFeedback>
-      </View>
+      {user !== false ? (
+        <View style={styles.buttonWrapper}>
+          <TouchableNativeFeedback
+            useForeground={true}
+            onPress={() => navigation.navigate("LogIn")}
+          >
+            <View style={styles.loginButton}>
+              <Text style={styles.loginButtonTitle}>Login</Text>
+            </View>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback
+            onPress={() => navigation.navigate("SignUp")}
+          >
+            <View style={styles.registerButton}>
+              <Text style={styles.registerButtonTitle}>Register</Text>
+            </View>
+          </TouchableNativeFeedback>
+        </View>
+      ) : null}
     </View>
   );
 }

@@ -1,12 +1,12 @@
-import react,{createContext, useState} from 'react'
+import React,{createContext, useState} from 'react'
 import * as firebase from 'firebase';
-import {firebaseConfig} from './firebase'
+import {firebaseConfig} from '../firebases'
 firebase.initializeApp(firebaseConfig);
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
-    const [user,setUser] = useState(null);
+    const [user,setUser] = useState(false);
     return(
         <AuthContext.Provider
             value={{
