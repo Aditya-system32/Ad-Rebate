@@ -15,8 +15,8 @@ import {
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 
 export default function SignUpScreen({ navigation }) {
-  const {register} = React.useContext(AuthContext)
-  const [email, setEmail] = React.useState();
+  const {register,phoneLogin} = React.useContext(AuthContext)
+  const [phoneNumber, setPhoneNumber] = React.useState();
   const [password, setPassword] = React.useState();
 
 
@@ -37,7 +37,7 @@ export default function SignUpScreen({ navigation }) {
           placeholder="Phone no."
           placeholderTextColor="#EDEDED"
           color="#fff"
-          onChangeText={(userEmail) => setEmail(userEmail)}
+          onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
         ></TextInput>
       </View>
       <View>
@@ -57,7 +57,11 @@ export default function SignUpScreen({ navigation }) {
       <View style={styles.loginWrapper}>
         <TouchableNativeFeedback
           useForeground={true}
-          onPress={() => register(email, password)}
+          onPress={() =>
+            navigation.navigate('Verification', {
+              paramKey: phoneNumber,
+            })
+          }
         >
           <View style={styles.loginButton}>
             <Text style={styles.loginButtonTitle}>Register</Text>
@@ -145,3 +149,6 @@ const styles = StyleSheet.create({
     margin: 0,
   },
 });
+
+
+

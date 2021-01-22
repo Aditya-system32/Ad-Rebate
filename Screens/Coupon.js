@@ -1,10 +1,11 @@
 import "react-native-gesture-handler";
 import * as React from "react";
 import { Button, View, Text, StyleSheet, StatusBar } from "react-native";
+import { db } from "../firebases";
 
 export default function CouponScreen({ navigation }) {
   function test() {
-    const usersCollection = firestore().collection("Test");
+    const usersCollection = db.collection("Test");
     usersCollection
       .add({
         name: "Ada Lovelace",
