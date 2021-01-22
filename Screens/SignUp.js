@@ -13,7 +13,6 @@ import {
   TouchableNativeFeedback,
 } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
-import VerificationScreen from "./Verification";
 
 export default function SignUpScreen({ navigation }) {
   const {register,phoneLogin} = React.useContext(AuthContext)

@@ -14,8 +14,6 @@ import {
   import * as FirebaseRecaptcha from 'expo-firebase-recaptcha';
   import firebase from 'firebase';
   
-  // PROVIDE VALID FIREBASE CONFIG HERE
-  // https://firebase.google.com/docs/web/setup
   import {firebaseConfig} from '../firebases'
   
   try {
@@ -23,7 +21,7 @@ import {
       firebase.initializeApp(firebaseConfig);
     }
   } catch (err) {
-    // ignore app already initialized error on snack
+    console.log(err)
   }
 export default function VerificationScreen({route}) {
   const recaptchaVerifier = React.useRef(null);
