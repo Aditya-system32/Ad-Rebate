@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Button, View, Text,StatusBar, StyleSheet, TouchableNativeFeedback } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
 import EarningScreen from "../Screens/Earning";
 import CouponScreen from "../Screens/Coupon";
 import HomeScreen from "../Screens/Home";
@@ -8,9 +7,10 @@ import LogInScreen from "../Screens/LogIn";
 import SignUpScreen from "../Screens/SignUp";
 import VerificationScreen from "../Screens/Verification";
 import AboutScreen from "../Screens/About"
-import { FontAwesome } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from "@react-navigation/stack";
 import {DrawerContent} from './DrawerContent'
+import { FontAwesome } from '@expo/vector-icons';
 
 
 const HomeStack = createStackNavigator();
