@@ -12,7 +12,7 @@ import {
   StatusBar,
 } from "react-native";
 import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
-import { app as firebase } from "../firebases";
+import * as firebase from 'firebase'
 import { firebaseConfig } from "../firebases";
 
 export default function VerificationScreen({ route }) {
@@ -35,7 +35,7 @@ export default function VerificationScreen({ route }) {
           firebaseConfig={firebaseConfig}
         />
         <Text style={styles.title}>Firebase Authentication</Text>
-        <Text style={styles.text}>Enter phone number</Text>
+        <Text style={styles.text}>Enter the number</Text>
         <TextInput
           style={styles.textInput}
           autoCompleteType="tel"
@@ -55,7 +55,6 @@ export default function VerificationScreen({ route }) {
               setVerificationId("");
               const verificationId = await phoneProvider.verifyPhoneNumber(
                 phoneNumber,
-                // @ts-ignore
                 recaptchaVerifier.current
               );
               setVerifyInProgress(false);
