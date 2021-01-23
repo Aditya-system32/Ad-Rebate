@@ -5,9 +5,12 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(false);
+  const [userCompletedProfile, setUserCompletedProfile] = useState(false);
   return (
     <AuthContext.Provider
       value={{
+        userCompletedProfile,
+        setUserCompletedProfile,
         user,
         setUser,
         login: async (email, password) => {

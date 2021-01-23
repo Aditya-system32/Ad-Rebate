@@ -17,6 +17,7 @@ import ProfileComplete from "../Screens/ProfileComplete";
 import { FontAwesome } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerContent } from "./DrawerContent";
+import { AuthContext } from "../routes/AuthProvider";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -118,9 +119,12 @@ const HomeStackScreen = ({ navigation }) => {
 };
 
 export default function NavigationLogged() {
+  const { userCompletedProfile, setUserCompletedProfile } = React.useContext(
+    AuthContext
+  );
   return (
     <Drawer.Navigator
-      initialRouteName="Home"
+      initialRouteName={userCompletedProfile ? "Home" : "ProfileComplete"}
       drawerContent={(props) => <DrawerContent {...props} />}
     >
       <Drawer.Screen name="Home" component={HomeStackScreen} />

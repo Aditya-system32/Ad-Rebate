@@ -13,14 +13,39 @@ import {
 } from "react-native";
 import { AuthContext } from "../routes/AuthProvider";
 import { globalstyles } from "../styles/global";
+import { db } from "../firebases";
 
 export default function ProfileComplete({ navigation }) {
-  const [location, setLocation] = React.useState();
-  const [password, setPassword] = React.useState();
+  const [location, setLocation] = React.useState("Bhilai");
+  const [fullName, setFullName] = React.useState();
+  const [age, setAge] = React.useState();
+  const [gender, setGender] = React.useState("male");
+  const { user } = React.useContext(AuthContext);
   const [locationOptions, setLocationOptions] = React.useState([
     { value: "Bhilai", label: "Bhilai", key: "Bhilai" },
     { value: "Raipur", label: "Raipur", key: "Raipur" },
   ]);
+  const [genderOptions, setgenderOptions] = React.useState([
+    { value: "male", label: "male", key: "male" },
+    { value: "female", label: "female", key: "female" },
+    { value: "other", label: "other", key: "other" },
+  ]);
+  function finish() {
+    const data = {
+      Coupons: {},
+      Username: fullName,
+      history: {},
+      id: user.uid,
+      location: location,
+      age: age,
+      gender: gender,
+      phone: user.phoneNumber,
+    };
+    const userDoc = db.collection("Users").doc(user.uid);
+    userDoc.set(data).catch((err) => {
+      console.log(err);
+    });
+  }
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -36,7 +61,7 @@ export default function ProfileComplete({ navigation }) {
           placeholder="Full Name"
           placeholderTextColor="#EDEDED"
           color="#fff"
-          onChangeText={(userEmail) => setEmail(userEmail)}
+          onChangeText={(text) => setFullName(text)}
         ></TextInput>
       </View>
       <View>
@@ -45,7 +70,7 @@ export default function ProfileComplete({ navigation }) {
           placeholder="Age"
           placeholderTextColor="#EDEDED"
           color="#fff"
-          onChangeText={(userPassword) => setPassword(userPassword)}
+          onChangeText={(age) => setAge(age)}
         ></TextInput>
       </View>
       <View style={styles.picker}>
@@ -55,15 +80,35 @@ export default function ProfileComplete({ navigation }) {
           onValueChange={(itemValue, itemIndex) => setLocation(itemValue)}
         >
           {locationOptions.map((item) => {
-            return <Picker.Item label={item.label} value={item.value} />;
+            return (
+              <Picker.Item
+                label={item.label}
+                value={item.value}
+                key={item.key}
+              />
+            );
+          })}
+        </Picker>
+      </View>
+      <View style={styles.picker}>
+        <Picker
+          style={{ width: "100%", height: 61, color: "#fff" }}
+          selectedValue={gender}
+          onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
+        >
+          {genderOptions.map((item) => {
+            return (
+              <Picker.Item
+                label={item.label}
+                value={item.value}
+                key={item.key}
+              />
+            );
           })}
         </Picker>
       </View>
       <View style={styles.loginWrapper}>
-        <TouchableNativeFeedback
-          useForeground={true}
-          onPress={() => login(email, password)}
-        >
+        <TouchableNativeFeedback useForeground={true} onPress={finish}>
           <View style={styles.loginButton}>
             <Text style={styles.loginButtonTitle}>Finish</Text>
           </View>
