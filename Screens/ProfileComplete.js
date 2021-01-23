@@ -17,6 +17,10 @@ import { globalstyles } from "../styles/global";
 export default function ProfileComplete({ navigation }) {
   const [location, setLocation] = React.useState();
   const [password, setPassword] = React.useState();
+  const [locationOptions, setLocationOptions] = React.useState([
+    { value: "Bhilai", label: "Bhilai", key: "Bhilai" },
+    { value: "Raipur", label: "Raipur", key: "Raipur" },
+  ]);
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -44,6 +48,17 @@ export default function ProfileComplete({ navigation }) {
           onChangeText={(userPassword) => setPassword(userPassword)}
         ></TextInput>
       </View>
+      <View style={styles.picker}>
+        <Picker
+          style={{ width: "100%", height: 61, color: "#fff" }}
+          selectedValue={location}
+          onValueChange={(itemValue, itemIndex) => setLocation(itemValue)}
+        >
+          {locationOptions.map((item) => {
+            return <Picker.Item label={item.label} value={item.value} />;
+          })}
+        </Picker>
+      </View>
       <View style={styles.loginWrapper}>
         <TouchableNativeFeedback
           useForeground={true}
@@ -52,15 +67,6 @@ export default function ProfileComplete({ navigation }) {
           <View style={styles.loginButton}>
             <Text style={styles.loginButtonTitle}>Finish</Text>
           </View>
-          <Picker
-            selectedValue={location}
-            style={{ height: 50, width: 100 }}
-            onValueChange={(itemValue, itemIndex) =>
-              setLocation(itemValue)
-            }
-          >
-            <Picker.Item label="Bhilai" value="bhilai" />
-          </Picker>
         </TouchableNativeFeedback>
       </View>
     </View>
@@ -68,6 +74,21 @@ export default function ProfileComplete({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  picker: {
+    backgroundColor: "#1A1A1A",
+    borderColor: "#424242",
+    color: "#ffffff",
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: "80%",
+    height: 61,
+    alignSelf: "center",
+    fontSize: 18,
+    fontFamily: "Poppins-Regular",
+    marginBottom: 24,
+  },
   loginWrapper: {
     marginTop: 70,
   },
