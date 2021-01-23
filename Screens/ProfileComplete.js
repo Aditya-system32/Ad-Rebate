@@ -56,7 +56,7 @@ export default function ProfileComplete({ navigation }) {
             selectedValue={location}
             style={{ height: 50, width: 100 }}
             onValueChange={(itemValue, itemIndex) =>
-              setLocation({ language: itemValue })
+              setLocation(itemValue)
             }
           >
             <Picker.Item label="Bhilai" value="bhilai" />

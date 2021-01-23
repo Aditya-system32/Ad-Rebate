@@ -17,7 +17,22 @@ import { FlatList, ScrollView } from "react-native-gesture-handler";
 export default function SignUpScreen({ navigation }) {
   const {register,phoneLogin} = React.useContext(AuthContext)
   const [phoneNumber, setPhoneNumber] = React.useState();
-  const [password, setPassword] = React.useState();
+  const [disabled, setDisabled] = React.useState(true)
+  const [errorText, setErrorText] = React.useState('')
+
+
+  const checkingPhoneNumber = (phoneNumber) => {
+    phoneNumber = phoneNumber.replace('.','')
+    if(phoneNumber.length != 10 || phoneNumber.length == 0 || isNaN(phoneNumber)){
+      setPhoneNumber(phoneNumber)
+      setDisabled(true)
+      setErrorText('Enter the 10 digit number')
+    }else{
+      setPhoneNumber('+91' + phoneNumber)
+      setDisabled(false)
+      setErrorText(null)
+    }
+  }
 
 
   return (
@@ -37,18 +52,9 @@ export default function SignUpScreen({ navigation }) {
           placeholder="Phone no."
           placeholderTextColor="#EDEDED"
           color="#fff"
-          onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+          onChangeText={checkingPhoneNumber}
         ></TextInput>
-      </View>
-      <View>
-        <TextInput
-          style={[styles.textinput, styles.textPassword]}
-          placeholder="Password"
-          placeholderTextColor="#EDEDED"
-          color="#fff"
-          secureTextEntry={true}
-          onChangeText={(userPassword) => setPassword(userPassword)}
-        ></TextInput>
+        {<Text style={styles.erText}>{errorText}</Text>}
       </View>
       <View style={styles.termsCondition}>
         <CheckBox tintColors={{ true: "#F15927", false: "#Fff" }} />
@@ -56,6 +62,7 @@ export default function SignUpScreen({ navigation }) {
       </View>
       <View style={styles.loginWrapper}>
         <TouchableNativeFeedback
+          disabled={disabled}
           useForeground={true}
           onPress={() =>
             navigation.navigate('Verification', {
@@ -80,6 +87,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "80%",
     alignSelf: "center",
+  },
+  erText:{
+    color:'red',
+    width:'75%',
+    alignSelf:"center",
+    marginTop:-18,
   },
   container: {
     flex: 1,
@@ -138,9 +151,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Poppins-Regular",
     marginBottom: 24,
-  },
-  textPassword: {
-    marginBottom: 16,
   },
   forgetPass: {
     color: "#fff",

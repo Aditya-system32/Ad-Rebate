@@ -16,8 +16,23 @@ import {globalstyles} from '../styles/global'
 
 export default function LogInScreen({ navigation }) {
   const {user , login} = React.useContext(AuthContext)
-  const [email, setEmail] = React.useState();
-  const [password, setPassword] = React.useState();
+  const [phoneNumber, setPhoneNumber] = React.useState();
+  const [disabled, setDisabled] = React.useState(true)
+  const [errorText, setErrorText] = React.useState('')
+
+  const checkingPhoneNumber = (phoneNumber) => {
+    phoneNumber = phoneNumber.replace('.','')
+    if(phoneNumber.length != 10 || phoneNumber.length == 0 || isNaN(phoneNumber)){
+      setPhoneNumber(phoneNumber)
+      setDisabled(true)
+      setErrorText('Enter the 10 digit number')
+    }else{
+      setPhoneNumber('+91' + phoneNumber)
+      setDisabled(false)
+      setErrorText(null)
+    }
+  }
+
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -35,25 +50,19 @@ export default function LogInScreen({ navigation }) {
           placeholder="Phone no."
           placeholderTextColor="#EDEDED"
           color="#fff"
-          onChangeText={(userEmail) => setEmail(userEmail)}
+          onChangeText={checkingPhoneNumber}
         ></TextInput>
-      </View>
-      <View>
-        <TextInput
-          style={[styles.textinput, styles.textPassword]}
-          placeholder="Password"
-          placeholderTextColor="#EDEDED"
-          color="#fff"
-          onChangeText={(userPassword) => setPassword(userPassword)}
-        ></TextInput>
-      </View>
-      <View>
-        <Text style={styles.forgetPass}>Forgot Password?</Text>
+        {<Text style={styles.erText}>{errorText}</Text>}
       </View>
       <View style={styles.loginWrapper}>
         <TouchableNativeFeedback
           useForeground={true}
-          onPress={() => login(email, password)}
+          disabled={disabled}
+          onPress={() =>
+            navigation.navigate('Verification', {
+              paramKey: phoneNumber,
+            })
+          }
         >
           <View style={styles.loginButton}>
             <Text style={styles.loginButtonTitle}>Login</Text>
@@ -74,6 +83,12 @@ const styles = StyleSheet.create({
   registerHere: {
     color: "#D3D3D3",
     alignSelf: "center",
+  },
+  erText:{
+    color:'red',
+    width:'75%',
+    alignSelf:"center",
+    marginTop:-18,
   },
   loginButton: {
     justifyContent: "center",
