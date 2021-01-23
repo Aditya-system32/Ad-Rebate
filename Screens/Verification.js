@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     borderColor: "#8d8d8d",
     borderStyle: "solid",
     borderWidth: 1,
-    marginBottom: 44,
+    marginBottom: 24,
   },
   sendButtonText: {
     color: "#000000",
