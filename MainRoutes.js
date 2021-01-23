@@ -27,28 +27,11 @@ function MainRoute() {
   const {
     user,
     setUser,
-    userCompletedProfile,
-    setUserCompletedProfile,
   } = React.useContext(AuthContext);
   const [initializing, setInitializing] = React.useState(true);
   const onAuthStateChanged = async (user) => {
     setUser(user);
     if (initializing) setInitializing(false);
-    if (user !== null) {
-      const userDoc = db.collection("Users").doc(user.uid);
-      userDoc
-        .get()
-        .then(function (doc) {
-          if (doc.exists) {
-            setUserCompletedProfile(true);
-          } else {
-            setUserCompletedProfile(false);
-          }
-        })
-        .catch(function (error) {
-          console.log("Error getting document:", error);
-        });
-    }
   };
 
   React.useEffect(() => {

@@ -13,17 +13,27 @@ import { globalstyles } from "../styles/global";
 import cash from "../assets/svgs/cash.png";
 import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
+import { db } from "../firebases";
 
 export default function HomeScreen({ navigation }) {
-  const { user, userCompletedProfile, setUserCompletedProfile } = useContext(
-    AuthContext
-  );
+  const { user } = useContext(AuthContext);
   // When user not Logged In
   useEffect(() => {
-    if (user !== null) {
-      if (!userCompletedProfile) navigation.navigate("ProfileComplete");
+    if (user) {
+      const userDoc = db.collection("Users").doc(user.uid);
+      userDoc
+        .get()
+        .then(function (doc) {
+          if (doc.exists) {
+          } else {
+            navigation.navigate("ProfileComplete");
+          }
+        })
+        .catch(function (error) {
+          console.log("Error getting document:", error);
+        });
     }
-  }, [user]);
+  }, []);
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
