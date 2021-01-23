@@ -12,7 +12,7 @@ import {
   StatusBar,
 } from "react-native";
 import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
-import { app as firebase } from "../firebases";
+import { app as firebase } from "firebases";
 import { firebaseConfig } from "../firebases";
 
 export default function VerificationScreen({ route }) {

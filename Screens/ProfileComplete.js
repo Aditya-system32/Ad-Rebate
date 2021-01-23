@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import * as React from "react";
+import { Picker } from "@react-native-picker/picker";
 import {
   Button,
   View,
@@ -14,8 +15,7 @@ import { AuthContext } from "../routes/AuthProvider";
 import { globalstyles } from "../styles/global";
 
 export default function ProfileComplete({ navigation }) {
-  const { user, login } = React.useContext(AuthContext);
-  const [email, setEmail] = React.useState();
+  const [location, setLocation] = React.useState();
   const [password, setPassword] = React.useState();
   return (
     <View style={globalstyles.container}>
@@ -24,13 +24,12 @@ export default function ProfileComplete({ navigation }) {
         <Image></Image>
       </View>
       <View style={styles.welcomeBackWrapper}>
-        <Text style={styles.welcomeBack}>Welcome</Text>
-        <Text style={styles.welcomeBack}>Back</Text>
+        <Text style={styles.welcomeBack}>Complete profile</Text>
       </View>
       <View>
         <TextInput
           style={styles.textinput}
-          placeholder="Phone no."
+          placeholder="Full Name"
           placeholderTextColor="#EDEDED"
           color="#fff"
           onChangeText={(userEmail) => setEmail(userEmail)}
@@ -39,14 +38,11 @@ export default function ProfileComplete({ navigation }) {
       <View>
         <TextInput
           style={[styles.textinput, styles.textPassword]}
-          placeholder="Password"
+          placeholder="Age"
           placeholderTextColor="#EDEDED"
           color="#fff"
           onChangeText={(userPassword) => setPassword(userPassword)}
         ></TextInput>
-      </View>
-      <View>
-        <Text style={styles.forgetPass}>Forgot Password?</Text>
       </View>
       <View style={styles.loginWrapper}>
         <TouchableNativeFeedback
@@ -54,17 +50,18 @@ export default function ProfileComplete({ navigation }) {
           onPress={() => login(email, password)}
         >
           <View style={styles.loginButton}>
-            <Text style={styles.loginButtonTitle}>Login</Text>
+            <Text style={styles.loginButtonTitle}>Finish</Text>
           </View>
-        </TouchableNativeFeedback>
-        <View>
-          <Text
-            style={styles.registerHere}
-            onPress={() => navigation.navigate("SignUp")}
+          <Picker
+            selectedValue={location}
+            style={{ height: 50, width: 100 }}
+            onValueChange={(itemValue, itemIndex) =>
+              setLocation({ language: itemValue })
+            }
           >
-            New here ? Register
-          </Text>
-        </View>
+            <Picker.Item label="Bhilai" value="bhilai" />
+          </Picker>
+        </TouchableNativeFeedback>
       </View>
     </View>
   );
