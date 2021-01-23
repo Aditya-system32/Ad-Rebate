@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect ,useState} from "react";
 import {
-  Button,
   View,
   Text,
   StyleSheet,
@@ -16,7 +15,7 @@ import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 
 export default function HomeScreen({ navigation }) {
-  const { user } = useContext(AuthContext);
+  const { user ,setUserData } = useContext(AuthContext);
   // When user not Logged In
   useEffect(() => {
     if (user) {
@@ -25,6 +24,7 @@ export default function HomeScreen({ navigation }) {
         .get()
         .then(function (doc) {
           if (doc.exists) {
+            setUserData(doc.data())
           } else {
             navigation.navigate("ProfileComplete");
           }

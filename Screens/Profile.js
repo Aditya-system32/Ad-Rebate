@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import * as React from 'react';
+import React from 'react';
 import { Button, View, Text, StyleSheet, StatusBar} from 'react-native';
 
 export default function ProfileScreen({ navigation }) {

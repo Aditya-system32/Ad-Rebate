@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
-import * as React from "react";
+import React, { useState } from "react";
 import {
-  Button,
   View,
   Text,
   StyleSheet,
@@ -10,15 +9,13 @@ import {
   StatusBar,
   TextInput,
 } from "react-native";
-import {AuthContext} from '../routes/AuthProvider'
 import {globalstyles} from '../styles/global'
 
 
 export default function LogInScreen({ navigation }) {
-  const {user , login} = React.useContext(AuthContext)
-  const [phoneNumber, setPhoneNumber] = React.useState();
-  const [disabled, setDisabled] = React.useState(true)
-  const [errorText, setErrorText] = React.useState('')
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [disabled, setDisabled] = useState(true)
+  const [errorText, setErrorText] = useState('')
 
   const checkingPhoneNumber = (phoneNumber) => {
     phoneNumber = phoneNumber.replace('.','')

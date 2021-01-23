@@ -1,15 +1,12 @@
 import "react-native-gesture-handler";
 import * as React from "react";
-import { Button, View, Text, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import Navigation from "./routes/Navigation";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { AuthContext } from "./routes/AuthProvider";
 import * as firebase from "firebase";
-import { set } from "react-native-reanimated";
 import NavigationLogged from "./routes/NavigationLogged";
-import { db } from "./firebases";
 const fetchfonts = () => {
   return Font.loadAsync({
     "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),

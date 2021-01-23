@@ -1,9 +1,7 @@
 import "react-native-gesture-handler";
-import * as React from "react";
+import React, { useState } from "react";
 import CheckBox from "@react-native-community/checkbox";
-import {AuthContext} from '../routes/AuthProvider'
 import {
-  Button,
   View,
   Text,
   StyleSheet,
@@ -12,13 +10,11 @@ import {
   Image,
   TouchableNativeFeedback,
 } from "react-native";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
 
 export default function SignUpScreen({ navigation }) {
-  const {register,phoneLogin} = React.useContext(AuthContext)
-  const [phoneNumber, setPhoneNumber] = React.useState();
-  const [disabled, setDisabled] = React.useState(true)
-  const [errorText, setErrorText] = React.useState('')
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [disabled, setDisabled] = useState(true)
+  const [errorText, setErrorText] = useState('')
 
 
   const checkingPhoneNumber = (phoneNumber) => {

@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  Button,
-  View,
-  Text,
-  StatusBar,
-  StyleSheet,
-  TouchableNativeFeedback,
-} from "react-native";
+import { StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import EarningScreen from "../Screens/Earning";
 import CouponScreen from "../Screens/Coupon";
@@ -17,7 +10,6 @@ import ProfileComplete from "../Screens/ProfileComplete";
 import { FontAwesome } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerContent } from "./DrawerContent";
-import { AuthContext } from "../routes/AuthProvider";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
