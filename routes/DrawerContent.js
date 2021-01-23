@@ -19,15 +19,6 @@ import { AuthContext } from "../routes/AuthProvider";
 
 export function DrawerContent(props) {
   const { user, logout, userData } = useContext(AuthContext);
-  const [ userName , setUserName] = useState(userData)
-
-  const checkingUserData = (userName) =>{
-    if(userName.Username == null ){
-      setUserName("User_name")
-    }else{
-      setUserName(userName.Username)
-    }
-  }
   return (
     <View style={globalstyles.container}>
       <DrawerContentScrollView {...props}>
