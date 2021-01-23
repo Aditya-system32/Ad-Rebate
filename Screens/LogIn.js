@@ -22,17 +22,16 @@ export default function LogInScreen({ navigation }) {
 
   const checkingPhoneNumber = (phoneNumber) => {
     phoneNumber = phoneNumber.replace('.','')
-    if(phoneNumber.length != 12 || phoneNumber.length == 0){
+    if(phoneNumber.length != 10 || phoneNumber.length == 0 || isNaN(phoneNumber)){
       setPhoneNumber(phoneNumber)
       setDisabled(true)
       setErrorText('Enter the 10 digit number')
     }else{
-      setPhoneNumber(phoneNumber)
+      setPhoneNumber('+91' + phoneNumber)
       setDisabled(false)
       setErrorText(null)
     }
   }
-
 
   return (
     <View style={globalstyles.container}>
@@ -53,6 +52,7 @@ export default function LogInScreen({ navigation }) {
           color="#fff"
           onChangeText={checkingPhoneNumber}
         ></TextInput>
+        {<Text style={styles.erText}>{errorText}</Text>}
       </View>
       <View style={styles.loginWrapper}>
         <TouchableNativeFeedback
@@ -83,6 +83,12 @@ const styles = StyleSheet.create({
   registerHere: {
     color: "#D3D3D3",
     alignSelf: "center",
+  },
+  erText:{
+    color:'red',
+    width:'75%',
+    alignSelf:"center",
+    marginTop:-18,
   },
   loginButton: {
     justifyContent: "center",

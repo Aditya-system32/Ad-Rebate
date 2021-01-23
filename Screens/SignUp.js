@@ -54,6 +54,7 @@ export default function SignUpScreen({ navigation }) {
           color="#fff"
           onChangeText={checkingPhoneNumber}
         ></TextInput>
+        {<Text style={styles.erText}>{errorText}</Text>}
       </View>
       <View style={styles.termsCondition}>
         <CheckBox tintColors={{ true: "#F15927", false: "#Fff" }} />
@@ -86,6 +87,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "80%",
     alignSelf: "center",
+  },
+  erText:{
+    color:'red',
+    width:'75%',
+    alignSelf:"center",
+    marginTop:-18,
   },
   container: {
     flex: 1,
