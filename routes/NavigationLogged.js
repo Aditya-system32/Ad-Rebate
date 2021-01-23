@@ -119,12 +119,9 @@ const HomeStackScreen = ({ navigation }) => {
 };
 
 export default function NavigationLogged() {
-  const { userCompletedProfile, setUserCompletedProfile } = React.useContext(
-    AuthContext
-  );
   return (
     <Drawer.Navigator
-      initialRouteName={userCompletedProfile ? "Home" : "ProfileComplete"}
+      initialRouteName="Home"
       drawerContent={(props) => <DrawerContent {...props} />}
     >
       <Drawer.Screen name="Home" component={HomeStackScreen} />

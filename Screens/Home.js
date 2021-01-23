@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Button,
   View,
@@ -15,8 +15,15 @@ import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 
 export default function HomeScreen({ navigation }) {
-  const { user } = useContext(AuthContext);
+  const { user, userCompletedProfile, setUserCompletedProfile } = useContext(
+    AuthContext
+  );
   // When user not Logged In
+  useEffect(() => {
+    if (user !== null) {
+      if (!userCompletedProfile) navigation.navigate("ProfileComplete");
+    }
+  }, [user]);
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />

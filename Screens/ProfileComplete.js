@@ -45,6 +45,7 @@ export default function ProfileComplete({ navigation }) {
     userDoc.set(data).catch((err) => {
       console.log(err);
     });
+    navigation.navigate("Home");
   }
   return (
     <View style={globalstyles.container}>
