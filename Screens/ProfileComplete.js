@@ -107,10 +107,10 @@ export default function ProfileComplete({ navigation }) {
           })}
         </Picker>
       </View>
-      <View style={styles.loginWrapper}>
+      <View style={styles.ProfileCompleteWrapper}>
         <TouchableNativeFeedback useForeground={true} onPress={finish}>
-          <View style={styles.loginButton}>
-            <Text style={styles.loginButtonTitle}>Finish</Text>
+          <View style={styles.ProfileCompleteButton}>
+            <Text style={styles.ProfileCompleteButtonTitle}>Finish</Text>
           </View>
         </TouchableNativeFeedback>
       </View>
@@ -134,14 +134,10 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Regular",
     marginBottom: 24,
   },
-  loginWrapper: {
-    marginTop: 70,
+  ProfileCompleteWrapper: {
+    marginTop: 30,
   },
-  registerHere: {
-    color: "#D3D3D3",
-    alignSelf: "center",
-  },
-  loginButton: {
+  ProfileCompleteButton: {
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
@@ -152,7 +148,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
   },
-  loginButtonTitle: {
+  ProfileCompleteButtonTitle: {
     color: "#ffffff",
     fontSize: 18,
     fontFamily: "Poppins-Medium",
@@ -164,8 +160,8 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
   },
   welcomeBackWrapper: {
-    marginBottom: 57,
-    marginTop: 57,
+    marginBottom: 30,
+    marginTop: 20,
   },
   welcomeBack: {
     fontSize: 28,
