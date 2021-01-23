@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import * as React from "react";
+import React,{useRef,useState} from "react";
 import {
   Text,
   View,
@@ -16,15 +16,15 @@ import * as firebase from "firebase";
 import { firebaseConfig } from "../firebases";
 
 export default function VerificationScreen({ route }) {
-  const recaptchaVerifier = React.useRef(null);
-  const verificationCodeTextInput = React.useRef(null);
-  const [phoneNumber, setPhoneNumber] = React.useState(route.params.paramKey);
-  const [verificationId, setVerificationId] = React.useState("");
-  const [verifyError, setVerifyError] = React.useState();
-  const [verifyInProgress, setVerifyInProgress] = React.useState(false);
-  const [verificationCode, setVerificationCode] = React.useState("");
-  const [confirmError, setConfirmError] = React.useState();
-  const [confirmInProgress, setConfirmInProgress] = React.useState(false);
+  const recaptchaVerifier = useRef(null);
+  const verificationCodeTextInput = useRef(null);
+  const [phoneNumber, setPhoneNumber] = useState(route.params.paramKey);
+  const [verificationId, setVerificationId] = useState("");
+  const [verifyError, setVerifyError] = useState();
+  const [verifyInProgress, setVerifyInProgress] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [confirmError, setConfirmError] = useState();
+  const [confirmInProgress, setConfirmInProgress] = useState(false);
 
   return (
     <View style={styles.container}>

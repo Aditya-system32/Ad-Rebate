@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Button, View, Text,StatusBar, StyleSheet, TouchableNativeFeedback } from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
 import EarningScreen from "../Screens/Earning";
 import CouponScreen from "../Screens/Coupon";
 import HomeScreen from "../Screens/Home";
