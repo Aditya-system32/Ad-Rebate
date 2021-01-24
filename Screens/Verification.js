@@ -95,8 +95,9 @@ export default function VerificationScreen({ route }) {
               setConfirmInProgress(true);
               const credential = firebase.auth.PhoneAuthProvider.credential(
                 verificationId,
-                verificationCode
+                verificationCode,
               );
+              console.log(credential)
               const authResult = await firebase
                 .auth()
                 .signInWithCredential(credential);

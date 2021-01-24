@@ -19,6 +19,7 @@ import { AuthContext } from "../routes/AuthProvider";
 
 export function DrawerContent(props) {
   const { user, logout, userData } = useContext(AuthContext);
+
   return (
     <View style={globalstyles.container}>
       <DrawerContentScrollView {...props}>
@@ -43,7 +44,7 @@ export function DrawerContent(props) {
                   size={50}
                 />
                 <View style={{ marginLeft: 20 }}>
-                {userData.Username == null ? (
+                {userData == undefined ||userData.Username == null ? (
                   <Title style={styles.title}>User_Name</Title>
                   ) : (
                     <Title style={styles.title}>{userData.Username}</Title>
