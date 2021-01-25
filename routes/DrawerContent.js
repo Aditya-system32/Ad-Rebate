@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import {
   View,
   StyleSheet,
   TouchableNativeFeedback,
-  Button,
 } from "react-native";
 import {
   Avatar,
@@ -17,8 +16,10 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { globalstyles } from "../styles/global";
 import { AuthContext } from "../routes/AuthProvider";
 
+
 export function DrawerContent(props) {
   const { user, logout, userData } = useContext(AuthContext);
+
   return (
     <View style={globalstyles.container}>
       <DrawerContentScrollView {...props}>
@@ -43,7 +44,12 @@ export function DrawerContent(props) {
                   size={50}
                 />
                 <View style={{ marginLeft: 20 }}>
-                  <Title style={styles.title}>{userData.Username}</Title>
+                {userData == undefined ||userData.Username == null ? (
+                  <Title style={styles.title}>User_Name</Title>
+                  ) : (
+                    <Title style={styles.title}>{userData.Username}</Title>
+                  )}
+                  
                   <Caption style={styles.caption}>@45751</Caption>
                   <TouchableNativeFeedback
                     onPress={() => props.navigation.navigate("Profile")}
