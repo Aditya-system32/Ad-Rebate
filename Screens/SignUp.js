@@ -10,33 +10,36 @@ import {
   Image,
   TouchableNativeFeedback,
 } from "react-native";
+import BannerImages from "./BannerImages";
 
 export default function SignUpScreen({ navigation }) {
   const [phoneNumber, setPhoneNumber] = useState();
-  const [disabled, setDisabled] = useState(true)
-  const [errorText, setErrorText] = useState('')
-
+  const [disabled, setDisabled] = useState(true);
+  const [errorText, setErrorText] = useState("");
 
   const checkingPhoneNumber = (phoneNumber) => {
-    phoneNumber = phoneNumber.replace('.','')
-    if(phoneNumber.length != 10 || phoneNumber.length == 0 || isNaN(phoneNumber)){
-      setPhoneNumber(phoneNumber)
-      setDisabled(true)
-      setErrorText('Enter the 10 digit number')
-    }else{
-      setPhoneNumber('+91' + phoneNumber)
-      setDisabled(false)
-      setErrorText(null)
+    phoneNumber = phoneNumber.replace(".", "");
+    if (
+      phoneNumber.length != 10 ||
+      phoneNumber.length == 0 ||
+      isNaN(phoneNumber)
+    ) {
+      setPhoneNumber(phoneNumber);
+      setDisabled(true);
+      setErrorText("Enter the 10 digit number");
+    } else {
+      setPhoneNumber("+91" + phoneNumber);
+      setDisabled(false);
+      setErrorText(null);
     }
-  }
-
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
 
       <View style={styles.banner}>
-        <Image></Image>
+        <BannerImages />
       </View>
       <View style={styles.welcomeBackWrapper}>
         <Text style={styles.welcomeBack}>Create</Text>
@@ -61,7 +64,7 @@ export default function SignUpScreen({ navigation }) {
           disabled={disabled}
           useForeground={true}
           onPress={() =>
-            navigation.navigate('Verification', {
+            navigation.navigate("Verification", {
               paramKey: phoneNumber,
             })
           }
@@ -71,7 +74,12 @@ export default function SignUpScreen({ navigation }) {
           </View>
         </TouchableNativeFeedback>
         <View>
-          <Text style={styles.registerHere} onPress={()=>navigation.navigate('LogIn')}>Already a user? Login</Text>
+          <Text
+            style={styles.registerHere}
+            onPress={() => navigation.navigate("LogIn")}
+          >
+            Already a user? Login
+          </Text>
         </View>
       </View>
     </View>
@@ -84,11 +92,11 @@ const styles = StyleSheet.create({
     width: "80%",
     alignSelf: "center",
   },
-  erText:{
-    color:'red',
-    width:'75%',
-    alignSelf:"center",
-    marginTop:-18,
+  erText: {
+    color: "red",
+    width: "75%",
+    alignSelf: "center",
+    marginTop: -18,
   },
   container: {
     flex: 1,
@@ -155,6 +163,3 @@ const styles = StyleSheet.create({
     margin: 0,
   },
 });
-
-
-

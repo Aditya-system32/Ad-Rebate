@@ -16,13 +16,9 @@ import { db } from "../firebases";
 import BannerImages from "./BannerImages";
 
 export default function HomeScreen({ navigation }) {
-  const { user, setUserData } = useContext(AuthContext);
-  const bannerImages = [
-    "https://i.ibb.co/0DBMMw6/sam-moqadam-W8-Cyjblr-F8-U-unsplash.jpg",
-    "https://i.ibb.co/dGwGN37/clem-onojeghuo-NT3q-P7-Wbmz-E-unsplash.jpg",
-    "https://i.ibb.co/fv933B7/sharon-mccutcheon-8a5e-J1-mm-Q-unsplash.jpg",
-    "https://i.ibb.co/G3vpZ0S/maximilian-bruck-4-SKd-Rc-Y13j4-unsplash.jpg",
-  ];
+  const { user, setUserData, setBannerData, bannerData } = useContext(
+    AuthContext
+  );
   // When user not Logged In
   useEffect(() => {
     if (user) {
@@ -41,11 +37,30 @@ export default function HomeScreen({ navigation }) {
         });
     }
   }, []);
+
+  useEffect(() => {
+    if (true) {
+      const bannerDoc = db.collection("Banners").doc("bhilai");
+      bannerDoc
+        .get()
+        .then(function (doc) {
+          if (doc.exists) {
+            setBannerData(doc.data());
+          } else {
+            console.log("error");
+          }
+        })
+        .catch(function (error) {
+          console.log("Error getting document:", error);
+        });
+    }
+  }, []);
+
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.banner}>
-        <BannerImages bannerImages={bannerImages} />
+        <BannerImages />
       </View>
       <View style={styles.location}>
         <Text style={styles.locationText}>Current location : Bhilai</Text>
