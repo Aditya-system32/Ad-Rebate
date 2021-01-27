@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useContext, useEffect ,useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,9 +13,16 @@ import cash from "../assets/svgs/cash.png";
 import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
+import BannerImages from "./BannerImages";
 
 export default function HomeScreen({ navigation }) {
-  const { user ,setUserData } = useContext(AuthContext);
+  const { user, setUserData } = useContext(AuthContext);
+  const bannerImages = [
+    "https://i.ibb.co/0DBMMw6/sam-moqadam-W8-Cyjblr-F8-U-unsplash.jpg",
+    "https://i.ibb.co/dGwGN37/clem-onojeghuo-NT3q-P7-Wbmz-E-unsplash.jpg",
+    "https://i.ibb.co/fv933B7/sharon-mccutcheon-8a5e-J1-mm-Q-unsplash.jpg",
+    "https://i.ibb.co/G3vpZ0S/maximilian-bruck-4-SKd-Rc-Y13j4-unsplash.jpg",
+  ];
   // When user not Logged In
   useEffect(() => {
     if (user) {
@@ -24,7 +31,7 @@ export default function HomeScreen({ navigation }) {
         .get()
         .then(function (doc) {
           if (doc.exists) {
-            setUserData(doc.data())
+            setUserData(doc.data());
           } else {
             navigation.navigate("ProfileComplete");
           }
@@ -38,7 +45,7 @@ export default function HomeScreen({ navigation }) {
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.banner}>
-        <Image></Image>
+        <BannerImages bannerImages={bannerImages} />
       </View>
       <View style={styles.location}>
         <Text style={styles.locationText}>Current location : Bhilai</Text>
