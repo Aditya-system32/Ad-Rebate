@@ -11,6 +11,9 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerContent } from "./DrawerContent";
 import BarcodeScanner from "../Screens/BarcodeScanner";
 import { MaterialIcons } from "@expo/vector-icons";
+import RedeemScreen from "../Screens/Redeem";
+import TransactionScreen from "../Screens/Transaction";
+import HelpScreen from "../Screens/Help";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -55,6 +58,45 @@ const HomeStackScreen = ({ navigation }) => {
       <HomeStack.Screen
         name="Barcode"
         component={BarcodeScanner}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Redeem"
+        component={RedeemScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Transaction"
+        component={TransactionScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Help"
+        component={HelpScreen}
         options={{
           headerStyle: {
             backgroundColor: "#000000",

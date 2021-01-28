@@ -101,7 +101,6 @@ export default function VerificationScreen({ route }) {
                   verificationId,
                   verificationCode
                 );
-                console.log(credential);
                 const authResult = await firebase
                   .auth()
                   .signInWithCredential(credential);

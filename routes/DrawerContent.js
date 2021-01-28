@@ -124,6 +124,38 @@ export function DrawerContent(props) {
             />
           </Drawer.Section>
         )}
+        {!user ? null : (
+          <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
+              label="TRANSACTIONS"
+              labelStyle={{
+                color: "#EDEDED",
+                fontSize: 14,
+                alignSelf: "center",
+                paddingLeft: 6,
+                fontFamily: "Poppins-Medium",
+              }}
+              onPress={() => {
+                props.navigation.navigate("Transaction");
+              }}
+            />
+          </Drawer.Section>
+        )}
+        <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
+            label="HELP"
+            labelStyle={{
+              color: "#EDEDED",
+              fontSize: 14,
+              alignSelf: "center",
+              paddingLeft: 6,
+              fontFamily: "Poppins-Medium",
+            }}
+            onPress={() => {
+              props.navigation.navigate("Help");
+            }}
+          />
+        </Drawer.Section>
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
             label="ABOUT US"

@@ -17,7 +17,9 @@ import { db } from "../firebases";
 import BannerImages from "./BannerImages";
 
 export default function HomeScreen({ navigation }) {
-  const { user, setUserData, setBannerData } = useContext(AuthContext);
+  const { user, setUserData, setBannerData, userData } = useContext(
+    AuthContext
+  );
 
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
@@ -41,7 +43,15 @@ export default function HomeScreen({ navigation }) {
   //TAKING THE BANNERS DATA FROM DATABASE
   useEffect(() => {
     if (true) {
-      const bannerDoc = db.collection("Banners").doc("bhilai");
+      const bannerDoc = db
+        .collection("Banners")
+        .doc(
+          userData == undefined
+            ? "bhilai"
+            : userData.location == null || userData.location === ""
+            ? "bhilai"
+            : userData.location
+        );
       bannerDoc
         .get()
         .then(function (doc) {
@@ -56,7 +66,6 @@ export default function HomeScreen({ navigation }) {
         });
     }
   }, []);
-
   const buttonAlert = () =>
     Alert.alert(
       "Update Alert",

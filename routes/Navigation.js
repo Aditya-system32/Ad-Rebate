@@ -10,6 +10,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { DrawerContent } from "./DrawerContent";
 import { FontAwesome } from "@expo/vector-icons";
+import HelpScreen from "../Screens/Help";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -55,7 +56,19 @@ const HomeStackScreen = ({ navigation }) => {
           },
         }}
       />
-
+      <HomeStack.Screen
+        name="Help"
+        component={HelpScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
       <HomeStack.Screen
         name="LogIn"
         component={LogInScreen}

@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState }from "react";
+import React, { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import {
   Button,
@@ -16,14 +16,14 @@ import { globalstyles } from "../styles/global";
 import { db } from "../firebases";
 
 export default function ProfileComplete({ navigation }) {
-  const [location, setLocation] = useState("Bhilai");
+  const [location, setLocation] = useState("bhilai");
   const [fullName, setFullName] = useState();
   const [age, setAge] = useState();
   const [gender, setGender] = useState("male");
   const { user } = React.useContext(AuthContext);
   const [locationOptions, setLocationOptions] = useState([
-    { value: "Bhilai", label: "Bhilai", key: "Bhilai" },
-    { value: "Raipur", label: "Raipur", key: "Raipur" },
+    { value: "bhilai", label: "Bhilai", key: "Bhilai" },
+    { value: "raipur", label: "Raipur", key: "Raipur" },
   ]);
   const [genderOptions, setgenderOptions] = useState([
     { value: "male", label: "male", key: "male" },
