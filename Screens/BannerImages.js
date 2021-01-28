@@ -28,8 +28,8 @@ export default function BannerImages() {
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <SliderBox
         images={bannerData == undefined ? bannerImages : bannerData.banners}
-        circleLoop="true"
-        autoplay="true"
+        circleLoop={true}
+        autoplay={true}
         resizeMode="cover"
         dotColor="#FFF"
         inactiveDotColor="#90A4AE"

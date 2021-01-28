@@ -5,6 +5,8 @@ import {
   View,
   Text,
   StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
   StatusBar,
   TextInput,
   Image,
@@ -17,6 +19,7 @@ export default function SignUpScreen({ navigation }) {
   const [disabled, setDisabled] = useState(true);
   const [errorText, setErrorText] = useState("");
 
+  //VALIDATION FOR THE PHONE NUMBER
   const checkingPhoneNumber = (phoneNumber) => {
     phoneNumber = phoneNumber.replace(".", "");
     if (
@@ -35,54 +38,57 @@ export default function SignUpScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor="black" barStyle="light-content" />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <StatusBar backgroundColor="black" barStyle="light-content" />
 
-      <View style={styles.banner}>
-        <BannerImages />
-      </View>
-      <View style={styles.welcomeBackWrapper}>
-        <Text style={styles.welcomeBack}>Create</Text>
-        <Text style={styles.welcomeBack}>Account</Text>
-      </View>
-      <View>
-        <TextInput
-          style={styles.textinput}
-          placeholder="Phone no."
-          placeholderTextColor="#EDEDED"
-          color="#fff"
-          onChangeText={checkingPhoneNumber}
-        ></TextInput>
-        {<Text style={styles.erText}>{errorText}</Text>}
-      </View>
-      <View style={styles.termsCondition}>
-        <CheckBox tintColors={{ true: "#F15927", false: "#Fff" }} />
-        <Text style={styles.forgetPass}>Agree to terms and conditions</Text>
-      </View>
-      <View style={styles.loginWrapper}>
-        <TouchableNativeFeedback
-          disabled={disabled}
-          useForeground={true}
-          onPress={() =>
-            navigation.navigate("Verification", {
-              paramKey: phoneNumber,
-            })
-          }
-        >
-          <View style={styles.loginButton}>
-            <Text style={styles.loginButtonTitle}>Register</Text>
-          </View>
-        </TouchableNativeFeedback>
+        <View style={styles.banner}>
+          <BannerImages />
+        </View>
+        <View style={styles.welcomeBackWrapper}>
+          <Text style={styles.welcomeBack}>Create</Text>
+          <Text style={styles.welcomeBack}>Account</Text>
+        </View>
         <View>
-          <Text
-            style={styles.registerHere}
-            onPress={() => navigation.navigate("LogIn")}
+          <TextInput
+            style={styles.textinput}
+            placeholder="Phone no."
+            placeholderTextColor="#EDEDED"
+            keyboardType="phone-pad"
+            color="#fff"
+            onChangeText={checkingPhoneNumber}
+          ></TextInput>
+          {<Text style={styles.erText}>{errorText}</Text>}
+        </View>
+        <View style={styles.termsCondition}>
+          <CheckBox tintColors={{ true: "#F15927", false: "#Fff" }} />
+          <Text style={styles.forgetPass}>Agree to terms and conditions</Text>
+        </View>
+        <View style={styles.loginWrapper}>
+          <TouchableNativeFeedback
+            disabled={disabled}
+            useForeground={true}
+            onPress={() =>
+              navigation.navigate("Verification", {
+                paramKey: phoneNumber,
+              })
+            }
           >
-            Already a user? Login
-          </Text>
+            <View style={styles.loginButton}>
+              <Text style={styles.loginButtonTitle}>Register</Text>
+            </View>
+          </TouchableNativeFeedback>
+          <View>
+            <Text
+              style={styles.registerHere}
+              onPress={() => navigation.navigate("LogIn")}
+            >
+              Already a user? Login
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

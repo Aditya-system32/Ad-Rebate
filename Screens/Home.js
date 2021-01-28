@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableNativeFeedback,
   Image,
+  Alert,
   StatusBar,
 } from "react-native";
 import { globalstyles } from "../styles/global";
@@ -16,10 +17,9 @@ import { db } from "../firebases";
 import BannerImages from "./BannerImages";
 
 export default function HomeScreen({ navigation }) {
-  const { user, setUserData, setBannerData, bannerData } = useContext(
-    AuthContext
-  );
-  // When user not Logged In
+  const { user, setUserData, setBannerData } = useContext(AuthContext);
+
+  //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
     if (user) {
       const userDoc = db.collection("Users").doc(user.uid);
@@ -38,6 +38,7 @@ export default function HomeScreen({ navigation }) {
     }
   }, []);
 
+  //TAKING THE BANNERS DATA FROM DATABASE
   useEffect(() => {
     if (true) {
       const bannerDoc = db.collection("Banners").doc("bhilai");
@@ -56,6 +57,20 @@ export default function HomeScreen({ navigation }) {
     }
   }, []);
 
+  const buttonAlert = () =>
+    Alert.alert(
+      "Update Alert",
+      "This section is available on future",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        { text: "OK" },
+      ],
+      { cancelable: false }
+    );
+
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -66,7 +81,7 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.locationText}>Current location : Bhilai</Text>
       </View>
       <View style={styles.wrapper}>
-        <TouchableNativeFeedback onPress={() => navigation.navigate("Earning")}>
+        <TouchableNativeFeedback onPress={buttonAlert}>
           <View style={styles.card}>
             <Image source={cash}></Image>
           </View>
@@ -86,6 +101,7 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
       </View>
+
       {!user ? (
         <View style={styles.buttonWrapper}>
           <TouchableNativeFeedback

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import EarningScreen from "../Screens/Earning";
 import CouponScreen from "../Screens/Coupon";
 import HomeScreen from "../Screens/Home";
 import AboutScreen from "../Screens/About";
@@ -11,11 +10,12 @@ import { FontAwesome } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerContent } from "./DrawerContent";
 import BarcodeScanner from "../Screens/BarcodeScanner";
-import { MaterialIcons } from '@expo/vector-icons'; 
+import { MaterialIcons } from "@expo/vector-icons";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+//SHOWING THE STACK WHEN THE USER LOGGED IN
 const HomeStackScreen = ({ navigation }) => {
   return (
     <HomeStack.Navigator>
@@ -42,8 +42,14 @@ const HomeStackScreen = ({ navigation }) => {
             />
           ),
           headerRight: () => (
-            <MaterialIcons name="qr-code-scanner" size={24} color="white" style={styles.barcodeIcon} onPress={() => navigation.navigate("Barcode")}/>
-          )
+            <MaterialIcons
+              name="qr-code-scanner"
+              size={27}
+              color="white"
+              style={styles.barcodeIcon}
+              onPress={() => navigation.navigate("Barcode")}
+            />
+          ),
         }}
       />
       <HomeStack.Screen
@@ -111,19 +117,6 @@ const HomeStackScreen = ({ navigation }) => {
           },
         }}
       />
-      <HomeStack.Screen
-        name="Earning"
-        component={EarningScreen}
-        options={{
-          headerStyle: {
-            backgroundColor: "#000000",
-          },
-          headerTintColor: "#FFFFFF",
-          headerTitleStyle: {
-            fontFamily: "Poppins-SemiBold",
-          },
-        }}
-      />
     </HomeStack.Navigator>
   );
 };
@@ -145,5 +138,5 @@ const styles = StyleSheet.create({
   },
   barcodeIcon: {
     marginRight: 10,
-  }
+  },
 });

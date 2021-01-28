@@ -6,6 +6,8 @@ import {
   StyleSheet,
   TouchableNativeFeedback,
   Image,
+  TouchableWithoutFeedback,
+  Keyboard,
   StatusBar,
   TextInput,
 } from "react-native";
@@ -17,6 +19,7 @@ export default function LogInScreen({ navigation }) {
   const [disabled, setDisabled] = useState(true);
   const [errorText, setErrorText] = useState("");
 
+  //VALIDATION FOR THE PHONE NUMBER
   const checkingPhoneNumber = (phoneNumber) => {
     phoneNumber = phoneNumber.replace(".", "");
     if (
@@ -35,50 +38,54 @@ export default function LogInScreen({ navigation }) {
   };
 
   return (
-    <View style={globalstyles.container}>
-      <StatusBar backgroundColor="black" barStyle="light-content" />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={globalstyles.container}>
+        <StatusBar backgroundColor="black" barStyle="light-content" />
 
-      <View style={styles.banner}>
-        <BannerImages />
-      </View>
-      <View style={styles.welcomeBackWrapper}>
-        <Text style={styles.welcomeBack}>Welcome</Text>
-        <Text style={styles.welcomeBack}>Back</Text>
-      </View>
-      <View>
-        <TextInput
-          style={styles.textinput}
-          placeholder="Phone no."
-          placeholderTextColor="#EDEDED"
-          color="#fff"
-          onChangeText={checkingPhoneNumber}
-        ></TextInput>
-        {<Text style={styles.erText}>{errorText}</Text>}
-      </View>
-      <View style={styles.loginWrapper}>
-        <TouchableNativeFeedback
-          useForeground={true}
-          disabled={disabled}
-          onPress={() =>
-            navigation.navigate("Verification", {
-              paramKey: phoneNumber,
-            })
-          }
-        >
-          <View style={styles.loginButton}>
-            <Text style={styles.loginButtonTitle}>Login</Text>
-          </View>
-        </TouchableNativeFeedback>
+        <View style={styles.banner}>
+          <BannerImages />
+        </View>
+        <View style={styles.welcomeBackWrapper}>
+          <Text style={styles.welcomeBack}>Welcome</Text>
+          <Text style={styles.welcomeBack}>Back</Text>
+        </View>
         <View>
-          <Text
-            style={styles.registerHere}
-            onPress={() => navigation.navigate("SignUp")}
+          <TextInput
+            style={styles.textinput}
+            placeholder="Phone no."
+            placeholderTextColor="#EDEDED"
+            keyboardAppearance="dark"
+            keyboardType="phone-pad"
+            color="#fff"
+            onChangeText={checkingPhoneNumber}
+          ></TextInput>
+          {<Text style={styles.erText}>{errorText}</Text>}
+        </View>
+        <View style={styles.loginWrapper}>
+          <TouchableNativeFeedback
+            useForeground={true}
+            disabled={disabled}
+            onPress={() =>
+              navigation.navigate("Verification", {
+                paramKey: phoneNumber,
+              })
+            }
           >
-            New here ? Register
-          </Text>
+            <View style={styles.loginButton}>
+              <Text style={styles.loginButtonTitle}>Login</Text>
+            </View>
+          </TouchableNativeFeedback>
+          <View>
+            <Text
+              style={styles.registerHere}
+              onPress={() => navigation.navigate("SignUp")}
+            >
+              New here ? Register
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

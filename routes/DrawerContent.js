@@ -1,21 +1,10 @@
 import React, { useContext, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
-import {
-  View,
-  StyleSheet,
-  TouchableNativeFeedback,
-} from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Drawer,
-  Text,
-} from "react-native-paper";
+import { View, StyleSheet, TouchableNativeFeedback } from "react-native";
+import { Avatar, Title, Caption, Drawer, Text } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { globalstyles } from "../styles/global";
 import { AuthContext } from "../routes/AuthProvider";
-
 
 export function DrawerContent(props) {
   const { user, logout, userData } = useContext(AuthContext);
@@ -38,18 +27,17 @@ export function DrawerContent(props) {
               <View style={styles.profileWrapper}>
                 <Avatar.Image
                   source={{
-                    uri:
-                      "https://d338t8kmirgyke.cloudfront.net/icons/icon_pngs/000/004/088/original/user.png",
+                    uri: "https://avatarfiles.alphacoders.com/153/153690.png",
                   }}
                   size={50}
                 />
                 <View style={{ marginLeft: 20 }}>
-                {userData == undefined ||userData.Username == null ? (
-                  <Title style={styles.title}>User_Name</Title>
+                  {userData == undefined || userData.Username == null ? (
+                    <Title style={styles.title}>User_Name</Title>
                   ) : (
                     <Title style={styles.title}>{userData.Username}</Title>
                   )}
-                  
+
                   <Caption style={styles.caption}>@45751</Caption>
                   <TouchableNativeFeedback
                     onPress={() => props.navigation.navigate("Profile")}
@@ -119,6 +107,23 @@ export function DrawerContent(props) {
             }}
           />
         </Drawer.Section>
+        {!user ? null : (
+          <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
+              label="SCANNER"
+              labelStyle={{
+                color: "#EDEDED",
+                fontSize: 14,
+                alignSelf: "center",
+                paddingLeft: 6,
+                fontFamily: "Poppins-Medium",
+              }}
+              onPress={() => {
+                props.navigation.navigate("Barcode");
+              }}
+            />
+          </Drawer.Section>
+        )}
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
             label="ABOUT US"
