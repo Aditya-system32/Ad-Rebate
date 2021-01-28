@@ -10,6 +10,8 @@ import ProfileComplete from "../Screens/ProfileComplete";
 import { FontAwesome } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerContent } from "./DrawerContent";
+import BarcodeScanner from "../Screens/BarcodeScanner";
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -39,6 +41,22 @@ const HomeStackScreen = ({ navigation }) => {
               onPress={() => navigation.openDrawer()}
             />
           ),
+          headerRight: () => (
+            <MaterialIcons name="qr-code-scanner" size={24} color="white" style={styles.barcodeIcon} onPress={() => navigation.navigate("Barcode")}/>
+          )
+        }}
+      />
+      <HomeStack.Screen
+        name="Barcode"
+        component={BarcodeScanner}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
         }}
       />
       <HomeStack.Screen
@@ -125,4 +143,7 @@ const styles = StyleSheet.create({
   icons: {
     marginLeft: 10,
   },
+  barcodeIcon: {
+    marginRight: 10,
+  }
 });
