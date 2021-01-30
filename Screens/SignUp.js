@@ -13,12 +13,15 @@ import {
   TouchableNativeFeedback,
 } from "react-native";
 import BannerImages from "./BannerImages";
+import { Checkbox } from "react-native-paper";
+import { set } from "react-native-reanimated";
 
 export default function SignUpScreen({ navigation }) {
   const [phoneNumber, setPhoneNumber] = useState();
   const [disabled, setDisabled] = useState(true);
   const [errorText, setErrorText] = useState("");
-
+  const [checkboxes, setCheckBoxes] = useState(false);
+  console.log(checkboxes);
   //VALIDATION FOR THE PHONE NUMBER
   const checkingPhoneNumber = (phoneNumber) => {
     phoneNumber = phoneNumber.replace(".", "");
@@ -32,11 +35,20 @@ export default function SignUpScreen({ navigation }) {
       setErrorText("Enter the 10 digit number");
     } else {
       setPhoneNumber("+91" + phoneNumber);
-      setDisabled(false);
       setErrorText(null);
     }
   };
-
+  const checkingCheckBoxes = () => {
+    if (checkboxes) {
+      setDisabled(true);
+      setErrorText("Please Select The Box");
+      setCheckBoxes(false);
+    } else {
+      setDisabled(false);
+      setCheckBoxes(true);
+    }
+  };
+  console.log(disabled);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -61,7 +73,11 @@ export default function SignUpScreen({ navigation }) {
           {<Text style={styles.erText}>{errorText}</Text>}
         </View>
         <View style={styles.termsCondition}>
-          <CheckBox tintColors={{ true: "#F15927", false: "#Fff" }} />
+          <CheckBox
+            tintColors={{ true: "#F15927", false: "#Fff" }}
+            value={checkboxes}
+            onValueChange={checkingCheckBoxes}
+          />
           <Text style={styles.forgetPass}>Agree to terms and conditions</Text>
         </View>
         <View style={styles.loginWrapper}>
