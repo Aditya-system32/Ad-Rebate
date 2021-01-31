@@ -20,6 +20,13 @@ export default function HomeScreen({ navigation }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
+  const [categoriesButtons, setCategoriesButtons] = useState([
+    { name: "Cafe", value: "cafe" },
+    { name: "Clothing", value: "clothing" },
+    { name: "Electronics", value: "electronics" },
+    { name: "Salon", value: "salon" },
+    { name: "Restaurant", value: "restaurant" },
+  ]);
 
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
@@ -39,6 +46,49 @@ export default function HomeScreen({ navigation }) {
         });
     }
   }, []);
+
+  /*const categoriesClicked = () => {
+    const categoryData = db
+      .collection("Categories")
+      .doc(
+        categoriesButtons.value == undefined ? "cafe" : categoriesButtons.value
+      );
+    categoryData
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          setCategorySelectedData(doc.data().clients);
+        } else {
+        }
+      })
+      .catch(function (error) {
+        console.log("Error getting document:", error);
+      });
+  };*/
+
+  /*useEffect(() => {
+    if (true) {
+      const categoryData = db
+        .collection("Categories")
+        .doc(
+          categoriesButtons.value == undefined
+            ? "cafe"
+            : categoriesButtons.value
+        );
+      categoryData
+        .get()
+        .then(function (doc) {
+          if (doc.exists) {
+            setCategorySelectedData(doc.data().clients);
+          } else {
+          }
+        })
+        .catch(function (error) {
+          console.log("Error getting document:", error);
+        });
+    }
+  }, []);*/
+  //console.log(value);
 
   //TAKING THE BANNERS DATA FROM DATABASE
   useEffect(() => {
@@ -66,6 +116,7 @@ export default function HomeScreen({ navigation }) {
         });
     }
   }, []);
+
   const buttonAlert = () =>
     Alert.alert(
       "Update Alert",
@@ -106,7 +157,26 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.category}>
           <View style={styles.categoryItem}>
             <Image></Image>
-            <Text>xyz</Text>
+            {categoriesButtons.map((catButton) => {
+              return (
+                <TouchableNativeFeedback
+                  onPress={() =>
+                    user
+                      ? navigation.navigate("Categories", {
+                          paramKey: catButton.value,
+                        })
+                      : alert("Login First")
+                  }
+                >
+                  <View style={styles.registerButton}>
+                    <Text style={styles.registerButtonTitle}>
+                      {catButton.name}
+                      {/*setValue(catButton.value)*/}
+                    </Text>
+                  </View>
+                </TouchableNativeFeedback>
+              );
+            })}
           </View>
         </View>
       </View>

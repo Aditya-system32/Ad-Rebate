@@ -14,6 +14,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import RedeemScreen from "../Screens/Redeem";
 import TransactionScreen from "../Screens/Transaction";
 import HelpScreen from "../Screens/Help";
+import CategoriesScreen from "../Screens/Categories";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -97,6 +98,19 @@ const HomeStackScreen = ({ navigation }) => {
       <HomeStack.Screen
         name="Help"
         component={HelpScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Categories"
+        component={CategoriesScreen}
         options={{
           headerStyle: {
             backgroundColor: "#000000",
