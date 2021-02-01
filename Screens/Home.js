@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { globalstyles } from "../styles/global";
 import cash from "../assets/svgs/cash.png";
+import coffee from "../assets/images/coffee.png";
 import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
@@ -21,11 +22,23 @@ export default function HomeScreen({ navigation }) {
     AuthContext
   );
   const [categoriesButtons, setCategoriesButtons] = useState([
-    { name: "Cafe", value: "cafe" },
-    { name: "Clothing", value: "clothing" },
-    { name: "Electronics", value: "electronics" },
-    { name: "Salon", value: "salon" },
-    { name: "Restaurant", value: "restaurant" },
+    { name: "Cafe", value: "cafe", img: "../assests/images/coffee.jpg" },
+    {
+      name: "Clothing",
+      value: "clothing",
+      img: "../assests/images/coffee.jpg",
+    },
+    {
+      name: "Electronics",
+      value: "electronics",
+      img: "../assests/images/coffee.jpg",
+    },
+    { name: "Salon", value: "salon", img: "../assests/images/coffee.jpg" },
+    {
+      name: "Restaurant",
+      value: "restaurant",
+      img: "../assests/images/coffee.jpg",
+    },
   ]);
 
   //TAKING THE USER DATA FROM DATABASE
@@ -155,26 +168,25 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.categoryWrapper}>
         <Text style={styles.categoryHeading}>Categories</Text>
         <View style={styles.category}>
-          <View style={styles.categoryItem}>
-            <Image></Image>
-            {categoriesButtons.map((catButton) => {
+          <View style={styles.categoryItems}>
+            {categoriesButtons.map((catButton, index) => {
               return (
-                <TouchableNativeFeedback
-                  onPress={() =>
-                    user
-                      ? navigation.navigate("Categories", {
-                          paramKey: catButton.value,
-                        })
-                      : alert("Login First")
-                  }
-                >
-                  <View style={styles.registerButton}>
-                    <Text style={styles.registerButtonTitle}>
-                      {catButton.name}
-                      {/*setValue(catButton.value)*/}
-                    </Text>
-                  </View>
-                </TouchableNativeFeedback>
+                <View style={styles.itemWrapper} key={index}>
+                  <TouchableNativeFeedback
+                    onPress={() =>
+                      user
+                        ? navigation.navigate("Categories", {
+                            paramKey: catButton.value,
+                          })
+                        : alert("Login First")
+                    }
+                  >
+                    <View style={styles.categoryTile}>
+                      <Image style={styles.tileLogo} source={coffee}></Image>
+                    </View>
+                  </TouchableNativeFeedback>
+                  <Text style={styles.categoryItemTitle}>{catButton.name}</Text>
+                </View>
               );
             })}
           </View>
@@ -205,6 +217,32 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  categoryItemTitle: { color: "white" },
+  itemWrapper: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tileLogo: { width: 40, height: 40 },
+  categoryItems: {
+    flexDirection: "row",
+    width: 383,
+    borderRadius: 20,
+    alignSelf: "center",
+    height: "100%",
+    padding: 20,
+    flexWrap: "wrap",
+  },
+  categoryTile: {
+    borderRadius: 50,
+    height: 70,
+    backgroundColor: "#9c9c9c",
+    borderColor: "#000000",
+    borderWidth: 2,
+    width: 70,
+    margin: 7,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   registerButtonTitle: {
     color: "#000",
     fontSize: 18,

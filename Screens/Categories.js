@@ -6,9 +6,11 @@ import {
   Text,
   StyleSheet,
   StatusBar,
+  Image,
   ActivityIndicator,
   TouchableNativeFeedback,
 } from "react-native";
+import test from "../assets/images/test.jpg";
 import { db } from "../firebases";
 
 export default function CategoriesScreen({ navigation, route }) {
@@ -42,21 +44,27 @@ export default function CategoriesScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      {categorySelectedData.map((name) => {
-        return (
-          <TouchableNativeFeedback
-            onPress={() =>
-              navigation.navigate("AdsVideo", {
-                paramKey: name,
-              })
-            }
-          >
-            <View style={styles.registerButton}>
-              <Text style={styles.registerButtonTitle}>{name}</Text>
+      <View style={styles.clientsWrapper}>
+        {categorySelectedData.map((name, index) => {
+          return (
+            <View style={styles.clientItem}>
+              <TouchableNativeFeedback
+                key={index}
+                onPress={() =>
+                  navigation.navigate("AdsVideo", {
+                    paramKey: name,
+                  })
+                }
+              >
+                <View style={styles.registerButton}>
+                  <Image style={styles.clientImage} source={test}></Image>
+                </View>
+              </TouchableNativeFeedback>
+              <Text style={styles.clientName}>{name}</Text>
             </View>
-          </TouchableNativeFeedback>
-        );
-      })}
+          );
+        })}
+      </View>
 
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
@@ -64,6 +72,24 @@ export default function CategoriesScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  clientImage: {
+    flex: 1,
+    resizeMode: "contain",
+    borderRadius: 100,
+  },
+  clientItem: {
+    alignItems: "center",
+  },
+  clientName: { width: 100, color: "white", textAlign: "center" },
+  clientsWrapper: {
+    width: "90%",
+    height: "90%",
+    borderRadius: 20,
+    padding: 17,
+    backgroundColor: "#161616",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
   registerButtonTitle: {
     color: "#000",
     fontSize: 18,
@@ -72,15 +98,17 @@ const styles = StyleSheet.create({
   registerButton: {
     justifyContent: "center",
     alignItems: "center",
-    width: 178,
-    borderRadius: 20,
-    height: 58,
-    backgroundColor: "#00BEB3",
+    width: 100,
+    borderRadius: 100,
+    height: 100,
+    margin: 6,
+    backgroundColor: "#000000",
   },
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "black",
   },
   activityIndicator: {
     flex: 1,

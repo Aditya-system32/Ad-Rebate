@@ -61,7 +61,7 @@ export default function AdsVideoScreen({ navigation, route }) {
   // }
 
   tempArray.push(
-    adsSelecteData.filter((client) => client.client == value)[randomNumber]
+    adsSelectedData.filter((client) => client.client == value)[randomNumber]
   );
   console.log(tempArray);
 
@@ -72,7 +72,15 @@ export default function AdsVideoScreen({ navigation, route }) {
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <Text>{value}</Text>
-      <Video source={{uri: adsSelectedData[0].link}} />
+      <Video
+        source={{
+          uri:
+            "https://firebasestorage.googleapis.com/v0/b/ad-rebate2020.appspot.com/o/ads%2FTusharBurger%2Fpexels-cottonbro-5486045.mp4?alt=media&token=ef521f1a-4f60-43c5-b0e6-fb7ced1894a5",
+        }}
+        onError={(err) => {
+          console.log(err);
+        }}
+      />
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
