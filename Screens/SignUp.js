@@ -5,76 +5,106 @@ import {
   View,
   Text,
   StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
   StatusBar,
   TextInput,
   Image,
   TouchableNativeFeedback,
 } from "react-native";
+import BannerImages from "./BannerImages";
+import { Checkbox } from "react-native-paper";
+import { set } from "react-native-reanimated";
 
 export default function SignUpScreen({ navigation }) {
   const [phoneNumber, setPhoneNumber] = useState();
-  const [disabled, setDisabled] = useState(true)
-  const [errorText, setErrorText] = useState('')
-
-
+  const [disabled, setDisabled] = useState(true);
+  const [errorText, setErrorText] = useState("");
+  const [checkboxes, setCheckBoxes] = useState(false);
+  console.log(checkboxes);
+  //VALIDATION FOR THE PHONE NUMBER
   const checkingPhoneNumber = (phoneNumber) => {
-    phoneNumber = phoneNumber.replace('.','')
-    if(phoneNumber.length != 10 || phoneNumber.length == 0 || isNaN(phoneNumber)){
-      setPhoneNumber(phoneNumber)
-      setDisabled(true)
-      setErrorText('Enter the 10 digit number')
-    }else{
-      setPhoneNumber('+91' + phoneNumber)
-      setDisabled(false)
-      setErrorText(null)
+    phoneNumber = phoneNumber.replace(".", "");
+    if (
+      phoneNumber.length != 10 ||
+      phoneNumber.length == 0 ||
+      isNaN(phoneNumber)
+    ) {
+      setPhoneNumber(phoneNumber);
+      setDisabled(true);
+      setErrorText("Enter the 10 digit number");
+    } else {
+      setPhoneNumber("+91" + phoneNumber);
+      setErrorText(null);
     }
-  }
-
-
+  };
+  const checkingCheckBoxes = () => {
+    if (checkboxes) {
+      setDisabled(true);
+      setErrorText("Please Select The Box");
+      setCheckBoxes(false);
+    } else {
+      setDisabled(false);
+      setCheckBoxes(true);
+    }
+  };
+  console.log(disabled);
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor="black" barStyle="light-content" />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <StatusBar backgroundColor="black" barStyle="light-content" />
 
-      <View style={styles.banner}>
-        <Image></Image>
-      </View>
-      <View style={styles.welcomeBackWrapper}>
-        <Text style={styles.welcomeBack}>Create</Text>
-        <Text style={styles.welcomeBack}>Account</Text>
-      </View>
-      <View>
-        <TextInput
-          style={styles.textinput}
-          placeholder="Phone no."
-          placeholderTextColor="#EDEDED"
-          color="#fff"
-          onChangeText={checkingPhoneNumber}
-        ></TextInput>
-        {<Text style={styles.erText}>{errorText}</Text>}
-      </View>
-      <View style={styles.termsCondition}>
-        <CheckBox tintColors={{ true: "#F15927", false: "#Fff" }} />
-        <Text style={styles.forgetPass}>Agree to terms and conditions</Text>
-      </View>
-      <View style={styles.loginWrapper}>
-        <TouchableNativeFeedback
-          disabled={disabled}
-          useForeground={true}
-          onPress={() =>
-            navigation.navigate('Verification', {
-              paramKey: phoneNumber,
-            })
-          }
-        >
-          <View style={styles.loginButton}>
-            <Text style={styles.loginButtonTitle}>Register</Text>
-          </View>
-        </TouchableNativeFeedback>
+        <View style={styles.banner}>
+          <BannerImages />
+        </View>
+        <View style={styles.welcomeBackWrapper}>
+          <Text style={styles.welcomeBack}>Create</Text>
+          <Text style={styles.welcomeBack}>Account</Text>
+        </View>
         <View>
-          <Text style={styles.registerHere} onPress={()=>navigation.navigate('LogIn')}>Already a user? Login</Text>
+          <TextInput
+            style={styles.textinput}
+            placeholder="Phone no."
+            placeholderTextColor="#EDEDED"
+            keyboardType="phone-pad"
+            color="#fff"
+            onChangeText={checkingPhoneNumber}
+          ></TextInput>
+          {<Text style={styles.erText}>{errorText}</Text>}
+        </View>
+        <View style={styles.termsCondition}>
+          <CheckBox
+            tintColors={{ true: "#F15927", false: "#Fff" }}
+            value={checkboxes}
+            onValueChange={checkingCheckBoxes}
+          />
+          <Text style={styles.forgetPass}>Agree to terms and conditions</Text>
+        </View>
+        <View style={styles.loginWrapper}>
+          <TouchableNativeFeedback
+            disabled={disabled}
+            useForeground={true}
+            onPress={() =>
+              navigation.navigate("Verification", {
+                paramKey: phoneNumber,
+              })
+            }
+          >
+            <View style={styles.loginButton}>
+              <Text style={styles.loginButtonTitle}>Register</Text>
+            </View>
+          </TouchableNativeFeedback>
+          <View>
+            <Text
+              style={styles.registerHere}
+              onPress={() => navigation.navigate("LogIn")}
+            >
+              Already a user? Login
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -84,11 +114,11 @@ const styles = StyleSheet.create({
     width: "80%",
     alignSelf: "center",
   },
-  erText:{
-    color:'red',
-    width:'75%',
-    alignSelf:"center",
-    marginTop:-18,
+  erText: {
+    color: "red",
+    width: "75%",
+    alignSelf: "center",
+    marginTop: -18,
   },
   container: {
     flex: 1,
@@ -155,6 +185,3 @@ const styles = StyleSheet.create({
     margin: 0,
   },
 });
-
-
-

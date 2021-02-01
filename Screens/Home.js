@@ -1,11 +1,12 @@
 import "react-native-gesture-handler";
-import React, { useContext, useEffect ,useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableNativeFeedback,
   Image,
+  Alert,
   StatusBar,
 } from "react-native";
 import { globalstyles } from "../styles/global";
@@ -13,10 +14,21 @@ import cash from "../assets/svgs/cash.png";
 import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
+import BannerImages from "./BannerImages";
 
 export default function HomeScreen({ navigation }) {
-  const { user ,setUserData } = useContext(AuthContext);
-  // When user not Logged In
+  const { user, setUserData, setBannerData, userData } = useContext(
+    AuthContext
+  );
+  const [categoriesButtons, setCategoriesButtons] = useState([
+    { name: "Cafe", value: "cafe" },
+    { name: "Clothing", value: "clothing" },
+    { name: "Electronics", value: "electronics" },
+    { name: "Salon", value: "salon" },
+    { name: "Restaurant", value: "restaurant" },
+  ]);
+
+  //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
     if (user) {
       const userDoc = db.collection("Users").doc(user.uid);
@@ -24,7 +36,7 @@ export default function HomeScreen({ navigation }) {
         .get()
         .then(function (doc) {
           if (doc.exists) {
-            setUserData(doc.data())
+            setUserData(doc.data());
           } else {
             navigation.navigate("ProfileComplete");
           }
@@ -34,17 +46,102 @@ export default function HomeScreen({ navigation }) {
         });
     }
   }, []);
+
+  /*const categoriesClicked = () => {
+    const categoryData = db
+      .collection("Categories")
+      .doc(
+        categoriesButtons.value == undefined ? "cafe" : categoriesButtons.value
+      );
+    categoryData
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          setCategorySelectedData(doc.data().clients);
+        } else {
+        }
+      })
+      .catch(function (error) {
+        console.log("Error getting document:", error);
+      });
+  };*/
+
+  /*useEffect(() => {
+    if (true) {
+      const categoryData = db
+        .collection("Categories")
+        .doc(
+          categoriesButtons.value == undefined
+            ? "cafe"
+            : categoriesButtons.value
+        );
+      categoryData
+        .get()
+        .then(function (doc) {
+          if (doc.exists) {
+            setCategorySelectedData(doc.data().clients);
+          } else {
+          }
+        })
+        .catch(function (error) {
+          console.log("Error getting document:", error);
+        });
+    }
+  }, []);*/
+  //console.log(value);
+
+  //TAKING THE BANNERS DATA FROM DATABASE
+  useEffect(() => {
+    if (true) {
+      const bannerDoc = db
+        .collection("Banners")
+        .doc(
+          userData == undefined
+            ? "bhilai"
+            : userData.location == null || userData.location === ""
+            ? "bhilai"
+            : userData.location
+        );
+      bannerDoc
+        .get()
+        .then(function (doc) {
+          if (doc.exists) {
+            setBannerData(doc.data());
+          } else {
+            console.log("error");
+          }
+        })
+        .catch(function (error) {
+          console.log("Error getting document:", error);
+        });
+    }
+  }, []);
+
+  const buttonAlert = () =>
+    Alert.alert(
+      "Update Alert",
+      "This section is available on future",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        { text: "OK" },
+      ],
+      { cancelable: false }
+    );
+
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.banner}>
-        <Image></Image>
+        <BannerImages />
       </View>
       <View style={styles.location}>
         <Text style={styles.locationText}>Current location : Bhilai</Text>
       </View>
       <View style={styles.wrapper}>
-        <TouchableNativeFeedback onPress={() => navigation.navigate("Earning")}>
+        <TouchableNativeFeedback onPress={buttonAlert}>
           <View style={styles.card}>
             <Image source={cash}></Image>
           </View>
@@ -60,10 +157,30 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.category}>
           <View style={styles.categoryItem}>
             <Image></Image>
-            <Text>xyz</Text>
+            {categoriesButtons.map((catButton) => {
+              return (
+                <TouchableNativeFeedback
+                  onPress={() =>
+                    user
+                      ? navigation.navigate("Categories", {
+                          paramKey: catButton.value,
+                        })
+                      : alert("Login First")
+                  }
+                >
+                  <View style={styles.registerButton}>
+                    <Text style={styles.registerButtonTitle}>
+                      {catButton.name}
+                      {/*setValue(catButton.value)*/}
+                    </Text>
+                  </View>
+                </TouchableNativeFeedback>
+              );
+            })}
           </View>
         </View>
       </View>
+
       {!user ? (
         <View style={styles.buttonWrapper}>
           <TouchableNativeFeedback

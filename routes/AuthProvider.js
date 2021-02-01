@@ -5,7 +5,8 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(false);
-  const [userData , setUserData] = useState()
+  const [userData, setUserData] = useState();
+  const [bannerData, setBannerData] = useState();
   return (
     <AuthContext.Provider
       value={{
@@ -13,6 +14,8 @@ export const AuthProvider = ({ children }) => {
         setUser,
         userData,
         setUserData,
+        bannerData,
+        setBannerData,
         login: async (email, password) => {
           try {
             await firebase.auth().signInWithEmailAndPassword(email, password);

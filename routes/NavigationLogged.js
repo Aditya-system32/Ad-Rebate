@@ -1,7 +1,6 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import EarningScreen from "../Screens/Earning";
 import CouponScreen from "../Screens/Coupon";
 import HomeScreen from "../Screens/Home";
 import AboutScreen from "../Screens/About";
@@ -10,10 +9,18 @@ import ProfileComplete from "../Screens/ProfileComplete";
 import { FontAwesome } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerContent } from "./DrawerContent";
+import BarcodeScanner from "../Screens/BarcodeScanner";
+import { MaterialIcons } from "@expo/vector-icons";
+import RedeemScreen from "../Screens/Redeem";
+import TransactionScreen from "../Screens/Transaction";
+import HelpScreen from "../Screens/Help";
+import CategoriesScreen from "../Screens/Categories";
+import AdsVideoScreen from "../Screens/AdsVideo";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+//SHOWING THE STACK WHEN THE USER LOGGED IN
 const HomeStackScreen = ({ navigation }) => {
   return (
     <HomeStack.Navigator>
@@ -39,6 +46,93 @@ const HomeStackScreen = ({ navigation }) => {
               onPress={() => navigation.openDrawer()}
             />
           ),
+          headerRight: () => (
+            <MaterialIcons
+              name="qr-code-scanner"
+              size={27}
+              color="white"
+              style={styles.barcodeIcon}
+              onPress={() => navigation.navigate("Barcode")}
+            />
+          ),
+        }}
+      />
+      <HomeStack.Screen
+        name="Barcode"
+        component={BarcodeScanner}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="AdsVideo"
+        component={AdsVideoScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Redeem"
+        component={RedeemScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Transaction"
+        component={TransactionScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Help"
+        component={HelpScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Categories"
+        component={CategoriesScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
         }}
       />
       <HomeStack.Screen
@@ -93,19 +187,6 @@ const HomeStackScreen = ({ navigation }) => {
           },
         }}
       />
-      <HomeStack.Screen
-        name="Earning"
-        component={EarningScreen}
-        options={{
-          headerStyle: {
-            backgroundColor: "#000000",
-          },
-          headerTintColor: "#FFFFFF",
-          headerTitleStyle: {
-            fontFamily: "Poppins-SemiBold",
-          },
-        }}
-      />
     </HomeStack.Navigator>
   );
 };
@@ -124,5 +205,8 @@ export default function NavigationLogged() {
 const styles = StyleSheet.create({
   icons: {
     marginLeft: 10,
+  },
+  barcodeIcon: {
+    marginRight: 10,
   },
 });

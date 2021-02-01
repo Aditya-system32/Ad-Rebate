@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React,{useRef,useState} from "react";
+import React, { useRef, useState } from "react";
 import {
   Text,
   View,
@@ -8,6 +8,8 @@ import {
   Button,
   Alert,
   ActivityIndicator,
+  TouchableWithoutFeedback,
+  Keyboard,
   Platform,
   StatusBar,
   TouchableNativeFeedback,
@@ -28,102 +30,104 @@ export default function VerificationScreen({ route }) {
   const [confirmInProgress, setConfirmInProgress] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor="black" barStyle="light-content" />
-      <View style={styles.content}>
-        <FirebaseRecaptcha.FirebaseRecaptchaVerifierModal
-          ref={recaptchaVerifier}
-          firebaseConfig={firebaseConfig}
-          title="Prove you are hooman!"
-        />
-        <Text style={styles.title}>Verify Mobile Number</Text>
-        <TextInput
-          style={styles.textInput}
-          autoCompleteType="tel"
-          keyboardType="phone-pad"
-          textContentType="telephoneNumber"
-          editable={!verificationId}
-          value={route.params.paramKey}
-        />
-        <TouchableNativeFeedback
-          onPress={async () => {
-            const phoneProvider = new firebase.auth.PhoneAuthProvider();
-            try {
-              setVerifyError(undefined);
-              setVerifyInProgress(true);
-              setVerificationId("");
-              const verificationId = await phoneProvider.verifyPhoneNumber(
-                phoneNumber,
-                recaptchaVerifier.current
-              );
-              setVerifyInProgress(false);
-              setVerificationId(verificationId);
-              verificationCodeTextInput.current?.focus();
-            } catch (err) {
-              setVerifyError(err);
-              setVerifyInProgress(false);
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <StatusBar backgroundColor="black" barStyle="light-content" />
+        <View style={styles.content}>
+          <FirebaseRecaptcha.FirebaseRecaptchaVerifierModal
+            ref={recaptchaVerifier}
+            firebaseConfig={firebaseConfig}
+            title="Prove you are hooman!"
+          />
+          <Text style={styles.title}>Verify Mobile Number</Text>
+          <TextInput
+            style={styles.textInput}
+            autoCompleteType="tel"
+            keyboardType="phone-pad"
+            textContentType="telephoneNumber"
+            editable={!verificationId}
+            value={route.params.paramKey}
+          />
+          <TouchableNativeFeedback
+            onPress={async () => {
+              const phoneProvider = new firebase.auth.PhoneAuthProvider();
+              try {
+                setVerifyError(undefined);
+                setVerifyInProgress(true);
+                setVerificationId("");
+                const verificationId = await phoneProvider.verifyPhoneNumber(
+                  phoneNumber,
+                  recaptchaVerifier.current
+                );
+                setVerifyInProgress(false);
+                setVerificationId(verificationId);
+                verificationCodeTextInput.current?.focus();
+              } catch (err) {
+                setVerifyError(err);
+                setVerifyInProgress(false);
+              }
+            }}
+          >
+            <View style={styles.sendButton}>
+              <Text style={styles.sendButtonText}>{`${
+                verificationId ? "Resend" : "Send"
+              } Verification Code`}</Text>
+            </View>
+          </TouchableNativeFeedback>
+          {verifyError && (
+            <Text style={styles.error}>{`Error: ${verifyError.message}`}</Text>
+          )}
+          {verifyInProgress && <ActivityIndicator style={styles.loader} />}
+          {verificationId ? (
+            <Text style={styles.success}>verification code sent.</Text>
+          ) : undefined}
+          <TextInput
+            ref={verificationCodeTextInput}
+            style={styles.textInput}
+            editable={!!verificationId}
+            keyboardType="phone-pad"
+            placeholder="Enter verification code"
+            placeholderTextColor="#EDEDED"
+            onChangeText={(verificationCode) =>
+              setVerificationCode(verificationCode)
             }
-          }}
-        >
-          <View style={styles.sendButton}>
-            <Text style={styles.sendButtonText}>{`${
-              verificationId ? "Resend" : "Send"
-            } Verification Code`}</Text>
-          </View>
-        </TouchableNativeFeedback>
-        {verifyError && (
-          <Text style={styles.error}>{`Error: ${verifyError.message}`}</Text>
-        )}
-        {verifyInProgress && <ActivityIndicator style={styles.loader} />}
-        {verificationId ? (
-          <Text style={styles.success}>verification code sent.</Text>
-        ) : undefined}
-        <TextInput
-          ref={verificationCodeTextInput}
-          style={styles.textInput}
-          editable={!!verificationId}
-          placeholder="Enter verification code"
-          placeholderTextColor="#EDEDED"
-          onChangeText={(verificationCode) =>
-            setVerificationCode(verificationCode)
-          }
-        />
-        <TouchableNativeFeedback
-          onPress={async () => {
-            try {
-              setConfirmError(undefined);
-              setConfirmInProgress(true);
-              const credential = firebase.auth.PhoneAuthProvider.credential(
-                verificationId,
-                verificationCode,
-              );
-              console.log(credential)
-              const authResult = await firebase
-                .auth()
-                .signInWithCredential(credential);
-              setConfirmInProgress(false);
-              setVerificationId("");
-              setVerificationCode("");
-              verificationCodeTextInput.current?.clear();
-              Alert.alert("Phone authentication successful!");
-            } catch (err) {
-              setConfirmError(err);
-              setConfirmInProgress(false);
-            }
-          }}
-        >
-          <View style={styles.confirmButton}>
-            <Text style={styles.confirmButtonText}>
-              Confirm Verification Code
-            </Text>
-          </View>
-        </TouchableNativeFeedback>
-        {confirmError && (
-          <Text style={styles.error}>{`Error: ${confirmError.message}`}</Text>
-        )}
-        {confirmInProgress && <ActivityIndicator style={styles.loader} />}
+          />
+          <TouchableNativeFeedback
+            onPress={async () => {
+              try {
+                setConfirmError(undefined);
+                setConfirmInProgress(true);
+                const credential = firebase.auth.PhoneAuthProvider.credential(
+                  verificationId,
+                  verificationCode
+                );
+                const authResult = await firebase
+                  .auth()
+                  .signInWithCredential(credential);
+                setConfirmInProgress(false);
+                setVerificationId("");
+                setVerificationCode("");
+                verificationCodeTextInput.current?.clear();
+                Alert.alert("Phone authentication successful!");
+              } catch (err) {
+                setConfirmError(err);
+                setConfirmInProgress(false);
+              }
+            }}
+          >
+            <View style={styles.confirmButton}>
+              <Text style={styles.confirmButtonText}>
+                Confirm Verification Code
+              </Text>
+            </View>
+          </TouchableNativeFeedback>
+          {confirmError && (
+            <Text style={styles.error}>{`Error: ${confirmError.message}`}</Text>
+          )}
+          {confirmInProgress && <ActivityIndicator style={styles.loader} />}
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
