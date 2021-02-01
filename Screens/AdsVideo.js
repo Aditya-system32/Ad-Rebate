@@ -10,13 +10,17 @@ import {
 } from "react-native";
 import { db } from "../firebases";
 import { color } from "react-native-reanimated";
+import { Video } from "expo-av";
 
 export default function AdsVideoScreen({ navigation, route }) {
   const [value, setValue] = useState(route.params.paramKey);
   const [adsSelecteData, setAdsSelectedData] = useState([]);
   const [adsOfSelectedClient, setAdsOfSelectedClient] = useState([]);
   const tempArray = [];
+  const adsExcludingSelectedClient = [];
   const randomNumber = Math.floor(Math.random() * 2 + 0);
+  const randomNumberForExcluding = 0;
+  const videoData = [];
   useEffect(() => {
     const temp = [];
     (async () =>
@@ -39,27 +43,26 @@ export default function AdsVideoScreen({ navigation, route }) {
   /*useEffect(() => {
     //console.log(adsSelecteData);
   }, [adsSelecteData]);*/
-  /*tempArray.push(adsSelecteData.filter((client) => client.client == value));
-  setAdsOfSelectedClient(tempArray);
-  console.log(adsOfSelectedClient);
-  /*videoPlayBack.push(
-    adsOfSelectedClient[Math.floor(Math.random() * (2 - 0)) + 0]
-  );*/
-  //console.log(videoPlayBack);
-  // const tempArray = []
-  // adsSelecteData;
-  // const adsOfSelectedClient = adsSelecteData.filter((client) => client.client == value)
-  // const randomNo = 0
-  // tempArray.push(adsOfSelectedClient[randomNo])
-  // const adsExcludingSelectedClient = adsSelecteData.filter(client=>{
-  //   client.client != value
-  // })
-  // for(let i = 0;i<2;i++){
-  //   randomNo
-  //   tempArray.push(adsExcludingSelectedClient[randomNo])
-  // }
 
-  //tempArray.push(adsSelecteData.filter((client) => client.client == value)
+  tempArray.push(
+    adsSelecteData.filter((client) => client.client == value)[randomNumber]
+  );
+  //console.log(tempArray);
+  videoData.push(tempArray);
+  for (let i = 0; i < 2; i++) {
+    adsExcludingSelectedClient.push(
+      adsSelecteData.filter((client) => client.client != value)[
+        Math.floor(
+          Math.random() *
+            (adsSelecteData.filter((client) => client.client != value).length +
+              0)
+        )
+      ]
+    );
+  }
+
+  videoData.push(adsExcludingSelectedClient);
+  console.log(videoData);
 
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
   //console.log(videoPlayBack);
@@ -67,7 +70,18 @@ export default function AdsVideoScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      <Text>{value}</Text>
+      <Video
+        source={{
+          uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+        }}
+        rate={1.0}
+        volume={1.0}
+        isMuted={false}
+        resizeMode="cover"
+        shouldPlay
+        isLooping
+        style={{ width: 300, height: 300 }}
+      />
 
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
