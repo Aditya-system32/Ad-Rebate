@@ -8,12 +8,13 @@ import {
   StatusBar,
   ActivityIndicator,
 } from "react-native";
+import Video from "react-native-video";
 import { db } from "../firebases";
 import { color } from "react-native-reanimated";
 
 export default function AdsVideoScreen({ navigation, route }) {
   const [value, setValue] = useState(route.params.paramKey);
-  const [adsSelecteData, setAdsSelectedData] = useState([]);
+  const [adsSelectedData, setAdsSelectedData] = useState([]);
   const [adsOfSelectedClient, setAdsOfSelectedClient] = useState([]);
   const tempArray = [];
   const randomNumber = Math.floor(Math.random() * 2 + 0);
@@ -59,7 +60,10 @@ export default function AdsVideoScreen({ navigation, route }) {
   //   tempArray.push(adsExcludingSelectedClient[randomNo])
   // }
 
-  //tempArray.push(adsSelecteData.filter((client) => client.client == value)
+  tempArray.push(
+    adsSelecteData.filter((client) => client.client == value)[randomNumber]
+  );
+  console.log(tempArray);
 
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
   //console.log(videoPlayBack);
@@ -68,7 +72,7 @@ export default function AdsVideoScreen({ navigation, route }) {
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <Text>{value}</Text>
-
+      <Video source={{uri: adsSelectedData[0].link}} />
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
