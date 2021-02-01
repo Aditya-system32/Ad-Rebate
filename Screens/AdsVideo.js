@@ -65,15 +65,13 @@ export default function AdsVideoScreen({ navigation, route }) {
   adsExcludingSelectedClient.forEach((element) => {
     videoData.push(element);
   });
-  // useEffect(() => {
-  //   videoRef.onPlaybackStatusUpdate((playbackStatus) => {
-  //     playbackStatus.didJustFinish
-  //       ? currentAdIndex == 2
-  //         ? setCurrentAdIndex(0)
-  //         : setCurrentAdIndex(currentAdIndex++)
-  //       : null;
-  //   });
-  // }, [videoRef])
+  const onPlaybackStatusUpdate = (playbackStatus) => {
+    playbackStatus.didJustFinish
+      ? currentAdIndex == 2
+        ? setCurrentAdIndex(0)
+        : setCurrentAdIndex(currentAdIndex+1)
+      : setCurrentAdIndex(currentAdIndex);
+  };
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
   //console.log(videoPlayBack);
 
@@ -87,16 +85,16 @@ export default function AdsVideoScreen({ navigation, route }) {
             ? videoData[currentAdIndex].link
             : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         }}
-        ref={videoRef}
+        onPlaybackStatusUpdate={(playbackStatus) =>
+          onPlaybackStatusUpdate(playbackStatus)
+        }
         rate={1.0}
         volume={1.0}
         isMuted={false}
         resizeMode="cover"
         shouldPlay
-        isLooping
         style={{ width: 300, height: 300 }}
       />
-
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
