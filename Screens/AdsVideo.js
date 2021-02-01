@@ -17,7 +17,10 @@ export default function AdsVideoScreen({ navigation, route }) {
   const [adsSelectedData, setAdsSelectedData] = useState([]);
   const [adsOfSelectedClient, setAdsOfSelectedClient] = useState([]);
   const tempArray = [];
+  const adsExcludingSelectedClient = [];
   const randomNumber = Math.floor(Math.random() * 2 + 0);
+  const randomNumberForExcluding = 0;
+  const videoData = [];
   useEffect(() => {
     const temp = [];
     (async () =>
@@ -40,30 +43,26 @@ export default function AdsVideoScreen({ navigation, route }) {
   /*useEffect(() => {
     //console.log(adsSelecteData);
   }, [adsSelecteData]);*/
-  /*tempArray.push(adsSelecteData.filter((client) => client.client == value));
-  setAdsOfSelectedClient(tempArray);
-  console.log(adsOfSelectedClient);
-  /*videoPlayBack.push(
-    adsOfSelectedClient[Math.floor(Math.random() * (2 - 0)) + 0]
-  );*/
-  //console.log(videoPlayBack);
-  // const tempArray = []
-  // adsSelecteData;
-  // const adsOfSelectedClient = adsSelecteData.filter((client) => client.client == value)
-  // const randomNo = 0
-  // tempArray.push(adsOfSelectedClient[randomNo])
-  // const adsExcludingSelectedClient = adsSelecteData.filter(client=>{
-  //   client.client != value
-  // })
-  // for(let i = 0;i<2;i++){
-  //   randomNo
-  //   tempArray.push(adsExcludingSelectedClient[randomNo])
-  // }
 
   tempArray.push(
     adsSelectedData.filter((client) => client.client == value)[randomNumber]
   );
-  console.log(tempArray);
+  //console.log(tempArray);
+  videoData.push(tempArray);
+  for (let i = 0; i < 2; i++) {
+    adsExcludingSelectedClient.push(
+      adsSelecteData.filter((client) => client.client != value)[
+        Math.floor(
+          Math.random() *
+            (adsSelecteData.filter((client) => client.client != value).length +
+              0)
+        )
+      ]
+    );
+  }
+
+  videoData.push(adsExcludingSelectedClient);
+  console.log(videoData);
 
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
   //console.log(videoPlayBack);
@@ -74,13 +73,17 @@ export default function AdsVideoScreen({ navigation, route }) {
       <Text>{value}</Text>
       <Video
         source={{
-          uri:
-            "https://firebasestorage.googleapis.com/v0/b/ad-rebate2020.appspot.com/o/ads%2FTusharBurger%2Fpexels-cottonbro-5486045.mp4?alt=media&token=ef521f1a-4f60-43c5-b0e6-fb7ced1894a5",
+          uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         }}
-        onError={(err) => {
-          console.log(err);
-        }}
+        rate={1.0}
+        volume={1.0}
+        isMuted={false}
+        resizeMode="cover"
+        shouldPlay
+        isLooping
+        style={{ width: 300, height: 300 }}
       />
+
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
