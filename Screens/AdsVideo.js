@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Button,
   View,
@@ -8,7 +8,7 @@ import {
   StatusBar,
   ActivityIndicator,
 } from "react-native";
-import Video from "react-native-video";
+import { Video } from "expo-av";
 import { db } from "../firebases";
 import { color } from "react-native-reanimated";
 
@@ -16,7 +16,9 @@ export default function AdsVideoScreen({ navigation, route }) {
   const [value, setValue] = useState(route.params.paramKey);
   const [adsSelectedData, setAdsSelectedData] = useState([]);
   const [adsOfSelectedClient, setAdsOfSelectedClient] = useState([]);
+  const [currentAdIndex, setCurrentAdIndex] = useState(0);
   const tempArray = [];
+  const videoRef = useRef();
   const adsExcludingSelectedClient = [];
   const randomNumber = Math.floor(Math.random() * 2 + 0);
   const randomNumberForExcluding = 0;
@@ -48,22 +50,30 @@ export default function AdsVideoScreen({ navigation, route }) {
     adsSelectedData.filter((client) => client.client == value)[randomNumber]
   );
   //console.log(tempArray);
-  videoData.push(tempArray);
+  videoData.push(tempArray[0]);
   for (let i = 0; i < 2; i++) {
     adsExcludingSelectedClient.push(
-      adsSelecteData.filter((client) => client.client != value)[
+      adsSelectedData.filter((client) => client.client != value)[
         Math.floor(
           Math.random() *
-            (adsSelecteData.filter((client) => client.client != value).length +
+            (adsSelectedData.filter((client) => client.client != value).length +
               0)
         )
       ]
     );
   }
-
-  videoData.push(adsExcludingSelectedClient);
-  console.log(videoData);
-
+  adsExcludingSelectedClient.forEach((element) => {
+    videoData.push(element);
+  });
+  // useEffect(() => {
+  //   videoRef.onPlaybackStatusUpdate((playbackStatus) => {
+  //     playbackStatus.didJustFinish
+  //       ? currentAdIndex == 2
+  //         ? setCurrentAdIndex(0)
+  //         : setCurrentAdIndex(currentAdIndex++)
+  //       : null;
+  //   });
+  // }, [videoRef])
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
   //console.log(videoPlayBack);
 
@@ -73,8 +83,11 @@ export default function AdsVideoScreen({ navigation, route }) {
       <Text>{value}</Text>
       <Video
         source={{
-          uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+          uri: videoData[currentAdIndex]
+            ? videoData[currentAdIndex].link
+            : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         }}
+        ref={videoRef}
         rate={1.0}
         volume={1.0}
         isMuted={false}
