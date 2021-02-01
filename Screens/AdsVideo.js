@@ -7,6 +7,7 @@ import {
   StyleSheet,
   StatusBar,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import { Video } from "expo-av";
 import { db } from "../firebases";
@@ -69,7 +70,7 @@ export default function AdsVideoScreen({ navigation, route }) {
     playbackStatus.didJustFinish
       ? currentAdIndex == 2
         ? setCurrentAdIndex(0)
-        : setCurrentAdIndex(currentAdIndex+1)
+        : setCurrentAdIndex(currentAdIndex + 1)
       : setCurrentAdIndex(currentAdIndex);
   };
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
@@ -93,7 +94,10 @@ export default function AdsVideoScreen({ navigation, route }) {
         isMuted={false}
         resizeMode="cover"
         shouldPlay
-        style={{ width: 300, height: 300 }}
+        style={{
+          width: Dimensions.get("window").width,
+          height: Dimensions.get("window").height,
+        }}
       />
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
