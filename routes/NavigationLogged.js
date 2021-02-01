@@ -15,6 +15,7 @@ import RedeemScreen from "../Screens/Redeem";
 import TransactionScreen from "../Screens/Transaction";
 import HelpScreen from "../Screens/Help";
 import CategoriesScreen from "../Screens/Categories";
+import AdsVideoScreen from "../Screens/AdsVideo";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -59,6 +60,19 @@ const HomeStackScreen = ({ navigation }) => {
       <HomeStack.Screen
         name="Barcode"
         component={BarcodeScanner}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="AdsVideo"
+        component={AdsVideoScreen}
         options={{
           headerStyle: {
             backgroundColor: "#000000",

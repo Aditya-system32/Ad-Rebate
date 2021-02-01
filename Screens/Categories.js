@@ -7,6 +7,7 @@ import {
   StyleSheet,
   StatusBar,
   ActivityIndicator,
+  TouchableNativeFeedback,
 } from "react-native";
 import { db } from "../firebases";
 
@@ -30,7 +31,7 @@ export default function CategoriesScreen({ navigation, route }) {
         });
     }
   }, []);
-
+  //console.log(categorySelectedData);
   if (categorySelectedData == undefined) {
     return (
       <View style={styles.activityIndicator}>
@@ -41,13 +42,41 @@ export default function CategoriesScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      <Text>{value}</Text>
+      {categorySelectedData.map((name) => {
+        return (
+          <TouchableNativeFeedback
+            onPress={() =>
+              navigation.navigate("AdsVideo", {
+                paramKey: name,
+              })
+            }
+          >
+            <View style={styles.registerButton}>
+              <Text style={styles.registerButtonTitle}>{name}</Text>
+            </View>
+          </TouchableNativeFeedback>
+        );
+      })}
+
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  registerButtonTitle: {
+    color: "#000",
+    fontSize: 18,
+    fontFamily: "Poppins-Medium",
+  },
+  registerButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 178,
+    borderRadius: 20,
+    height: 58,
+    backgroundColor: "#00BEB3",
+  },
   container: {
     flex: 1,
     alignItems: "center",
