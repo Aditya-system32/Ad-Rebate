@@ -215,11 +215,13 @@ export default function HomeScreen({ navigation }) {
                         : alert("Login First")
                     }
                   >
-                    <View style={styles.categoryTile}>
+                    <View style={styles.categoryTile} key={index}>
                       <Image style={styles.tileLogo} source={coffee}></Image>
                     </View>
                   </TouchableNativeFeedback>
-                  <Text style={styles.categoryItemTitle}>{catButton.name}</Text>
+                  <Text style={styles.categoryItemTitle} key={index}>
+                    {catButton.name}
+                  </Text>
                 </View>
               );
             })}
