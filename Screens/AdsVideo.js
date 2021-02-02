@@ -12,12 +12,14 @@ import {
 import { Video } from "expo-av";
 import { db } from "../firebases";
 import { color } from "react-native-reanimated";
+import { ProgressBar, Colors } from "react-native-paper";
 
 export default function AdsVideoScreen({ navigation, route }) {
   const [value, setValue] = useState(route.params.paramKey);
   const [adsSelectedData, setAdsSelectedData] = useState([]);
   const [adsOfSelectedClient, setAdsOfSelectedClient] = useState([]);
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
+  const [progressBarStatus, setProgressBarStatus] = useState(0.0);
   const tempArray = [];
   const videoRef = useRef();
   const adsExcludingSelectedClient = [];
@@ -67,6 +69,13 @@ export default function AdsVideoScreen({ navigation, route }) {
     videoData.push(element);
   });
   const onPlaybackStatusUpdate = (playbackStatus) => {
+    if (playbackStatus.isPlaying) {
+      // Update your UI for the playing state
+      //console.log((playbackStatus.positionMillis / 30000).toFixed(2));
+      setProgressBarStatus(playbackStatus.positionMillis / 30000);
+    } else {
+      // Update your UI for the paused state
+    }
     playbackStatus.didJustFinish
       ? currentAdIndex == 2
         ? setCurrentAdIndex(0)
@@ -82,7 +91,7 @@ export default function AdsVideoScreen({ navigation, route }) {
       <Text>{value}</Text>
       <Video
         source={{
-          uri: videoData[currentAdIndex]
+          uri: /*videoData[currentAdIndex]*/ false
             ? videoData[currentAdIndex].link
             : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         }}
@@ -96,10 +105,22 @@ export default function AdsVideoScreen({ navigation, route }) {
         shouldPlay
         style={{
           width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height,
+          height: 300,
         }}
       />
+
       <Button title="Go back" onPress={() => navigation.goBack()} />
+
+      <ProgressBar
+        progress={progressBarStatus}
+        color={Colors.blue200}
+        style={{
+          height: 10,
+          width: Dimensions.get("window").width,
+          marginBottom: 200,
+        }}
+        visible={true}
+      />
     </View>
   );
 }
