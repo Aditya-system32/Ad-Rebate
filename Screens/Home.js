@@ -9,6 +9,7 @@ import {
   Alert,
   StatusBar,
 } from "react-native";
+import TextTicker from "react-native-text-ticker";
 import { globalstyles } from "../styles/global";
 import cash from "../assets/svgs/cash.png";
 import coffee from "../assets/images/coffee.png";
@@ -21,6 +22,7 @@ export default function HomeScreen({ navigation }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
+  const [notification, setNotifiaction] = useState();
   const [categoriesButtons, setCategoriesButtons] = useState([
     { name: "Cafe", value: "cafe", img: "../assests/images/coffee.jpg" },
     {
@@ -58,6 +60,22 @@ export default function HomeScreen({ navigation }) {
           console.log("Error getting document:", error);
         });
     }
+  }, []);
+
+  useEffect(() => {
+    const noti = db.collection("Notification").doc("notifications");
+    noti
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          setNotifiaction(doc.data().notification);
+        } else {
+          //navigation.navigate("ProfileComplete");
+        }
+      })
+      .catch(function (error) {
+        console.log("Error getting document:", error);
+      });
   }, []);
 
   /*const categoriesClicked = () => {
@@ -150,6 +168,22 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.banner}>
         <BannerImages />
       </View>
+      {notification == null ||
+      notification == "" ||
+      notification == undefined ? null : (
+        <View>
+          <TextTicker
+            style={{ fontSize: 24, color: "white" }}
+            duration={3000}
+            loop
+            bounce
+            repeatSpacer={50}
+            marqueeDelay={1000}
+          >
+            {notification}
+          </TextTicker>
+        </View>
+      )}
       <View style={styles.location}>
         <Text style={styles.locationText}>Current location : Bhilai</Text>
       </View>
