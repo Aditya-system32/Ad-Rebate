@@ -1,10 +1,5 @@
 {
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
-  "devToolsPort": 19002,
-  "packagerPort": 19000,
-  "packagerPid": null,
-  "webpackServerPort": null
+  "expoServerNgrokUrl": "https://ky-bek.anonymous.ad-rebate.exp.direct",
+  "packagerNgrokUrl": "https://packager.ky-bek.anonymous.ad-rebate.exp.direct",
+  "ngrokPid": 8732
 }
