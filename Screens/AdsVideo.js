@@ -109,7 +109,14 @@ export default function AdsVideoScreen({ navigation, route }) {
         }}
       />
 
-      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Button
+        title="Go back"
+        onPress={() =>
+          navigation.navigate("GetCoupon", {
+            paramKey: value,
+          })
+        }
+      />
 
       <ProgressBar
         progress={progressBarStatus}

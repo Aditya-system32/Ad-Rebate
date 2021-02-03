@@ -17,6 +17,7 @@ import HelpScreen from "../Screens/Help";
 import CategoriesScreen from "../Screens/Categories";
 import AdsVideoScreen from "../Screens/AdsVideo";
 import NotificationScreen from "../Screens/Notification";
+import GetCoupon from "../Screens/GetCoupon";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -100,6 +101,19 @@ const HomeStackScreen = ({ navigation }) => {
       <HomeStack.Screen
         name="Redeem"
         component={RedeemScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="GetCoupon"
+        component={GetCoupon}
         options={{
           headerStyle: {
             backgroundColor: "#000000",

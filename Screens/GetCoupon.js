@@ -1,14 +1,13 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useEffect } from "react";
+import { View, Text } from "react-native";
 
-export default function GetCoupon() {
-    useEffect(() => {
-        //api calls to server
-        
-    }, [])
-    return (
-        <View>
-            <Text></Text>
-        </View>
-    )
+export default function GetCoupon({ navigation, route }) {
+  useEffect(() => {
+    //api calls to server
+  }, []);
+  return (
+    <View>
+      <Text>{route.params.paramKey}</Text>
+    </View>
+  );
 }
