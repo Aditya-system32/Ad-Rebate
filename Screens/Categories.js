@@ -44,11 +44,10 @@ export default function CategoriesScreen({ navigation, route }) {
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.clientsWrapper}>
-        {categorySelectedData.map((name, index) => {
+        {categorySelectedData.map((name) => {
           return (
-            <View style={styles.clientItem}>
+            <View style={styles.clientItem} key={name.id}>
               <TouchableNativeFeedback
-                key={index}
                 onPress={() =>
                   navigation.navigate("AdsVideo", {
                     paramKey: name.id,
@@ -59,7 +58,9 @@ export default function CategoriesScreen({ navigation, route }) {
                   <Image style={styles.clientImage} source={test}></Image>
                 </View>
               </TouchableNativeFeedback>
-              <Text style={styles.clientName}>{name.name}</Text>
+              <Text style={styles.clientName} key={name.id}>
+                {name.name}
+              </Text>
             </View>
           );
         })}
