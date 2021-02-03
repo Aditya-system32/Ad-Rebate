@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Button } from "react-native";
-import { endAsyncEvent } from "react-native/Libraries/Performance/Systrace";
 import { db } from "../firebases";
 
 export default function GetCoupon({ navigation, route }) {
@@ -11,37 +10,22 @@ export default function GetCoupon({ navigation, route }) {
       .doc(id)
       .collection("Coupons")
       .where("isAlloted", "==", false)
+      .limit(1)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-          setCoupon(doc.id);
-          console.log(doc.data());
+          // doc.data() is never undefined for query doc snapshots
+          setCoupon(doc.data().id);
         });
       })
       .catch(function (error) {
         console.log("Error getting documents: ", error);
       });
   }, []);
-  function hh() {
-    db.collection("ClientData")
-      .doc(id)
-      .collection("Coupons")
-      .where("isAlloted", "==", false)
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          setCoupon(doc.id);
-          console.log(doc.data());
-        });
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
-      });
-  }
   return (
     <View>
       <Text>{coupon ? coupon : "null"}</Text>
-      <Button title="HEllo" onPress={hh}></Button>
+      <Button title="HEllo"></Button>
     </View>
   );
 }
