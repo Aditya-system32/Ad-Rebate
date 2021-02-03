@@ -11,7 +11,6 @@ export default function GetCoupon({ navigation, route }) {
       .doc(id)
       .collection("Coupons")
       .where("isAlloted", "==", false)
-      .limit(1)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
@@ -23,10 +22,26 @@ export default function GetCoupon({ navigation, route }) {
         console.log("Error getting documents: ", error);
       });
   }, []);
+  function hh() {
+    db.collection("ClientData")
+      .doc(id)
+      .collection("Coupons")
+      .where("isAlloted", "==", false)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          setCoupon(doc.id);
+          console.log(doc.data());
+        });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+  }
   return (
     <View>
       <Text>{coupon ? coupon : "null"}</Text>
-      <Button title="HEllo"></Button>
+      <Button title="HEllo" onPress={hh}></Button>
     </View>
   );
 }
