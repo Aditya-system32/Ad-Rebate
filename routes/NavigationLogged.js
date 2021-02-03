@@ -16,6 +16,7 @@ import TransactionScreen from "../Screens/Transaction";
 import HelpScreen from "../Screens/Help";
 import CategoriesScreen from "../Screens/Categories";
 import AdsVideoScreen from "../Screens/AdsVideo";
+import NotificationScreen from "../Screens/Notification";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -73,6 +74,19 @@ const HomeStackScreen = ({ navigation }) => {
       <HomeStack.Screen
         name="AdsVideo"
         component={AdsVideoScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Notification"
+        component={NotificationScreen}
         options={{
           headerStyle: {
             backgroundColor: "#000000",

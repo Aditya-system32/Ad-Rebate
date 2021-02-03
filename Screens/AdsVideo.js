@@ -91,7 +91,7 @@ export default function AdsVideoScreen({ navigation, route }) {
       <Text>{value}</Text>
       <Video
         source={{
-          uri: /*videoData[currentAdIndex]*/ false
+          uri: videoData[currentAdIndex]
             ? videoData[currentAdIndex].link
             : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         }}

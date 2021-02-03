@@ -188,7 +188,9 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.locationText}>Current location : Bhilai</Text>
       </View>
       <View style={styles.wrapper}>
-        <TouchableNativeFeedback onPress={buttonAlert}>
+        <TouchableNativeFeedback
+          onPress={() => navigation.navigate("Notification")}
+        >
           <View style={styles.card}>
             <Image source={cash}></Image>
           </View>
