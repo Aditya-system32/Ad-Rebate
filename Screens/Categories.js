@@ -12,11 +12,9 @@ import {
 } from "react-native";
 import test from "../assets/images/test.jpg";
 import { db } from "../firebases";
-
 export default function CategoriesScreen({ navigation, route }) {
   const [value, setValue] = useState(route.params.paramKey);
   const [categorySelectedData, setCategorySelectedData] = useState();
-
   useEffect(() => {
     if (true) {
       const categoryData = db.collection("Categories").doc(value);

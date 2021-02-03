@@ -78,7 +78,9 @@ export default function AdsVideoScreen({ navigation, route }) {
     }
     playbackStatus.didJustFinish
       ? currentAdIndex == 2
-        ? setCurrentAdIndex(0)
+        ? navigation.navigate("GetCoupon", {
+            paramKey: value,
+          })
         : setCurrentAdIndex(currentAdIndex + 1)
       : setCurrentAdIndex(currentAdIndex);
   };

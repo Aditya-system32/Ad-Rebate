@@ -17,7 +17,6 @@ import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
-
 export default function HomeScreen({ navigation }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
@@ -118,7 +117,6 @@ export default function HomeScreen({ navigation }) {
       ],
       { cancelable: false }
     );
-
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
