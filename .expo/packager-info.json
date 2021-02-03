@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://ka-q9c.anonymous.ad-rebate.exp.direct",
-  "packagerNgrokUrl": "https://packager.ka-q9c.anonymous.ad-rebate.exp.direct",
-  "ngrokPid": 10480,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002,
   "packagerPort": 19000,
   "packagerPid": null,
