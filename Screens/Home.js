@@ -78,49 +78,6 @@ export default function HomeScreen({ navigation }) {
       });
   }, []);
 
-  /*const categoriesClicked = () => {
-    const categoryData = db
-      .collection("Categories")
-      .doc(
-        categoriesButtons.value == undefined ? "cafe" : categoriesButtons.value
-      );
-    categoryData
-      .get()
-      .then(function (doc) {
-        if (doc.exists) {
-          setCategorySelectedData(doc.data().clients);
-        } else {
-        }
-      })
-      .catch(function (error) {
-        console.log("Error getting document:", error);
-      });
-  };*/
-
-  /*useEffect(() => {
-    if (true) {
-      const categoryData = db
-        .collection("Categories")
-        .doc(
-          categoriesButtons.value == undefined
-            ? "cafe"
-            : categoriesButtons.value
-        );
-      categoryData
-        .get()
-        .then(function (doc) {
-          if (doc.exists) {
-            setCategorySelectedData(doc.data().clients);
-          } else {
-          }
-        })
-        .catch(function (error) {
-          console.log("Error getting document:", error);
-        });
-    }
-  }, []);*/
-  //console.log(value);
-
   //TAKING THE BANNERS DATA FROM DATABASE
   useEffect(() => {
     if (true) {

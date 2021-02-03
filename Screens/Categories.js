@@ -24,6 +24,7 @@ export default function CategoriesScreen({ navigation, route }) {
         .get()
         .then(function (doc) {
           if (doc.exists) {
+            //console.log(doc.data().clients);
             setCategorySelectedData(doc.data().clients);
           } else {
           }
@@ -52,7 +53,7 @@ export default function CategoriesScreen({ navigation, route }) {
                 key={index}
                 onPress={() =>
                   navigation.navigate("AdsVideo", {
-                    paramKey: name,
+                    paramKey: name.id,
                   })
                 }
               >
@@ -60,7 +61,7 @@ export default function CategoriesScreen({ navigation, route }) {
                   <Image style={styles.clientImage} source={test}></Image>
                 </View>
               </TouchableNativeFeedback>
-              <Text style={styles.clientName}>{name}</Text>
+              <Text style={styles.clientName}>{name.name}</Text>
             </View>
           );
         })}
