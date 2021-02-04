@@ -48,7 +48,6 @@ export default function SignUpScreen({ navigation }) {
       setCheckBoxes(true);
     }
   };
-  console.log(disabled);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
