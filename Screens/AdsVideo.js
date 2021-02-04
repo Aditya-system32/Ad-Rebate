@@ -91,25 +91,37 @@ export default function AdsVideoScreen({ navigation, route }) {
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <Text>{value}</Text>
-      <Video
-        source={{
-          uri: videoData[currentAdIndex]
-            ? videoData[currentAdIndex].link
-            : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-        }}
-        onPlaybackStatusUpdate={(playbackStatus) =>
-          onPlaybackStatusUpdate(playbackStatus)
-        }
-        rate={1.0}
-        volume={1.0}
-        isMuted={false}
-        resizeMode="cover"
-        shouldPlay
-        style={{
-          width: Dimensions.get("window").width,
-          height: 300,
-        }}
-      />
+      <View>
+        <Video
+          source={{
+            uri: videoData[currentAdIndex]
+              ? videoData[currentAdIndex].link
+              : "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+          }}
+          onPlaybackStatusUpdate={(playbackStatus) =>
+            onPlaybackStatusUpdate(playbackStatus)
+          }
+          rate={1.0}
+          volume={1.0}
+          isMuted={false}
+          resizeMode="cover"
+          shouldPlay
+          style={{
+            width: Dimensions.get("window").width,
+            height: 300,
+          }}
+        />
+        <ProgressBar
+          progress={progressBarStatus}
+          color={Colors.blue200}
+          style={{
+            height: 10,
+            width: Dimensions.get("window").width,
+            marginBottom: 200,
+          }}
+          visible={true}
+        />
+      </View>
 
       <Button
         title="Go back"
@@ -118,17 +130,6 @@ export default function AdsVideoScreen({ navigation, route }) {
             paramKey: value,
           })
         }
-      />
-
-      <ProgressBar
-        progress={progressBarStatus}
-        color={Colors.blue200}
-        style={{
-          height: 10,
-          width: Dimensions.get("window").width,
-          marginBottom: 200,
-        }}
-        visible={true}
       />
     </View>
   );

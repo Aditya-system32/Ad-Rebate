@@ -123,9 +123,9 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.banner}>
         <BannerImages />
       </View>
-      {notification == null ||
-      notification == "" ||
-      notification == undefined ? null : (
+      {notification === null ||
+      notification === "" ||
+      notification === undefined ? null : (
         <View>
           <TextTicker
             style={{ fontSize: 24, color: "white" }}
