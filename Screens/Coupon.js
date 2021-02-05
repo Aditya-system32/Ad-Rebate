@@ -1,19 +1,16 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useContext } from "react";
 import { Button, View, Text, StyleSheet, StatusBar } from "react-native";
 import { db } from "../firebases";
+import { AuthContext } from "../routes/AuthProvider";
 
 export default function CouponScreen({ navigation }) {
+  const { user } = useContext(AuthContext);
   function test() {
-    const usersCollection = db.collection("Test");
-    usersCollection
-      .add({
-        name: "Ada Lovelace",
-        age: 30,
-      })
-      .then(() => {
-        console.log("User added!");
-      });
+    const usersCollection = db.collection("Users").doc(user.uid);
+    usersCollection.set({ tokens: "tokens" }, { merge: true }).then(() => {
+      console.log("Token added");
+    });
   }
   return (
     <View style={styles.container}>

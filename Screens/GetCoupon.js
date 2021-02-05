@@ -3,7 +3,8 @@ import { View, Text, Button } from "react-native";
 import { db } from "../firebases";
 
 export default function GetCoupon({ navigation, route }) {
-  const id = route.params.paramKey;
+  //const id = route.params.paramKey;
+  const id = "chocolateStoryBhilai";
   const [coupon, setCoupon] = useState(null);
   useEffect(() => {
     db.collection("ClientData")
@@ -25,7 +26,7 @@ export default function GetCoupon({ navigation, route }) {
   return (
     <View>
       <Text>{coupon ? coupon : "null"}</Text>
-      <Button title="HEllo"></Button>
+      <Button title="HEllo" onPress={() => navigation.popToTop()}></Button>
     </View>
   );
 }
