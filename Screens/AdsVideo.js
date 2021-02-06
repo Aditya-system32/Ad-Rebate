@@ -8,6 +8,7 @@ import {
   StatusBar,
   ActivityIndicator,
   Dimensions,
+  TouchableNativeFeedback,
 } from "react-native";
 import { Video } from "expo-av";
 import { db } from "../firebases";
@@ -24,12 +25,15 @@ export default function AdsVideoScreen({ navigation, route }) {
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
   const [progressBarStatus, setProgressBarStatus] = useState(0.0);
   const tempArray = [];
+  const [qAnswered, setqAnswered] = useState(false);
   const videoRef = useRef();
-
+  const [qNa, setqNa] = useState(null);
   const randomNumber = Math.floor(Math.random() * 2 + 0);
   const randomNumberForExcluding = 0;
+  const [showQnA, setshowQnA] = useState(false);
   const videoData = [];
   const [adDataToPlay, setadDataToPlay] = useState([]);
+  const [currentAns, setCurrentAns] = useState(null);
   //for loading all ads from selected category
   useEffect(() => {
     const temp = [];
@@ -49,6 +53,12 @@ export default function AdsVideoScreen({ navigation, route }) {
 
   //
   useEffect(() => {
+    if (!currentAns) return;
+    if (currentAns === qNa.correctAnswer) {
+      setqAnswered(true);
+    }
+  }, [currentAns]);
+  useEffect(() => {
     let clientAd = {};
     let adsExSelCli = [];
     if (adCategoryData) {
@@ -61,7 +71,7 @@ export default function AdsVideoScreen({ navigation, route }) {
         (client) => client.client !== selectedClient
       );
       for (let i = 0; i < 2; i++) {
-        const link =
+        const randomAd =
           adsExSelCli[
             Math.floor(
               Math.random() *
@@ -69,8 +79,16 @@ export default function AdsVideoScreen({ navigation, route }) {
                   (client) => client.client != selectedClient
                 ).length
             )
-          ].link;
-        videoData.push(link);
+          ];
+        if (i === 1) {
+          setqNa({
+            question: randomAd.question,
+            correctAnswer: randomAd.correctAnswer,
+            option1: randomAd.option1,
+            option2: randomAd.option2,
+          });
+        }
+        videoData.push(randomAd.link);
       }
       let addatavideos = [];
 
@@ -104,14 +122,23 @@ export default function AdsVideoScreen({ navigation, route }) {
     } else {
       // Update your UI for the paused state
     }
-    playbackStatus.didJustFinish
-      ? currentAdIndex == 2
-        ? navigation.navigate("GetCoupon", {
+
+    if (playbackStatus.didJustFinish) {
+      if (currentAdIndex == 2) {
+        if (setqAnswered) {
+          setshowQnA(false);
+          navigation.navigate("GetCoupon", {
             paramKey: selectedClient,
-          })
-        : //
-          setCurrentAdIndex(currentAdIndex + 1)
-      : setCurrentAdIndex(currentAdIndex);
+          });
+        } else {
+          setCurrentAdIndex(2);
+        }
+      } else {
+        setCurrentAdIndex(currentAdIndex + 1);
+      }
+    } else {
+      setCurrentAdIndex(currentAdIndex);
+    }
   };
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
   //console.log(videoPlayBack);
@@ -119,6 +146,18 @@ export default function AdsVideoScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
+      {qNa ? (
+        <View style={styles.questionContainer}>
+          <Text style={styles.question}>{qNa.question}</Text>
+          <TouchableNativeFeedback onClick={() => setCurrentAns(1)}>
+            <Text style={styles.option}>{qNa.option1}</Text>
+          </TouchableNativeFeedback>
+
+          <TouchableNativeFeedback onClick={() => setCurrentAns(2)}>
+            <Text style={styles.option}>{qNa.option2}</Text>
+          </TouchableNativeFeedback>
+        </View>
+      ) : null}
       {adDataToPlay.length < 3 ? (
         <View>
           <Text>Loading</Text>
@@ -158,6 +197,46 @@ export default function AdsVideoScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  option: {
+    width: "80%",
+    borderRadius: 25,
+    height: "25%",
+    fontSize: 16,
+    color: "white",
+    backgroundColor: "#ff0000",
+    padding: 10,
+    alignItems: "center",
+    textAlign: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  question: {
+    width: "85%",
+    borderRadius: 25,
+    height: "30%",
+    fontSize: 16,
+    color: "white",
+    backgroundColor: "black",
+    padding: 20,
+    alignItems: "center",
+    textAlign: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  questionContainer: {
+    marginTop: "50%",
+    zIndex: 5,
+    width: "80%",
+    height: "30%",
+    top: 0,
+    backgroundColor: "rgba(51, 51, 51, 0.26)",
+    borderRadius: 25,
+    paddingTop: 40,
+    position: "absolute",
+    alignSelf: "center",
+    alignItems: "center",
+  },
   adContainer: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,

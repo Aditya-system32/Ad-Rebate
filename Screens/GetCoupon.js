@@ -7,13 +7,12 @@ export default function GetCoupon({ navigation, route }) {
   //const id = route.params.paramKey;
   const id = "chocolateStoryBhilai";
   const [coupon, setCoupon] = useState(null);
-  const [couponExist, setCouponExist] = useState(false);
+
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
   useEffect(() => {
     getCoupon();
-    setCouponExist(true);
   }, []);
   async function getCoupon() {
     db.collection("ClientData")
@@ -33,8 +32,7 @@ export default function GetCoupon({ navigation, route }) {
       });
   }
   useEffect(() => {
-    if (couponExist === false) return;
-
+    if (!coupon) return;
     var current = new Date();
     const dateActive = current.getMonth();
     current.setHours(current.getHours() + 1);
@@ -51,13 +49,13 @@ export default function GetCoupon({ navigation, route }) {
       isAlloted: true,
       allotedTo: user.uid,
     };
-    console.log("ran");
-    const xxx = coupon;
-    xxx.activeFromTime = x;
-    xxx.activeFromDate = d;
-    xxx.isAlloted = true;
-    xxx.allotedTo = user.uid;
-    setCoupon(xxx);
+    setCoupon((prev) => ({
+      ...prev,
+      activeFromTime: x,
+      activeFromDate: d,
+      isAlloted: true,
+      allotedTo: user.uid,
+    }));
     db.collection("ClientData")
       .doc(id)
       .collection("Coupons")
@@ -66,11 +64,8 @@ export default function GetCoupon({ navigation, route }) {
       .catch((err) => {
         console.log(err);
       });
-  }, [couponExist]);
+  }, [coupon]);
 
-  useEffect(() => {
-    console.log(couponExist);
-  }, [couponExist]);
   return (
     <View style={styles.page}>
       <Text>{coupon ? coupon.id : "loading"}</Text>
