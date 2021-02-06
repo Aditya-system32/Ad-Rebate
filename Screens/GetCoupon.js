@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { View, Text, Button, StyleSheet, Dimensions } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
-
+import * as firebase from "firebase";
 export default function GetCoupon({ navigation, route }) {
-  const id = route.params.paramKey;
+  //const id = route.params.paramKey;
+  const id = "chocolateStoryBhilai";
   const [coupon, setCoupon] = useState(null);
+  const [couponExist, setCouponExist] = useState(false);
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
   useEffect(() => {
+    getCoupon();
+    setCouponExist(true);
+  }, []);
+  async function getCoupon() {
     db.collection("ClientData")
       .doc(id)
       .collection("Coupons")
@@ -19,33 +25,103 @@ export default function GetCoupon({ navigation, route }) {
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
-          setCoupon(doc.data().id);
+          setCoupon(doc.data());
         });
       })
       .catch(function (error) {
         console.log("Error getting documents: ", error);
       });
+  }
+  useEffect(() => {
+    if (couponExist === false) return;
+
     var current = new Date();
-    const x = current.getHours()+1+"-"+current.getMinutes()+"-"+current.getHours()+1;
+    const dateActive = current.getMonth();
+    current.setHours(current.getHours() + 1);
+    const x = current.getHours() + "-" + current.getMinutes();
+    const d =
+      current.getDay() +
+      "-" +
+      (current.getMonth() + 1) +
+      "-" +
+      current.getFullYear();
     const data = {
-      activeFrom: x,
+      activeFromTime: x,
+      activeFromDate: d,
+      isAlloted: true,
+      allotedTo: user.uid,
     };
-  }, []);
+    console.log("ran");
+    const xxx = coupon;
+    xxx.activeFromTime = x;
+    xxx.activeFromDate = d;
+    xxx.isAlloted = true;
+    xxx.allotedTo = user.uid;
+    setCoupon(xxx);
+    db.collection("ClientData")
+      .doc(id)
+      .collection("Coupons")
+      .doc(coupon.id)
+      .set(data, { merge: true })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [couponExist]);
+
+  useEffect(() => {
+    console.log(couponExist);
+  }, [couponExist]);
   return (
-    <View>
-      <Text>{coupon ? coupon : "null"}</Text>
+    <View style={styles.page}>
+      <Text>{coupon ? coupon.id : "loading"}</Text>
       <View style={styles.container}>
-        <View style={styles.coupon}></View>
+        {coupon ? (
+          <View style={styles.coupon}>
+            <Text style={styles.couponText}>{coupon.id}</Text>
+            <Text style={styles.couponText}>{coupon.discount1}</Text>
+            <Text style={styles.couponText}>{coupon.expiryDate}</Text>
+            <View style={styles.activeDate}>
+              <Text style={styles.couponText}>{coupon.activeFromDate}</Text>
+              <Text style={styles.couponText}>{coupon.activeFromTime}</Text>
+            </View>
+          </View>
+        ) : (
+          <View>
+            <Text>loading</Text>
+          </View>
+        )}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  coupon: {},
+  activeDate: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "60%",
+    height: 200,
+  },
+  page: {
+    backgroundColor: "black",
+    justifyContent: "center",
+  },
+  coupon: {
+    borderRadius: 20,
+    width: "60%",
+    height: 200,
+    marginTop: 100,
+    color: "white",
+    borderRadius: 20,
+    backgroundColor: "#000",
+    padding: 20,
+  },
+  couponText: {
+    color: "#a0a0a0",
+  },
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
   },
 });

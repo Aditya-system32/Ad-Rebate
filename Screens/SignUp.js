@@ -21,7 +21,6 @@ export default function SignUpScreen({ navigation }) {
   const [disabled, setDisabled] = useState(true);
   const [errorText, setErrorText] = useState("");
   const [checkboxes, setCheckBoxes] = useState(false);
-  console.log(checkboxes);
   //VALIDATION FOR THE PHONE NUMBER
   const checkingPhoneNumber = (phoneNumber) => {
     phoneNumber = phoneNumber.replace(".", "");
