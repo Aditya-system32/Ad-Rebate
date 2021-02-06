@@ -43,6 +43,8 @@ export default function ProfileComplete({ navigation }) {
     { value: "female", label: "female", key: "female" },
     { value: "other", label: "other", key: "other" },
   ]);
+
+  //TAKING THE DETAILS FROM THE USER
   useEffect(() => {
     if (token != undefined) {
       const data = {
@@ -50,7 +52,7 @@ export default function ProfileComplete({ navigation }) {
         Username: fullName,
         history: {},
         id: user.uid,
-        expotoken: token,
+        expoToken: token,
         location: location,
         age: age,
         gender: gender,
@@ -64,6 +66,8 @@ export default function ProfileComplete({ navigation }) {
     } else {
     }
   }, [token]);
+
+  //CHECKING THE USER MOBILE ( USING EMULATOR OR NOT ) IF NOT TAKING THE TOKEN FROM THE USER
   checkingTheUserMobile = async () => {
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)

@@ -9,7 +9,6 @@ import {
   Alert,
   StatusBar,
 } from "react-native";
-/*import Constants from "expo-constants";*/
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
 import { globalstyles } from "../styles/global";
@@ -19,17 +18,20 @@ import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
-/*Notifications.setNotificationHandler({
+Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: false,
     shouldSetBadge: false,
   }),
-});*/
+});
 export default function HomeScreen({ navigation }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
+  const [pushnotification, setPushNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
   const [notification, setNotifiaction] = useState();
   const [categoriesButtons, setCategoriesButtons] = useState([
     { name: "Cafe", value: "cafe", img: "../assests/images/coffee.jpg" },
@@ -50,9 +52,6 @@ export default function HomeScreen({ navigation }) {
       img: "../assests/images/coffee.jpg",
     },
   ]);
-  const [pushnotification, setPushNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
 
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
@@ -73,6 +72,7 @@ export default function HomeScreen({ navigation }) {
     }
   }, []);
 
+  //NOTIFICATION BAR IN THE HOME SCREEN
   useEffect(() => {
     const noti = db.collection("Notification").doc("notifications");
     noti
@@ -116,6 +116,7 @@ export default function HomeScreen({ navigation }) {
     }
   }, []);
 
+  // This listener is fired when user receive notification
   notificationListener.current = Notifications.addNotificationReceivedListener(
     (notification) => {
       setPushNotification(notification);
@@ -129,73 +130,7 @@ export default function HomeScreen({ navigation }) {
     }
   );
 
-  /* useEffect(() => {
-    if (user) {
-      registerForPushNotificationsAsync().then((token) =>
-        setExpoPushToken(token)
-      );
-      async function registerForPushNotificationsAsync() {
-        let token;
-        if (Constants.isDevice) {
-          const {
-            status: existingStatus,
-          } = await Notifications.getPermissionsAsync();
-          let finalStatus = existingStatus;
-          if (existingStatus !== "granted") {
-            const { status } = await Notifications.requestPermissionsAsync();
-            finalStatus = status;
-          }
-          if (finalStatus !== "granted") {
-            alert("Failed to get push token for push notification!");
-            return;
-          }
-          if (user) {
-            token = (await Notifications.getExpoPushTokenAsync()).data;
-            console.log(token);
-            const usersCollection = db.collection("Users").doc(user.uid);
-            usersCollection
-              .set({ expotoken: token }, { merge: true })
-              .then(() => {
-                console.log("Token added");
-              });
-          }
-        } else {
-          alert("Must use physical device for Push Notifications");
-        }
-
-        if (Platform.OS === "android") {
-          Notifications.setNotificationChannelAsync("default", {
-            name: "default",
-            importance: Notifications.AndroidImportance.MAX,
-            vibrationPattern: [0, 250, 250, 250],
-            lightColor: "#FF231F7C",
-          });
-        }
-
-        return token;
-      }
-
-      // This listener is fired whenever a notification is received while the app is foregrounded
-      notificationListener.current = Notifications.addNotificationReceivedListener(
-        (notification) => {
-          setPushNotification(notification);
-        }
-      );
-
-      // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(
-        (response) => {
-          console.log(response);
-        }
-      );
-    }
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener);
-      Notifications.removeNotificationSubscription(responseListener);
-    };
-  }, []);*/
-
+  //EARNING THE UPDATE ALERT
   const buttonAlert = () =>
     Alert.alert(
       "Update Alert",
@@ -209,6 +144,7 @@ export default function HomeScreen({ navigation }) {
       ],
       { cancelable: false }
     );
+
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -235,9 +171,7 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.locationText}>Current location : Bhilai</Text>
       </View>
       <View style={styles.wrapper}>
-        <TouchableNativeFeedback
-          onPress={() => navigation.navigate("Notification")}
-        >
+        <TouchableNativeFeedback onPress={buttonAlert}>
           <View style={styles.card}>
             <Image source={cash}></Image>
           </View>
