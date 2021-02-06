@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
   Alert,
   StatusBar,
 } from "react-native";
+import Constants from "expo-constants";
+import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
 import { globalstyles } from "../styles/global";
 import cash from "../assets/svgs/cash.png";
@@ -17,6 +19,13 @@ import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 export default function HomeScreen({ navigation }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
@@ -41,6 +50,10 @@ export default function HomeScreen({ navigation }) {
       img: "../assests/images/coffee.jpg",
     },
   ]);
+  const [expoPushToken, setExpoPushToken] = useState("");
+  const [pushnotification, setPushNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
@@ -102,6 +115,68 @@ export default function HomeScreen({ navigation }) {
           console.log("Error getting document:", error);
         });
     }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      registerForPushNotificationsAsync().then((token) =>
+        setExpoPushToken(token)
+      );
+
+      async function registerForPushNotificationsAsync() {
+        let token;
+        if (Constants.isDevice) {
+          const {
+            status: existingStatus,
+          } = await Notifications.getPermissionsAsync();
+          let finalStatus = existingStatus;
+          if (existingStatus !== "granted") {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+          }
+          if (finalStatus !== "granted") {
+            alert("Failed to get push token for push notification!");
+            return;
+          }
+          if (user) {
+            token = (await Notifications.getExpoPushTokenAsync()).data;
+            console.log(token);
+          }
+        } else {
+          alert("Must use physical device for Push Notifications");
+        }
+
+        if (Platform.OS === "android") {
+          Notifications.setNotificationChannelAsync("default", {
+            name: "default",
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: "#FF231F7C",
+          });
+        }
+
+        return token;
+      }
+
+      // This listener is fired whenever a notification is received while the app is foregrounded
+      notificationListener.current = Notifications.addNotificationReceivedListener(
+        (notification) => {
+          setPushNotification(notification);
+        }
+      );
+
+      // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(
+        (response) => {
+          console.log(response);
+        }
+      );
+    }
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener);
+      Notifications.removeNotificationSubscription(responseListener);
+    };
   }, []);
 
   const buttonAlert = () =>
