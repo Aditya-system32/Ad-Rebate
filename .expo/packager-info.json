@@ -1,9 +1,9 @@
 {
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://5j-vv9.adrebateadmin.ad-rebate.exp.direct",
+  "packagerNgrokUrl": "https://packager.5j-vv9.adrebateadmin.ad-rebate.exp.direct",
+  "ngrokPid": 8396,
   "devToolsPort": 19002,
-  "expoServerPort": null,
+  "expoServerPort": 19000,
   "packagerPort": 19000,
   "packagerPid": null,
   "webpackServerPort": null

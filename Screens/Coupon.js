@@ -8,7 +8,7 @@ export default function CouponScreen({ navigation }) {
   const { user } = useContext(AuthContext);
   function test() {
     const usersCollection = db.collection("Users").doc(user.uid);
-    usersCollection.set({ tokens: "tokens" }, { merge: true }).then(() => {
+    usersCollection.set({ expotoken: "tokens" }, { merge: true }).then(() => {
       console.log("Token added");
     });
   }
