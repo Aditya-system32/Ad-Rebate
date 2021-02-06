@@ -9,7 +9,7 @@ import {
   Alert,
   StatusBar,
 } from "react-native";
-import Constants from "expo-constants";
+/*import Constants from "expo-constants";*/
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
 import { globalstyles } from "../styles/global";
@@ -19,13 +19,13 @@ import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
-Notifications.setNotificationHandler({
+/*Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: false,
     shouldSetBadge: false,
   }),
-});
+});*/
 export default function HomeScreen({ navigation }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
@@ -50,7 +50,6 @@ export default function HomeScreen({ navigation }) {
       img: "../assests/images/coffee.jpg",
     },
   ]);
-  const [expoPushToken, setExpoPushToken] = useState("");
   const [pushnotification, setPushNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -117,12 +116,24 @@ export default function HomeScreen({ navigation }) {
     }
   }, []);
 
-  useEffect(() => {
+  notificationListener.current = Notifications.addNotificationReceivedListener(
+    (notification) => {
+      setPushNotification(notification);
+    }
+  );
+
+  // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+  responseListener.current = Notifications.addNotificationResponseReceivedListener(
+    (response) => {
+      console.log(response);
+    }
+  );
+
+  /* useEffect(() => {
     if (user) {
       registerForPushNotificationsAsync().then((token) =>
         setExpoPushToken(token)
       );
-
       async function registerForPushNotificationsAsync() {
         let token;
         if (Constants.isDevice) {
@@ -141,6 +152,12 @@ export default function HomeScreen({ navigation }) {
           if (user) {
             token = (await Notifications.getExpoPushTokenAsync()).data;
             console.log(token);
+            const usersCollection = db.collection("Users").doc(user.uid);
+            usersCollection
+              .set({ expotoken: token }, { merge: true })
+              .then(() => {
+                console.log("Token added");
+              });
           }
         } else {
           alert("Must use physical device for Push Notifications");
@@ -177,7 +194,7 @@ export default function HomeScreen({ navigation }) {
       Notifications.removeNotificationSubscription(notificationListener);
       Notifications.removeNotificationSubscription(responseListener);
     };
-  }, []);
+  }, []);*/
 
   const buttonAlert = () =>
     Alert.alert(
