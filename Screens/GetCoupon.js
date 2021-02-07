@@ -12,59 +12,54 @@ export default function GetCoupon({ navigation, route }) {
     AuthContext
   );
   useEffect(() => {
-    getCoupon();
-  }, []);
-  async function getCoupon() {
-    db.collection("ClientData")
-      .doc(id)
-      .collection("Coupons")
-      .where("isAlloted", "==", false)
-      .limit(1)
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          // doc.data() is never undefined for query doc snapshots
-          setCoupon(doc.data());
+    let xx = {};
+    async function xxx() {
+      db.collection("ClientData")
+        .doc(id)
+        .collection("Coupons")
+        .where("isAlloted", "==", false)
+        .limit(1)
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            xx = doc.data();
+            console.log(xx);
+          });
+        })
+        .then(() => {
+          var current = new Date();
+          current.setHours(current.getHours() + 1);
+          const x = current.getHours() + "-" + current.getMinutes();
+          const d =
+            current.getDay() +
+            "-" +
+            (current.getMonth() + 1) +
+            "-" +
+            current.getFullYear();
+          xx.activeFromTime = x;
+          xx.activeFromDate = d;
+          xx.isAlloted = true;
+          xx.allotedTo = user.uid;
+          setCoupon(xx);
+          console.log("done");
+
+          db.collection("ClientData")
+            .doc(id)
+            .collection("Coupons")
+            .doc(xx.id)
+            .set(xx)
+            .then(() => console.log("done"))
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch(function (error) {
+          console.log("Error getting documents: ", error);
         });
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
-      });
-  }
-  useEffect(() => {
-    if (!coupon) return;
-    var current = new Date();
-    const dateActive = current.getMonth();
-    current.setHours(current.getHours() + 1);
-    const x = current.getHours() + "-" + current.getMinutes();
-    const d =
-      current.getDay() +
-      "-" +
-      (current.getMonth() + 1) +
-      "-" +
-      current.getFullYear();
-    const data = {
-      activeFromTime: x,
-      activeFromDate: d,
-      isAlloted: true,
-      allotedTo: user.uid,
-    };
-    setCoupon((prev) => ({
-      ...prev,
-      activeFromTime: x,
-      activeFromDate: d,
-      isAlloted: true,
-      allotedTo: user.uid,
-    }));
-    db.collection("ClientData")
-      .doc(id)
-      .collection("Coupons")
-      .doc(coupon.id)
-      .set(data, { merge: true })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [coupon]);
+    }
+    xxx();
+  }, []);
 
   return (
     <View style={styles.page}>
