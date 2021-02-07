@@ -34,6 +34,7 @@ export default function AdsVideoScreen({ navigation, route }) {
   const videoData = [];
   const [adDataToPlay, setadDataToPlay] = useState([]);
   const [currentAns, setCurrentAns] = useState(null);
+
   //for loading all ads from selected category
   useEffect(() => {
     const temp = [];
@@ -54,7 +55,7 @@ export default function AdsVideoScreen({ navigation, route }) {
   //
   useEffect(() => {
     if (!currentAns) return;
-    if (currentAns === qNa.correctAnswer) {
+    if (currentAns === Number(qNa.correctAnswer)) {
       setqAnswered(true);
     }
   }, [currentAns]);
@@ -114,27 +115,29 @@ export default function AdsVideoScreen({ navigation, route }) {
     }
   }, [adCategoryData]);
 
+  useEffect(() => {
+    if (qAnswered) {
+      setshowQnA(false);
+      navigation.navigate("GetCoupon", {
+        paramKey: selectedClient,
+      });
+    } else {
+      setCurrentAdIndex(2);
+    }
+  }, [qAnswered]);
+
   const onPlaybackStatusUpdate = (playbackStatus) => {
     if (playbackStatus.isPlaying) {
       // Update your UI for the playing state
       //console.log((playbackStatus.positionMillis / 30000).toFixed(2));
-      setProgressBarStatus(
-        playbackStatus.positionMillis / (30000)
-      );
+      setProgressBarStatus(playbackStatus.positionMillis / 30000);
     } else {
       // Update your UI for the paused state
     }
 
     if (playbackStatus.didJustFinish) {
       if (currentAdIndex === 2) {
-        if (setqAnswered) {
-          setshowQnA(false);
-          navigation.navigate("GetCoupon", {
-            paramKey: selectedClient,
-          });
-        } else {
-          setCurrentAdIndex(2);
-        }
+        setshowQnA(true);
       } else {
         setCurrentAdIndex(currentAdIndex + 1);
       }
@@ -148,14 +151,14 @@ export default function AdsVideoScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      {qNa ? (
+      {qNa && showQnA ? (
         <View style={styles.questionContainer}>
           <Text style={styles.question}>{qNa.question}</Text>
-          <TouchableNativeFeedback onClick={() => setCurrentAns(1)}>
+          <TouchableNativeFeedback onPress={() => setCurrentAns(1)}>
             <Text style={styles.option}>{qNa.option1}</Text>
           </TouchableNativeFeedback>
 
-          <TouchableNativeFeedback onClick={() => setCurrentAns(2)}>
+          <TouchableNativeFeedback onPress={() => setCurrentAns(2)}>
             <Text style={styles.option}>{qNa.option2}</Text>
           </TouchableNativeFeedback>
         </View>
@@ -189,6 +192,7 @@ export default function AdsVideoScreen({ navigation, route }) {
             volume={1.0}
             isMuted={false}
             resizeMode="cover"
+            ref={videoRef}
             shouldPlay
             style={styles.video}
           />
@@ -199,13 +203,16 @@ export default function AdsVideoScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  correctAnswer: {
+    backgroundColor: "#5eca6c",
+  },
   option: {
     width: "80%",
     borderRadius: 25,
     height: "25%",
     fontSize: 16,
     color: "white",
-    backgroundColor: "#ff0000",
+    backgroundColor: "#363636",
     padding: 10,
     alignItems: "center",
     textAlign: "center",
