@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Picker } from "@react-native-picker/picker";
 import {
   Button,
@@ -32,7 +32,7 @@ export default function ProfileComplete({ navigation }) {
   const [age, setAge] = useState();
   const [token, setToken] = useState();
   const [gender, setGender] = useState("male");
-  const { user } = React.useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [locationOptions, setLocationOptions] = useState([
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },

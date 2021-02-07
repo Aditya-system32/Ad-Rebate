@@ -17,6 +17,7 @@ import HelpScreen from "../Screens/Help";
 import CategoriesScreen from "../Screens/Categories";
 import AdsVideoScreen from "../Screens/AdsVideo";
 import GetCoupon from "../Screens/GetCoupon";
+import CouponVerification from "../Screens/CouponVerification";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -74,6 +75,19 @@ const HomeStackScreen = ({ navigation }) => {
       <HomeStack.Screen
         name="AdsVideo"
         component={AdsVideoScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="CouponVerification"
+        component={CouponVerification}
         options={{
           headerStyle: {
             backgroundColor: "#000000",
