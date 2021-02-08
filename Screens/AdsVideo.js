@@ -49,6 +49,7 @@ export default function AdsVideoScreen({ navigation, route }) {
   }, []);
 
   //
+<<<<<<< HEAD
 
   async function checkAns(ans) {
     if (ans === Number(qNa.correctAnswer)) {
@@ -89,6 +90,12 @@ export default function AdsVideoScreen({ navigation, route }) {
         await setCurrentAdIndex(1);
         setCurrentAdIndex(2);
       }
+=======
+  useEffect(() => {
+    if (!currentAns) return;
+    if (currentAns === Number(qNa.correctAnswer)) {
+      setqAnswered(true);
+>>>>>>> 7c84f9aef7cdce757b95f5b3fa25a83f7b07611a
     }
   }
   useEffect(() => {

@@ -49,7 +49,7 @@ export default function ProfileComplete({ navigation }) {
     if (token != undefined) {
       const data = {
         Coupons: {},
-        Username: fullName,
+        username: fullName,
         history: {},
         id: user.uid,
         expoToken: token,

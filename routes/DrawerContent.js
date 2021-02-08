@@ -32,10 +32,10 @@ export function DrawerContent(props) {
                   size={50}
                 />
                 <View style={{ marginLeft: 20 }}>
-                  {userData == undefined || userData.Username == null ? (
+                  {userData == undefined || userData.username == null ? (
                     <Title style={styles.title}>User_Name</Title>
                   ) : (
-                    <Title style={styles.title}>{userData.Username}</Title>
+                    <Title style={styles.title}>{userData.username}</Title>
                   )}
 
                   <Caption style={styles.caption}>@45751</Caption>
