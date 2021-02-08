@@ -8,6 +8,7 @@ import {
   StatusBar,
   ActivityIndicator,
   Dimensions,
+  ToastAndroid,
   TouchableNativeFeedback,
 } from "react-native";
 import { Video } from "expo-av";
@@ -18,24 +19,15 @@ import { ProgressBar, Colors } from "react-native-paper";
 export default function AdsVideoScreen({ navigation, route }) {
   const [selectedClient, setselectedClient] = useState(route.params.paramKey);
   const [adCategoryData, setadCategoryData] = useState(null);
-  const [adsOfSelectedClient, setAdsOfSelectedClient] = useState([]);
-  const [adsExcludingSelectedClient, setadsExcludingSelectedClient] = useState(
-    []
-  );
-  const [currentAdIndex, setCurrentAdIndex] = useState(0);
+  const [currentAdIndex, setCurrentAdIndex] = useState(2);
   const [progressBarStatus, setProgressBarStatus] = useState(0.0);
-  const tempArray = [];
   const [qAnswered, setqAnswered] = useState(false);
-  const videoRef = useRef();
   const [qNa, setqNa] = useState(null);
   const randomNumber = Math.floor(Math.random() * 2 + 0);
-  const randomNumberForExcluding = 0;
   const [showQnA, setshowQnA] = useState(false);
   const videoData = [];
   const [adDataToPlay, setadDataToPlay] = useState([]);
   const [currentAns, setCurrentAns] = useState(null);
-  const [playbackObj, setPlaybackObj] = useState(null);
-  const [play,setPlay]= useState(true)
   //for loading all ads from selected category
   useEffect(() => {
     const temp = [];
@@ -54,14 +46,24 @@ export default function AdsVideoScreen({ navigation, route }) {
   }, []);
 
   //
-  useEffect(() => {
-    if (!currentAns) return;
-    if (currentAns === Number(qNa.correctAnswer)) {
+
+  async function checkAns(ans) {
+    if (ans === Number(qNa.correctAnswer)) {
       setqAnswered(true);
     } else {
-      playbackObj.
+      console.log("false");
+      if (currentAdIndex === 2) {
+        ToastAndroid.showWithGravity(
+          "Wrong answer! Please watch Ad again",
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM
+        );
+        setshowQnA(false);
+        await setCurrentAdIndex(1);
+        setCurrentAdIndex(2);
+      }
     }
-  }, [currentAns]);
+  }
   useEffect(() => {
     let clientAd = {};
     let adsExSelCli = [];
@@ -125,7 +127,6 @@ export default function AdsVideoScreen({ navigation, route }) {
         paramKey: selectedClient,
       });
     } else {
-      setCurrentAdIndex(2);
     }
   }, [qAnswered]);
 
@@ -145,26 +146,21 @@ export default function AdsVideoScreen({ navigation, route }) {
         setCurrentAdIndex(currentAdIndex + 1);
       }
     } else {
-      setCurrentAdIndex(currentAdIndex);
     }
   };
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
   //console.log(videoPlayBack);
-  _handleVideoRef = (component) => {
-    setPlaybackObj(component);
-  };
-
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       {qNa && showQnA ? (
         <View style={styles.questionContainer}>
           <Text style={styles.question}>{qNa.question}</Text>
-          <TouchableNativeFeedback onPress={() => setCurrentAns(1)}>
+          <TouchableNativeFeedback onPress={() => checkAns(1)}>
             <Text style={styles.option}>{qNa.option1}</Text>
           </TouchableNativeFeedback>
 
-          <TouchableNativeFeedback onPress={() => setCurrentAns(2)}>
+          <TouchableNativeFeedback onPress={() => checkAns(2)}>
             <Text style={styles.option}>{qNa.option2}</Text>
           </TouchableNativeFeedback>
         </View>
@@ -198,8 +194,7 @@ export default function AdsVideoScreen({ navigation, route }) {
             volume={1.0}
             isMuted={false}
             resizeMode="cover"
-            ref={_handleVideoRef}
-            shouldPlay
+            shouldPlay={true}
             style={styles.video}
           />
         </View>
