@@ -7,15 +7,7 @@ export default function ProfileScreen({ navigation }) {
     <View style={styles.container}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <Text>Profile</Text>
-      <Button
-        title="Go back"
-        onPress={() =>
-          navigation.navigate("Transaction", {
-            screen: "Home",
-            initial: true,
-          })
-        }
-      />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
 }
