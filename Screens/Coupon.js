@@ -9,25 +9,28 @@ export default function CouponScreen({ navigation }) {
   const [couponArray, setCouponArray] = useState(null);
 
   useEffect(() => {
-    const tempCouponsArray = [];
-    db.collectionGroup("Coupons")
-      .where("allotedTo", "==", user.uid)
-      .get()
-      .then((snap) => {
-        snap.forEach((doc) => {
-          //console.log(doc.data());
-          tempCouponsArray.push(doc.data());
+    if (user) {
+      const tempCouponsArray = [];
+      db.collectionGroup("Coupons")
+        .where("allotedTo", "==", user.uid)
+        .get()
+        .then((snap) => {
+          snap.forEach((doc) => {
+            tempCouponsArray.push(doc.data());
+          });
+          setCouponArray(tempCouponsArray);
         });
-        setCouponArray(tempCouponsArray);
-      });
+    }
   }, []);
+  const checking = () => {
+    couponArray.map((coupon) => {
+      console.log(coupon.id);
+    });
+  };
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      <View>
-        <Text style={{ color: "black" }}>Hello</Text>
-      </View>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Button title="Go back" onPress={checking} />
       <Button title="test" />
     </View>
   );
