@@ -34,7 +34,8 @@ export default function AdsVideoScreen({ navigation, route }) {
   const videoData = [];
   const [adDataToPlay, setadDataToPlay] = useState([]);
   const [currentAns, setCurrentAns] = useState(null);
-
+  const [playbackObj, setPlaybackObj] = useState(null);
+  const [play,setPlay]= useState(true)
   //for loading all ads from selected category
   useEffect(() => {
     const temp = [];
@@ -57,6 +58,8 @@ export default function AdsVideoScreen({ navigation, route }) {
     if (!currentAns) return;
     if (currentAns === Number(qNa.correctAnswer)) {
       setqAnswered(true);
+    } else {
+      playbackObj.
     }
   }, [currentAns]);
   useEffect(() => {
@@ -147,6 +150,9 @@ export default function AdsVideoScreen({ navigation, route }) {
   };
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
   //console.log(videoPlayBack);
+  _handleVideoRef = (component) => {
+    setPlaybackObj(component);
+  };
 
   return (
     <View style={styles.container}>
@@ -192,7 +198,7 @@ export default function AdsVideoScreen({ navigation, route }) {
             volume={1.0}
             isMuted={false}
             resizeMode="cover"
-            ref={videoRef}
+            ref={_handleVideoRef}
             shouldPlay
             style={styles.video}
           />
