@@ -85,7 +85,6 @@ export default function GetCoupon({ navigation, route }) {
               <Text style={styles.couponText}>{coupon.activeFromDate}</Text>
               <Text style={styles.couponText}>{coupon.activeFromTime}</Text>
             </View>
-            <Button title="Go Home" onPress={() => navigation.popToTop()} />
           </View>
         ) : (
           <View>
@@ -93,6 +92,7 @@ export default function GetCoupon({ navigation, route }) {
           </View>
         )}
       </View>
+      <Button title="Go Home" onPress={() => navigation.popToTop()} />
     </View>
   );
 }

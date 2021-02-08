@@ -19,7 +19,7 @@ import { ProgressBar, Colors } from "react-native-paper";
 export default function AdsVideoScreen({ navigation, route }) {
   const [selectedClient, setselectedClient] = useState(route.params.paramKey);
   const [adCategoryData, setadCategoryData] = useState(null);
-  const [currentAdIndex, setCurrentAdIndex] = useState(2);
+  const [currentAdIndex, setCurrentAdIndex] = useState(0);
   const [progressBarStatus, setProgressBarStatus] = useState(0.0);
   const [qAnswered, setqAnswered] = useState(false);
   const [qNa, setqNa] = useState(null);
@@ -51,7 +51,6 @@ export default function AdsVideoScreen({ navigation, route }) {
     if (ans === Number(qNa.correctAnswer)) {
       setqAnswered(true);
     } else {
-      console.log("false");
       if (currentAdIndex === 2) {
         ToastAndroid.showWithGravity(
           "Wrong answer! Please watch Ad again",
