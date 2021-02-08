@@ -1,5 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, Button, StyleSheet, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Dimensions,
+  BackHandler,
+} from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
 import * as firebase from "firebase";
@@ -11,6 +18,10 @@ export default function GetCoupon({ navigation, route }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    navigation.popToTop();
+    return true;
+  });
   useEffect(() => {
     let xx = {};
     async function xxx() {
@@ -74,6 +85,7 @@ export default function GetCoupon({ navigation, route }) {
               <Text style={styles.couponText}>{coupon.activeFromDate}</Text>
               <Text style={styles.couponText}>{coupon.activeFromTime}</Text>
             </View>
+            <Button title="Go Home" onPress={() => navigation.popToTop()} />
           </View>
         ) : (
           <View>

@@ -1,19 +1,29 @@
-import 'react-native-gesture-handler';
-import React from 'react';
-import { Button, View, Text, StyleSheet, StatusBar} from 'react-native';
+import "react-native-gesture-handler";
+import React from "react";
+import { Button, View, Text, StyleSheet, StatusBar } from "react-native";
 
 export default function ProfileScreen({ navigation }) {
   return (
-    <View style = {styles.container}>
-    <StatusBar backgroundColor='white' barStyle="dark-content" />
+    <View style={styles.container}>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <Text>Profile</Text>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Button
+        title="Go back"
+        onPress={() =>
+          navigation.navigate("Transaction", {
+            screen: "Home",
+            initial: true,
+          })
+        }
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1, alignItems: 'center', justifyContent: 'center' 
-  }
-})
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

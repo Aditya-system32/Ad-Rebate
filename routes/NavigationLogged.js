@@ -1,6 +1,9 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  HeaderBackButton,
+} from "@react-navigation/stack";
 import CouponScreen from "../Screens/Coupon";
 import HomeScreen from "../Screens/Home";
 import AboutScreen from "../Screens/About";
@@ -18,7 +21,6 @@ import CategoriesScreen from "../Screens/Categories";
 import AdsVideoScreen from "../Screens/AdsVideo";
 import GetCoupon from "../Screens/GetCoupon";
 import CouponVerification from "../Screens/CouponVerification";
-
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -121,6 +123,9 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+          },
+          headerLeft: () => {
+            return null;
           },
         }}
       />
