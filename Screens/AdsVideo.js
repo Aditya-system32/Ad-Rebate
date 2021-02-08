@@ -35,7 +35,7 @@ export default function AdsVideoScreen({ navigation, route }) {
   const [adDataToPlay, setadDataToPlay] = useState([]);
   const [currentAns, setCurrentAns] = useState(null);
   const [playbackObj, setPlaybackObj] = useState(null);
-  const [play,setPlay]= useState(true)
+  const [play, setPlay] = useState(true);
   //for loading all ads from selected category
   useEffect(() => {
     const temp = [];
@@ -58,8 +58,6 @@ export default function AdsVideoScreen({ navigation, route }) {
     if (!currentAns) return;
     if (currentAns === Number(qNa.correctAnswer)) {
       setqAnswered(true);
-    } else {
-      playbackObj.
     }
   }, [currentAns]);
   useEffect(() => {
