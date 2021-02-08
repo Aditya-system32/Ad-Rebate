@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import {
   Button,
   View,
@@ -15,11 +15,12 @@ import { Video } from "expo-av";
 import { db } from "../firebases";
 import { color } from "react-native-reanimated";
 import { ProgressBar, Colors } from "react-native-paper";
+import { AuthContext } from "../routes/AuthProvider";
 
 export default function AdsVideoScreen({ navigation, route }) {
   const [selectedClient, setselectedClient] = useState(route.params.paramKey);
   const [adCategoryData, setadCategoryData] = useState(null);
-  const [currentAdIndex, setCurrentAdIndex] = useState(0);
+  const [currentAdIndex, setCurrentAdIndex] = useState(2);
   const [progressBarStatus, setProgressBarStatus] = useState(0.0);
   const [qAnswered, setqAnswered] = useState(false);
   const [qNa, setqNa] = useState(null);
@@ -27,7 +28,9 @@ export default function AdsVideoScreen({ navigation, route }) {
   const [showQnA, setshowQnA] = useState(false);
   const videoData = [];
   const [adDataToPlay, setadDataToPlay] = useState([]);
-  const [currentAns, setCurrentAns] = useState(null);
+  const { user, setUserData, setBannerData, userData } = useContext(
+    AuthContext
+  );
   //for loading all ads from selected category
   useEffect(() => {
     const temp = [];
@@ -49,7 +52,32 @@ export default function AdsVideoScreen({ navigation, route }) {
 
   async function checkAns(ans) {
     if (ans === Number(qNa.correctAnswer)) {
-      setqAnswered(true);
+      const current = new Date();
+      const d =
+        current.getDate() +
+        "-" +
+        (current.getMonth() + 1) +
+        "-" +
+        current.getFullYear();
+      console.log(d);
+      db.collection("ClientData")
+        .doc(qNa.client)
+        .collection("Ads")
+        .doc(qNa.id)
+        .collection("Reviews")
+        .doc(user.uid)
+        .set({
+          client: qNa.client,
+          date: d,
+          userId: user.uid,
+          username: userData.username,
+          question: qNa.question,
+        })
+        .then(() => {
+          console.log("saved to db");
+          setqAnswered(true);
+        })
+        .catch((err) => console.log(err));
     } else {
       if (currentAdIndex === 2) {
         ToastAndroid.showWithGravity(
@@ -87,6 +115,8 @@ export default function AdsVideoScreen({ navigation, route }) {
           ];
         if (i === 1) {
           setqNa({
+            id: randomAd.id,
+            client: randomAd.client,
             question: randomAd.question,
             correctAnswer: randomAd.correctAnswer,
             option1: randomAd.option1,
