@@ -8,6 +8,7 @@ import {
   Image,
   Alert,
   StatusBar,
+  SafeAreaView,
 } from "react-native";
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
@@ -18,6 +19,7 @@ import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
+import { FlatList } from "react-native-gesture-handler";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -34,33 +36,42 @@ export default function HomeScreen({ navigation }) {
   const responseListener = useRef();
   const [notification, setNotifiaction] = useState();
   const [categoriesButtons, setCategoriesButtons] = useState([
-    { name: "Cafe", value: "cafe", img: "../assests/images/coffee.jpg" },
+    {
+      name: "Cafe",
+      value: "cafe",
+      img: "../assests/images/coffee.jpg",
+      key: 11,
+    },
     {
       name: "Clothing",
       value: "clothing",
       img: "../assests/images/coffee.jpg",
+      key: 12,
     },
     {
       name: "Electronics",
       value: "electronics",
       img: "../assests/images/coffee.jpg",
+      key: 13,
     },
     { name: "Salon", value: "salon", img: "../assests/images/coffee.jpg" },
     {
       name: "Restaurant",
       value: "restaurant",
       img: "../assests/images/coffee.jpg",
+      key: 14,
     },
   ]);
 
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
+    let isMounted = true; // note this flag denote mount status
     if (user) {
       const userDoc = db.collection("Users").doc(user.uid);
       userDoc
         .get()
         .then(function (doc) {
-          if (doc.exists) {
+          if (doc.exists && isMounted) {
             setUserData(doc.data());
           } else {
             navigation.navigate("ProfileComplete");
@@ -70,15 +81,19 @@ export default function HomeScreen({ navigation }) {
           console.log("Error getting document:", error);
         });
     }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   //NOTIFICATION BAR IN THE HOME SCREEN
   useEffect(() => {
+    let isMounted = true;
     const noti = db.collection("Notification").doc("notifications");
     noti
       .get()
       .then(function (doc) {
-        if (doc.exists) {
+        if (doc.exists && isMounted) {
           setNotifiaction(doc.data().notification);
         } else {
           //navigation.navigate("ProfileComplete");
@@ -87,10 +102,14 @@ export default function HomeScreen({ navigation }) {
       .catch(function (error) {
         console.log("Error getting document:", error);
       });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   //TAKING THE BANNERS DATA FROM DATABASE
   useEffect(() => {
+    let isMounted = true;
     if (true) {
       const bannerDoc = db
         .collection("Banners")
@@ -104,7 +123,7 @@ export default function HomeScreen({ navigation }) {
       bannerDoc
         .get()
         .then(function (doc) {
-          if (doc.exists) {
+          if (doc.exists && isMounted) {
             setBannerData(doc.data());
           } else {
             console.log("error");
@@ -114,6 +133,9 @@ export default function HomeScreen({ navigation }) {
           console.log("Error getting document:", error);
         });
     }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // This listener is fired when user receive notification
@@ -184,31 +206,34 @@ export default function HomeScreen({ navigation }) {
       </View>
       <View style={styles.categoryWrapper}>
         <Text style={styles.categoryHeading}>Categories</Text>
-        <View style={styles.category}>
-          <View style={styles.categoryItems}>
-            {categoriesButtons.map((catButton, index) => {
-              return (
-                <View style={styles.itemWrapper} key={index}>
+        <View>
+          <SafeAreaView style={styles.categoryItems}>
+            <FlatList
+              style={styles.category}
+              data={categoriesButtons}
+              keyExtractor={(item, index) => item.key}
+              renderItem={({ catButton }) => (
+                <View style={styles.itemWrapper}>
                   <TouchableNativeFeedback
                     onPress={() =>
                       user
                         ? navigation.navigate("Categories", {
-                            paramKey: catButton.value,
+                            paramKey: catButton?.value,
                           })
                         : alert("Login First")
                     }
                   >
-                    <View style={styles.categoryTile} key={index}>
+                    <View style={styles.categoryTile}>
                       <Image style={styles.tileLogo} source={coffee}></Image>
                     </View>
                   </TouchableNativeFeedback>
-                  <Text style={styles.categoryItemTitle} key={index}>
-                    {catButton.name}
+                  <Text style={styles.categoryItemTitle}>
+                    {catButton?.name}
                   </Text>
                 </View>
-              );
-            })}
-          </View>
+              )}
+            />
+          </SafeAreaView>
         </View>
       </View>
 
