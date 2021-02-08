@@ -118,9 +118,7 @@ export default function AdsVideoScreen({ navigation, route }) {
     if (playbackStatus.isPlaying) {
       // Update your UI for the playing state
       //console.log((playbackStatus.positionMillis / 30000).toFixed(2));
-      setProgressBarStatus(
-        playbackStatus.positionMillis / (30000)
-      );
+      setProgressBarStatus(playbackStatus.positionMillis / 30000);
     } else {
       // Update your UI for the paused state
     }
