@@ -164,7 +164,7 @@ export default function HomeScreen({ navigation }) {
   const buttonAlert = () =>
     Alert.alert(
       "Update Alert",
-      "This section is available on future",
+      "This section will be available soon!",
       [
         {
           text: "Cancel",
