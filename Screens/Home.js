@@ -40,26 +40,31 @@ export default function HomeScreen({ navigation }) {
       name: "Cafe",
       value: "cafe",
       img: "../assests/images/coffee.jpg",
-      key: 11,
+      key: "1",
     },
     {
       name: "Clothing",
       value: "clothing",
       img: "../assests/images/coffee.jpg",
-      key: 12,
+      key: "2",
     },
     {
       name: "Electronics",
       value: "electronics",
       img: "../assests/images/coffee.jpg",
-      key: 13,
+      key: "3",
     },
-    { name: "Salon", value: "salon", img: "../assests/images/coffee.jpg" },
+    {
+      name: "Salon",
+      value: "salon",
+      img: "../assests/images/coffee.jpg",
+      key: "4",
+    },
     {
       name: "Restaurant",
       value: "restaurant",
       img: "../assests/images/coffee.jpg",
-      key: 14,
+      key: "5",
     },
   ]);
 
@@ -211,14 +216,13 @@ export default function HomeScreen({ navigation }) {
             <FlatList
               style={styles.category}
               data={categoriesButtons}
-              keyExtractor={(item, index) => item.key}
-              renderItem={({ catButton }) => (
+              renderItem={({ item }) => (
                 <View style={styles.itemWrapper}>
                   <TouchableNativeFeedback
                     onPress={() =>
                       user
                         ? navigation.navigate("Categories", {
-                            paramKey: catButton?.value,
+                            paramKey: item.value,
                           })
                         : alert("Login First")
                     }
@@ -227,9 +231,7 @@ export default function HomeScreen({ navigation }) {
                       <Image style={styles.tileLogo} source={coffee}></Image>
                     </View>
                   </TouchableNativeFeedback>
-                  <Text style={styles.categoryItemTitle}>
-                    {catButton?.name}
-                  </Text>
+                  <Text style={styles.categoryItemTitle}>{item.name}</Text>
                 </View>
               )}
             />
