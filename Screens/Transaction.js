@@ -7,6 +7,7 @@ import {
   StyleSheet,
   StatusBar,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
@@ -18,14 +19,7 @@ import {
 
 export default function TransactionScreen({ navigation }) {
   const { user } = useContext(AuthContext);
-  const [redeemCouponArray, setRedeemCouponArray] = useState([
-    {
-      discount: 10,
-      clientName: "ahdasd",
-      couponId: "123adweads",
-      dateRedeemed: "123asde",
-    },
-  ]);
+  const [redeemCouponArray, setRedeemCouponArray] = useState([]);
 
   useEffect(() => {
     const tempCouponArray = [];
@@ -53,28 +47,36 @@ export default function TransactionScreen({ navigation }) {
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <Text style={styles.title}>Your History,</Text>
       <SafeAreaView style={styles.transactionContainer}>
-        <FlatList
-          data={redeemCouponArray}
-          keyExtractor={(item) => item.couponId}
-          renderItem={({ item }) => (
-            <TouchableNativeFeedback style={styles.transactionItem}>
-              <View>
-                <View style={styles.titleAndId}>
-                  <Text style={styles.itemTitle}>{item.clientName}</Text>
-                  <Text style={styles.itemId}>{"#" + item.couponId}</Text>
-                </View>
+        {redeemCouponArray.length < 1 ? (
+          <ActivityIndicator
+            size="large"
+            color="#2c2c2c"
+            style={{ marginTop: "50%" }}
+          />
+        ) : (
+          <FlatList
+            data={redeemCouponArray}
+            keyExtractor={(item) => item.couponId}
+            renderItem={({ item }) => (
+              <TouchableNativeFeedback style={styles.transactionItem}>
+                <View>
+                  <View style={styles.titleAndId}>
+                    <Text style={styles.itemTitle}>{item.clientName}</Text>
+                    <Text style={styles.itemId}>{"#" + item.couponId}</Text>
+                  </View>
 
-                <View style={styles.actionAndDiscount}>
-                  <Text style={styles.itemDiscount}>
-                    {"₹ " + item.discount}
-                  </Text>
-                  <Text style={styles.itemAction}>{item.action}</Text>
+                  <View style={styles.actionAndDiscount}>
+                    <Text style={styles.itemDiscount}>
+                      {"₹ " + item.discount}
+                    </Text>
+                    <Text style={styles.itemAction}>{item.action}</Text>
+                  </View>
+                  <Text style={styles.itemDate}>{item.dateRedeemed}</Text>
                 </View>
-                <Text style={styles.itemDate}>{item.dateRedeemed}</Text>
-              </View>
-            </TouchableNativeFeedback>
-          )}
-        />
+              </TouchableNativeFeedback>
+            )}
+          />
+        )}
       </SafeAreaView>
     </View>
   );
