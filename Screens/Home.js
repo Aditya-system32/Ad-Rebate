@@ -71,20 +71,23 @@ export default function HomeScreen({ navigation }) {
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
     let isMounted = true; // note this flag denote mount status
-    if (user) {
-      const userDoc = db.collection("Users").doc(user.uid);
-      userDoc
-        .get()
-        .then(function (doc) {
-          if (doc.exists && isMounted) {
-            setUserData(doc.data());
-          } else {
-            navigation.navigate("ProfileComplete");
-          }
-        })
-        .catch(function (error) {
-          console.log("Error getting document:", error);
-        });
+    checkUser();
+    async function checkUser() {
+      if (user !== null && isMounted) {
+        const userDoc = db.collection("Users").doc(user.uid);
+        userDoc
+          .get()
+          .then(function (doc) {
+            if (doc.exists) {
+              setUserData(doc.data());
+            } else {
+              navigation.navigate("ProfileComplete");
+            }
+          })
+          .catch(function (error) {
+            console.log("Error getting document:", error);
+          });
+      }
     }
     return () => {
       isMounted = false;
