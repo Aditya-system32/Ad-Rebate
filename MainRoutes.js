@@ -61,7 +61,7 @@ export default function MainRoute() {
   if (initializing && !fontLoaded && !appIsReady) {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>SplashScreen!</Text>
+        <Text style={styles.text}>Ad-Rebate</Text>
       </View>
     );
   }
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#aabbcc",
+    backgroundColor: "black",
   },
   text: {
     color: "white",
