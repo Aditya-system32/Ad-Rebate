@@ -46,7 +46,7 @@ export default function ProfileComplete({ navigation }) {
 
   //TAKING THE DETAILS FROM THE USER
   useEffect(() => {
-    if (token != undefined) {
+    if (token !== undefined) {
       const data = {
         Coupons: {},
         username: fullName,
@@ -58,11 +58,16 @@ export default function ProfileComplete({ navigation }) {
         gender: gender,
         phone: user.phoneNumber,
       };
-      const userDoc = db.collection("Users").doc(user.uid);
-      userDoc.set(data).catch((err) => {
-        console.log(err);
-      });
-      navigation.navigate("Home");
+      setUserData();
+      async function setUserData() {
+        const userDoc = db.collection("Users").doc(user.uid);
+        userDoc
+          .set(data)
+          .then(() => navigation.navigate("Home"))
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     } else {
     }
   }, [token]);
