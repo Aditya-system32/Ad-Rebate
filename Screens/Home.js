@@ -219,6 +219,7 @@ export default function HomeScreen({ navigation }) {
             <FlatList
               style={styles.category}
               data={categoriesButtons}
+              numColumns={4}
               renderItem={({ item }) => (
                 <View style={styles.itemWrapper}>
                   <TouchableNativeFeedback
@@ -277,8 +278,8 @@ const styles = StyleSheet.create({
     width: 383,
     borderRadius: 20,
     alignSelf: "center",
+    backgroundColor: "blue",
     height: "100%",
-    padding: 20,
     flexWrap: "wrap",
   },
   categoryTile: {
@@ -331,7 +332,10 @@ const styles = StyleSheet.create({
   },
   category: {
     backgroundColor: "#161616",
+    padding: 20,
     width: 383,
+    flexWrap: "wrap",
+    flexDirection: "row",
     borderRadius: 20,
     alignSelf: "center",
     height: "100%",
