@@ -134,7 +134,7 @@ export default function HomeScreen({ navigation }) {
           if (doc.exists && isMounted) {
             setBannerData(doc.data());
           } else {
-            console.log("error");
+            // console.log("error");
           }
         })
         .catch(function (error) {
