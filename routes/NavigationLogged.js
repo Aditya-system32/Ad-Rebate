@@ -20,7 +20,7 @@ import HelpScreen from "../Screens/Help";
 import CategoriesScreen from "../Screens/Categories";
 import AdsVideoScreen from "../Screens/AdsVideo";
 import GetCoupon from "../Screens/GetCoupon";
-import CouponVerification from "../Screens/CouponVerification";
+import CouponRedeemed from "../Screens/CouponRedeemed";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -88,8 +88,8 @@ const HomeStackScreen = ({ navigation }) => {
         }}
       />
       <HomeStack.Screen
-        name="CouponVerification"
-        component={CouponVerification}
+        name="CouponRedeemed"
+        component={CouponRedeemed}
         options={{
           headerStyle: {
             backgroundColor: "#000000",
