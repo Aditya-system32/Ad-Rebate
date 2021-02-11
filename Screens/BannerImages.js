@@ -9,6 +9,7 @@ import {
   StatusBar,
   FlatList,
   Animated,
+  Share,
 } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { AuthContext } from "../routes/AuthProvider";
@@ -21,7 +22,40 @@ const bannerImages = [
 ];
 
 export default function BannerImages() {
-  const { bannerData } = useContext(AuthContext);
+  const { bannerData, user } = useContext(AuthContext);
+  const [shareMessage, setShareMessage] = useState("Play Store Link");
+
+  useEffect(() => {
+    if (user) {
+      setShareMessage(
+        "Ad-Rebate\n\nReferral Id - \n" +
+          user.uid +
+          "\n\nuse this Id to get Coupon\n\n" +
+          "https://play.google.com/store/apps/details?id=" +
+          "appPackageName"
+      );
+    }
+  }, []);
+  const onShare = async (index) => {
+    if (index == 5) {
+      try {
+        const result = await Share.share({
+          message: shareMessage,
+        });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -33,6 +67,7 @@ export default function BannerImages() {
         resizeMode="cover"
         dotColor="#FFF"
         inactiveDotColor="#90A4AE"
+        onCurrentImagePressed={onShare}
       />
     </View>
   );
