@@ -36,7 +36,7 @@ export default function CategoriesScreen({ navigation, route }) {
   if (categorySelectedData == undefined) {
     return (
       <View style={styles.activityIndicator}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#ffffff" />
       </View>
     );
   }
@@ -113,5 +113,6 @@ const styles = StyleSheet.create({
   activityIndicator: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor: "#000000",
   },
 });

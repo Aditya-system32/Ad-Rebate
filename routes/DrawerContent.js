@@ -91,7 +91,21 @@ export function DrawerContent(props) {
             />
           </Drawer.Section>
         )}
-
+        <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
+            label="Pf"
+            labelStyle={{
+              color: "#EDEDED",
+              fontSize: 14,
+              alignSelf: "center",
+              paddingLeft: 6,
+              fontFamily: "Poppins-Medium",
+            }}
+            onPress={() => {
+              props.navigation.navigate("ProfileComplete");
+            }}
+          />
+        </Drawer.Section>
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
             label="COUPONS"

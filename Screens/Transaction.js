@@ -30,7 +30,7 @@ export default function TransactionScreen({ navigation }) {
         .get()
         .then((res) => {
           res.forEach((doc) => {
-            console.log(doc.data());
+            //console.log(doc.data());
             tempCouponArray.push(doc.data());
           });
           setRedeemCouponArray(tempCouponArray);
@@ -40,7 +40,7 @@ export default function TransactionScreen({ navigation }) {
         });
     }
   }, [user]);
-  console.log(redeemCouponArray);
+  //console.log(redeemCouponArray);
 
   return (
     <View style={styles.container}>

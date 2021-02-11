@@ -21,6 +21,8 @@ export default function SignUpScreen({ navigation }) {
   const [disabled, setDisabled] = useState(true);
   const [errorText, setErrorText] = useState("");
   const [checkboxes, setCheckBoxes] = useState(false);
+  const [flagPhoneNumber, setFlagPhoneNumber] = useState(false);
+  const [flagCheckBox, setFlagCheckBox] = useState(false);
   //VALIDATION FOR THE PHONE NUMBER
   const checkingPhoneNumber = (phoneNumber) => {
     phoneNumber = phoneNumber.replace(".", "");
@@ -32,9 +34,14 @@ export default function SignUpScreen({ navigation }) {
       setPhoneNumber(phoneNumber);
       setDisabled(true);
       setErrorText("Enter the 10 digit number");
+      setFlagPhoneNumber(false);
     } else {
       setPhoneNumber("+91" + phoneNumber);
       setErrorText(null);
+      if (flagCheckBox == true) {
+        setDisabled(false);
+      }
+      setFlagPhoneNumber(true);
     }
   };
   const checkingCheckBoxes = () => {
@@ -42,9 +49,13 @@ export default function SignUpScreen({ navigation }) {
       setDisabled(true);
       setErrorText("Please Select The Box");
       setCheckBoxes(false);
+      setFlagCheckBox(false);
     } else {
-      setDisabled(false);
+      if (flagPhoneNumber == true) {
+        setDisabled(false);
+      }
       setCheckBoxes(true);
+      setFlagCheckBox(true);
     }
   };
   return (
