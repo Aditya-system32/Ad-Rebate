@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet, Button, Dimensions } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 export default function BarcodeScanner({ navigation }) {
@@ -35,9 +35,10 @@ export default function BarcodeScanner({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.text}>Scan code</Text>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
+        style={styles.scanner}
       />
       {scanned && (
         <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
@@ -47,8 +48,17 @@ export default function BarcodeScanner({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    color: "white",
+  },
+  scanner: {
+    width: Dimensions.get("window").width,
+    height: "50%",
+  },
   container: {
     flex: 1,
+    width: "100%",
+    backgroundColor: "black",
     flexDirection: "column",
     justifyContent: "center",
   },

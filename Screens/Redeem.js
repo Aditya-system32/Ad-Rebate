@@ -27,6 +27,7 @@ export default function RedeemScreen({ navigation, route }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
+  //for bill calc
   useEffect(() => {
     console.log(selectedCoupon);
     if (userBill <= 99 || userBill === "") {
@@ -68,17 +69,37 @@ export default function RedeemScreen({ navigation, route }) {
       setDisable(false);
     }
   }, [userBill]);
+  //for getting user coupons
   useEffect(() => {
     if (user === null) return;
     async function temp() {
+      var current = new Date();
+      const x =
+        current.getHours() < 10
+          ? "0"
+          : "" + current.getHours() + "-" + current.getMinutes() < 10
+          ? "0"
+          : "" + current.getMinutes();
+      console.log(x);
+      const d =
+        (current.getDate() < 10 ? "0" : "") +
+        current.getDate() +
+        "-" +
+        (current.getMonth() + 1 < 10 ? "0" : "") +
+        (current.getMonth() + 1) +
+        "-" +
+        current.getFullYear();
       db.collectionGroup("Coupons")
         .where("allotedTo", "==", user.uid)
         .where("client", "==", route.params.paramKey)
         .where("isRedeemed", "==", false)
+        .where("expiryDateMs", ">=", Date.parse(current))
         .get()
-        .then((res) => {
-          res.forEach((doc) => {
-            setCoupons((prev) => [...prev, doc.data()]);
+        .then((snap) => {
+          snap.forEach((doc) => {
+            var aa = new Date();
+            if (doc.data().activeFrom <= Date.parse(aa))
+              setCoupons((prev) => [...prev, doc.data()]);
           });
         })
         .catch((err) => {
@@ -108,13 +129,6 @@ export default function RedeemScreen({ navigation, route }) {
       )
       .then(() => {
         var current = new Date();
-        const x = current.getHours() + "-" + current.getMinutes();
-        const d =
-          current.getDay() +
-          "-" +
-          (current.getMonth() + 1) +
-          "-" +
-          current.getFullYear();
         db.collection("Users")
           .doc(user.uid)
           .collection("Transactions")
@@ -122,7 +136,7 @@ export default function RedeemScreen({ navigation, route }) {
             action: "Redeemed",
             clientName: route.params.paramKey,
             couponId: selectedCoupon.id,
-            dateRedeemed: d,
+            dateRedeemed: current,
             discount: discountGiven,
           })
           .catch((err) => {

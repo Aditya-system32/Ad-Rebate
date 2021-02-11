@@ -41,13 +41,21 @@ export default function GetCoupon({ navigation, route }) {
         .then(() => {
           var current = new Date();
           current.setHours(current.getHours() + 1);
-          const x = current.getHours() + "-" + current.getMinutes();
-          const d =
-            current.getDay() +
+          const x =
+            (current.getHours() < 10 ? "0" : "") +
+            current.getHours() +
             "-" +
+            (current.getMinutes() < 10 ? "0" : "") +
+            current.getMinutes();
+          const d =
+            (current.getDate() < 10 ? "0" : "") +
+            current.getDate() +
+            "-" +
+            (current.getMonth() + 1 < 10 ? "0" : "") +
             (current.getMonth() + 1) +
             "-" +
             current.getFullYear();
+          xx.activeFrom = Date.parse(current);
           xx.activeFromTime = x;
           xx.activeFromDate = d;
           xx.isAlloted = true;

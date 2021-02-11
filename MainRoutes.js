@@ -22,6 +22,7 @@ export default function MainRoute() {
         "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
         "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
         "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
+        "Poppins-Light": require("./assets/fonts/Poppins-Light.ttf"),
       }))();
   }, []);
 
