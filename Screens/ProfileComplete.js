@@ -30,10 +30,13 @@ export default function ProfileComplete({ navigation }) {
   const [location, setLocation] = useState("bhilai");
   const [fullName, setFullName] = useState();
   const [age, setAge] = useState();
+  const [couponArray, setCouponArray] = useState(null);
   const [token, setToken] = useState();
   const [gender, setGender] = useState("male");
   const { user } = useContext(AuthContext);
   const [expoPushToken, setExpoPushToken] = useState("");
+  const [referralId, setReferralId] = useState("");
+  const [clientName, setClientName] = useState(null);
   const [locationOptions, setLocationOptions] = useState([
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },
     { value: "raipur", label: "Raipur", key: "Raipur" },
@@ -43,6 +46,18 @@ export default function ProfileComplete({ navigation }) {
     { value: "female", label: "female", key: "female" },
     { value: "other", label: "other", key: "other" },
   ]);
+
+  useEffect(() => {
+    const tempClientName = [];
+    db.collection("ClientData")
+      .get()
+      .then((res) => {
+        res.forEach((doc) => {
+          tempClientName.push(doc.data().id);
+        });
+        setClientName(tempClientName);
+      });
+  }, []);
 
   //TAKING THE DETAILS FROM THE USER
   useEffect(() => {
@@ -58,7 +73,73 @@ export default function ProfileComplete({ navigation }) {
         gender: gender,
         phone: user.phoneNumber,
       };
+      checkingReferralId();
       setUserData();
+      const tempCouponArray = [];
+      async function giveCoupons() {
+        const randomNumber = Math.floor(Math.random() * clientName.length);
+        db.collection("ClientData")
+          .doc(clientName[randomNumber])
+          .collection("Coupons")
+          .where("isAlloted", "==", false)
+          .limit(2)
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              // doc.data() is never undefined for query doc snapshots
+              tempCouponArray.push(doc.data());
+            });
+          })
+          .then(() => {
+            //console.log(tempCouponArray);
+            tempCouponArray.map((coupon, index) => {
+              //console.log(coupon.id);
+
+              var current = new Date();
+              current.setHours(current.getHours());
+              const x = current.getHours() + "-" + current.getMinutes();
+              const d =
+                current.getDate() +
+                "-" +
+                (current.getMonth() + 1) +
+                "-" +
+                current.getFullYear();
+              const datas = {
+                activeFromTime: x,
+                activeFromDate: d,
+                isAlloted: true,
+                allotedTo: user.uid,
+              };
+
+              if (index === 1) {
+                datas.allotedTo = referralId;
+              }
+              //console.log(datas);
+              console.log(coupon.id);
+              db.collection("ClientData")
+                .doc(coupon.client)
+                .collection("Coupons")
+                .doc(coupon.id)
+                .set(datas, { merge: true })
+                .then(() => console.log("done"))
+                .catch((err) => {
+                  console.log(err);
+                });
+            });
+          });
+      }
+      async function checkingReferralId() {
+        db.collection("Users")
+          .doc(referralId)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              giveCoupons();
+            } else {
+              alert("Not Valid id");
+            }
+          });
+      }
       async function setUserData() {
         const userDoc = db.collection("Users").doc(user.uid);
         userDoc
@@ -173,6 +254,15 @@ export default function ProfileComplete({ navigation }) {
           })}
         </Picker>
       </View>
+      <View>
+        <TextInput
+          style={styles.textinput}
+          placeholder="Referral Id(Optional)"
+          placeholderTextColor="#EDEDED"
+          color="#fff"
+          onChangeText={(referralId) => setReferralId(referralId)}
+        ></TextInput>
+      </View>
       <View style={styles.ProfileCompleteWrapper}>
         <TouchableNativeFeedback
           useForeground={true}
@@ -263,3 +353,5 @@ const styles = StyleSheet.create({
     margin: 0,
   },
 });
+
+//e7OII0Fu4HT4Lav5f2CXtDWN3OF3
