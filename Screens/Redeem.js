@@ -16,44 +16,130 @@ import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
 
 export default function RedeemScreen({ navigation, route }) {
-  const [userBill, setUserBill] = useState();
+  const [userBill, setUserBill] = useState(0);
+  const [finalBill, setFinalBill] = useState("");
   const [disable, setDisable] = useState(true);
   const [selectedCoupon, setSelectedCoupon] = useState(null);
   const [coupons, setCoupons] = useState([]);
+  const [discountGiven, setdiscountGiven] = useState(null);
+  const [moneyToCollect, setmoneyToCollect] = useState(null);
   const [discoutUserBill, setDiscountUserBill] = useState(null);
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
-  const checkUserBill = (userBill) => {
-    if (userBill <= 99 || userBill == null) {
+  useEffect(() => {
+    console.log(selectedCoupon);
+    if (userBill <= 99 || userBill === "") {
       setDisable(true);
-    } else {
-      setDiscountUserBill(userBill / 10);
-      setUserBill(userBill - discoutUserBill);
-      console.log(userBill - discoutUserBill);
+    } else if (userBill >= 100 && userBill < 200) {
+      const dis = selectedCoupon.discount1 - selectedCoupon.userDiscount1;
+      setmoneyToCollect(Math.round((userBill * dis) / 100));
+      const discount = Math.round(userBill / selectedCoupon.userDiscount1);
+      setdiscountGiven(discount);
+      setFinalBill(Math.round(userBill - discount));
+      setDisable(false);
+    } else if (userBill >= 200 && userBill < 300) {
+      const dis = selectedCoupon.discount2 - selectedCoupon.userDiscount2;
+      setmoneyToCollect(Math.round((userBill * dis) / 100));
+      const discount = Math.round(userBill / selectedCoupon.userDiscount2);
+      setdiscountGiven(discount);
+      setFinalBill(Math.round(userBill - discount));
+      setDisable(false);
+    } else if (userBill >= 300 && userBill < 400) {
+      const dis = selectedCoupon.discount3 - selectedCoupon.userDiscount3;
+      setmoneyToCollect(Math.round((userBill * dis) / 100));
+      const discount = Math.round(userBill / selectedCoupon.userDiscount3);
+      setdiscountGiven(discount);
+      setFinalBill(Math.round(userBill - discount));
+      setDisable(false);
+    } else if (userBill >= 400 && userBill < 500) {
+      const dis = selectedCoupon.discount4 - selectedCoupon.userDiscount4;
+      setmoneyToCollect(Math.round((userBill * dis) / 100));
+      const discount = Math.round(userBill / selectedCoupon.userDiscount4);
+      setdiscountGiven(discount);
+      setFinalBill(Math.round(userBill - discount));
+      setDisable(false);
+    } else if (userBill >= 500) {
+      const dis = selectedCoupon.discount5 - selectedCoupon.userDiscount5;
+      setmoneyToCollect(Math.round((userBill * dis) / 100));
+      const discount = Math.round(userBill / selectedCoupon.userDiscount5);
+      setdiscountGiven(discount);
+      setFinalBill(Math.round(userBill - discount));
       setDisable(false);
     }
-  };
-
+  }, [userBill]);
   useEffect(() => {
-    let tempArray = [];
-    console.log(user);
-    if (user) {
+    if (user === null) return;
+    async function temp() {
       db.collectionGroup("Coupons")
         .where("allotedTo", "==", user.uid)
         .where("client", "==", route.params.paramKey)
+        .where("isRedeemed", "==", false)
         .get()
         .then((res) => {
           res.forEach((doc) => {
-            tempArray.push(doc.data());
+            setCoupons((prev) => [...prev, doc.data()]);
           });
         })
         .catch((err) => {
           console.log(err);
         });
-      setCoupons(tempArray);
     }
+    temp();
   }, [user]);
+  useEffect(() => {
+    console.log(discountGiven);
+  }, [discountGiven]);
+  async function handleSubmit() {
+    if (selectedCoupon === null) return;
+    db.collection("ClientData")
+      .doc(route.params.paramKey)
+      .collection("Coupons")
+      .doc(selectedCoupon.id)
+      .set(
+        {
+          isRedeemed: true,
+          action: "Redeemed",
+          moneyToCollect: moneyToCollect,
+          discountGiven: discountGiven,
+          userBill: userBill,
+        },
+        { merge: true }
+      )
+      .then(() => {
+        var current = new Date();
+        const x = current.getHours() + "-" + current.getMinutes();
+        const d =
+          current.getDay() +
+          "-" +
+          (current.getMonth() + 1) +
+          "-" +
+          current.getFullYear();
+        db.collection("Users")
+          .doc(user.uid)
+          .collection("Transactions")
+          .add({
+            action: "Redeemed",
+            clientName: route.params.paramKey,
+            couponId: selectedCoupon.id,
+            dateRedeemed: d,
+            discount: discountGiven,
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .then(() =>
+        navigation.navigate("CouponRedeemed", {
+          finalBill: finalBill,
+          couponId: selectedCoupon,
+          discount: discountGiven,
+          userBill: userBill,
+          client: route.params.paramKey,
+        })
+      )
+      .catch((err) => console.log(err));
+  }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -63,7 +149,7 @@ export default function RedeemScreen({ navigation, route }) {
         <TextInput
           keyboardType="phone-pad"
           placeholder="Enter The Bill"
-          onChangeText={checkUserBill}
+          onChangeText={(e) => setUserBill(e)}
         />
         {coupons.length > 0 ? (
           <Picker
@@ -74,9 +160,7 @@ export default function RedeemScreen({ navigation, route }) {
             }
           >
             {coupons.map((item) => {
-              return (
-                <Picker.Item label={item.id} value={item.id} key={item.id} />
-              );
+              return <Picker.Item label={item.id} value={item} key={item.id} />;
             })}
           </Picker>
         ) : (
@@ -84,15 +168,7 @@ export default function RedeemScreen({ navigation, route }) {
             <Text>You do not have any coupon for this store</Text>
           </View>
         )}
-        <Button
-          title="submit"
-          disabled={disable}
-          onPress={() =>
-            navigation.navigate("CouponVerification", {
-              paramKey: userBill,
-            })
-          }
-        />
+        <Button title="submit" disabled={disable} onPress={handleSubmit} />
         <Text>Coupons</Text>
       </View>
     </TouchableWithoutFeedback>
