@@ -22,6 +22,7 @@ import AdsVideoScreen from "../Screens/AdsVideo";
 import GetCoupon from "../Screens/GetCoupon";
 import CouponRedeemed from "../Screens/CouponRedeemed";
 import AppIntroSliders from "../Screens/AppIntroSliders";
+import ShareCoupons from "../Screens/ShareCoupons";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -91,6 +92,22 @@ const HomeStackScreen = ({ navigation }) => {
       <HomeStack.Screen
         name="CouponRedeemed"
         component={CouponRedeemed}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+          headerLeft: () => {
+            return null;
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="ShareCoupons"
+        component={ShareCoupons}
         options={{
           headerStyle: {
             backgroundColor: "#000000",

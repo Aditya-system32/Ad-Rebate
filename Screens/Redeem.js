@@ -14,7 +14,6 @@ import {
 } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
-import RNPickerSelect from "react-native-picker-select";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 export default function RedeemScreen({ navigation, route }) {
   const [userBill, setUserBill] = useState(0);
