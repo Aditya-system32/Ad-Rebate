@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   itemId: {
     color: "#747474",
     fontFamily: "Poppins-Regular",
-    fontSize: 11,
+    fontSize: 9,
     paddingTop: 5,
     marginLeft: 5,
   },

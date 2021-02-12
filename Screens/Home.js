@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   locationText: {
-    marginBottom: "2%",
+    marginBottom: "3%",
     marginLeft: "5%",
     fontFamily: "Poppins-Regular",
     color: "#a8a8a8",
