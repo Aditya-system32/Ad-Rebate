@@ -21,6 +21,7 @@ import CategoriesScreen from "../Screens/Categories";
 import AdsVideoScreen from "../Screens/AdsVideo";
 import GetCoupon from "../Screens/GetCoupon";
 import CouponRedeemed from "../Screens/CouponRedeemed";
+import AppIntroSliders from "../Screens/AppIntroSliders";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -97,6 +98,9 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+          },
+          headerLeft: () => {
+            return null;
           },
         }}
       />
@@ -205,6 +209,16 @@ const HomeStackScreen = ({ navigation }) => {
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
           },
+          headerLeft: () => {
+            return null;
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="AppIntroSliders"
+        component={AppIntroSliders}
+        options={{
+          headerShown: false,
         }}
       />
       <HomeStack.Screen

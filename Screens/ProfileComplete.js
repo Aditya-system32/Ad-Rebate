@@ -9,6 +9,7 @@ import {
   TouchableNativeFeedback,
   Image,
   StatusBar,
+  BackHandler,
   TextInput,
 } from "react-native";
 import { AuthContext } from "../routes/AuthProvider";
@@ -46,6 +47,10 @@ export default function ProfileComplete({ navigation }) {
     { value: "female", label: "female", key: "female" },
     { value: "other", label: "other", key: "other" },
   ]);
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    () => null;
+    return true;
+  });
 
   useEffect(() => {
     const tempClientName = [];
@@ -144,7 +149,7 @@ export default function ProfileComplete({ navigation }) {
         const userDoc = db.collection("Users").doc(user.uid);
         userDoc
           .set(data)
-          .then(() => navigation.navigate("Home"))
+          .then(() => navigation.navigate("AppIntroSliders"))
           .catch((err) => {
             console.log(err);
           });

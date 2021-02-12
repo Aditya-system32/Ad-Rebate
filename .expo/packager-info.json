@@ -1,7 +1,7 @@
 {
-  "expoServerNgrokUrl": "https://hx-nb2.adrebateadmin.ad-rebate.exp.direct",
-  "packagerNgrokUrl": "https://packager.hx-nb2.adrebateadmin.ad-rebate.exp.direct",
-  "ngrokPid": 7232,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19000,
