@@ -16,7 +16,7 @@ export function DrawerContent(props) {
           <View style={{ alignItems: "flex-end", marginRight: 15 }}>
             <AntDesign
               name="close"
-              size={24}
+              size={25}
               color="white"
               onPress={() => props.navigation.closeDrawer()}
             />
