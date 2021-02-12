@@ -158,7 +158,6 @@ export default function CouponScreen({ navigation }) {
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ alignItems: "center" }}
           renderItem={({ item }) => {
-            console.log(item.activeFromTime.split("-")[0]);
             const amPm = item.activeFromTime <= "12-00" ? "AM" : "PM";
             const hour = item.activeFromTime.split("-")[0] % 12;
             const timetoShow = hour + ":" + item.activeFromTime.split("-")[1];

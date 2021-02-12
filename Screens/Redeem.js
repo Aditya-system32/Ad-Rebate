@@ -14,13 +14,16 @@ import {
 } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
-
+import RNPickerSelect from "react-native-picker-select";
+import { TouchableNativeFeedback } from "react-native-gesture-handler";
 export default function RedeemScreen({ navigation, route }) {
   const [userBill, setUserBill] = useState(0);
   const [finalBill, setFinalBill] = useState("");
   const [disable, setDisable] = useState(true);
-  const [selectedCoupon, setSelectedCoupon] = useState(null);
   const [coupons, setCoupons] = useState([]);
+  const [selectedCoupon, setSelectedCoupon] = useState(
+    coupons.length >= 1 ? coupons[0] : ""
+  );
   const [discountGiven, setdiscountGiven] = useState(null);
   const [moneyToCollect, setmoneyToCollect] = useState(null);
   const [discoutUserBill, setDiscountUserBill] = useState(null);
@@ -30,7 +33,7 @@ export default function RedeemScreen({ navigation, route }) {
   //for bill calc
   useEffect(() => {
     console.log(selectedCoupon);
-    if (selectedCoupon === null) return;
+    if (selectedCoupon.length <= 1) return;
     if (userBill <= 99 || userBill === "") {
       setDisable(true);
     } else if (userBill >= 100 && userBill < 200) {
@@ -114,6 +117,21 @@ export default function RedeemScreen({ navigation, route }) {
   }, [discountGiven]);
   async function handleSubmit() {
     if (selectedCoupon === null) return;
+    var current = new Date();
+    const x =
+      (current.getHours() < 10 ? "0" : "") +
+      current.getHours() +
+      "-" +
+      (current.getMinutes() < 10 ? "0" : "") +
+      current.getMinutes();
+    const d =
+      (current.getDate() < 10 ? "0" : "") +
+      current.getDate() +
+      "-" +
+      (current.getMonth() + 1 < 10 ? "0" : "") +
+      (current.getMonth() + 1) +
+      "-" +
+      current.getFullYear();
     db.collection("ClientData")
       .doc(route.params.paramKey)
       .collection("Coupons")
@@ -125,11 +143,12 @@ export default function RedeemScreen({ navigation, route }) {
           moneyToCollect: moneyToCollect,
           discountGiven: discountGiven,
           userBill: userBill,
+          dateRedeemed: d,
+          timeRedeemed: x,
         },
         { merge: true }
       )
       .then(() => {
-        var current = new Date();
         db.collection("Users")
           .doc(user.uid)
           .collection("Transactions")
@@ -137,15 +156,16 @@ export default function RedeemScreen({ navigation, route }) {
             action: "Redeemed",
             clientName: route.params.paramKey,
             couponId: selectedCoupon.id,
-            dateRedeemed: current,
+            dateRedeemed: d,
             discount: discountGiven,
+            timeRedeemed: x,
           })
           .catch((err) => {
             console.log(err);
           });
       })
       .then(() =>
-        navigation.navigate("CouponRedeemed", {
+        navigation.replace("CouponRedeemed", {
           finalBill: finalBill,
           couponId: selectedCoupon,
           discount: discountGiven,
@@ -159,32 +179,63 @@ export default function RedeemScreen({ navigation, route }) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <StatusBar backgroundColor="black" barStyle="light-content" />
-        <Text>{route.params.paramKey}</Text>
-        <Text>Enter the Bill</Text>
         <TextInput
+          style={styles.client}
+          value={route.params.paramKey}
+        ></TextInput>
+        <TextInput
+          style={styles.client}
           keyboardType="phone-pad"
-          placeholder="Enter The Bill"
+          placeholder="Enter bill amount"
+          placeholderTextColor="#dddddd"
           onChangeText={(e) => setUserBill(e)}
         />
         {coupons.length > 0 ? (
-          <Picker
-            style={{ width: "100%", height: 61, color: "#fff" }}
-            selectedValue={selectedCoupon}
-            onValueChange={(itemValue, itemIndex) => {
-              console.log(itemValue);
-              setSelectedCoupon(itemValue);
-            }}
-          >
-            {coupons.map((item) => {
-              return <Picker.Item label={item.id} value={item} key={item.id} />;
-            })}
-          </Picker>
+          <View style={styles.picker}>
+            <Picker
+              style={{
+                color: "white",
+                fontSize: 12,
+              }}
+              selectedValue={selectedCoupon}
+              onValueChange={(itemValue, itemIndex) => {
+                console.log(itemValue);
+                setSelectedCoupon(itemValue);
+              }}
+            >
+              {coupons.map((item) => {
+                return (
+                  <Picker.Item
+                    style={styles.pickerItem}
+                    label={
+                      item.clientName +
+                      " - discount upto : " +
+                      item.userDiscount5 +
+                      "%"
+                    }
+                    value={item}
+                    key={item.id}
+                  />
+                );
+              })}
+            </Picker>
+          </View>
         ) : (
-          <View>
-            <Text>You do not have any coupon for this store</Text>
+          <View style={styles.err}>
+            <Text style={{ color: "#920000", fontFamily: "Poppins-Regular" }}>
+              You do not have any coupon for this store
+            </Text>
           </View>
         )}
-        <Button title="submit" disabled={disable} onPress={handleSubmit} />
+        <TouchableNativeFeedback
+          style={styles.button}
+          disabled={disable}
+          onPress={handleSubmit}
+        >
+          <Text style={{ color: "white", fontFamily: "Poppins-Regular" }}>
+            Submit
+          </Text>
+        </TouchableNativeFeedback>
         <Text>Coupons</Text>
       </View>
     </TouchableWithoutFeedback>
@@ -192,18 +243,61 @@ export default function RedeemScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  err: {
+    backgroundColor: "#ff9a9a",
+    borderRadius: 20,
+    width: "80%",
+    height: 50,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  button: {
+    bottom: 0,
+    left: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "#4b4b4b",
+    width: 130,
+    marginBottom: 20,
+    height: 50,
+    borderRadius: 50,
+    alignSelf: "center",
+    backgroundColor: "black",
+  },
+  pickerItem: {
+    color: "white",
+    fontFamily: "Poppins-Regular",
+    backgroundColor: "#252525",
+    borderRadius: 10,
+    width: "80%",
+    height: 50,
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  client: {
+    color: "white",
+    fontFamily: "Poppins-Regular",
+    backgroundColor: "#252525",
+    borderRadius: 20,
+    width: "80%",
+    height: 50,
+    textAlign: "center",
+    marginBottom: 20,
+  },
   picker: {
-    backgroundColor: "#1A1A1A",
+    backgroundColor: "#252525",
     borderColor: "#424242",
     color: "#ffffff",
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 50,
     paddingLeft: 20,
-    paddingRight: 20,
     width: "80%",
-    height: 61,
+    height: 50,
     alignSelf: "center",
-    fontSize: 18,
+    fontSize: 12,
     fontFamily: "Poppins-Regular",
     marginBottom: 24,
   },
@@ -211,5 +305,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "black",
   },
 });

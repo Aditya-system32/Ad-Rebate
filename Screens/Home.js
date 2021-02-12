@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
   },
   banner: {
     height: "16%",
-    backgroundColor: "#70007a",
+    backgroundColor: "#000000",
     width: "100%",
     marginBottom: "2%",
   },
