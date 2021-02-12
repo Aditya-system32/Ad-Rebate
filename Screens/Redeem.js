@@ -30,6 +30,7 @@ export default function RedeemScreen({ navigation, route }) {
   //for bill calc
   useEffect(() => {
     console.log(selectedCoupon);
+    if (selectedCoupon === null) return;
     if (userBill <= 99 || userBill === "") {
       setDisable(true);
     } else if (userBill >= 100 && userBill < 200) {
@@ -169,9 +170,10 @@ export default function RedeemScreen({ navigation, route }) {
           <Picker
             style={{ width: "100%", height: 61, color: "#fff" }}
             selectedValue={selectedCoupon}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedCoupon(itemValue)
-            }
+            onValueChange={(itemValue, itemIndex) => {
+              console.log(itemValue);
+              setSelectedCoupon(itemValue);
+            }}
           >
             {coupons.map((item) => {
               return <Picker.Item label={item.id} value={item} key={item.id} />;

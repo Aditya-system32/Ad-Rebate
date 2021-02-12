@@ -36,24 +36,35 @@ export default function BarcodeScanner({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Scan code</Text>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={styles.scanner}
-      />
-      {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
-      )}
+      <View style={styles.viewww}>
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={[StyleSheet.absoluteFill, styles.scanner]}
+        />
+        {scanned && (
+          <Button
+            title={"Tap to Scan Again"}
+            onPress={() => setScanned(false)}
+          />
+        )}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  viewww: {
+    width: "100%",
+    height: "80%",
+    backgroundColor: "white",
+  },
   text: {
     color: "white",
   },
   scanner: {
-    width: Dimensions.get("window").width,
-    height: "50%",
+    flex: 1,
+    alignItems: "center",
+    height: "100%",
   },
   container: {
     flex: 1,
