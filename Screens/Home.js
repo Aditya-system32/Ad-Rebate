@@ -211,7 +211,8 @@ export default function HomeScreen({ navigation }) {
       {
         <View style={styles.location}>
           <Text style={styles.locationText}>
-            Current location : {user ? userData.location : "not specified yet"}
+            Current location :{" "}
+            {userData ? userData.location : "not specified yet"}
           </Text>
         </View>
       }
