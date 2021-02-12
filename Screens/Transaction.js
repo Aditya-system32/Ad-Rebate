@@ -76,7 +76,7 @@ export default function TransactionScreen({ navigation }) {
                       <Text style={styles.itemAction}>{item.action}</Text>
                     </View>
                     <Text style={styles.itemDate}>
-                      {item.dateRedeemed + " " + timetoShow}
+                      {item.dateRedeemed + " " + timetoShow + " " + amPm}
                     </Text>
                   </View>
                 </TouchableNativeFeedback>

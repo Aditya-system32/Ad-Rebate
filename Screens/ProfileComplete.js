@@ -9,6 +9,7 @@ import {
   TouchableNativeFeedback,
   Image,
   StatusBar,
+  BackHandler,
   TextInput,
 } from "react-native";
 import { AuthContext } from "../routes/AuthProvider";
@@ -46,6 +47,10 @@ export default function ProfileComplete({ navigation }) {
     { value: "female", label: "female", key: "female" },
     { value: "other", label: "other", key: "other" },
   ]);
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    () => null;
+    return true;
+  });
 
   useEffect(() => {
     const tempClientName = [];
@@ -130,13 +135,17 @@ export default function ProfileComplete({ navigation }) {
       }
       async function checkingReferralId() {
         db.collection("Users")
-          .doc(referralId)
+          .doc(referralId == "" ? "No Referral Id" : referralId)
           .get()
           .then((doc) => {
             if (doc.exists) {
               giveCoupons();
             } else {
-              alert("Not Valid id");
+              if (referralId == "") {
+                console.log("User Not Enter Referral Id");
+              } else {
+                alert("Not Valid Id");
+              }
             }
           });
       }
@@ -144,7 +153,7 @@ export default function ProfileComplete({ navigation }) {
         const userDoc = db.collection("Users").doc(user.uid);
         userDoc
           .set(data)
-          .then(() => navigation.navigate("Home"))
+          .then(() => navigation.navigate("AppIntroSliders"))
           .catch((err) => {
             console.log(err);
           });

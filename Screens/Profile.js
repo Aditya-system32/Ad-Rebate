@@ -5,9 +5,12 @@ import { Button, View, Text, StyleSheet, StatusBar } from "react-native";
 export default function ProfileScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="white" barStyle="dark-content" />
+      <StatusBar backgroundColor="black" barStyle="light-content" />
       <Text>Profile</Text>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Button
+        title="App Slider"
+        onPress={() => navigation.navigate("AppIntroSliders")}
+      />
     </View>
   );
 }
