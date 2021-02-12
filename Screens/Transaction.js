@@ -57,24 +57,31 @@ export default function TransactionScreen({ navigation }) {
           <FlatList
             data={redeemCouponArray}
             keyExtractor={(item) => item.couponId}
-            renderItem={({ item }) => (
-              <TouchableNativeFeedback style={styles.transactionItem}>
-                <View>
-                  <View style={styles.titleAndId}>
-                    <Text style={styles.itemTitle}>{item.clientName}</Text>
-                    <Text style={styles.itemId}>{"#" + item.couponId}</Text>
-                  </View>
+            renderItem={({ item }) => {
+              const amPm = item.timeRedeemed <= "12-00" ? "AM" : "PM";
+              const hour = item.timeRedeemed.split("-")[0] % 12;
+              const timetoShow = hour + ":" + item.activeFromTime.split("-")[1];
+              return (
+                <TouchableNativeFeedback style={styles.transactionItem}>
+                  <View>
+                    <View style={styles.titleAndId}>
+                      <Text style={styles.itemTitle}>{item.clientName}</Text>
+                      <Text style={styles.itemId}>{"#" + item.couponId}</Text>
+                    </View>
 
-                  <View style={styles.actionAndDiscount}>
-                    <Text style={styles.itemDiscount}>
-                      {"₹ " + item.discount}
+                    <View style={styles.actionAndDiscount}>
+                      <Text style={styles.itemDiscount}>
+                        {"₹ " + item.discount}
+                      </Text>
+                      <Text style={styles.itemAction}>{item.action}</Text>
+                    </View>
+                    <Text style={styles.itemDate}>
+                      {item.dateRedeemed + " " + timetoShow}
                     </Text>
-                    <Text style={styles.itemAction}>{item.action}</Text>
                   </View>
-                  <Text style={styles.itemDate}>{item.dateRedeemed}</Text>
-                </View>
-              </TouchableNativeFeedback>
-            )}
+                </TouchableNativeFeedback>
+              );
+            }}
           />
         )}
       </SafeAreaView>

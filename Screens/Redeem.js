@@ -20,8 +20,10 @@ export default function RedeemScreen({ navigation, route }) {
   const [userBill, setUserBill] = useState(0);
   const [finalBill, setFinalBill] = useState("");
   const [disable, setDisable] = useState(true);
-  const [selectedCoupon, setSelectedCoupon] = useState({ nn: "choose coupon" });
   const [coupons, setCoupons] = useState([]);
+  const [selectedCoupon, setSelectedCoupon] = useState(
+    coupons.length >= 1 ? coupons[0] : ""
+  );
   const [discountGiven, setdiscountGiven] = useState(null);
   const [moneyToCollect, setmoneyToCollect] = useState(null);
   const [discoutUserBill, setDiscountUserBill] = useState(null);
@@ -115,6 +117,21 @@ export default function RedeemScreen({ navigation, route }) {
   }, [discountGiven]);
   async function handleSubmit() {
     if (selectedCoupon === null) return;
+    var current = new Date();
+    const x =
+      (current.getHours() < 10 ? "0" : "") +
+      current.getHours() +
+      "-" +
+      (current.getMinutes() < 10 ? "0" : "") +
+      current.getMinutes();
+    const d =
+      (current.getDate() < 10 ? "0" : "") +
+      current.getDate() +
+      "-" +
+      (current.getMonth() + 1 < 10 ? "0" : "") +
+      (current.getMonth() + 1) +
+      "-" +
+      current.getFullYear();
     db.collection("ClientData")
       .doc(route.params.paramKey)
       .collection("Coupons")
@@ -126,11 +143,12 @@ export default function RedeemScreen({ navigation, route }) {
           moneyToCollect: moneyToCollect,
           discountGiven: discountGiven,
           userBill: userBill,
+          dateRedeemed: d,
+          timeRedeemed: x,
         },
         { merge: true }
       )
       .then(() => {
-        var current = new Date();
         db.collection("Users")
           .doc(user.uid)
           .collection("Transactions")
@@ -138,15 +156,16 @@ export default function RedeemScreen({ navigation, route }) {
             action: "Redeemed",
             clientName: route.params.paramKey,
             couponId: selectedCoupon.id,
-            dateRedeemed: current,
+            dateRedeemed: d,
             discount: discountGiven,
+            timeRedeemed: x,
           })
           .catch((err) => {
             console.log(err);
           });
       })
       .then(() =>
-        navigation.navigate("CouponRedeemed", {
+        navigation.replace("CouponRedeemed", {
           finalBill: finalBill,
           couponId: selectedCoupon,
           discount: discountGiven,
@@ -184,14 +203,6 @@ export default function RedeemScreen({ navigation, route }) {
                 setSelectedCoupon(itemValue);
               }}
             >
-              {selectedCoupon.nn !== null ? (
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label={"Choose coupon"}
-                  value={"cc"}
-                  key={"123asdwe1"}
-                />
-              ) : null}
               {coupons.map((item) => {
                 return (
                   <Picker.Item
@@ -210,8 +221,10 @@ export default function RedeemScreen({ navigation, route }) {
             </Picker>
           </View>
         ) : (
-          <View>
-            <Text>You do not have any coupon for this store</Text>
+          <View style={styles.err}>
+            <Text style={{ color: "#920000", fontFamily: "Poppins-Regular" }}>
+              You do not have any coupon for this store
+            </Text>
           </View>
         )}
         <TouchableNativeFeedback
@@ -230,6 +243,16 @@ export default function RedeemScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  err: {
+    backgroundColor: "#ff9a9a",
+    borderRadius: 20,
+    width: "80%",
+    height: 50,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+  },
   button: {
     bottom: 0,
     left: 0,
@@ -249,7 +272,6 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Regular",
     backgroundColor: "#252525",
     borderRadius: 10,
-
     width: "80%",
     height: 50,
     textAlign: "center",
