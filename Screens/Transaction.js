@@ -60,7 +60,7 @@ export default function TransactionScreen({ navigation }) {
             renderItem={({ item }) => {
               const amPm = item.timeRedeemed <= "12-00" ? "AM" : "PM";
               const hour = item.timeRedeemed.split("-")[0] % 12;
-              const timetoShow = hour + ":" + item.activeFromTime.split("-")[1];
+              const timetoShow = hour + ":" + item.timeRedeemed.split("-")[1];
               return (
                 <TouchableNativeFeedback style={styles.transactionItem}>
                   <View>
