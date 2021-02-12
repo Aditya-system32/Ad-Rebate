@@ -11,19 +11,17 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
-import RNPickerSelect from "react-native-picker-select";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 export default function RedeemScreen({ navigation, route }) {
   const [userBill, setUserBill] = useState(0);
   const [finalBill, setFinalBill] = useState("");
   const [disable, setDisable] = useState(true);
   const [coupons, setCoupons] = useState([]);
-  const [selectedCoupon, setSelectedCoupon] = useState(
-    coupons.length >= 1 ? coupons[0] : ""
-  );
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
   const [discountGiven, setdiscountGiven] = useState(null);
   const [moneyToCollect, setmoneyToCollect] = useState(null);
   const [discoutUserBill, setDiscountUserBill] = useState(null);
@@ -33,7 +31,7 @@ export default function RedeemScreen({ navigation, route }) {
   //for bill calc
   useEffect(() => {
     console.log(selectedCoupon);
-    if (selectedCoupon.length <= 1) return;
+    if (selectedCoupon === null) return;
     if (userBill <= 99 || userBill === "") {
       setDisable(true);
     } else if (userBill >= 100 && userBill < 200) {
@@ -113,10 +111,18 @@ export default function RedeemScreen({ navigation, route }) {
     temp();
   }, [user]);
   useEffect(() => {
-    console.log(discountGiven);
-  }, [discountGiven]);
+    if (coupons.length < 1) {
+      return;
+    }
+    console.log("ccc");
+    console.log(coupons[0]);
+    setSelectedCoupon(coupons[0]);
+  }, [coupons]);
   async function handleSubmit() {
-    if (selectedCoupon === null) return;
+    if (selectedCoupon === null) {
+      Alert.alert("check details again");
+      return;
+    }
     var current = new Date();
     const x =
       (current.getHours() < 10 ? "0" : "") +
@@ -183,13 +189,7 @@ export default function RedeemScreen({ navigation, route }) {
           style={styles.client}
           value={route.params.paramKey}
         ></TextInput>
-        <TextInput
-          style={styles.client}
-          keyboardType="phone-pad"
-          placeholder="Enter bill amount"
-          placeholderTextColor="#dddddd"
-          onChangeText={(e) => setUserBill(e)}
-        />
+
         {coupons.length > 0 ? (
           <View style={styles.picker}>
             <Picker
@@ -197,9 +197,9 @@ export default function RedeemScreen({ navigation, route }) {
                 color: "white",
                 fontSize: 12,
               }}
-              selectedValue={selectedCoupon}
+              dropdownIconColor="gray"
               onValueChange={(itemValue, itemIndex) => {
-                console.log(itemValue);
+                console.log("ote," + itemValue);
                 setSelectedCoupon(itemValue);
               }}
             >
@@ -227,8 +227,15 @@ export default function RedeemScreen({ navigation, route }) {
             </Text>
           </View>
         )}
+        <TextInput
+          style={styles.client}
+          keyboardType="phone-pad"
+          placeholder="Enter bill amount"
+          placeholderTextColor="#dddddd"
+          onChangeText={(e) => setUserBill(e)}
+        />
         <TouchableNativeFeedback
-          style={styles.button}
+          style={[styles.button, disable ? styles.buttonDisabled : ""]}
           disabled={disable}
           onPress={handleSubmit}
         >
@@ -243,6 +250,9 @@ export default function RedeemScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  buttonDisabled: {
+    backgroundColor: "gray",
+  },
   err: {
     backgroundColor: "#ff9a9a",
     borderRadius: 20,
