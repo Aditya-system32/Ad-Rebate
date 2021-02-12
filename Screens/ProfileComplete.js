@@ -135,13 +135,17 @@ export default function ProfileComplete({ navigation }) {
       }
       async function checkingReferralId() {
         db.collection("Users")
-          .doc(referralId)
+          .doc(referralId == "" ? "No Referral Id" : referralId)
           .get()
           .then((doc) => {
             if (doc.exists) {
               giveCoupons();
             } else {
-              alert("Not Valid id");
+              if (referralId == "") {
+                console.log("User Not Enter Referral Id");
+              } else {
+                alert("Not Valid Id");
+              }
             }
           });
       }
