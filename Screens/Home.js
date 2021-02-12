@@ -183,23 +183,38 @@ export default function HomeScreen({ navigation }) {
       </View>
       {notification === null ||
       notification === "" ||
-      notification === undefined ? null : (
+      notification === undefined ||
+      !user ? null : (
         <View>
           <TextTicker
-            style={{ fontSize: 24, color: "white" }}
-            duration={3000}
+            style={{
+              fontSize: 16,
+              color: "#dadada",
+              height: 50,
+              width: "100%",
+              marginTop: 10,
+              fontFamily: "Poppins-Regular",
+            }}
+            duration={6000}
             loop
-            bounce
-            repeatSpacer={50}
-            marqueeDelay={1000}
+            bounce={false}
+            marqueeOnMount={true}
+            animationType="scroll"
+            shouldAnimateTreshold={0}
+            repeatSpacer={10}
+            marqueeDelay={0}
           >
             {notification}
           </TextTicker>
         </View>
       )}
-      <View style={styles.location}>
-        <Text style={styles.locationText}>Current location : Bhilai</Text>
-      </View>
+      {
+        <View style={styles.location}>
+          <Text style={styles.locationText}>
+            Current location : {user ? userData.location : "not specified yet"}
+          </Text>
+        </View>
+      }
       <View style={styles.wrapper}>
         <TouchableNativeFeedback onPress={buttonAlert}>
           <View style={styles.card}>
@@ -304,8 +319,12 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Medium",
   },
   buttonWrapper: {
+    marginBottom: 20,
     flexDirection: "row",
+    width: "100%",
     justifyContent: "space-evenly",
+    position: "absolute",
+    bottom: 0,
   },
   loginButton: {
     justifyContent: "center",
@@ -349,8 +368,9 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
     marginLeft: "5%",
     fontFamily: "Poppins-Regular",
-    color: "#A1A1A1",
-    fontSize: 14,
+    color: "#a8a8a8",
+    fontSize: 13,
+    height: 20,
   },
   banner: {
     height: "16%",
