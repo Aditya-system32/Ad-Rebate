@@ -1,7 +1,7 @@
 {
     "expo": {
      "name": "Ad-Rebate",
-     "icon": "./path/to/your/app-icon.png",
+     "icon": "./assets/images/coffee.png",
      "version": "1.0.0",
      "slug": "your-app-slug",
      "ios": {
