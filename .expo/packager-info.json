@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://bp-4dm.adrebateadmin.ad-rebate.exp.direct",
-  "packagerNgrokUrl": "https://packager.bp-4dm.adrebateadmin.ad-rebate.exp.direct",
-  "ngrokPid": 13836,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "packagerPort": 19000,
   "packagerPid": null,
   "webpackServerPort": null,

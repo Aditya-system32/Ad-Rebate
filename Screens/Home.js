@@ -9,6 +9,7 @@ import {
   Alert,
   StatusBar,
   SafeAreaView,
+  BackHandler,
 } from "react-native";
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
@@ -20,6 +21,7 @@ import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
 import { FlatList } from "react-native-gesture-handler";
+import { set } from "react-native-reanimated";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -32,6 +34,7 @@ export default function HomeScreen({ navigation }) {
     AuthContext
   );
   const [pushnotification, setPushNotification] = useState(false);
+  const [flag, setFlag] = useState(0);
   const notificationListener = useRef();
   const responseListener = useRef();
   const [notification, setNotifiaction] = useState();
@@ -67,6 +70,15 @@ export default function HomeScreen({ navigation }) {
       key: "5",
     },
   ]);
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    if (flag === 1) {
+      setFlag(0);
+      BackHandler.exitApp();
+    }
+    setFlag(flag + 1);
+    console.log(flag);
+    return true;
+  });
 
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {

@@ -116,9 +116,6 @@ const HomeStackScreen = ({ navigation }) => {
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
           },
-          headerLeft: () => {
-            return null;
-          },
         }}
       />
       <HomeStack.Screen
