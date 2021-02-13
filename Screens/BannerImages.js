@@ -12,6 +12,7 @@ import {
   Share,
 } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
+import { useSelector } from "react-redux";
 import { AuthContext } from "../routes/AuthProvider";
 
 const bannerImages = [
@@ -22,7 +23,8 @@ const bannerImages = [
 ];
 
 export default function BannerImages() {
-  const { bannerData, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const bannerData = useSelector((state) => state.bannerData.banners);
   const [shareMessage, setShareMessage] = useState("Play Store Link");
 
   useEffect(() => {
@@ -61,7 +63,7 @@ export default function BannerImages() {
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <SliderBox
-        images={bannerData == undefined ? bannerImages : bannerData.banners}
+        images={bannerData == undefined ? bannerImages : bannerData}
         circleLoop={true}
         autoplay={true}
         resizeMode="cover"

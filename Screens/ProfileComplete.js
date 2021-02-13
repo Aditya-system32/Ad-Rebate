@@ -19,6 +19,8 @@ import { db } from "../firebases";
 import { addPushTokenListener } from "expo-notifications";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
+import { useSelector } from "react-redux";
+import BannerImages from "./BannerImages";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -206,7 +208,7 @@ export default function ProfileComplete({ navigation }) {
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.banner}>
-        <Image></Image>
+        <BannerImages />
       </View>
       <View style={styles.welcomeBackWrapper}>
         <Text style={styles.welcomeBack}>Complete profile</Text>
@@ -325,7 +327,7 @@ const styles = StyleSheet.create({
   },
   banner: {
     height: "16%",
-    backgroundColor: "#70007a",
+    backgroundColor: "#000000",
     width: "100%",
     marginBottom: "2%",
   },

@@ -9,7 +9,7 @@ export default function ProfileScreen({ navigation }) {
       <Text>Profile</Text>
       <Button
         title="App Slider"
-        onPress={() => navigation.navigate("AppIntroSliders")}
+        onPress={() => navigation.navigate("ShareCoupons")}
       />
     </View>
   );

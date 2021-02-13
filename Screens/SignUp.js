@@ -13,7 +13,6 @@ import {
   TouchableNativeFeedback,
 } from "react-native";
 import BannerImages from "./BannerImages";
-import { Checkbox } from "react-native-paper";
 import { set } from "react-native-reanimated";
 
 export default function SignUpScreen({ navigation }) {

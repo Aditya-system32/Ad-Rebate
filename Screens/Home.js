@@ -9,6 +9,7 @@ import {
   Alert,
   StatusBar,
   SafeAreaView,
+  BackHandler,
 } from "react-native";
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
@@ -20,6 +21,8 @@ import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
 import { FlatList } from "react-native-gesture-handler";
+import { set } from "react-native-reanimated";
+import { useDispatch, useSelector } from "react-redux";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -32,6 +35,9 @@ export default function HomeScreen({ navigation }) {
     AuthContext
   );
   const [pushnotification, setPushNotification] = useState(false);
+  const dispatch = useDispatch();
+  const bannerData = useSelector((state) => state.bannerData.banners);
+  const [flag, setFlag] = useState(0);
   const notificationListener = useRef();
   const responseListener = useRef();
   const [notification, setNotifiaction] = useState();
@@ -43,31 +49,25 @@ export default function HomeScreen({ navigation }) {
       key: "1",
     },
     {
-      name: "Clothing",
-      value: "clothing",
-      img: "../assests/images/coffee.jpg",
-      key: "2",
-    },
-    {
-      name: "Electronics",
-      value: "electronics",
-      img: "../assests/images/coffee.jpg",
-      key: "3",
-    },
-    {
-      name: "Salon",
-      value: "salon",
-      img: "../assests/images/coffee.jpg",
-      key: "4",
-    },
-    {
       name: "Restaurant",
       value: "restaurant",
       img: "../assests/images/coffee.jpg",
       key: "5",
     },
   ]);
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    if (flag === 1) {
+      setFlag(0);
+      BackHandler.exitApp();
+    }
+    setFlag(flag + 1);
+    console.log(flag);
+    return true;
+  });
 
+  useEffect(() => {
+    console.log(bannerData);
+  }, [bannerData]);
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
     let isMounted = true; // note this flag denote mount status
@@ -133,6 +133,10 @@ export default function HomeScreen({ navigation }) {
         .then(function (doc) {
           if (doc.exists && isMounted) {
             setBannerData(doc.data());
+            dispatch({
+              type: "updateBanner",
+              array: doc.data().banners,
+            });
           } else {
             // console.log("error");
           }
