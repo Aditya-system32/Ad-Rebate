@@ -11,6 +11,7 @@ import {
   TextInput,
   Image,
   TouchableNativeFeedback,
+  Linking,
 } from "react-native";
 import BannerImages from "./BannerImages";
 import { Checkbox } from "react-native-paper";
@@ -58,6 +59,9 @@ export default function SignUpScreen({ navigation }) {
       setFlagCheckBox(true);
     }
   };
+  const handleTermsAndConditions = () => {
+    Linking.openURL("https://mural.com");
+  };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -87,7 +91,9 @@ export default function SignUpScreen({ navigation }) {
             value={checkboxes}
             onValueChange={checkingCheckBoxes}
           />
-          <Text style={styles.forgetPass}>Agree to terms and conditions</Text>
+          <Text style={styles.forgetPass} onPress={handleTermsAndConditions}>
+            Agree to terms and conditions
+          </Text>
         </View>
         <View style={styles.loginWrapper}>
           <TouchableNativeFeedback
