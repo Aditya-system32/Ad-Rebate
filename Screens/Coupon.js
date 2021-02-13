@@ -22,7 +22,6 @@ export default function CouponScreen({ navigation }) {
   useEffect(() => {
     if (user) {
       var current = new Date();
-      console.log(Date.parse("2021-02-11T02:00:00"));
       db.collectionGroup("Coupons")
         .where("allotedTo", "==", user.uid)
         .where("isRedeemed", "==", false)
@@ -31,7 +30,6 @@ export default function CouponScreen({ navigation }) {
         .then((snap) => {
           snap.forEach((doc) => {
             var aa = new Date();
-            console.log(doc.data());
             if (doc.data().activeFrom <= Date.parse(aa))
               setCouponArray((prev) => [...prev, doc.data()]);
           });

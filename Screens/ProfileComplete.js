@@ -10,6 +10,7 @@ import {
   Image,
   StatusBar,
   BackHandler,
+  ScrollView,
   TextInput,
 } from "react-native";
 import { AuthContext } from "../routes/AuthProvider";
@@ -120,7 +121,6 @@ export default function ProfileComplete({ navigation }) {
                 datas.allotedTo = referralId;
               }
               //console.log(datas);
-              console.log(coupon.id);
               db.collection("ClientData")
                 .doc(coupon.client)
                 .collection("Coupons")
@@ -211,77 +211,79 @@ export default function ProfileComplete({ navigation }) {
       <View style={styles.welcomeBackWrapper}>
         <Text style={styles.welcomeBack}>Complete profile</Text>
       </View>
-      <View>
-        <TextInput
-          style={styles.textinput}
-          placeholder="Full Name"
-          placeholderTextColor="#EDEDED"
-          color="#fff"
-          onChangeText={(text) => setFullName(text)}
-        ></TextInput>
-      </View>
-      <View>
-        <TextInput
-          style={[styles.textinput, styles.textPassword]}
-          placeholder="Age"
-          placeholderTextColor="#EDEDED"
-          color="#fff"
-          onChangeText={(age) => setAge(age)}
-        ></TextInput>
-      </View>
-      <View style={styles.picker}>
-        <Picker
-          style={{ width: "100%", height: 61, color: "#fff" }}
-          selectedValue={location}
-          onValueChange={(itemValue, itemIndex) => setLocation(itemValue)}
-        >
-          {locationOptions.map((item) => {
-            return (
-              <Picker.Item
-                label={item.label}
-                value={item.value}
-                key={item.key}
-              />
-            );
-          })}
-        </Picker>
-      </View>
-      <View style={styles.picker}>
-        <Picker
-          style={{ width: "100%", height: 61, color: "#fff" }}
-          selectedValue={gender}
-          onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
-        >
-          {genderOptions.map((item) => {
-            return (
-              <Picker.Item
-                label={item.label}
-                value={item.value}
-                key={item.key}
-              />
-            );
-          })}
-        </Picker>
-      </View>
-      <View>
-        <TextInput
-          style={styles.textinput}
-          placeholder="Referral Id(Optional)"
-          placeholderTextColor="#EDEDED"
-          color="#fff"
-          onChangeText={(referralId) => setReferralId(referralId)}
-        ></TextInput>
-      </View>
-      <View style={styles.ProfileCompleteWrapper}>
-        <TouchableNativeFeedback
-          useForeground={true}
-          onPress={checkingTheUserMobile}
-        >
-          <View style={styles.ProfileCompleteButton}>
-            <Text style={styles.ProfileCompleteButtonTitle}>Finish</Text>
-          </View>
-        </TouchableNativeFeedback>
-      </View>
+      <ScrollView>
+        <View>
+          <TextInput
+            style={styles.textinput}
+            placeholder="Full Name"
+            placeholderTextColor="#EDEDED"
+            color="#fff"
+            onChangeText={(text) => setFullName(text)}
+          ></TextInput>
+        </View>
+        <View>
+          <TextInput
+            style={[styles.textinput, styles.textPassword]}
+            placeholder="Age"
+            placeholderTextColor="#EDEDED"
+            color="#fff"
+            onChangeText={(age) => setAge(age)}
+          ></TextInput>
+        </View>
+        <View style={styles.picker}>
+          <Picker
+            style={{ width: "100%", height: 61, color: "#fff" }}
+            selectedValue={location}
+            onValueChange={(itemValue, itemIndex) => setLocation(itemValue)}
+          >
+            {locationOptions.map((item) => {
+              return (
+                <Picker.Item
+                  label={item.label}
+                  value={item.value}
+                  key={item.key}
+                />
+              );
+            })}
+          </Picker>
+        </View>
+        <View style={styles.picker}>
+          <Picker
+            style={{ width: "100%", height: 61, color: "#fff" }}
+            selectedValue={gender}
+            onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
+          >
+            {genderOptions.map((item) => {
+              return (
+                <Picker.Item
+                  label={item.label}
+                  value={item.value}
+                  key={item.key}
+                />
+              );
+            })}
+          </Picker>
+        </View>
+        <View>
+          <TextInput
+            style={styles.textinput}
+            placeholder="Referral Id(Optional)"
+            placeholderTextColor="#EDEDED"
+            color="#fff"
+            onChangeText={(referralId) => setReferralId(referralId)}
+          ></TextInput>
+        </View>
+        <View style={styles.ProfileCompleteWrapper}>
+          <TouchableNativeFeedback
+            useForeground={true}
+            onPress={checkingTheUserMobile}
+          >
+            <View style={styles.ProfileCompleteButton}>
+              <Text style={styles.ProfileCompleteButtonTitle}>Finish</Text>
+            </View>
+          </TouchableNativeFeedback>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -303,7 +305,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   ProfileCompleteWrapper: {
-    marginTop: 30,
+    marginTop: 10,
   },
   ProfileCompleteButton: {
     justifyContent: "center",
