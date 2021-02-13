@@ -16,6 +16,7 @@ import TextTicker from "react-native-text-ticker";
 import { globalstyles } from "../styles/global";
 import cash from "../assets/svgs/cash.png";
 import coffee from "../assets/images/coffee.png";
+import restauraunt from "../assets/images/Restaurant.png";
 import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
@@ -45,13 +46,13 @@ export default function HomeScreen({ navigation }) {
     {
       name: "Cafe",
       value: "cafe",
-      img: "../assests/images/coffee.jpg",
+      img: coffee,
       key: "1",
     },
     {
       name: "Restaurant",
       value: "restaurant",
-      img: "../assests/images/coffee.jpg",
+      img: restauraunt,
       key: "5",
     },
   ]);
@@ -252,7 +253,7 @@ export default function HomeScreen({ navigation }) {
                     }
                   >
                     <View style={styles.categoryTile}>
-                      <Image style={styles.tileLogo} source={coffee}></Image>
+                      <Image style={styles.tileLogo} source={item.img}></Image>
                     </View>
                   </TouchableNativeFeedback>
                   <Text style={styles.categoryItemTitle}>{item.name}</Text>
@@ -292,7 +293,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  tileLogo: { width: 40, height: 40 },
+  tileLogo: { width: "100%", height: "100%", resizeMode: "cover" },
   categoryItems: {
     flexDirection: "row",
     width: 383,
