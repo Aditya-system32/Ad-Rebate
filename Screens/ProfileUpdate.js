@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Button,
   View,
@@ -8,26 +8,64 @@ import {
   StatusBar,
   BackHandler,
   ScrollView,
+  Image,
   TextInput,
   TouchableNativeFeedback,
+  ToastAndroid,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { globalstyles } from "../styles/global";
+import { db } from "../firebases";
+import { AuthContext } from "../routes/AuthProvider";
 
 export default function ProfileScreen({ navigation }) {
   const [location, setLocation] = useState("bhilai");
   const [fullName, setFullName] = useState();
+  const { user } = useContext(AuthContext);
   const [locationOptions, setLocationOptions] = useState([
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },
     { value: "raipur", label: "Raipur", key: "Raipur" },
   ]);
   BackHandler.addEventListener("hardwareBackPress", function () {
-    () => null;
+    navigation.pop();
     return true;
   });
 
   const update = () => {
-    console.log("update");
+    if (fullName != undefined) {
+      db.collection("Users")
+        .doc(user.uid)
+        .set(
+          {
+            username: fullName,
+            location: location,
+          },
+          { merge: true }
+        )
+        .then(
+          () => navigation.pop(),
+          ToastAndroid.show("Profile Updated", ToastAndroid.SHORT)
+        )
+        .catch(function (err) {
+          console.log("Error getting Updated:", err);
+        });
+    } else {
+      db.collection("Users")
+        .doc(user.uid)
+        .set(
+          {
+            location: location,
+          },
+          { merge: true }
+        )
+        .then(
+          () => navigation.pop(),
+          ToastAndroid.show("Profile Updated", ToastAndroid.SHORT)
+        )
+        .catch(function (err) {
+          console.log("Error getting Updated:", err);
+        });
+    }
   };
 
   return (

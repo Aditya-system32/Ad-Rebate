@@ -68,7 +68,7 @@ export default function HomeScreen({ navigation }) {
   });
 
   useEffect(() => {
-    console.log(bannerData);
+    //console.log(bannerData);
   }, [bannerData]);
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
