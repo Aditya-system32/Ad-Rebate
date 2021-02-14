@@ -11,10 +11,11 @@ export default function AppIntroSliders({ navigation }) {
     <Onboarding
       pages={[
         {
-          backgroundColor: "#fff",
+          backgroundColor: "#000000",
           image: <Image source={require("../assets/images/coffee.png")} />,
           title: "Onboarding",
-          subtitle: "Done with React Native Onboarding Swiper",
+          subtitle:
+            "Done with asdddddddddddddddddddddddddddddddddddddddddddddddddddwqeqdasdadsReact Native Onboarding Swiawqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqeeeper",
         },
         {
           backgroundColor: "#fff",

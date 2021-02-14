@@ -10,6 +10,7 @@ import {
   Image,
   Dimensions,
   BackHandler,
+  ActivityIndicator,
 } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
@@ -19,13 +20,14 @@ export default function CouponScreen({ navigation }) {
   const { user } = useContext(AuthContext);
   const [couponArray, setCouponArray] = useState([]);
   const [currentOption, setcurrentOption] = useState("active");
-
+  const [loading, setLoading] = useState(false);
   BackHandler.addEventListener("hardwareBackPress", function () {
     navigation.pop();
     return true;
   });
   useEffect(() => {
     if (user) {
+      setLoading(true);
       var current = new Date();
       db.collectionGroup("Coupons")
         .where("allotedTo", "==", user.uid)
@@ -38,6 +40,9 @@ export default function CouponScreen({ navigation }) {
             if (doc.data().activeFrom <= Date.parse(aa))
               setCouponArray((prev) => [...prev, doc.data()]);
           });
+        })
+        .then(() => {
+          setLoading(false);
         });
     }
   }, [user]);
@@ -155,39 +160,45 @@ export default function CouponScreen({ navigation }) {
       </View>
 
       <SafeAreaView style={styles.couponHolder}>
-        <FlatList
-          data={couponArray}
-          numColumns={2}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={{ alignItems: "center" }}
-          renderItem={({ item }) => {
-            const amPm = item.activeFromTime <= "12-00" ? "AM" : "PM";
-            const hour = item.activeFromTime.split("-")[0] % 12;
-            const timetoShow = hour + ":" + item.activeFromTime.split("-")[1];
-            if (item.activeFromTime)
-              return (
-                <View style={styles.coupon}>
-                  <Image style={styles.couponImage} source={test}></Image>
-                  <Text style={styles.couponTitle}>{item.clientName}</Text>
-                  <Text style={styles.couponId}>{"#" + item.id}</Text>
-                  <Text style={styles.couponActiveFrom}>
-                    {"Active from : " +
-                      item.activeFromDate.replace(/-/g, "/") +
-                      " " +
-                      timetoShow +
-                      " " +
-                      amPm}
-                  </Text>
-                  <Text style={styles.couponActiveFrom}>
-                    {"Expiry date : " + item.expiryDate.replace(/-/g, "/")}
-                  </Text>
-                  <Text style={styles.couponDiscount}>
-                    {"Discount upto : " + item.userDiscount5 + "%"}
-                  </Text>
-                </View>
-              );
-          }}
-        />
+        {loading ? (
+          <View>
+            <ActivityIndicator color="white"></ActivityIndicator>
+          </View>
+        ) : (
+          <FlatList
+            data={couponArray}
+            numColumns={2}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{ alignItems: "center" }}
+            renderItem={({ item }) => {
+              const amPm = item.activeFromTime <= "12-00" ? "AM" : "PM";
+              const hour = item.activeFromTime.split("-")[0] % 12;
+              const timetoShow = hour + ":" + item.activeFromTime.split("-")[1];
+              if (item.activeFromTime)
+                return (
+                  <View style={styles.coupon}>
+                    <Image style={styles.couponImage} source={test}></Image>
+                    <Text style={styles.couponTitle}>{item.clientName}</Text>
+                    <Text style={styles.couponId}>{"#" + item.id}</Text>
+                    <Text style={styles.couponActiveFrom}>
+                      {"Active from : " +
+                        item.activeFromDate.replace(/-/g, "/") +
+                        " " +
+                        timetoShow +
+                        " " +
+                        amPm}
+                    </Text>
+                    <Text style={styles.couponActiveFrom}>
+                      {"Expiry date : " + item.expiryDate.replace(/-/g, "/")}
+                    </Text>
+                    <Text style={styles.couponDiscount}>
+                      {"Discount upto : " + item.userDiscount5 + "%"}
+                    </Text>
+                  </View>
+                );
+            }}
+          />
+        )}
       </SafeAreaView>
       <Button title="test" />
     </View>
