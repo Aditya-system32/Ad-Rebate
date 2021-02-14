@@ -6,13 +6,15 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableNativeFeedback,
   Image,
   StatusBar,
   BackHandler,
-  ScrollView,
   TextInput,
 } from "react-native";
+import {
+  ScrollView,
+  TouchableNativeFeedback,
+} from "react-native-gesture-handler";
 import { AuthContext } from "../routes/AuthProvider";
 import { globalstyles } from "../styles/global";
 import { db } from "../firebases";
@@ -275,16 +277,12 @@ export default function ProfileComplete({ navigation }) {
             onChangeText={(referralId) => setReferralId(referralId)}
           ></TextInput>
         </View>
-        <View style={styles.ProfileCompleteWrapper}>
-          <TouchableNativeFeedback
-            useForeground={true}
-            onPress={checkingTheUserMobile}
-          >
-            <View style={styles.ProfileCompleteButton}>
-              <Text style={styles.ProfileCompleteButtonTitle}>Finish</Text>
-            </View>
-          </TouchableNativeFeedback>
-        </View>
+        <TouchableNativeFeedback
+          onPress={checkingTheUserMobile}
+          style={styles.ProfileCompleteButton}
+        >
+          <Text style={styles.ProfileCompleteButtonTitle}>Finish</Text>
+        </TouchableNativeFeedback>
       </ScrollView>
     </View>
   );
