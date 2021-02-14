@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Image,
   Dimensions,
+  BackHandler,
 } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
@@ -19,6 +20,10 @@ export default function CouponScreen({ navigation }) {
   const [couponArray, setCouponArray] = useState([]);
   const [currentOption, setcurrentOption] = useState("active");
 
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    navigation.pop();
+    return true;
+  });
   useEffect(() => {
     if (user) {
       var current = new Date();
@@ -59,7 +64,7 @@ export default function CouponScreen({ navigation }) {
     setCouponArray([]);
     db.collectionGroup("Coupons")
       .where("allotedTo", "==", user.uid)
-      .where("isRedeemed","==",false)
+      .where("isRedeemed", "==", false)
       .get()
       .then((snap) => {
         snap.forEach((doc) => {

@@ -9,7 +9,9 @@ import {
   Alert,
   StatusBar,
   SafeAreaView,
+  ToastAndroid,
   BackHandler,
+  FlatList,
 } from "react-native";
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
@@ -21,7 +23,6 @@ import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
-import { FlatList } from "react-native-gesture-handler";
 import { set } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
 Notifications.setNotificationHandler({
@@ -36,10 +37,10 @@ export default function HomeScreen({ navigation }) {
   const [pushnotification, setPushNotification] = useState(false);
   const dispatch = useDispatch();
   const bannerData = useSelector((state) => state.bannerData.banners);
-  const [flag, setFlag] = useState(0);
   const notificationListener = useRef();
   const responseListener = useRef();
   const [notification, setNotifiaction] = useState();
+  const [backPressed, setBackPressed] = useState(0);
   const [categoriesButtons, setCategoriesButtons] = useState([
     {
       name: "Cafe",
@@ -55,13 +56,15 @@ export default function HomeScreen({ navigation }) {
     },
   ]);
   BackHandler.addEventListener("hardwareBackPress", function () {
-    if (flag === 1) {
-      setFlag(0);
+    if (backPressed > 0) {
       BackHandler.exitApp();
+      setBackPressed(0);
+    } else {
+      setBackPressed(backPressed + 1);
+      ToastAndroid.show("Press Again To Exit", ToastAndroid.SHORT);
+      setTimeout(() => setBackPressed(0), 2000);
+      return true;
     }
-    setFlag(flag + 1);
-    console.log(flag);
-    return true;
   });
 
   useEffect(() => {
@@ -225,7 +228,11 @@ export default function HomeScreen({ navigation }) {
             <Image source={cash}></Image>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback onPress={() => navigation.navigate("Coupon")}>
+        <TouchableNativeFeedback
+          onPress={() =>
+            user ? navigation.navigate("Coupon") : alert("Login First")
+          }
+        >
           <View style={styles.card}>
             <Image source={coupons}></Image>
           </View>

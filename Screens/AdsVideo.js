@@ -10,6 +10,7 @@ import {
   Dimensions,
   ToastAndroid,
   TouchableNativeFeedback,
+  BackHandler,
 } from "react-native";
 import { Video } from "expo-av";
 import { db } from "../firebases";
@@ -31,6 +32,10 @@ export default function AdsVideoScreen({ navigation, route }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    navigation.pop();
+    return true;
+  });
   //for loading all ads from selected category
   useEffect(() => {
     const temp = [];

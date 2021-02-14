@@ -9,6 +9,7 @@ import {
   Keyboard,
   StatusBar,
   TextInput,
+  BackHandler,
   Image,
   TouchableNativeFeedback,
   Linking,
@@ -23,6 +24,11 @@ export default function SignUpScreen({ navigation }) {
   const [checkboxes, setCheckBoxes] = useState(false);
   const [flagPhoneNumber, setFlagPhoneNumber] = useState(false);
   const [flagCheckBox, setFlagCheckBox] = useState(false);
+
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    navigation.pop();
+    return true;
+  });
   //VALIDATION FOR THE PHONE NUMBER
   const checkingPhoneNumber = (phoneNumber) => {
     phoneNumber = phoneNumber.replace(".", "");

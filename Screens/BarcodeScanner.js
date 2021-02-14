@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Dimensions } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Dimensions,
+  BackHandler,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import Constants from "expo-constants";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
@@ -7,6 +14,10 @@ export default function BarcodeScanner({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const { width } = Dimensions.get("window");
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    navigation.pop();
+    return true;
+  });
   const qrSize = width * 0.7;
   //REQUEST FOR PERMISSION
   useEffect(() => {

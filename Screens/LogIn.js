@@ -10,6 +10,7 @@ import {
   Keyboard,
   StatusBar,
   TextInput,
+  BackHandler,
 } from "react-native";
 import { globalstyles } from "../styles/global";
 import BannerImages from "./BannerImages";
@@ -18,6 +19,11 @@ export default function LogInScreen({ navigation }) {
   const [phoneNumber, setPhoneNumber] = useState();
   const [disabled, setDisabled] = useState(true);
   const [errorText, setErrorText] = useState("");
+
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    navigation.pop();
+    return true;
+  });
 
   //VALIDATION FOR THE PHONE NUMBER
   const checkingPhoneNumber = (phoneNumber) => {

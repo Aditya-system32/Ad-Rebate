@@ -8,6 +8,7 @@ import {
   StatusBar,
   SafeAreaView,
   ActivityIndicator,
+  BackHandler,
 } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
@@ -20,6 +21,11 @@ import {
 export default function TransactionScreen({ navigation }) {
   const { user } = useContext(AuthContext);
   const [redeemCouponArray, setRedeemCouponArray] = useState([]);
+
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    navigation.pop();
+    return true;
+  });
 
   useEffect(() => {
     const tempCouponArray = [];
