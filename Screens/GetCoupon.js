@@ -101,6 +101,9 @@ export default function GetCoupon({ navigation, route }) {
         )}
       </View>
       <Button title="Go Home" onPress={() => navigation.popToTop()} />
+      <Text style={{ color: "white" }}>
+        Note: Your Coupon Will Activate After 1 Hour
+      </Text>
     </View>
   );
 }

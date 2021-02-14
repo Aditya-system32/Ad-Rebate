@@ -9,6 +9,7 @@ import {
   StyleSheet,
   StatusBar,
   Alert,
+  BackHandler,
   Share,
 } from "react-native";
 import { db } from "../firebases";
@@ -25,6 +26,11 @@ export default function ProfileScreen({ navigation }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
+
+  BackHandler.addEventListener("hardwareBackPress", function () {
+    navigation.goBack();
+    return true;
+  });
 
   const checkingPhoneNumber = async (phoneNumber) => {
     phoneNumber = phoneNumber.replace(".", "");

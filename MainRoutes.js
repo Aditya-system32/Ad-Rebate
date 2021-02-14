@@ -8,6 +8,20 @@ import * as firebase from "firebase";
 import NavigationLogged from "./routes/NavigationLogged";
 import { View, Text, StyleSheet } from "react-native";
 import { cos } from "react-native-reanimated";
+import AppLoading from "expo-app-loading";
+
+const fetchFonts = () => {
+  return Font.loadAsync({
+    "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
+    "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Light": require("./assets/fonts/Poppins-Light.ttf"),
+  });
+};
+
+const _onError = () => {
+  console("Font Not Loaded");
+};
 
 export default function MainRoute() {
   const [fontLoaded, setFontLoaded] = React.useState(false);
@@ -16,7 +30,7 @@ export default function MainRoute() {
   const [appIsReady, setAppIsReady] = React.useState(false);
 
   //Fonts Loading From Assests
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     (async () =>
       await Font.loadAsync({
         "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
@@ -24,7 +38,7 @@ export default function MainRoute() {
         "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
         "Poppins-Light": require("./assets/fonts/Poppins-Light.ttf"),
       }))();
-  }, []);
+  }, []);*/
 
   const onAuthStateChanged = async (user) => {
     setUser(user);
@@ -52,17 +66,26 @@ export default function MainRoute() {
     } catch (e) {
       console.warn(e);
     } finally {
-      setFontLoaded(true);
       setAppIsReady(true, async () => {
         await SplashScreen.hideAsync();
       });
     }
   };
 
-  if (initializing && !fontLoaded && !appIsReady) {
+  if (!fontLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setFontLoaded(true)}
+        onError={_onError}
+      />
+    );
+  }
+  if (initializing && !appIsReady) {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Ad-Rebate</Text>
+        <Text style={styles.text}>Welcome To Ad-Rebate</Text>
+        <Text style={styles.text}>Advertisement on your Control </Text>
       </View>
     );
   }

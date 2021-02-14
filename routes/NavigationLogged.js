@@ -7,7 +7,7 @@ import {
 import CouponScreen from "../Screens/Coupon";
 import HomeScreen from "../Screens/Home";
 import AboutScreen from "../Screens/About";
-import ProfileScreen from "../Screens/Profile";
+import ProfileScreen from "../Screens/ProfileUpdate";
 import ProfileComplete from "../Screens/ProfileComplete";
 import { FontAwesome } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
