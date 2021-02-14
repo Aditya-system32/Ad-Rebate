@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   registerHere: {
     color: "#D3D3D3",
     alignSelf: "center",
+    marginTop: 10,
   },
   erText: {
     color: "red",
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
   },
   banner: {
     height: "16%",
-    backgroundColor: "#70007a",
+    backgroundColor: "#000000",
     width: "100%",
     marginBottom: "2%",
   },
@@ -164,5 +165,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: "80%",
     margin: 0,
+    marginTop: 10,
   },
 });

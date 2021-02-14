@@ -135,16 +135,7 @@ const HomeStackScreen = ({ navigation }) => {
         name="GetCoupon"
         component={GetCoupon}
         options={{
-          headerStyle: {
-            backgroundColor: "#000000",
-          },
-          headerTintColor: "#FFFFFF",
-          headerTitleStyle: {
-            fontFamily: "Poppins-SemiBold",
-          },
-          headerLeft: () => {
-            return null;
-          },
+          headerShown: false,
         }}
       />
       <HomeStack.Screen

@@ -57,7 +57,7 @@ export function DrawerContent(props) {
               marginTop: 80,
               justifyContent: "center",
               alignContent: "center",
-              borderColor: "#272727",
+              borderColor: "#1a1a1a",
               borderWidth: 1,
               height: 58,
             }}
@@ -172,21 +172,6 @@ export function DrawerContent(props) {
         </Drawer.Section>
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
-            label="Get Coupon"
-            labelStyle={{
-              color: "#EDEDED",
-              fontSize: 14,
-              alignSelf: "center",
-              paddingLeft: 6,
-              fontFamily: "Poppins-Medium",
-            }}
-            onPress={() => {
-              props.navigation.navigate("GetCoupon");
-            }}
-          />
-        </Drawer.Section>
-        <Drawer.Section style={styles.drawerSection}>
-          <DrawerItem
             label="ABOUT US"
             labelStyle={{
               color: "#EDEDED",
@@ -229,7 +214,7 @@ export function DrawerContent(props) {
 
 const styles = StyleSheet.create({
   container: {
-    borderColor: "#525252",
+    borderColor: "#1f1f1f",
     backgroundColor: "white",
   },
 
@@ -251,10 +236,11 @@ const styles = StyleSheet.create({
   },
   drawerSection: {
     marginTop: -6,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignContent: "center",
-    borderColor: "#272727",
-    borderWidth: 1,
+    borderColor: "#111111",
+    borderBottomWidth: 1,
+    marginRight: 20,
     height: 58,
   },
   profileWrapper: {
