@@ -165,7 +165,7 @@ export default function ProfileComplete({ navigation }) {
   }, [token]);
 
   //CHECKING THE USER MOBILE ( USING EMULATOR OR NOT ) IF NOT TAKING THE TOKEN FROM THE USER
-  checkingTheUserMobile = async () => {
+  const checkingTheUserMobile = async () => {
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)
     );
