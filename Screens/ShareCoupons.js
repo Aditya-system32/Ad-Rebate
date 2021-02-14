@@ -10,14 +10,18 @@ import {
   StatusBar,
   Alert,
   Share,
+  ActivityIndicator,
 } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
+import { TouchableNativeFeedback } from "react-native-gesture-handler";
+import BannerImages from "./BannerImages";
 
 export default function ProfileScreen({ navigation }) {
   const [phoneNumber, setPhoneNumber] = useState();
   const [disabled, setDisabled] = useState(true);
   const [errorText, setErrorText] = useState("");
+  const [loading, setLoading] = useState(false);
   const [selectedCoupon, setSelectedCoupon] = useState(null);
   const [coupons, setCoupons] = useState([]);
   const [shareUser, setShareUser] = useState();
@@ -35,7 +39,7 @@ export default function ProfileScreen({ navigation }) {
     ) {
       setPhoneNumber(phoneNumber);
       setDisabled(true);
-      setErrorText("Enter the 10 digit number");
+      setErrorText("Enter valid 10 digit number");
     } else {
       setPhoneNumber("+91" + phoneNumber);
       setDisabled(false);
@@ -76,6 +80,7 @@ export default function ProfileScreen({ navigation }) {
   useEffect(() => {
     if (user === null) return;
     async function temp() {
+      setLoading(true);
       var current = new Date();
       const x =
         current.getHours() < 10
@@ -102,6 +107,7 @@ export default function ProfileScreen({ navigation }) {
             var aa = new Date();
             if (doc.data().activeFrom <= Date.parse(aa))
               setCoupons((prev) => [...prev, doc.data()]);
+            setLoading(false);
           });
         })
         .catch((err) => {
@@ -158,9 +164,12 @@ export default function ProfileScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
+      <View style={styles.banner}>
+        <BannerImages />
+      </View>
       <TextInput
         style={styles.textinput}
-        placeholder="Phone no."
+        placeholder="Enter phone no."
         placeholderTextColor="#EDEDED"
         keyboardAppearance="dark"
         keyboardType="phone-pad"
@@ -168,7 +177,23 @@ export default function ProfileScreen({ navigation }) {
         onChangeText={checkingPhoneNumber}
       ></TextInput>
       {<Text style={styles.erText}>{errorText}</Text>}
-      {coupons.length > 0 ? (
+      {loading ? (
+        <View
+          style={[
+            styles.picker,
+            {
+              justifyContent: "center",
+              paddingTop: 2,
+              paddingRight: 30,
+              flexDirection: "row",
+              alignItems: "center",
+            },
+          ]}
+        >
+          <Text style={styles.gtt}>Getting your coupons..</Text>
+          <ActivityIndicator color="white" size="small"></ActivityIndicator>
+        </View>
+      ) : coupons.length > 0 ? (
         <View style={styles.picker}>
           <Picker
             style={{
@@ -200,20 +225,56 @@ export default function ProfileScreen({ navigation }) {
         </View>
       ) : (
         <View style={styles.erText}>
-          <Text style={{ color: "#920000", fontFamily: "Poppins-Regular" }}>
-            You do not have any coupon for this store
+          <Text style={{ color: "#ff6d6d", fontFamily: "Poppins-Regular" }}>
+            You do not have any coupon.
           </Text>
         </View>
       )}
-      <Button title="Share" onPress={shareCouponChecking} disabled={disabled} />
-      <Button title="Refer And Earn" onPress={onShare} />
-      <Button title="Go Home" onPress={() => navigation.popToTop()} />
+      <TouchableNativeFeedback
+        onPress={shareCouponChecking}
+        disabled={disabled}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Share</Text>
+      </TouchableNativeFeedback>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  banner: {
+    height: "16%",
+    backgroundColor: "#000000",
+    width: "100%",
+    marginBottom: "2%",
+  },
+  buttonText: {
+    color: "#fff",
+    width: "100%",
+    textAlign: "center",
+    fontSize: 16,
+    fontFamily: "Poppins-Regular",
+  },
+  gtt: {
+    color: "#fff",
+    marginRight: 10,
+    fontSize: 16,
+    fontFamily: "Poppins-Regular",
+  },
+  button: {
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    width: 150,
+    borderRadius: 20,
+    marginBottom: 50,
+    height: 58,
+    borderColor: "#fff",
+    borderStyle: "solid",
+    borderWidth: 1,
+  },
   textinput: {
+    marginTop: 150,
     backgroundColor: "#1A1A1A",
     borderColor: "#424242",
     borderWidth: 1,
@@ -228,20 +289,24 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   erText: {
-    color: "red",
+    color: "#ff7474",
     width: "75%",
+    fontFamily: "Poppins-Regular",
+    height: 40,
+    textAlign: "center",
     alignSelf: "center",
-    marginTop: -18,
+    marginTop: -10,
   },
   picker: {
-    backgroundColor: "#252525",
+    backgroundColor: "#1A1A1A",
     borderColor: "#424242",
-    color: "#ffffff",
+    color: "#f3f3f3",
     borderWidth: 1,
-    borderRadius: 50,
+    borderRadius: 20,
     paddingLeft: 20,
+    paddingTop: 5,
     width: "80%",
-    height: 50,
+    height: 61,
     alignSelf: "center",
     fontSize: 12,
     fontFamily: "Poppins-Regular",
@@ -256,5 +321,9 @@ const styles = StyleSheet.create({
     height: 50,
     textAlign: "center",
     marginBottom: 10,
+  },
+  container: {
+    backgroundColor: "black",
+    height: "100%",
   },
 });

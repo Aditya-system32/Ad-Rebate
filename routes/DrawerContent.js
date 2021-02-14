@@ -121,6 +121,21 @@ export function DrawerContent(props) {
             }}
           />
         </Drawer.Section>
+        <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
+            label="SHARE COUPON"
+            labelStyle={{
+              color: "#EDEDED",
+              fontSize: 14,
+              alignSelf: "center",
+              paddingLeft: 6,
+              fontFamily: "Poppins-Medium",
+            }}
+            onPress={() => {
+              props.navigation.navigate("ShareCoupons");
+            }}
+          />
+        </Drawer.Section>
         {!user ? null : (
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
