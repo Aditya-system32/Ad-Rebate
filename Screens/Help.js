@@ -8,9 +8,13 @@ import {
   StatusBar,
   BackHandler,
 } from "react-native";
+import {
+  ScrollView,
+  TouchableNativeFeedback,
+} from "react-native-gesture-handler";
 
 export default function HelpScreen({ navigation }) {
-  const [quries, setQuries] = useState([
+  const [queries, setQueries] = useState([
     {
       question: "How to Redeem Coupon",
       answer:
@@ -34,20 +38,61 @@ export default function HelpScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      <Button title="Why I can't see my Coupon" />
-      <Button
-        title="How To Redeem Coupon"
-        onPress={() => navigation.goBack()}
-      />
-      <Button title="How To Get Coupon" onPress={() => navigation.goBack()} />
+      <ScrollView style={{ width: "100%", marginTop: 40 }}>
+        {queries.map((item, index) => {
+          const [visi, setvisi] = useState(false);
+          return (
+            <TouchableNativeFeedback
+              style={[styles.query]}
+              key={index}
+              onPress={() => setvisi(!visi)}
+            >
+              <Text style={[styles.que]}>{item.question}</Text>
+              {visi ? <Text style={[styles.ans]}>{item.answer}</Text> : null}
+            </TouchableNativeFeedback>
+          );
+        })}
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  query: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    width: "80%",
+    alignSelf: "center",
+    margin: 10,
+    minHeight: 50,
+  },
+  hidden: {
+    width: 0,
+    height: 0,
+  },
+  que: {
+    width: "100%",
+    height: 40,
+    color: "black",
+    textAlign: "center",
+    fontFamily: "Poppins-SemiBold",
+    fontSize: 15,
+    textAlignVertical: "center",
+  },
+  ans: {
+    width: "100%",
+    backgroundColor: "#2c2c2c",
+    color: "#eeeeee",
+    fontSize: 13,
+    lineHeight: 30,
+    padding: 20,
+    textAlignVertical: "center",
+    fontFamily: "Poppins-Regular",
+  },
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "black",
   },
 });
