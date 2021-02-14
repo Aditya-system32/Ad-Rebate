@@ -59,12 +59,14 @@ export default function HelpScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   query: {
-    backgroundColor: "white",
+    backgroundColor: "black",
     borderRadius: 10,
     width: "80%",
+    borderColor: "#424242",
+    borderWidth: 1,
     alignSelf: "center",
     margin: 10,
-    minHeight: 50,
+    minHeight: 60,
   },
   hidden: {
     width: 0,
@@ -72,9 +74,9 @@ const styles = StyleSheet.create({
   },
   que: {
     width: "100%",
-    height: 40,
-    color: "black",
-    textAlign: "center",
+    height: 60,
+    paddingHorizontal: 20,
+    color: "white",
     fontFamily: "Poppins-SemiBold",
     fontSize: 15,
     textAlignVertical: "center",
