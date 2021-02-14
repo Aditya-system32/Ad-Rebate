@@ -108,6 +108,21 @@ export function DrawerContent(props) {
         </Drawer.Section>
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
+            label="OnBoarding"
+            labelStyle={{
+              color: "#EDEDED",
+              fontSize: 14,
+              alignSelf: "center",
+              paddingLeft: 6,
+              fontFamily: "Poppins-Medium",
+            }}
+            onPress={() => {
+              props.navigation.navigate("AppIntroSliders");
+            }}
+          />
+        </Drawer.Section>
+        <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
             label="COUPONS"
             labelStyle={{
               color: "#EDEDED",
