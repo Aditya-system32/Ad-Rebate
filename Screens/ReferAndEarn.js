@@ -43,7 +43,7 @@ export default function ReferScreen({ navigation }) {
           user.uid +
           "\n\nuse this Id to get Coupon\n\n" +
           "https://play.google.com/store/apps/details?id=" +
-          "appPackageName"
+          "com.adrebate.adreabate"
       );
     }
   }, []);
