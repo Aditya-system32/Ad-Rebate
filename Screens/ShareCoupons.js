@@ -18,7 +18,7 @@ import { AuthContext } from "../routes/AuthProvider";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import BannerImages from "./BannerImages";
 
-export default function ProfileScreen({ navigation }) {
+export default function ShareCouponScreen({ navigation }) {
   const [phoneNumber, setPhoneNumber] = useState();
   const [disabled, setDisabled] = useState(true);
   const [errorText, setErrorText] = useState("");
@@ -113,8 +113,10 @@ export default function ProfileScreen({ navigation }) {
             var aa = new Date();
             if (doc.data().activeFrom <= Date.parse(aa))
               setCoupons((prev) => [...prev, doc.data()]);
-            setLoading(false);
           });
+        })
+        .then(() => {
+          setLoading(false);
         })
         .catch((err) => {
           console.log(err);

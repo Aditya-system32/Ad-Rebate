@@ -6,6 +6,7 @@ import {
 } from "@react-navigation/stack";
 import CouponScreen from "../Screens/Coupon";
 import HomeScreen from "../Screens/Home";
+import ReferAndEarn from "../Screens/ReferAndEarn";
 import AboutScreen from "../Screens/About";
 import ProfileScreen from "../Screens/ProfileUpdate";
 import ProfileComplete from "../Screens/ProfileComplete";
@@ -108,6 +109,19 @@ const HomeStackScreen = ({ navigation }) => {
       <HomeStack.Screen
         name="ShareCoupons"
         component={ShareCoupons}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Invite and earn"
+        component={ReferAndEarn}
         options={{
           headerStyle: {
             backgroundColor: "#000000",

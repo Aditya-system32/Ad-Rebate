@@ -136,6 +136,21 @@ export function DrawerContent(props) {
             }}
           />
         </Drawer.Section>
+        <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
+            label="INVITE AND EARN"
+            labelStyle={{
+              color: "#EDEDED",
+              fontSize: 14,
+              alignSelf: "center",
+              paddingLeft: 6,
+              fontFamily: "Poppins-Medium",
+            }}
+            onPress={() => {
+              props.navigation.navigate("Invite and earn");
+            }}
+          />
+        </Drawer.Section>
         {!user ? null : (
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
