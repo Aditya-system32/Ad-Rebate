@@ -32,9 +32,7 @@ Notifications.setNotificationHandler({
   }),
 });
 export default function HomeScreen({ navigation }) {
-  const { user, setUserData, setBannerData, userData } = useContext(
-    AuthContext
-  );
+  const { user, setUserData, userData } = useContext(AuthContext);
   const [pushnotification, setPushNotification] = useState(false);
   const dispatch = useDispatch();
   const bannerData = useSelector((state) => state.bannerData.banners);
@@ -133,7 +131,6 @@ export default function HomeScreen({ navigation }) {
         .get()
         .then(function (doc) {
           if (doc.exists && isMounted) {
-            setBannerData(doc.data());
             dispatch({
               type: "updateBanner",
               array: doc.data().banners,
@@ -197,6 +194,7 @@ export default function HomeScreen({ navigation }) {
               color: "#dadada",
               height: 50,
               width: "100%",
+              paddingHorizontal: 15,
               marginTop: 10,
               fontFamily: "Poppins-Regular",
             }}
@@ -306,7 +304,7 @@ const styles = StyleSheet.create({
   categoryTile: {
     borderRadius: 50,
     height: 70,
-    backgroundColor: "#9c9c9c",
+    backgroundColor: "#cccccc",
     borderColor: "#000000",
     borderWidth: 2,
     width: 70,

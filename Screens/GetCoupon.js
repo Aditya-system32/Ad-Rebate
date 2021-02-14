@@ -6,18 +6,29 @@ import {
   StyleSheet,
   Dimensions,
   BackHandler,
+  ActivityIndicator,
+  Image,
 } from "react-native";
+import { TouchableNativeFeedback } from "react-native-gesture-handler";
+import test from "../assets/images/test.jpg";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
-import * as firebase from "firebase";
 export default function GetCoupon({ navigation, route }) {
   //const id = route.params.paramKey;
   const id = "chocolateStoryBhilai";
   const [coupon, setCoupon] = useState(null);
-
+  const [amPm, setamPm] = useState(null);
+  const [timetoShow, settimetoShow] = useState(null);
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
+
+  useEffect(() => {
+    if (coupon === null) return;
+    setamPm(coupon.activeFromTime <= "12-00" ? "AM" : "PM");
+    const hour = coupon.activeFromTime.split("-")[0] % 12;
+    settimetoShow(hour + ":" + coupon.activeFromTime.split("-")[1]);
+  }, [coupon]);
   BackHandler.addEventListener("hardwareBackPress", function () {
     navigation.popToTop();
     return true;
@@ -82,53 +93,153 @@ export default function GetCoupon({ navigation, route }) {
 
   return (
     <View style={styles.page}>
-      <Text>{coupon ? coupon.id : "loading"}</Text>
+      <Text style={styles.congrats}>Congratulations! </Text>
+      <Text style={styles.congrats2}>coupon recieved</Text>
       <View style={styles.container}>
-        {coupon ? (
+        {coupon && coupon.id !== undefined ? (
           <View style={styles.coupon}>
-            <Text style={styles.couponText}>{coupon.id}</Text>
-            <Text style={styles.couponText}>{coupon.discount1}</Text>
-            <Text style={styles.couponText}>{coupon.expiryDate}</Text>
-            <View style={styles.activeDate}>
-              <Text style={styles.couponText}>{coupon.activeFromDate}</Text>
-              <Text style={styles.couponText}>{coupon.activeFromTime}</Text>
-            </View>
+            <Image style={styles.couponImage} source={test}></Image>
+            <Text style={styles.couponTitle}>{coupon.clientName}</Text>
+            <Text style={styles.couponId}>{"#" + coupon.id}</Text>
+            <Text style={styles.couponActiveFrom}>
+              {"Active from : " +
+                coupon.activeFromDate.replace(/-/g, "/") +
+                " " +
+                timetoShow +
+                " " +
+                amPm}
+            </Text>
+            <Text style={styles.couponActiveFrom}>
+              {"Expiry date : " + coupon.expiryDate?.replace(/-/g, "/")}
+            </Text>
+            <Text style={styles.couponDiscount}>
+              {"Discount upto : " + coupon.userDiscount5 + "%"}
+            </Text>
           </View>
         ) : (
           <View>
-            <Text>loading</Text>
+            <ActivityIndicator color="white"></ActivityIndicator>
           </View>
         )}
       </View>
-      <Button title="Go Home" onPress={() => navigation.popToTop()} />
+      <Text style={styles.noti}>You can only redeem this after an hour</Text>
+
+      <TouchableNativeFeedback
+        style={styles.gohome}
+        onPress={() => navigation.popToTop()}
+      >
+        <Text style={styles.tt}>Go home</Text>
+      </TouchableNativeFeedback>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  activeDate: {
-    flexDirection: "row",
+  noti: {
+    color: "#dddddd",
+    fontFamily: "Poppins-Regular",
+    marginBottom: 20,
+    width: "100%",
+    backgroundColor: "rgba(37, 37, 38, 0.5)",
+    textAlign: "center",
+    paddingTop: 5,
+  },
+  tt: {
+    color: "#fff",
+    width: "100%",
+    textAlign: "center",
+    fontSize: 16,
+    fontFamily: "Poppins-Regular",
+  },
+  gohome: {
     justifyContent: "center",
     alignItems: "center",
-    width: "60%",
-    height: 200,
+    alignSelf: "center",
+    width: 150,
+    borderRadius: 20,
+    marginBottom: 50,
+    height: 58,
+    borderColor: "#fff",
+    borderStyle: "solid",
+    borderWidth: 1,
+  },
+  congrats2: {
+    color: "#fff",
+    width: "100%",
+    textAlign: "center",
+    fontSize: 16,
+    fontFamily: "Poppins-Regular",
+  },
+  congrats: {
+    color: "#46ff83",
+    width: "100%",
+    textAlign: "center",
+    marginTop: 70,
+    fontSize: 25,
+    fontFamily: "Poppins-SemiBold",
   },
   page: {
     backgroundColor: "black",
+    width: "100%",
+    height: "100%",
     justifyContent: "center",
   },
-  coupon: {
-    borderRadius: 20,
-    width: "60%",
+  couponImage: {
     height: 200,
-    marginTop: 100,
-    color: "white",
-    borderRadius: 20,
-    backgroundColor: "#000",
-    padding: 20,
+    resizeMode: "cover",
+    borderRadius: 5,
+    width: "100%",
   },
-  couponText: {
-    color: "#a0a0a0",
+  couponDiscount: {
+    textAlign: "left",
+    width: "100%",
+    fontFamily: "Poppins-SemiBold",
+    color: "#000000",
+    fontSize: 14,
+  },
+  couponActiveFrom: {
+    textAlign: "left",
+    width: "100%",
+    fontFamily: "Poppins-Regular",
+    color: "#000000",
+    fontSize: 14,
+  },
+  couponTitle: {
+    textAlign: "left",
+    width: "100%",
+    fontFamily: "Poppins-SemiBold",
+    color: "#000000",
+    fontSize: 20,
+  },
+  couponId: {
+    textAlign: "left",
+    width: "100%",
+    fontFamily: "Poppins-Regular",
+    color: "#1b1b1b",
+    fontSize: 12,
+  },
+  flatList: {
+    alignItems: "center",
+  },
+  couponHolder: {
+    width: "100%",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-around",
+    backgroundColor: "black",
+    paddingTop: 10,
+  },
+  coupon: {
+    width: Dimensions.get("window").width * 0.65,
+    marginRight: 0,
+    marginTop: 30,
+    marginLeft: 10,
+    padding: 10,
+    height: 350,
+    borderRadius: 20,
+    backgroundColor: "#f0f0f0",
+    marginBottom: 10,
+    color: "black",
   },
   container: {
     flex: 1,

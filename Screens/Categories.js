@@ -65,8 +65,6 @@ export default function CategoriesScreen({ navigation, route }) {
           );
         })}
       </View>
-
-      <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
 }
@@ -76,6 +74,8 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "contain",
     borderRadius: 100,
+    width: "100%",
+    height: "100%",
   },
   clientItem: {
     alignItems: "center",
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     height: "90%",
     borderRadius: 20,
     padding: 17,
-    backgroundColor: "#161616",
+    backgroundColor: "#0f0f0f",
     flexDirection: "row",
     flexWrap: "wrap",
   },
