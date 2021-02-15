@@ -200,7 +200,6 @@ export default function CouponScreen({ navigation }) {
           />
         )}
       </SafeAreaView>
-      <Button title="test" />
     </View>
   );
 }

@@ -25,20 +25,15 @@ export function DrawerContent(props) {
           {!user ? null : (
             <View style={styles.userInfoSection}>
               <View style={styles.profileWrapper}>
-                <Avatar.Image
-                  source={{
-                    uri: "https://avatarfiles.alphacoders.com/153/153690.png",
-                  }}
-                  size={50}
-                />
-                <View style={{ marginLeft: 20 }}>
+                <View style={{ marginLeft: 0 }}>
+                  <Title style={styles.title}>Name - </Title>
+                </View>
+                <View style={{ marginLeft: 5 }}>
                   {userData == undefined || userData.username == null ? (
                     <Title style={styles.title}>User_Name</Title>
                   ) : (
                     <Title style={styles.title}>{userData.username}</Title>
                   )}
-
-                  <Caption style={styles.caption}>@45751</Caption>
                   <TouchableNativeFeedback
                     onPress={() => props.navigation.navigate("Profile")}
                   >
@@ -91,36 +86,6 @@ export function DrawerContent(props) {
             />
           </Drawer.Section>
         )}
-        <Drawer.Section style={styles.drawerSection}>
-          <DrawerItem
-            label="PushNotification"
-            labelStyle={{
-              color: "#EDEDED",
-              fontSize: 14,
-              alignSelf: "center",
-              paddingLeft: 6,
-              fontFamily: "Poppins-Medium",
-            }}
-            onPress={() => {
-              props.navigation.navigate("PushNotification");
-            }}
-          />
-        </Drawer.Section>
-        <Drawer.Section style={styles.drawerSection}>
-          <DrawerItem
-            label="OnBoarding"
-            labelStyle={{
-              color: "#EDEDED",
-              fontSize: 14,
-              alignSelf: "center",
-              paddingLeft: 6,
-              fontFamily: "Poppins-Medium",
-            }}
-            onPress={() => {
-              props.navigation.navigate("AppIntroSliders");
-            }}
-          />
-        </Drawer.Section>
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
             label="COUPONS"
