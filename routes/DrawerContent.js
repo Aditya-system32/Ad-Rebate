@@ -93,7 +93,7 @@ export function DrawerContent(props) {
         )}
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
-            label="Pf"
+            label="PushNotification"
             labelStyle={{
               color: "#EDEDED",
               fontSize: 14,
@@ -102,7 +102,7 @@ export function DrawerContent(props) {
               fontFamily: "Poppins-Medium",
             }}
             onPress={() => {
-              props.navigation.navigate("ProfileComplete");
+              props.navigation.navigate("PushNotification");
             }}
           />
         </Drawer.Section>
