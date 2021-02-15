@@ -173,7 +173,7 @@ export default function RedeemScreen({ navigation, route }) {
       .then(() =>
         navigation.replace("CouponRedeemed", {
           finalBill: finalBill,
-          couponId: selectedCoupon,
+          couponId: selectedCoupon.id,
           discount: discountGiven,
           userBill: userBill,
           client: route.params.paramKey,
