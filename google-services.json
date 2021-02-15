@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "232463419755",
+    "firebase_url": "https://ad-rebate2020-default-rtdb.firebaseio.com",
+    "project_id": "ad-rebate2020",
+    "storage_bucket": "ad-rebate2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232463419755:android:8a4aa43cbc9af109c5e42e",
+        "android_client_info": {
+          "package_name": "com.adrebate.adrebate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232463419755-8tvs81fomj6qo4q9tb2atcigs3obmt28.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDk5cj1eMRfJrjHR6sbhHFAW8HR605i_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232463419755-8tvs81fomj6qo4q9tb2atcigs3obmt28.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
