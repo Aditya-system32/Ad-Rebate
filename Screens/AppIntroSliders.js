@@ -32,6 +32,7 @@ export default function AppIntroSliders({ navigation }) {
       ]}
       onDone={() => navigation.popToTop()}
       onSkip={() => navigation.popToTop()}
+      imageContainerStyles={{ height: 20 }}
     />
   );
 }

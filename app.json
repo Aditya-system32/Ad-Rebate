@@ -3,7 +3,7 @@
      "name": "Ad-Rebate",
      "icon": "./assets/images/coffee.png",
      "version": "1.0.0",
-     "slug": "your-app-slug",
+     "slug": "ad-rebate-app",
      "orientation":"portrait",
      "splash": {
       "image": "./assets/images/coffee.png"

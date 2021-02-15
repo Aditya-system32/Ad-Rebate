@@ -24,6 +24,7 @@ import GetCoupon from "../Screens/GetCoupon";
 import CouponRedeemed from "../Screens/CouponRedeemed";
 import AppIntroSliders from "../Screens/AppIntroSliders";
 import ShareCoupons from "../Screens/ShareCoupons";
+import PushNotification from "../Screens/PushNotification";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -109,6 +110,19 @@ const HomeStackScreen = ({ navigation }) => {
       <HomeStack.Screen
         name="ShareCoupons"
         component={ShareCoupons}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="PushNotification"
+        component={PushNotification}
         options={{
           headerStyle: {
             backgroundColor: "#000000",
