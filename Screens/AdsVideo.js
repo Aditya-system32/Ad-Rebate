@@ -17,11 +17,13 @@ import { db } from "../firebases";
 import { color } from "react-native-reanimated";
 import { ProgressBar, Colors } from "react-native-paper";
 import { AuthContext } from "../routes/AuthProvider";
+import { isLoaded } from "expo-font";
 
 export default function AdsVideoScreen({ navigation, route }) {
   const [selectedClient, setselectedClient] = useState(route.params.paramKey);
+  const [loading, setLoading] = useState(false);
   const [adCategoryData, setadCategoryData] = useState(null);
-  const [currentAdIndex, setCurrentAdIndex] = useState(2);
+  const [currentAdIndex, setCurrentAdIndex] = useState(0);
   const [progressBarStatus, setProgressBarStatus] = useState(0.0);
   const [qAnswered, setqAnswered] = useState(false);
   const [qNa, setqNa] = useState(null);
@@ -39,6 +41,7 @@ export default function AdsVideoScreen({ navigation, route }) {
   //for loading all ads from selected category
   useEffect(() => {
     const temp = [];
+    setLoading(true);
     (async () =>
       db
         .collectionGroup("Ads")
@@ -136,6 +139,7 @@ export default function AdsVideoScreen({ navigation, route }) {
         videoData.forEach((element) => {
           anyNameFunction(element);
         });
+        setLoading(false);
         setadDataToPlay(addatavideos);
       }
 
@@ -172,7 +176,7 @@ export default function AdsVideoScreen({ navigation, route }) {
     } else {
       // Update your UI for the paused state
     }
-
+    if (isLoaded !== !loading) setLoading(!playbackStatus.isLoaded);
     if (playbackStatus.didJustFinish) {
       if (currentAdIndex === 2) {
         setshowQnA(true);
@@ -184,6 +188,17 @@ export default function AdsVideoScreen({ navigation, route }) {
   };
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
   //console.log(videoPlayBack);
+  if (loading)
+    return (
+      <View style={styles.container}>
+        <StatusBar backgroundColor="black" barStyle="light-content" />
+        <ActivityIndicator
+          style={{ alignSelf: "center", marginTop: "70%" }}
+          size="large"
+          color="#8d8d8d"
+        ></ActivityIndicator>
+      </View>
+    );
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />

@@ -15,9 +15,9 @@ export default function AppIntroSliders({ navigation }) {
         {
           backgroundColor: "#000000",
           image: <Image style={styles.image} source={thank} />,
-          title: "Thank you for downloading AdRebate.",
+          title: "Thank you for downloading Ad-Rebate.",
           subtitle:
-            "We at adrebate, believe in providing our customers with benefits they can get by investing the least amount of time.",
+            "We at Ad-Rebate, believe in providing our customers with benefits they can get by investing the least amount of time.",
         },
         {
           backgroundColor: "#000000",
