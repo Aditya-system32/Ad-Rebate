@@ -33,6 +33,8 @@ export default function TransactionScreen({ navigation }) {
       db.collection("Users")
         .doc(user.uid)
         .collection("Transactions")
+        .orderBy("dateRedeemed")
+        .orderBy("timeRedeemed")
         .get()
         .then((res) => {
           res.forEach((doc) => {

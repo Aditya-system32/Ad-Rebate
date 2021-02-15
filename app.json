@@ -3,7 +3,7 @@
      "name": "Ad-Rebate",
      "icon": "./assets/images/coffee.png",
      "version": "1.0.0",
-     "slug": "ad-rebate-app",
+     "slug": "ad-rebate-app-new",
      "orientation":"portrait",
      "splash": {
       "image": "./assets/images/coffee.png"
@@ -14,7 +14,7 @@
      },
      "android": {
       "googleServicesFile": "./google-services.json",
-       "package": "com.adrebate.adreabate",
+       "package": "com.adrebate.adrebate",
        "versionCode": 1
      }
     }
