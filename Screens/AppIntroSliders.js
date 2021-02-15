@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Image, BackHandler } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
-
+import coupons from "../assets/images/couponcolor.png";
+import thank from "../assets/images/thank.png";
+import enjoy from "../assets/images/enjoy.png";
 export default function AppIntroSliders({ navigation }) {
   BackHandler.addEventListener("hardwareBackPress", function () {
     navigation.popToTop();
@@ -12,27 +14,70 @@ export default function AppIntroSliders({ navigation }) {
       pages={[
         {
           backgroundColor: "#000000",
-          image: <Image source={require("../assets/images/coffee.png")} />,
-          title: "Onboarding",
+          image: <Image style={styles.image} source={thank} />,
+          title: "Thank you for downloading AdRebate.",
           subtitle:
-            "Done with asdddddddddddddddddddddddddddddddddddddddddddddddddddwqeqdasdadsReact Native Onboarding Swiawqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqeeeper",
+            "We at adrebate, believe in providing our customers with benefits they can get by investing the least amount of time.",
         },
         {
-          backgroundColor: "#fff",
-          image: <Image source={require("../assets/images/coffee.png")} />,
-          title: "Onboarding",
-          subtitle: "Done with React Native Onboarding Swiper",
+          backgroundColor: "#000000",
+          image: <Image style={styles.image} source={coupons} />,
+          title: "Getting coupons",
+          subtitle:
+            "1: Select your favorite cafe/restaurant/hotel etc. \n2: Watch ads displayed on your screen. \n3: You'll be asked 1 question related to ads you just saw.\n4: After selecting the correct answer you'll get your desired coupon. (to protect spam, you can use the coupon after 1 hour.)",
         },
         {
-          backgroundColor: "#fff",
-          image: <Image source={require("../assets/images/coffee.png")} />,
-          title: "Onboarding",
-          subtitle: "Done with React Native Onboarding Swiper",
+          backgroundColor: "#000000",
+          image: <Image style={styles.image} source={enjoy} />,
+          title: "Redeeming a coupon",
+          subtitle:
+            "1: Scan barcode at our partners venue \n2: Select coupon from drop down and enter your bill. \n3: After successfull redemption show your app screen at counter\n4: Pay the final bill shown in the app",
         },
       ]}
       onDone={() => navigation.popToTop()}
       onSkip={() => navigation.popToTop()}
-      imageContainerStyles={{ height: 20 }}
+      containerStyles={styles.container}
+      imageContainerStyles={styles.imageContainer}
+      titleStyles={styles.title}
+      subTitleStyles={styles.subtitle}
     />
   );
 }
+
+const styles = StyleSheet.create({
+  title: {
+    fontFamily: "Poppins-SemiBold",
+    fontSize: 20,
+    paddingHorizontal: 10,
+    marginTop: 60,
+  },
+  subtitle: {
+    fontFamily: "Poppins-Regular",
+    fontSize: 15,
+    paddingHorizontal: 30,
+    textAlign: "left",
+    lineHeight: 25,
+    marginTop: 20,
+  },
+  imageContainer: {
+    width: "100%",
+    height: "100%",
+    padding: 0,
+    position: "absolute",
+  },
+  image: {
+    height: 200,
+    width: 200,
+    resizeMode: "contain",
+
+    position: "absolute",
+    alignSelf: "center",
+    marginTop: 80,
+    top: 0,
+  },
+  container: {
+    width: "100%",
+    position: "relative",
+    height: "100%",
+  },
+});
