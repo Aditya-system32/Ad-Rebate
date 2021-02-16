@@ -84,15 +84,22 @@ const styles = StyleSheet.create({
   },
   clientItem: {
     alignItems: "center",
+    flexDirection: "row",
   },
-  clientName: { width: 100, color: "white", textAlign: "center" },
+  clientName: {
+    width: 100,
+    color: "white",
+    textAlign: "center",
+    fontSize: 19,
+    flex: 1,
+  },
   clientsWrapper: {
     width: "90%",
     height: "90%",
     borderRadius: 20,
     padding: 17,
     backgroundColor: "#0f0f0f",
-    flexDirection: "row",
+    flexDirection: "column",
     flexWrap: "wrap",
   },
   registerButtonTitle: {

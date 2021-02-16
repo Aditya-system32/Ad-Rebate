@@ -201,7 +201,7 @@ export default function HomeScreen({ navigation }) {
               marginTop: 10,
               fontFamily: "Poppins-Regular",
             }}
-            duration={6000}
+            duration={13000}
             loop
             bounce={false}
             marqueeOnMount={true}

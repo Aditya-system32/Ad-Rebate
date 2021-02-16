@@ -6,6 +6,7 @@ import {
   Button,
   Image,
   StyleSheet,
+  Linking,
 } from "react-native";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import checkmark from "../assets/images/green-checkmark.png";
@@ -19,6 +20,11 @@ export default function CouponRedeemed({ navigation, route }) {
     navigation.popToTop();
     return true;
   });
+  const handleRateUs = () => {
+    Linking.openURL(
+      "https://play.google.com/store/apps/details?id=" + "com.adrebate.adrebate"
+    );
+  };
   var current = new Date();
   const x =
     (current.getHours() < 10 ? "0" : "") +
@@ -49,10 +55,7 @@ export default function CouponRedeemed({ navigation, route }) {
       <Text style={styles.textFinal}>
         {"Final Bill : " + route.params.finalBill}
       </Text>
-      <TouchableNativeFeedback
-        style={styles.buttonRate}
-        onPress={() => navigation.popToTop()}
-      >
+      <TouchableNativeFeedback style={styles.buttonRate} onPress={handleRateUs}>
         <Text style={styles.buttonRateText}>Rate us on playstore</Text>
       </TouchableNativeFeedback>
       <TouchableNativeFeedback
