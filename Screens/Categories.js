@@ -51,9 +51,9 @@ export default function CategoriesScreen({ navigation, route }) {
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View>
-        <SafeAreaView>
+        <SafeAreaView style={styles.category}>
           <FlatList
-            style={styles.category}
+            numColumns={3}
             data={categorySelectedData}
             renderItem={({ item }) => (
               <View style={styles.itemWrapper}>
@@ -103,31 +103,31 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     alignSelf: "center",
-    fontSize: 19,
-    marginLeft: 50,
+    fontSize: 12,
     flex: 1,
   },
   categoryTile: {
     borderRadius: 50,
-    height: 70,
-    backgroundColor: "blue",
+    height: 80,
     borderColor: "#000000",
     borderWidth: 2,
-    width: 70,
+    width: 80,
     margin: 7,
     alignItems: "center",
     justifyContent: "center",
   },
   itemWrapper: {
-    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 7,
   },
   category: {
     padding: 20,
-    width: 383,
-    flexDirection: "row",
-    borderRadius: 20,
+    width: "100%",
     alignSelf: "center",
     height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   clientImage: {
     flex: 1,
