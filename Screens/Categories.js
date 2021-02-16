@@ -10,6 +10,8 @@ import {
   ActivityIndicator,
   TouchableNativeFeedback,
   BackHandler,
+  FlatList,
+  SafeAreaView,
 } from "react-native";
 import test from "../assets/images/test.jpg";
 import { db } from "../firebases";
@@ -48,8 +50,30 @@ export default function CategoriesScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      <View style={styles.clientsWrapper}>
-        {categorySelectedData.map((name) => {
+      <View>
+        <SafeAreaView>
+          <FlatList
+            style={styles.category}
+            data={categorySelectedData}
+            renderItem={({ item }) => (
+              <View style={styles.itemWrapper}>
+                <TouchableNativeFeedback
+                  onPress={() =>
+                    navigation.navigate("AdsVideo", {
+                      paramKey: item.id,
+                    })
+                  }
+                >
+                  <View style={styles.categoryTile}>
+                    <Image style={styles.clientImage} source={test}></Image>
+                  </View>
+                </TouchableNativeFeedback>
+                <Text style={styles.categoryItemTitle}>{item.name}</Text>
+              </View>
+            )}
+          />
+        </SafeAreaView>
+        {/*categorySelectedData.map((name) => {
           return (
             <View style={styles.clientItem} key={name.id}>
               <TouchableNativeFeedback
@@ -68,13 +92,43 @@ export default function CategoriesScreen({ navigation, route }) {
               </Text>
             </View>
           );
-        })}
+        })*/}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  categoryItemTitle: {
+    color: "white",
+    textAlign: "center",
+    alignSelf: "center",
+    fontSize: 19,
+    marginLeft: 50,
+    flex: 1,
+  },
+  categoryTile: {
+    borderRadius: 50,
+    height: 70,
+    backgroundColor: "blue",
+    borderColor: "#000000",
+    borderWidth: 2,
+    width: 70,
+    margin: 7,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  itemWrapper: {
+    flexDirection: "row",
+  },
+  category: {
+    padding: 20,
+    width: 383,
+    flexDirection: "row",
+    borderRadius: 20,
+    alignSelf: "center",
+    height: "100%",
+  },
   clientImage: {
     flex: 1,
     resizeMode: "contain",
@@ -92,6 +146,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 19,
     flex: 1,
+    backgroundColor: "white",
   },
   clientsWrapper: {
     width: "90%",
