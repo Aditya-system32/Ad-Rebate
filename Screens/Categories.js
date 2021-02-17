@@ -60,53 +60,32 @@ export default function CategoriesScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      <View>
-        <SafeAreaView style={styles.category}>
-          <FlatList
-            numColumns={3}
-            data={categorySelectedData}
-            renderItem={({ item }) => (
-              <View style={styles.itemWrapper}>
-                <TouchableNativeFeedback
-                  onPress={() =>
-                    navigation.navigate("AdsVideo", {
-                      paramKey: item.id,
-                    })
-                  }
-                >
-                  <View style={styles.categoryTile}>
-                    <Image
-                      style={styles.clientImage}
-                      source={{ uri: item.logo }}
-                    ></Image>
-                  </View>
-                </TouchableNativeFeedback>
-                <Text style={styles.categoryItemTitle}>{item.name}</Text>
-              </View>
-            )}
-          />
-        </SafeAreaView>
-        {/*categorySelectedData.map((name) => {
-          return (
-            <View style={styles.clientItem} key={name.id}>
+      <SafeAreaView style={styles.category}>
+        <FlatList
+          style={{ width: "100%" }}
+          numColumns={1}
+          data={categorySelectedData}
+          renderItem={({ item }) => (
+            <View style={styles.itemWrapper}>
               <TouchableNativeFeedback
                 onPress={() =>
                   navigation.navigate("AdsVideo", {
-                    paramKey: name.id,
+                    paramKey: item.id,
                   })
                 }
               >
-                <View style={styles.registerButton}>
-                  <Image style={styles.clientImage} source={test}></Image>
+                <View style={styles.categoryTile}>
+                  <Image
+                    style={styles.clientImage}
+                    source={{ uri: item.logo }}
+                  ></Image>
                 </View>
               </TouchableNativeFeedback>
-              <Text style={styles.clientName} key={name.id}>
-                {name.name}
-              </Text>
+              <Text style={styles.categoryItemTitle}>{item.name}</Text>
             </View>
-          );
-        })*/}
-      </View>
+          )}
+        />
+      </SafeAreaView>
     </View>
   );
 }
@@ -116,7 +95,8 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     alignSelf: "center",
-    fontSize: 12,
+    fontFamily: "Poppins-Regular",
+    fontSize: 15,
     flex: 1,
   },
   categoryTile: {
@@ -130,9 +110,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   itemWrapper: {
+    backgroundColor: "#131313",
+    borderRadius: 30,
+    borderColor: "#2e2e2e",
+    borderWidth: 0.5,
+    width: "100%",
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    margin: 7,
+    marginVertical: 7,
   },
   category: {
     padding: 20,
