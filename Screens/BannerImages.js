@@ -38,8 +38,8 @@ export default function BannerImages() {
       );
     }
   }, []);
-  const onShare = async (index) => {
-    if (index == 5) {
+  const onShare = async () => {
+    if (bannerData.length) {
       try {
         const result = await Share.share({
           message: shareMessage,
@@ -58,7 +58,6 @@ export default function BannerImages() {
       }
     }
   };
-
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />

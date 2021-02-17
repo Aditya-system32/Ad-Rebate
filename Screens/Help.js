@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   View,
@@ -31,10 +31,19 @@ export default function HelpScreen({ navigation }) {
         "Your Coupon Will activate after 1 hour , you can see your coupon in all section ",
     },
   ]);
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.pop();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />

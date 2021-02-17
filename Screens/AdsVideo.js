@@ -34,10 +34,19 @@ export default function AdsVideoScreen({ navigation, route }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.pop();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   //for loading all ads from selected category
   useEffect(() => {
     const temp = [];

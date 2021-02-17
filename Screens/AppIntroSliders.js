@@ -5,10 +5,19 @@ import coupons from "../assets/images/couponcolor.png";
 import thank from "../assets/images/thank.png";
 import enjoy from "../assets/images/enjoy.png";
 export default function AppIntroSliders({ navigation }) {
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.popToTop();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.popToTop();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   return (
     <Onboarding
       pages={[

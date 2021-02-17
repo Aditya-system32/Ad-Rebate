@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   View,
@@ -10,10 +10,19 @@ import {
 } from "react-native";
 
 export default function AboutScreen({ navigation }) {
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.goBack();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />

@@ -18,10 +18,19 @@ import { db } from "../firebases";
 export default function CategoriesScreen({ navigation, route }) {
   const [value, setValue] = useState(route.params.paramKey);
   const [categorySelectedData, setCategorySelectedData] = useState();
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.pop();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   useEffect(() => {
     if (true) {
       const categoryData = db.collection("Categories").doc(value);
@@ -47,6 +56,7 @@ export default function CategoriesScreen({ navigation, route }) {
       </View>
     );
   }
+  console.log(categorySelectedData);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -65,7 +75,10 @@ export default function CategoriesScreen({ navigation, route }) {
                   }
                 >
                   <View style={styles.categoryTile}>
-                    <Image style={styles.clientImage} source={test}></Image>
+                    <Image
+                      style={styles.clientImage}
+                      source={{ uri: item.logo }}
+                    ></Image>
                   </View>
                 </TouchableNativeFeedback>
                 <Text style={styles.categoryItemTitle}>{item.name}</Text>

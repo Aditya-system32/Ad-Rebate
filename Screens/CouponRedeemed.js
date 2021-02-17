@@ -16,10 +16,19 @@ export default function CouponRedeemed({ navigation, route }) {
   // (route.params.discount,),
   // (route.params.userBill),
   // route.params.client
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.popToTop();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.popToTop();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   const handleRateUs = () => {
     Linking.openURL(
       "https://play.google.com/store/apps/details?id=" + "com.adrebate.adrebate"

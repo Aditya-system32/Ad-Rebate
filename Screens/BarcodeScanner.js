@@ -14,11 +14,20 @@ export default function BarcodeScanner({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const { width } = Dimensions.get("window");
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.pop();
-    return true;
-  });
   const qrSize = width * 0.7;
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   //REQUEST FOR PERMISSION
   useEffect(() => {
     (async () => {

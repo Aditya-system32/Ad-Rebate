@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -13,12 +13,13 @@ import {
   Platform,
   StatusBar,
   TouchableNativeFeedback,
+  BackHandler,
 } from "react-native";
 import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
 import * as firebase from "firebase";
 import { firebaseConfig } from "../firebases";
 
-export default function VerificationScreen({ route }) {
+export default function VerificationScreen({ route, navigation }) {
   const recaptchaVerifier = useRef(null);
   const verificationCodeTextInput = useRef(null);
   const [phoneNumber, setPhoneNumber] = useState(route.params.paramKey);
@@ -28,7 +29,19 @@ export default function VerificationScreen({ route }) {
   const [verificationCode, setVerificationCode] = useState("");
   const [confirmError, setConfirmError] = useState();
   const [confirmInProgress, setConfirmInProgress] = useState(false);
-
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>

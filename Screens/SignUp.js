@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CheckBox from "@react-native-community/checkbox";
 import {
   View,
@@ -25,10 +25,19 @@ export default function SignUpScreen({ navigation }) {
   const [flagPhoneNumber, setFlagPhoneNumber] = useState(false);
   const [flagCheckBox, setFlagCheckBox] = useState(false);
 
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.pop();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   //VALIDATION FOR THE PHONE NUMBER
   const checkingPhoneNumber = (phoneNumber) => {
     phoneNumber = phoneNumber.replace(".", "");

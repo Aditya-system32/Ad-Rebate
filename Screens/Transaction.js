@@ -22,10 +22,19 @@ export default function TransactionScreen({ navigation }) {
   const { user } = useContext(AuthContext);
   const [redeemCouponArray, setRedeemCouponArray] = useState([]);
 
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.pop();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
 
   useEffect(() => {
     const tempCouponArray = [];

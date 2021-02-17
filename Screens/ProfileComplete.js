@@ -52,10 +52,19 @@ export default function ProfileComplete({ navigation }) {
     { value: "female", label: "female", key: "female" },
     { value: "other", label: "other", key: "other" },
   ]);
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    () => null;
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      () => null;
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
 
   useEffect(() => {
     const tempClientName = [];

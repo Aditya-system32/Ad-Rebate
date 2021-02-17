@@ -29,10 +29,19 @@ export default function GetCoupon({ navigation, route }) {
     const hour = coupon.activeFromTime.split("-")[0] % 12;
     settimetoShow(hour + ":" + coupon.activeFromTime.split("-")[1]);
   }, [coupon]);
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.popToTop();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.popToTop();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   useEffect(() => {
     let xx = {};
     async function xxx() {

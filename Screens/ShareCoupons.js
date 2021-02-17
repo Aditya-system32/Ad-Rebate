@@ -31,10 +31,19 @@ export default function ShareCouponScreen({ navigation }) {
     AuthContext
   );
 
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.goBack();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
 
   const checkingPhoneNumber = async (phoneNumber) => {
     phoneNumber = phoneNumber.replace(".", "");

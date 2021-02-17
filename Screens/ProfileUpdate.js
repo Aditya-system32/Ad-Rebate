@@ -26,10 +26,19 @@ export default function ProfileScreen({ navigation }) {
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },
     { value: "raipur", label: "Raipur", key: "Raipur" },
   ]);
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.pop();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
 
   const update = () => {
     if (fullName != undefined) {

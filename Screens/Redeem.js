@@ -28,6 +28,19 @@ export default function RedeemScreen({ navigation, route }) {
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   //for bill calc
   useEffect(() => {
     console.log(selectedCoupon);

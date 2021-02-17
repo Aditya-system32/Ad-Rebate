@@ -21,10 +21,20 @@ export default function CouponScreen({ navigation }) {
   const [couponArray, setCouponArray] = useState([]);
   const [currentOption, setcurrentOption] = useState("active");
   const [loading, setLoading] = useState(false);
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.pop();
-    return true;
-  });
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
+
   useEffect(() => {
     if (user) {
       setLoading(true);

@@ -55,17 +55,27 @@ export default function HomeScreen({ navigation }) {
       key: "5",
     },
   ]);
-  BackHandler.addEventListener("hardwareBackPress", function () {
-    if (backPressed > 0) {
+
+  useEffect(() => {
+    const backAction = () => {
+      /*if (backPressed > 0) {
+        BackHandler.exitApp();
+        setBackPressed(0);
+      } else {
+        setBackPressed(backPressed + 1);
+        ToastAndroid.show("Press Again To Exit", ToastAndroid.SHORT);
+        setTimeout(() => setBackPressed(0), 2000);}*/
       BackHandler.exitApp();
-      setBackPressed(0);
-    } else {
-      setBackPressed(backPressed + 1);
-      ToastAndroid.show("Press Again To Exit", ToastAndroid.SHORT);
-      setTimeout(() => setBackPressed(0), 2000);
       return true;
-    }
-  });
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
 
   useEffect(() => {
     //console.log(bannerData);
