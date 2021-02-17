@@ -68,6 +68,8 @@ export default function CategoriesScreen({ navigation, route }) {
           renderItem={({ item }) => (
             <View style={styles.itemWrapper}>
               <TouchableNativeFeedback
+                style={{ borderRadius: 20 }}
+                background={TouchableNativeFeedback.Ripple("#464646")}
                 onPress={() =>
                   navigation.navigate("AdsVideo", {
                     paramKey: item.id,
@@ -79,9 +81,10 @@ export default function CategoriesScreen({ navigation, route }) {
                     style={styles.clientImage}
                     source={{ uri: item.logo }}
                   ></Image>
+
+                  <Text style={styles.categoryItemTitle}>{item.name}</Text>
                 </View>
               </TouchableNativeFeedback>
-              <Text style={styles.categoryItemTitle}>{item.name}</Text>
             </View>
           )}
         />
@@ -94,30 +97,28 @@ const styles = StyleSheet.create({
   categoryItemTitle: {
     color: "white",
     textAlign: "center",
-    alignSelf: "center",
     fontFamily: "Poppins-Regular",
     fontSize: 15,
     flex: 1,
   },
   categoryTile: {
-    borderRadius: 50,
-    height: 80,
-    borderColor: "#000000",
-    borderWidth: 2,
-    width: 80,
-    margin: 7,
+    backgroundColor: "rgba(50,50,50,0.2)",
+    borderRadius: 30,
+    width: "100%",
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
+    padding: 20,
   },
   itemWrapper: {
-    backgroundColor: "#131313",
+    backgroundColor: "rgba(50,50,50,0.2)",
     borderRadius: 30,
     borderColor: "#2e2e2e",
     borderWidth: 0.5,
+    overflow: "hidden",
+    height: 85,
     width: "100%",
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
     marginVertical: 7,
   },
   category: {
@@ -129,11 +130,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   clientImage: {
-    flex: 1,
-    resizeMode: "contain",
+    resizeMode: "cover",
     borderRadius: 100,
-    width: "100%",
-    height: "100%",
+    backgroundColor: "white",
+    width: 70,
+    height: 70,
   },
   clientItem: {
     alignItems: "center",
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
     height: "90%",
     borderRadius: 20,
     padding: 17,
-    backgroundColor: "#0f0f0f",
+    backgroundColor: "rgba(0,0,0,0.4)",
     flexDirection: "column",
     flexWrap: "wrap",
   },
