@@ -30,13 +30,18 @@ export default function AdsVideoScreen({ navigation, route }) {
   const randomNumber = Math.floor(Math.random() * 2 + 0);
   const [showQnA, setshowQnA] = useState(false);
   const videoData = [];
+  const [play, setPlay] = useState(true);
+  const [loop, setloop] = useState(false);
+  const [currentAd, setCurrentAd] = useState(null);
   const [adDataToPlay, setadDataToPlay] = useState([]);
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
+  const videoRef = useRef();
   useEffect(() => {
     const backAction = () => {
       navigation.goBack();
+      videoData = [];
       return true;
     };
     const backHandler = BackHandler.addEventListener(
@@ -47,25 +52,6 @@ export default function AdsVideoScreen({ navigation, route }) {
       backHandler.remove();
     };
   }, []);
-  //for loading all ads from selected category
-  useEffect(() => {
-    const temp = [];
-    setLoading(true);
-    (async () =>
-      db
-        .collectionGroup("Ads")
-        .where("city", "==", "bhilai")
-        .where("category", "==", "cafe")
-        .get()
-        .then((snap) => {
-          snap.forEach((doc) => {
-            temp.push(doc.data());
-          });
-          setadCategoryData(temp);
-        }))();
-  }, []);
-
-  //
 
   async function checkAns(ans) {
     if (ans === Number(qNa.correctAnswer)) {
@@ -103,70 +89,36 @@ export default function AdsVideoScreen({ navigation, route }) {
           ToastAndroid.BOTTOM
         );
         setshowQnA(false);
-        await setCurrentAdIndex(1);
-        setCurrentAdIndex(2);
+        videoRef.current.replayAsync();
       }
     }
   }
+
   useEffect(() => {
-    let clientAd = {};
-    let adsExSelCli = [];
-    if (adCategoryData) {
-      clientAd = adCategoryData.filter(
-        (client) => client.client == selectedClient
-      )[randomNumber];
-      videoData.push(clientAd.link);
-
-      adsExSelCli = adCategoryData.filter(
-        (client) => client.client !== selectedClient
-      );
-      for (let i = 0; i < 2; i++) {
-        const randomAd =
-          adsExSelCli[
-            Math.floor(
-              Math.random() *
-                adCategoryData.filter(
-                  (client) => client.client != selectedClient
-                ).length
-            )
-          ];
-        if (i === 1) {
-          setqNa({
-            id: randomAd.id,
-            client: randomAd.client,
-            question: randomAd.question,
-            correctAnswer: randomAd.correctAnswer,
-            option1: randomAd.option1,
-            option2: randomAd.option2,
+    initiateAd();
+    async function initiateAd() {
+      db.collectionGroup("Ads")
+        .where("city", "==", "bhilai")
+        .where("category", "==", "cafe")
+        .get()
+        .then((snap) => {
+          let x = [];
+          snap.forEach((doc) => {
+            x.push(doc.data());
           });
-        }
-        videoData.push(randomAd.link);
-      }
-      let addatavideos = [];
-
-      if (videoData.length === 3) {
-        videoData.forEach((element) => {
-          anyNameFunction(element);
+          setadCategoryData(x);
         });
-        setLoading(false);
-        setadDataToPlay(addatavideos);
-      }
-
-      async function anyNameFunction(link) {
-        fetch(`https://adrebate.herokuapp.com/api/getAd?adLink=${link}`, {
-          method: "GET",
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            setadDataToPlay((old) => [...old, responseJson.link]);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
     }
+  }, []);
+  useEffect(() => {
+    if (adCategoryData === null) {
+      return;
+    }
+    let clientAdList = adCategoryData.filter(
+      (client) => client.client === selectedClient
+    );
+    fetchPlayableLink(clientAdList[randomNumber].link);
   }, [adCategoryData]);
-
   useEffect(() => {
     if (qAnswered) {
       setshowQnA(false);
@@ -177,7 +129,26 @@ export default function AdsVideoScreen({ navigation, route }) {
     }
   }, [qAnswered]);
 
-  const onPlaybackStatusUpdate = (playbackStatus) => {
+  async function fetchPlayableLink(link) {
+    setLoading(true);
+    fetch(`https://adrebate.herokuapp.com/api/getAd?adLink=${link}`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setCurrentAd(responseJson.link);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  }
+
+  useEffect(() => {
+    console.log(currentAd);
+  }, [currentAd]);
+  async function onPlaybackStatusUpdate(playbackStatus) {
     if (playbackStatus.isPlaying) {
       // Update your UI for the playing state
       //console.log((playbackStatus.positionMillis / 30000).toFixed(2));
@@ -185,16 +156,41 @@ export default function AdsVideoScreen({ navigation, route }) {
     } else {
       // Update your UI for the paused state
     }
-    if (isLoaded !== !loading) setLoading(!playbackStatus.isLoaded);
     if (playbackStatus.didJustFinish) {
       if (currentAdIndex === 2) {
+        setPlay(false);
         setshowQnA(true);
-      } else {
+      } else if (currentAdIndex === 1) {
+        setLoading(true);
+        let adsExSelCli = adCategoryData.filter(
+          (client) => client.client !== selectedClient
+        );
+        const randomAd =
+          adsExSelCli[Math.floor(Math.random() * adsExSelCli.length)];
+        setqNa({
+          id: randomAd.id,
+          client: randomAd.client,
+          question: randomAd.question,
+          correctAnswer: randomAd.correctAnswer,
+          option1: randomAd.option1,
+          option2: randomAd.option2,
+        });
+        await fetchPlayableLink(randomAd.link);
+        setLoading(false);
+        setCurrentAdIndex(currentAdIndex + 1);
+      } else if (currentAdIndex === 0) {
+        setLoading(true);
+        let adsExSelCli = adCategoryData.filter(
+          (client) => client.client !== selectedClient
+        );
+        const randomAd =
+          adsExSelCli[Math.floor(Math.random() * adsExSelCli.length)];
+        await fetchPlayableLink(randomAd.link);
+        setLoading(false);
         setCurrentAdIndex(currentAdIndex + 1);
       }
-    } else {
     }
-  };
+  }
   //console.log(adsSelecteData.filter((client) => client.client != value).length);
   //console.log(videoPlayBack);
   if (loading)
@@ -223,9 +219,13 @@ export default function AdsVideoScreen({ navigation, route }) {
           </TouchableNativeFeedback>
         </View>
       ) : null}
-      {adDataToPlay.length < 3 ? (
-        <View>
-          <Text>Loading</Text>
+      {loading ? (
+        <View style={styles.adContainer}>
+          <ActivityIndicator
+            color="white"
+            size="large"
+            style={{ marginTop: "70%" }}
+          ></ActivityIndicator>
         </View>
       ) : (
         <View style={styles.adContainer}>
@@ -241,18 +241,18 @@ export default function AdsVideoScreen({ navigation, route }) {
           />
           <Video
             source={{
-              uri: adDataToPlay[currentAdIndex]
-                ? adDataToPlay[currentAdIndex]
-                : null,
+              uri: currentAd,
             }}
             onPlaybackStatusUpdate={(playbackStatus) =>
               onPlaybackStatusUpdate(playbackStatus)
             }
             rate={1.0}
+            ref={videoRef}
             volume={1.0}
+            isLooping={loop}
             isMuted={false}
             resizeMode="cover"
-            shouldPlay={true}
+            shouldPlay={play}
             style={styles.video}
           />
         </View>
