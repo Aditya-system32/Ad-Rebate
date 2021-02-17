@@ -65,10 +65,14 @@ export default function BannerImages() {
         images={bannerData == undefined ? bannerImages : bannerData}
         circleLoop={true}
         autoplay={true}
-        resizeMode="cover"
+        resizeMode="contain"
         dotColor="#FFF"
         inactiveDotColor="#90A4AE"
+        resizeMethod="auto"
+        sliderBoxHeight={Dimensions.get("screen").height * 0.2}
+        parentWidth={Dimensions.get("screen").width * 0.9}
         onCurrentImagePressed={onShare}
+        ImageComponentStyle={styles.image}
       />
     </View>
   );
@@ -78,5 +82,10 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     width: "100%",
+
+  },
+  image: {
+    height: Dimensions.get("screen").height * 0.2,
+    width: Dimensions.get("screen").width * 0.9,
   },
 });
