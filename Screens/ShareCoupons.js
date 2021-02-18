@@ -14,6 +14,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { db } from "../firebases";
+import * as firebase from "firebase";
 import { AuthContext } from "../routes/AuthProvider";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import BannerImages from "./BannerImages";
@@ -27,9 +28,7 @@ export default function ShareCouponScreen({ navigation }) {
   const [coupons, setCoupons] = useState([]);
   const [shareUser, setShareUser] = useState();
   const [shareMessage, setShareMessage] = useState("Play Store Link");
-  const { user, setUserData, setBannerData, userData } = useContext(
-    AuthContext
-  );
+  const { user, userData } = useContext(AuthContext);
 
   useEffect(() => {
     const backAction = () => {
@@ -158,15 +157,47 @@ export default function ShareCouponScreen({ navigation }) {
           //console.log(selectedCoupon);
         })
         .then(() => {
+          //console.log(userData.username);
           db.collection("ClientData")
             .doc(selectedCoupon.client)
             .collection("Coupons")
             .doc(selectedCoupon.id)
             .set({ allotedTo: tempUser[0].id }, { merge: true })
             .then(
-              () => navigation.popToTop(),
-              console.log("done"),
-              Alert.alert("Coupon Shared")
+              db
+                .collection("Users")
+                .doc(tempUser[0].id)
+                .set(
+                  {
+                    couponsReceived: firebase.firestore.FieldValue.arrayUnion(
+                      userData.username
+                    ),
+                  },
+                  { merge: true }
+                )
+                .then(async () => {
+                  await fetch("https://fcm.googleapis.com/fcm/send", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `AAAANh_mSWs:APA91bEdCYWZPoMDegvvhriAANzbpHjsknyxR8V7UggP7F3GNigmlmV-LRdgAlfC7w6jbhEBxnqZ93DkM-QeoZQ9d2k4ycGF8dZzYxWOCRfseeJor8GNl97qqIOtG9jSTJH2kXYc4VXF`,
+                    },
+                    body: JSON.stringify({
+                      to: userData.nativeToken,
+                      priority: "normal",
+                      data: {
+                        title: userData.username,
+                        message: "Hello world!",
+                      },
+                    }),
+                  });
+                  () => navigation.popToTop(),
+                    console.log("done"),
+                    Alert.alert("Coupon Shared");
+                })
+                .catch((err) => {
+                  console.log(err);
+                })
             )
             .catch((err) => {
               console.log(err);
@@ -174,7 +205,7 @@ export default function ShareCouponScreen({ navigation }) {
         })
 
         .catch(function (error) {
-          Alert.alert("Not a Valdi user in Ad-Rebate");
+          Alert.alert("Not a Valid user in Ad-Rebate");
           console.log("Not a valid User ", error);
         });
     }

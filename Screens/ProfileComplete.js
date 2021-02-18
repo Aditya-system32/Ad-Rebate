@@ -38,6 +38,7 @@ export default function ProfileComplete({ navigation }) {
   const [age, setAge] = useState();
   const [couponArray, setCouponArray] = useState(null);
   const [token, setToken] = useState();
+  const [nativesToken, setNativesToken] = useState();
   const [gender, setGender] = useState("male");
   const { user } = useContext(AuthContext);
   const [expoPushToken, setExpoPushToken] = useState("");
@@ -80,14 +81,16 @@ export default function ProfileComplete({ navigation }) {
 
   //TAKING THE DETAILS FROM THE USER
   useEffect(() => {
-    if (token !== undefined) {
+    if (token !== undefined && nativesToken !== undefined) {
       const data = {
         Coupons: {},
         username: fullName,
         history: {},
+        couponsReceived: {},
         id: user.uid,
         expoToken: token,
         location: location,
+        nativeToken: nativesToken,
         age: age,
         gender: gender,
         phone: user.phoneNumber,
@@ -173,7 +176,7 @@ export default function ProfileComplete({ navigation }) {
       }
     } else {
     }
-  }, [token]);
+  }, [token, nativesToken]);
 
   //CHECKING THE USER MOBILE ( USING EMULATOR OR NOT ) IF NOT TAKING THE TOKEN FROM THE USER
   const checkingTheUserMobile = async () => {
@@ -196,8 +199,10 @@ export default function ProfileComplete({ navigation }) {
           return;
         }
         tokens = (await Notifications.getExpoPushTokenAsync()).data;
+        natiToken = (await Notifications.getDevicePushTokenAsync()).data;
         //console.log(tokens);
         setToken(tokens);
+        setNativesToken(natiToken);
       } else {
         alert("Must use physical device for Push Notifications");
       }

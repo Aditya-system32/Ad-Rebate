@@ -202,6 +202,13 @@ export default function HomeScreen({ navigation }) {
       { cancelable: false }
     );
 
+  useEffect(() => {
+    if (userData != undefined) {
+      if (userData.couponReceived != undefined) {
+      }
+    }
+  }, []);
+
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
