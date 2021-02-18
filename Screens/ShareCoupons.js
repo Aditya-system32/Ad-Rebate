@@ -176,6 +176,16 @@ export default function ShareCouponScreen({ navigation }) {
                   { merge: true }
                 )
                 .then(async () => {
+                  async function schedulePushNotification() {
+                    await Notifications.scheduleNotificationAsync({
+                      content: {
+                        title: "You've got mail! 📬",
+                        body: "Here is the notification body",
+                        data: { data: "goes here" },
+                      },
+                      trigger: { seconds: 2 },
+                    });
+                  }
                   await fetch("https://fcm.googleapis.com/fcm/send", {
                     method: "POST",
                     headers: {
@@ -183,9 +193,10 @@ export default function ShareCouponScreen({ navigation }) {
                       Authorization: `AAAANh_mSWs:APA91bEdCYWZPoMDegvvhriAANzbpHjsknyxR8V7UggP7F3GNigmlmV-LRdgAlfC7w6jbhEBxnqZ93DkM-QeoZQ9d2k4ycGF8dZzYxWOCRfseeJor8GNl97qqIOtG9jSTJH2kXYc4VXF`,
                     },
                     body: JSON.stringify({
-                      to: userData.nativeToken,
+                      to: userData.expoToken,
                       priority: "normal",
                       data: {
+                        experienceId: "@adrebateadmin/ad-rebate-app-new",
                         title: userData.username,
                         message: "Hello world!",
                       },
@@ -292,9 +303,11 @@ export default function ShareCouponScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   banner: {
-    height: "16%",
-    backgroundColor: "#000000",
-    width: "100%",
+    height: "20%",
+    marginTop: 5,
+    width: "90%",
+    alignItems: "center",
+    alignSelf: "center",
     marginBottom: "2%",
   },
   buttonText: {
