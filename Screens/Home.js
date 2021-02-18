@@ -13,6 +13,7 @@ import {
   BackHandler,
   FlatList,
 } from "react-native";
+import { Badge } from "react-native-paper";
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
 import { globalstyles } from "../styles/global";
@@ -190,6 +191,14 @@ export default function HomeScreen({ navigation }) {
       { cancelable: false }
     );
 
+  /*const checkingUserForBadge = () =>{
+      if(userData != undefined){
+        return userData.badge
+      }else{
+        return false
+      }
+    }*/
+
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -238,6 +247,7 @@ export default function HomeScreen({ navigation }) {
             <Image source={cash}></Image>
           </View>
         </TouchableNativeFeedback>
+        {/*<Badge style={{ backgroundColor: "green" }} visible={checkingUserForBadge}></Badge>*/}
         <TouchableNativeFeedback
           onPress={() =>
             user ? navigation.navigate("Coupon") : alert("Login First")

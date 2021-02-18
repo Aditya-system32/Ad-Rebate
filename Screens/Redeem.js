@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  BackHandler,
 } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";

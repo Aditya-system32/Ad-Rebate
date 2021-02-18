@@ -154,7 +154,7 @@ export default function ShareCouponScreen({ navigation }) {
           res.forEach((user) => {
             tempUser.push(user.data());
           });
-          //console.log(tempUser);
+          console.log(tempUser);
           //console.log(selectedCoupon);
         })
         .then(() => {
@@ -172,6 +172,14 @@ export default function ShareCouponScreen({ navigation }) {
               console.log(err);
             });
         })
+        /*.then(() => {
+          db.collection("Users")
+            .doc(tempUser[0].id)
+            .set({ badge: "true" }, { merge: true })
+            .catch((err) => {
+              console.log(err);
+            });
+        })*/
         .catch(function (error) {
           Alert.alert("Not a Valdi user in Ad-Rebate");
           console.log("Not a valid User ", error);

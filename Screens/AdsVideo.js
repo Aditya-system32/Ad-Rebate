@@ -40,8 +40,8 @@ export default function AdsVideoScreen({ navigation, route }) {
   const videoRef = useRef();
   useEffect(() => {
     const backAction = () => {
+      let videoData = [];
       navigation.goBack();
-      videoData = [];
       return true;
     };
     const backHandler = BackHandler.addEventListener(
