@@ -9,6 +9,7 @@ import {
   Alert,
   StatusBar,
   SafeAreaView,
+  Dimensions,
   ToastAndroid,
   BackHandler,
   FlatList,
@@ -16,7 +17,7 @@ import {
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
 import { globalstyles } from "../styles/global";
-import cash from "../assets/svgs/cash.png";
+import cash from "../assets/images/currency.png";
 import coffee from "../assets/images/coffee.png";
 import restauraunt from "../assets/images/Restaurant.png";
 import coupons from "../assets/svgs/coupons.png";
@@ -32,6 +33,17 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
+
+const { width, height } = Dimensions.get("window");
+
+const baseWidth = 411;
+const baseHeight = 771;
+const scaleWidth = width / baseWidth;
+const scaleHeight = height / baseHeight;
+const scale = Math.min(scaleWidth, scaleHeight);
+
+export const scaledSize = (size) => Math.ceil(size * scale);
+
 export default function HomeScreen({ navigation }) {
   const { user, setUserData, userData } = useContext(AuthContext);
   const [pushnotification, setPushNotification] = useState(false);
@@ -234,8 +246,8 @@ export default function HomeScreen({ navigation }) {
       }
       <View style={styles.wrapper}>
         <TouchableNativeFeedback onPress={buttonAlert}>
-          <View style={styles.card}>
-            <Image source={cash}></Image>
+          <View style={[styles.card, styles.cashCard]}>
+            <Image style={styles.img} source={cash}></Image>
           </View>
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
@@ -303,6 +315,11 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  img: {
+    width: scaledSize(125),
+    resizeMode: "cover",
+    height: scaledSize(125),
+  },
   categoryItemTitle: { color: "white" },
   itemWrapper: {
     justifyContent: "center",
@@ -369,9 +386,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#00BEB3",
   },
   categoryHeading: {
-    fontSize: 18,
+    fontSize: scaledSize(16),
+    fontFamily: "Poppins-Regular",
     color: "#FFFFFF",
-    marginBottom: "2%",
+    marginBottom: "1.5%",
   },
   category: {
     backgroundColor: "#161616",
@@ -393,7 +411,7 @@ const styles = StyleSheet.create({
     marginLeft: "5%",
     fontFamily: "Poppins-Regular",
     color: "#a8a8a8",
-    fontSize: 13,
+    fontSize: scaledSize(12),
     height: 20,
   },
   banner: {
@@ -419,7 +437,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF005C",
     height: "100%",
   },
-  cashCard: { backgroundColor: "#2bff00" },
+  cashCard: { backgroundColor: "#2fc900" },
   texts: {
     borderRadius: 20,
     fontFamily: "Poppins-Medium",
