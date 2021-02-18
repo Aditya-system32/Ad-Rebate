@@ -166,7 +166,7 @@ export function DrawerContent(props) {
                 fontFamily: "Poppins-Medium",
               }}
               onPress={() => {
-                props.navigation.navigate("Transaction");
+                props.navigation.navigate("Transactions");
               }}
             />
           </Drawer.Section>

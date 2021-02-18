@@ -153,7 +153,7 @@ const HomeStackScreen = ({ navigation }) => {
         }}
       />
       <HomeStack.Screen
-        name="Transaction"
+        name="Transactions"
         component={TransactionScreen}
         options={{
           headerStyle: {
