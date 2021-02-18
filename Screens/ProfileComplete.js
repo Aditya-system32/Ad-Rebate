@@ -81,7 +81,7 @@ export default function ProfileComplete({ navigation }) {
 
   //TAKING THE DETAILS FROM THE USER
   useEffect(() => {
-    if (token !== undefined && nativesToken !== undefined) {
+    if (token !== undefined) {
       const data = {
         Coupons: {},
         username: fullName,
@@ -90,7 +90,7 @@ export default function ProfileComplete({ navigation }) {
         id: user.uid,
         expoToken: token,
         location: location,
-        nativeToken: nativesToken,
+        //nativeToken: nativesToken,
         age: age,
         gender: gender,
         phone: user.phoneNumber,
@@ -176,7 +176,7 @@ export default function ProfileComplete({ navigation }) {
       }
     } else {
     }
-  }, [token, nativesToken]);
+  }, [token]);
 
   //CHECKING THE USER MOBILE ( USING EMULATOR OR NOT ) IF NOT TAKING THE TOKEN FROM THE USER
   const checkingTheUserMobile = async () => {
@@ -198,11 +198,10 @@ export default function ProfileComplete({ navigation }) {
           alert("Failed to get push token for push notification!");
           return;
         }
-        tokens = (await Notifications.getExpoPushTokenAsync()).data;
-        natiToken = (await Notifications.getDevicePushTokenAsync()).data;
-        //console.log(tokens);
+        tokens = (await Notifications.getDevicePushTokenAsync()).data;
+        //natiToken = (await Notifications.getDevicePushTokenAsync()).data;
+        console.log(tokens);
         setToken(tokens);
-        setNativesToken(natiToken);
       } else {
         alert("Must use physical device for Push Notifications");
       }
