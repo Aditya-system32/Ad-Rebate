@@ -183,7 +183,7 @@ export default function ShareCouponScreen({ navigation }) {
                       Authorization: `AAAANh_mSWs:APA91bEdCYWZPoMDegvvhriAANzbpHjsknyxR8V7UggP7F3GNigmlmV-LRdgAlfC7w6jbhEBxnqZ93DkM-QeoZQ9d2k4ycGF8dZzYxWOCRfseeJor8GNl97qqIOtG9jSTJH2kXYc4VXF`,
                     },
                     body: JSON.stringify({
-                      to: userData.nativeToken,
+                      to: tempUser[0].expoToken,
                       priority: "normal",
                       data: {
                         title: userData.username,
