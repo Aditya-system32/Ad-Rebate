@@ -175,30 +175,16 @@ export default function ShareCouponScreen({ navigation }) {
                   },
                   { merge: true }
                 )
-                .then(async () => {
-                  await fetch("https://fcm.googleapis.com/fcm/send", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: `AAAANh_mSWs:APA91bEdCYWZPoMDegvvhriAANzbpHjsknyxR8V7UggP7F3GNigmlmV-LRdgAlfC7w6jbhEBxnqZ93DkM-QeoZQ9d2k4ycGF8dZzYxWOCRfseeJor8GNl97qqIOtG9jSTJH2kXYc4VXF`,
-                    },
-                    body: JSON.stringify({
-                      to: tempUser[0].expoToken,
-                      priority: "normal",
-                      data: {
-                        title: userData.username,
-                        message: "Hello world!",
-                      },
-                    }),
-                  });
+                .then(
                   () => navigation.popToTop(),
-                    console.log("done"),
-                    Alert.alert("Coupon Shared");
-                })
-                .catch((err) => {
-                  console.log(err);
-                })
+                  console.log("done"),
+                  Alert.alert("Coupon Shared")
+                )
             )
+            .catch((err) => {
+              console.log(err);
+            })
+
             .catch((err) => {
               console.log(err);
             });

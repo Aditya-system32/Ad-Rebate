@@ -13,6 +13,7 @@ import {
   ToastAndroid,
   BackHandler,
   FlatList,
+  Button,
 } from "react-native";
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
@@ -24,6 +25,7 @@ import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
+import * as firebase from "firebase";
 import { set } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
 Notifications.setNotificationHandler({
@@ -202,12 +204,23 @@ export default function HomeScreen({ navigation }) {
       { cancelable: false }
     );
 
+  const skipAll = () => {
+    db.collection("Users")
+      .doc(user.uid)
+      .set({ couponsReceived: [] }, { merge: true });
+  };
+
   useEffect(() => {
     if (userData != undefined) {
-      if (userData.couponReceived != undefined) {
+      if (userData.couponsReceived != undefined) {
+        if (userData.couponsReceived.length > 1) {
+          <Button onPress={skipAll} />;
+        } else {
+          <Button onPress={skipAll} />;
+        }
       }
     }
-  }, []);
+  }, [userData]);
 
   return (
     <View style={globalstyles.container}>
