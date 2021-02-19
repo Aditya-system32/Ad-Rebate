@@ -457,11 +457,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF005C",
     height: "100%",
   },
-  cashCard: { backgroundColor: "#2fc900" },
   texts: {
     borderRadius: 20,
     fontFamily: "Poppins-Medium",
-    fontSize: 50,
+    fontSize: scaledSize(50),
     color: "#fff",
   },
 });

@@ -278,9 +278,11 @@ export default function ShareCouponScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   banner: {
-    height: "16%",
-    backgroundColor: "#000000",
-    width: "100%",
+    height: "20%",
+    marginTop: 5,
+    width: "90%",
+    alignItems: "center",
+    alignSelf: "center",
     marginBottom: "2%",
   },
   buttonText: {
