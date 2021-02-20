@@ -17,7 +17,7 @@ import {
 } from "react-native-gesture-handler";
 import { AuthContext } from "../routes/AuthProvider";
 import { globalstyles } from "../styles/global";
-import { db } from "../firebases";
+import { app, db } from "../firebases";
 import { addPushTokenListener } from "expo-notifications";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
@@ -180,11 +180,11 @@ export default function ProfileComplete({ navigation }) {
 
   //CHECKING THE USER MOBILE ( USING EMULATOR OR NOT ) IF NOT TAKING THE TOKEN FROM THE USER
   const checkingTheUserMobile = async () => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
+    registerForPushNotificationsAsync().then((tokenss) =>
+      setExpoPushToken(tokenss)
     );
     async function registerForPushNotificationsAsync() {
-      let token;
+      let tokenss;
       if (Constants.isDevice) {
         const {
           status: existingStatus,
@@ -198,10 +198,10 @@ export default function ProfileComplete({ navigation }) {
           alert("Failed to get push token for push notification!");
           return;
         }
-        tokens = (await Notifications.getDevicePushTokenAsync()).data;
-        //natiToken = (await Notifications.getDevicePushTokenAsync()).data;
-        console.log(tokens);
-        setToken(tokens);
+        tokenss = (await Notifications.getDevicePushTokenAsync()).data;
+        //natiToken = await app.getInstance().getToken()
+        console.log(tokenss);
+        setToken(tokenss);
       } else {
         alert("Must use physical device for Push Notifications");
       }
@@ -215,7 +215,7 @@ export default function ProfileComplete({ navigation }) {
         });
       }
 
-      return token;
+      return tokenss;
     }
   };
 
