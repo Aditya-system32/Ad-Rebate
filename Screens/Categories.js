@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Button,
   View,
@@ -15,7 +15,9 @@ import {
 } from "react-native";
 import test from "../assets/images/test.jpg";
 import { db } from "../firebases";
+import { AuthContext } from "../routes/AuthProvider";
 export default function CategoriesScreen({ navigation, route }) {
+  const { user, setUserData, userData } = useContext(AuthContext);
   const [value, setValue] = useState(route.params.paramKey);
   const [categorySelectedData, setCategorySelectedData] = useState();
   useEffect(() => {
@@ -39,7 +41,7 @@ export default function CategoriesScreen({ navigation, route }) {
         .then(function (doc) {
           if (doc.exists) {
             //console.log(doc.data().clients);
-            setCategorySelectedData(doc.data().clients);
+            setCategorySelectedData(doc.data()[userData.location]);
           } else {
           }
         })
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 30,
+    paddingVertical: 10,
   },
   clientImage: {
     resizeMode: "cover",
