@@ -192,7 +192,7 @@ export default function HomeScreen({ navigation }) {
   );
   useEffect(() => {
     var nn = new Date();
-    nn.setDate(nn.getDate() + 7);
+    nn.setDate(nn.getDate() + 2);
     console.log(nn);
   }, []);
   //EARNING THE UPDATE ALERT
