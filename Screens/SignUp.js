@@ -73,8 +73,10 @@ export default function SignUpScreen({ navigation }) {
       setFlagCheckBox(true);
     }
   };
+
+  //Link to Terms and Conditions Page
   const handleTermsAndConditions = () => {
-    Linking.openURL("https://mural.com");
+    Linking.openURL("https://ad-rebate.netlify.app/");
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
