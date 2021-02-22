@@ -26,11 +26,15 @@ import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
+import celeb1 from "../assets/images/celebration1.png";
 import * as firebase from "firebase";
 import end from "../assets/images/end.png";
-import { set } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -104,18 +108,13 @@ export default function HomeScreen({ navigation }) {
     async function checkUser() {
       if (user !== null && isMounted) {
         const userDoc = db.collection("Users").doc(user.uid);
-        userDoc
-          .get()
-          .then(function (doc) {
-            if (doc.exists) {
-              setUserData(doc.data());
-            } else {
-              navigation.navigate("ProfileComplete");
-            }
-          })
-          .catch(function (error) {
-            console.log("Error getting document:", error);
-          });
+        userDoc.onSnapshot(function (doc) {
+          if (doc.exists) {
+            setUserData(doc.data());
+          } else {
+            navigation.navigate("ProfileComplete");
+          }
+        });
       }
     }
     return () => {
@@ -206,13 +205,20 @@ export default function HomeScreen({ navigation }) {
       ],
       { cancelable: false }
     );
-
   const skipAll = () => {
+    console.log("aaa");
+    setUserData({
+      ...userData,
+      couponsReceived: [],
+    });
+    console.log("run");
     db.collection("Users")
       .doc(user.uid)
       .set({ couponsReceived: [] }, { merge: true });
   };
-
+  useEffect(() => {
+    console.log(userData?.couponsReceived);
+  }, [userData]);
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -257,37 +263,35 @@ export default function HomeScreen({ navigation }) {
       }
       {userData && userData.couponsReceived.length > 0 ? (
         userData.couponsReceived.length === 1 ? (
-          <View
-            from={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ type: "timing" }}
-            style={styles.popUpCoupon}
-          >
-            <Image style={styles.popUpEnd} source={end}></Image>
+          <View style={styles.popUpCoupon}>
+            <TouchableNativeFeedback onPress={skipAll}>
+              <Image style={styles.popUpEnd} source={end}></Image>
+            </TouchableNativeFeedback>
+
             <Text style={styles.bingo}>Bingoo!!</Text>
             <Text style={styles.popuptext}>Coupon Recieved</Text>
             <Text style={styles.popuptext2}>
               From : {userData.couponsReceived[0]}
             </Text>
+            <Image style={styles.celeb} source={celeb1}></Image>
           </View>
-        ) : (
-          <MView
-            from={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ type: "timing" }}
-            style={styles.popUpCoupon}
-          >
-            <Image style={styles.popUpEnd} source={end}></Image>
+        ) : userData.couponsReceived.length > 1 ? (
+          <View style={styles.popUpCoupon}>
+            <TouchableHighlight onPress={skipAll}>
+              <Image style={styles.popUpEnd} source={end}></Image>
+            </TouchableHighlight>
+
             <Text style={styles.bingo}>Bingoo!!</Text>
             <Text style={styles.popuptext}>Coupon Recieved</Text>
             <Text style={styles.popuptext2}>From :-</Text>
             <ScrollView style={styles.popupmultiview}>
               {userData.couponsReceived.map((e) => {
-                <Text style={styles.popuptext3}>{e}</Text>;
+                console.log(e);
+                return <Text style={styles.popuptext3}>{e}</Text>;
               })}
             </ScrollView>
-          </MView>
-        )
+          </View>
+        ) : null
       ) : null}
       <View style={styles.wrapper}>
         <TouchableNativeFeedback onPress={buttonAlert}>
@@ -360,16 +364,29 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  celeb: {
+    width: scaledSize(160),
+    height: scaledSize(160),
+    resizeMode: "contain",
+    marginTop: 40,
+  },
+  popupmultiview: {
+    width: "80%",
+  },
   popUpEnd: {
-    width: 40,
-    height: 40,
+    width: scaledSize(30),
     position: "absolute",
-    top: 40,
-    right: 40,
+    right: 20,
+    top: 20,
+    height: scaledSize(30),
   },
   popuptext3: {
-    color: "white",
-    fontFamily: "Poppins-Regular",
+    color: "black",
+    fontFamily: "Poppins-Medium",
+    backgroundColor: "green",
+    borderRadius: 20,
+    margin: 10,
+    textAlign: "center",
     fontSize: scaledSize(20),
   },
   popuptext2: {
@@ -401,7 +418,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     bottom: 0,
-    zIndex: 6,
+    zIndex: 1,
   },
   img: {
     width: scaledSize(125),
