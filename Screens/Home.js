@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useContext, useEffect, useState, useRef } from "react";
 import {
-  View,
   Text,
   StyleSheet,
   TouchableNativeFeedback,
@@ -14,7 +13,9 @@ import {
   BackHandler,
   FlatList,
   Button,
+  View,
 } from "react-native";
+import { View as MView } from "moti";
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
 import { globalstyles } from "../styles/global";
@@ -25,9 +26,15 @@ import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
+import celeb1 from "../assets/images/celebration1.png";
 import * as firebase from "firebase";
-import { set } from "react-native-reanimated";
+import end from "../assets/images/end.png";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  ScrollView,
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -101,18 +108,13 @@ export default function HomeScreen({ navigation }) {
     async function checkUser() {
       if (user !== null && isMounted) {
         const userDoc = db.collection("Users").doc(user.uid);
-        userDoc
-          .get()
-          .then(function (doc) {
-            if (doc.exists) {
-              setUserData(doc.data());
-            } else {
-              navigation.navigate("ProfileComplete");
-            }
-          })
-          .catch(function (error) {
-            console.log("Error getting document:", error);
-          });
+        userDoc.onSnapshot(function (doc) {
+          if (doc.exists) {
+            setUserData(doc.data());
+          } else {
+            navigation.navigate("ProfileComplete");
+          }
+        });
       }
     }
     return () => {
@@ -203,25 +205,20 @@ export default function HomeScreen({ navigation }) {
       ],
       { cancelable: false }
     );
-
   const skipAll = () => {
+    console.log("aaa");
+    setUserData({
+      ...userData,
+      couponsReceived: [],
+    });
+    console.log("run");
     db.collection("Users")
       .doc(user.uid)
       .set({ couponsReceived: [] }, { merge: true });
   };
-
   useEffect(() => {
-    if (userData != undefined) {
-      if (userData.couponsReceived != undefined) {
-        if (userData.couponsReceived.length > 1) {
-          <Button onPress={skipAll} />;
-        } else {
-          <Button onPress={skipAll} />;
-        }
-      }
-    }
+    console.log(userData?.couponsReceived);
   }, [userData]);
-
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -264,6 +261,38 @@ export default function HomeScreen({ navigation }) {
           </Text>
         </View>
       }
+      {userData && userData.couponsReceived.length > 0 ? (
+        userData.couponsReceived.length === 1 ? (
+          <View style={styles.popUpCoupon}>
+            <TouchableNativeFeedback onPress={skipAll}>
+              <Image style={styles.popUpEnd} source={end}></Image>
+            </TouchableNativeFeedback>
+
+            <Text style={styles.bingo}>Bingoo!!</Text>
+            <Text style={styles.popuptext}>Coupon Recieved</Text>
+            <Text style={styles.popuptext2}>
+              From : {userData.couponsReceived[0]}
+            </Text>
+            <Image style={styles.celeb} source={celeb1}></Image>
+          </View>
+        ) : userData.couponsReceived.length > 1 ? (
+          <View style={styles.popUpCoupon}>
+            <TouchableHighlight onPress={skipAll}>
+              <Image style={styles.popUpEnd} source={end}></Image>
+            </TouchableHighlight>
+
+            <Text style={styles.bingo}>Bingoo!!</Text>
+            <Text style={styles.popuptext}>Coupon Recieved</Text>
+            <Text style={styles.popuptext2}>From :-</Text>
+            <ScrollView style={styles.popupmultiview}>
+              {userData.couponsReceived.map((e) => {
+                console.log(e);
+                return <Text style={styles.popuptext3}>{e}</Text>;
+              })}
+            </ScrollView>
+          </View>
+        ) : null
+      ) : null}
       <View style={styles.wrapper}>
         <TouchableNativeFeedback onPress={buttonAlert}>
           <View style={[styles.card, styles.cashCard]}>
@@ -335,6 +364,62 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  celeb: {
+    width: scaledSize(160),
+    height: scaledSize(160),
+    resizeMode: "contain",
+    marginTop: 40,
+  },
+  popupmultiview: {
+    width: "80%",
+  },
+  popUpEnd: {
+    width: scaledSize(30),
+    position: "absolute",
+    right: 20,
+    top: 20,
+    height: scaledSize(30),
+  },
+  popuptext3: {
+    color: "black",
+    fontFamily: "Poppins-Medium",
+    backgroundColor: "green",
+    borderRadius: 20,
+    margin: 10,
+    textAlign: "center",
+    fontSize: scaledSize(20),
+  },
+  popuptext2: {
+    color: "#dadada",
+    fontFamily: "Poppins-Regular",
+    fontSize: scaledSize(18),
+  },
+  popuptext: {
+    color: "white",
+    fontFamily: "Poppins-Regular",
+    fontSize: scaledSize(20),
+  },
+  bingo: {
+    fontSize: scaledSize(30),
+    fontFamily: "Poppins-SemiBold",
+    color: "#4aff43",
+  },
+  popUpCoupon: {
+    backgroundColor: "#252525",
+    borderWidth: 1,
+    borderColor: "#4b4b4b",
+    borderBottomWidth: 0,
+    position: "absolute",
+    alignSelf: "center",
+    width: "100%",
+    height: "60%",
+    alignItems: "center",
+    padding: 40,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    bottom: 0,
+    zIndex: 1,
+  },
   img: {
     width: scaledSize(125),
     resizeMode: "cover",
