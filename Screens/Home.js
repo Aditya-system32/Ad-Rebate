@@ -190,7 +190,11 @@ export default function HomeScreen({ navigation }) {
       console.log(response);
     }
   );
-
+  useEffect(() => {
+    var nn = new Date();
+    nn.setDate(nn.getDate() + 7);
+    console.log(nn);
+  }, []);
   //EARNING THE UPDATE ALERT
   const buttonAlert = () =>
     Alert.alert(

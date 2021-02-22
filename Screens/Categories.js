@@ -62,7 +62,8 @@ export default function CategoriesScreen({ navigation, route }) {
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <SafeAreaView style={styles.category}>
         <FlatList
-          style={{ width: "100%" }}
+          style={{ width: "100%", padding: 10 }}
+          contentContainerStyle={{ paddingBottom: 20 }}
           numColumns={1}
           data={categorySelectedData}
           renderItem={({ item }) => (
@@ -122,17 +123,16 @@ const styles = StyleSheet.create({
     marginVertical: 7,
   },
   category: {
-    padding: 20,
     width: "100%",
     alignSelf: "center",
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
+    paddingVertical: 30,
   },
   clientImage: {
     resizeMode: "cover",
     borderRadius: 100,
-    backgroundColor: "white",
     width: 70,
     height: 70,
   },
@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
   },
   container: {
+    width: "100%",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
