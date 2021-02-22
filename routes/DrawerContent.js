@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
-import { View, StyleSheet, TouchableNativeFeedback } from "react-native";
+import { View, StyleSheet, TouchableNativeFeedback, Image } from "react-native";
 import { Avatar, Title, Caption, Drawer, Text } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { globalstyles } from "../styles/global";
 import { AuthContext } from "../routes/AuthProvider";
-
+import maleAvatar from "../assets/images/boyAvatar.png";
+import femaleAvatar from "../assets/images/girlAvatar.png";
+import { scaledSize } from "../Screens/Home";
 export function DrawerContent(props) {
   const { user, logout, userData } = useContext(AuthContext);
 
@@ -24,24 +26,25 @@ export function DrawerContent(props) {
 
           {!user ? null : (
             <View style={styles.userInfoSection}>
+              <Image
+                style={styles.image}
+                source={
+                  userData && userData.gender === "male"
+                    ? maleAvatar
+                    : femaleAvatar
+                }
+              ></Image>
               <View style={styles.profileWrapper}>
-                <View style={{ marginLeft: 0 }}>
-                  <Title style={styles.title}>Name - </Title>
-                </View>
-                <View style={{ marginLeft: 5 }}>
-                  {userData == undefined || userData.username == null ? (
-                    <Title style={styles.title}>User_Name</Title>
-                  ) : (
-                    <Title style={styles.title}>{userData.username}</Title>
-                  )}
-                  <TouchableNativeFeedback
-                    onPress={() => props.navigation.navigate("Profile")}
-                  >
-                    <View style={{ marginTop: 2 }}>
-                      <Text style={styles.Edit}>Edit</Text>
-                    </View>
-                  </TouchableNativeFeedback>
-                </View>
+                {userData == undefined || userData.username == null ? (
+                  <Title style={styles.title}>User_Name</Title>
+                ) : (
+                  <Title style={styles.title}>{userData.username}</Title>
+                )}
+                <TouchableNativeFeedback
+                  onPress={() => props.navigation.navigate("Profile")}
+                >
+                  <Text style={styles.Edit}>Edit</Text>
+                </TouchableNativeFeedback>
               </View>
             </View>
           )}
@@ -229,6 +232,10 @@ export function DrawerContent(props) {
 }
 
 const styles = StyleSheet.create({
+  image: {
+    width: scaledSize(60),
+    height: scaledSize(60),
+  },
   container: {
     borderColor: "#1f1f1f",
     backgroundColor: "white",
@@ -238,11 +245,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userInfoSection: {
-    paddingLeft: 25,
+    padding: scaledSize(10),
+    paddingLeft: scaledSize(25),
+    flexDirection: "row",
+    marginTop: 10,
   },
   title: {
-    fontSize: 16,
+    fontSize: scaledSize(15),
     marginTop: 3,
+    fontFamily: "Poppins-Medium",
+    marginLeft: scaledSize(10),
     color: "#EDEDED",
   },
   caption: {
@@ -256,13 +268,12 @@ const styles = StyleSheet.create({
     alignContent: "center",
     borderColor: "#111111",
     borderBottomWidth: 1,
-    marginRight: 20,
+    marginRight: 0,
     height: 58,
   },
   profileWrapper: {
-    marginTop: 50,
-    marginBottom: 21,
-    flexDirection: "row",
+    marginTop: scaledSize(10),
+    marginBottom: scaledSize(10),
   },
   bottomDrawerWrapper: {
     alignItems: "center",
@@ -275,11 +286,11 @@ const styles = StyleSheet.create({
   Edit: {
     color: "#EDEDED",
     backgroundColor: "#000000",
-    fontSize: 14,
-    marginTop: 4,
+    fontSize: scaledSize(12),
+    margin: 10,
     width: 60,
     textAlign: "center",
-    fontFamily: "Poppins-Medium",
+    fontFamily: "Poppins-Regular",
     borderWidth: 1,
     borderColor: "#525252",
     borderRadius: 3,

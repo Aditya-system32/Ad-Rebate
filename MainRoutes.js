@@ -6,10 +6,12 @@ import * as Font from "expo-font";
 import { AuthContext } from "./routes/AuthProvider";
 import * as firebase from "firebase";
 import NavigationLogged from "./routes/NavigationLogged";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { cos } from "react-native-reanimated";
 import AppLoading from "expo-app-loading";
-
+import logoB from "./assets/images/logoB.png";
+import logoA from "./assets/images/logoA.png";
+import { scaledSize } from "./Screens/Home";
 const fetchFonts = () => {
   return Font.loadAsync({
     "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
@@ -84,8 +86,8 @@ export default function MainRoute() {
   if (initializing && !appIsReady) {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Welcome To Ad-Rebate</Text>
-        <Text style={styles.text}>Advertisement on your Control </Text>
+        <Image style={styles.logoB} source={logoB}></Image>
+        <Text style={styles.text}>Ad-Rebate loading...</Text>
       </View>
     );
   }
@@ -100,6 +102,10 @@ async function performAPICalls() {}
 async function downloadAssets() {}
 
 const styles = StyleSheet.create({
+  logoB: {
+    width: 200,
+    height: 200,
+  },
   container: {
     flex: 1,
     alignItems: "center",
@@ -108,6 +114,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontWeight: "bold",
+    marginTop: scaledSize(40),
+    fontFamily: "Poppins-Medium",
+    fontSize: scaledSize(14),
   },
 });

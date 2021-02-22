@@ -75,6 +75,18 @@ export default function GetCoupon({ navigation, route }) {
             (current.getMonth() + 1) +
             "-" +
             current.getFullYear();
+          var nn = new Date();
+          nn.setDate(nn.getDate() + 3);
+          const ed =
+            (nn.getDate() < 10 ? "0" : "") +
+            nn.getDate() +
+            "-" +
+            (nn.getMonth() + 1 < 10 ? "0" : "") +
+            (nn.getMonth() + 1) +
+            "-" +
+            nn.getFullYear();
+          xx.expiryDate = ed;
+          xx.expiryDateMs = Date.parse(nn);
           xx.activeFrom = Date.parse(current);
           xx.activeFromTime = x;
           xx.activeFromDate = d;
