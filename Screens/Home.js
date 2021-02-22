@@ -277,13 +277,13 @@ export default function HomeScreen({ navigation }) {
           </View>
         ) : userData.couponsReceived.length > 1 ? (
           <View style={styles.popUpCoupon}>
-            <TouchableHighlight onPress={skipAll}>
+            <TouchableNativeFeedback onPress={skipAll}>
               <Image style={styles.popUpEnd} source={end}></Image>
-            </TouchableHighlight>
+            </TouchableNativeFeedback>
 
             <Text style={styles.bingo}>Bingoo!!</Text>
             <Text style={styles.popuptext}>Coupon Recieved</Text>
-            <Text style={styles.popuptext2}>From :-</Text>
+            <Text style={styles.popuptext2}>From :</Text>
             <ScrollView style={styles.popupmultiview}>
               {userData.couponsReceived.map((e) => {
                 console.log(e);
@@ -371,7 +371,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   popupmultiview: {
-    width: "80%",
+    width: "100%",
   },
   popUpEnd: {
     width: scaledSize(30),
@@ -381,11 +381,14 @@ const styles = StyleSheet.create({
     height: scaledSize(30),
   },
   popuptext3: {
-    color: "black",
+    color: "white",
+    height: scaledSize(50),
+    width: "100%",
+    textAlignVertical: "center",
     fontFamily: "Poppins-Medium",
-    backgroundColor: "green",
+    backgroundColor: "#242424",
     borderRadius: 20,
-    margin: 10,
+    marginVertical: 10,
     textAlign: "center",
     fontSize: scaledSize(20),
   },
@@ -414,7 +417,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "60%",
     alignItems: "center",
-    padding: 40,
+    paddingVertical: 40,
+    paddingHorizontal: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     bottom: 0,
