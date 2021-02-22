@@ -87,8 +87,7 @@ export default function MainRoute() {
     return (
       <View style={styles.container}>
         <Image style={styles.logoB} source={logoB}></Image>
-        <Text style={styles.text}>Welcome To Ad-Rebate</Text>
-        <Text style={styles.text}>Advertisement on your Control </Text>
+        <Text style={styles.text}>Ad-Rebate loading...</Text>
       </View>
     );
   }
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    margin: 5,
+    marginTop: scaledSize(40),
     fontFamily: "Poppins-Medium",
     fontSize: scaledSize(14),
   },
