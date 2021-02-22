@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useContext, useEffect, useState, useRef } from "react";
 import {
-  View,
   Text,
   StyleSheet,
   TouchableNativeFeedback,
@@ -14,7 +13,9 @@ import {
   BackHandler,
   FlatList,
   Button,
+  View,
 } from "react-native";
+import { View as MView } from "moti";
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
 import { globalstyles } from "../styles/global";
@@ -26,8 +27,10 @@ import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import BannerImages from "./BannerImages";
 import * as firebase from "firebase";
+import end from "../assets/images/end.png";
 import { set } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
+import { ScrollView } from "react-native-gesture-handler";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -210,18 +213,6 @@ export default function HomeScreen({ navigation }) {
       .set({ couponsReceived: [] }, { merge: true });
   };
 
-  useEffect(() => {
-    if (userData != undefined) {
-      if (userData.couponsReceived != undefined) {
-        if (userData.couponsReceived.length > 1) {
-          <Button onPress={skipAll} />;
-        } else {
-          <Button onPress={skipAll} />;
-        }
-      }
-    }
-  }, [userData]);
-
   return (
     <View style={globalstyles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -264,6 +255,40 @@ export default function HomeScreen({ navigation }) {
           </Text>
         </View>
       }
+      {userData && userData.couponsReceived.length > 0 ? (
+        userData.couponsReceived.length === 1 ? (
+          <View
+            from={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ type: "timing" }}
+            style={styles.popUpCoupon}
+          >
+            <Image style={styles.popUpEnd} source={end}></Image>
+            <Text style={styles.bingo}>Bingoo!!</Text>
+            <Text style={styles.popuptext}>Coupon Recieved</Text>
+            <Text style={styles.popuptext2}>
+              From : {userData.couponsReceived[0]}
+            </Text>
+          </View>
+        ) : (
+          <MView
+            from={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ type: "timing" }}
+            style={styles.popUpCoupon}
+          >
+            <Image style={styles.popUpEnd} source={end}></Image>
+            <Text style={styles.bingo}>Bingoo!!</Text>
+            <Text style={styles.popuptext}>Coupon Recieved</Text>
+            <Text style={styles.popuptext2}>From :-</Text>
+            <ScrollView style={styles.popupmultiview}>
+              {userData.couponsReceived.map((e) => {
+                <Text style={styles.popuptext3}>{e}</Text>;
+              })}
+            </ScrollView>
+          </MView>
+        )
+      ) : null}
       <View style={styles.wrapper}>
         <TouchableNativeFeedback onPress={buttonAlert}>
           <View style={[styles.card, styles.cashCard]}>
@@ -335,6 +360,49 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  popUpEnd: {
+    width: 40,
+    height: 40,
+    position: "absolute",
+    top: 40,
+    right: 40,
+  },
+  popuptext3: {
+    color: "white",
+    fontFamily: "Poppins-Regular",
+    fontSize: scaledSize(20),
+  },
+  popuptext2: {
+    color: "#dadada",
+    fontFamily: "Poppins-Regular",
+    fontSize: scaledSize(18),
+  },
+  popuptext: {
+    color: "white",
+    fontFamily: "Poppins-Regular",
+    fontSize: scaledSize(20),
+  },
+  bingo: {
+    fontSize: scaledSize(30),
+    fontFamily: "Poppins-SemiBold",
+    color: "#4aff43",
+  },
+  popUpCoupon: {
+    backgroundColor: "#252525",
+    borderWidth: 1,
+    borderColor: "#4b4b4b",
+    borderBottomWidth: 0,
+    position: "absolute",
+    alignSelf: "center",
+    width: "100%",
+    height: "60%",
+    alignItems: "center",
+    padding: 40,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    bottom: 0,
+    zIndex: 6,
+  },
   img: {
     width: scaledSize(125),
     resizeMode: "cover",
