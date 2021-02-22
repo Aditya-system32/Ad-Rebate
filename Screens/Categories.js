@@ -19,7 +19,8 @@ import { AuthContext } from "../routes/AuthProvider";
 export default function CategoriesScreen({ navigation, route }) {
   const { user, setUserData, userData } = useContext(AuthContext);
   const [value, setValue] = useState(route.params.paramKey);
-  const [categorySelectedData, setCategorySelectedData] = useState();
+  const [categorySelectedData, setCategorySelectedData] = useState([]);
+  const [loading, setloading] = useState(false);
   useEffect(() => {
     const backAction = () => {
       navigation.goBack();
@@ -34,7 +35,9 @@ export default function CategoriesScreen({ navigation, route }) {
     };
   }, []);
   useEffect(() => {
-    if (true) {
+    getCategory();
+    async function getCategory() {
+      setloading(true);
       const categoryData = db.collection("Categories").doc(value);
       categoryData
         .get()
@@ -42,7 +45,9 @@ export default function CategoriesScreen({ navigation, route }) {
           if (doc.exists) {
             //console.log(doc.data().clients);
             setCategorySelectedData(doc.data()[userData.location]);
+            setloading(false);
           } else {
+            setloading(false);
           }
         })
         .catch(function (error) {
@@ -51,52 +56,64 @@ export default function CategoriesScreen({ navigation, route }) {
     }
   }, []);
   //console.log(categorySelectedData);
-  if (categorySelectedData == undefined) {
-    return (
-      <View style={styles.activityIndicator}>
-        <ActivityIndicator size="large" color="#ffffff" />
-      </View>
-    );
-  }
   console.log(categorySelectedData);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      <SafeAreaView style={styles.category}>
-        <FlatList
-          style={{ width: "100%", padding: 10 }}
-          contentContainerStyle={{ paddingBottom: 20 }}
-          numColumns={1}
-          data={categorySelectedData}
-          renderItem={({ item }) => (
-            <View style={styles.itemWrapper}>
-              <TouchableNativeFeedback
-                style={{ borderRadius: 20 }}
-                background={TouchableNativeFeedback.Ripple("#464646")}
-                onPress={() =>
-                  navigation.navigate("AdsVideo", {
-                    paramKey: item.id,
-                  })
-                }
-              >
-                <View style={styles.categoryTile}>
-                  <Image
-                    style={styles.clientImage}
-                    source={{ uri: item.logo }}
-                  ></Image>
+      {loading ? (
+        <View style={styles.activityIndicator}>
+          <ActivityIndicator size="large" color="#ffffff" />
+        </View>
+      ) : (
+        <SafeAreaView style={styles.category}>
+          {categorySelectedData.length === 0 ? (
+            <Text style={styles.err}>
+              {`This category is not available in your city yet\n( coming soon.... )`}
+            </Text>
+          ) : (
+            <FlatList
+              style={{ width: "100%", padding: 10 }}
+              contentContainerStyle={{ paddingBottom: 20 }}
+              numColumns={1}
+              data={categorySelectedData}
+              renderItem={({ item }) => (
+                <View style={styles.itemWrapper}>
+                  <TouchableNativeFeedback
+                    style={{ borderRadius: 20 }}
+                    background={TouchableNativeFeedback.Ripple("#464646")}
+                    onPress={() =>
+                      navigation.navigate("AdsVideo", {
+                        paramKey: item.id,
+                      })
+                    }
+                  >
+                    <View style={styles.categoryTile}>
+                      <Image
+                        style={styles.clientImage}
+                        source={{ uri: item.logo }}
+                      ></Image>
 
-                  <Text style={styles.categoryItemTitle}>{item.name}</Text>
+                      <Text style={styles.categoryItemTitle}>{item.name}</Text>
+                    </View>
+                  </TouchableNativeFeedback>
                 </View>
-              </TouchableNativeFeedback>
-            </View>
+              )}
+            />
           )}
-        />
-      </SafeAreaView>
+        </SafeAreaView>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  err: {
+    color: "#ff6d6d",
+    fontFamily: "Poppins-Regular",
+    paddingHorizontal: 20,
+    lineHeight: 30,
+    textAlign: "center",
+  },
   categoryItemTitle: {
     color: "white",
     textAlign: "center",

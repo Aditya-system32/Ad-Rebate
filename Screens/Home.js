@@ -75,6 +75,12 @@ export default function HomeScreen({ navigation }) {
       img: restauraunt,
       key: "5",
     },
+    {
+      name: "Salon",
+      value: "salon",
+      img: restauraunt,
+      key: "3",
+    },
   ]);
 
   useEffect(() => {
@@ -200,13 +206,7 @@ export default function HomeScreen({ navigation }) {
     Alert.alert(
       "Update Alert",
       "This section will be available soon!",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        { text: "OK" },
-      ],
+      [{ text: "OK" }],
       { cancelable: false }
     );
   const skipAll = () => {
