@@ -1,13 +1,10 @@
 {
     "expo": {
      "name": "Ad-Rebate",
-     "icon": "./assets/images/coffee.png",
+     "icon": "./assets/images/logoB.png",
      "version": "1.0.0",
      "slug": "ad-rebate-app-new",
      "orientation":"portrait",
-     "splash": {
-      "image": "./assets/images/coffee.png"
-      },
      "ios": {
        "bundleIdentifier": "com.yourcompany.yourappname",
        "buildNumber": "1.0.0"
