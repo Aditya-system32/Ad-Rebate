@@ -424,9 +424,8 @@ const styles = StyleSheet.create({
   coupon: {
     width: Dimensions.get("window").width * 0.45,
     marginRight: 0,
-    marginLeft: 10,
-    padding: 10,
-    height: scaledSize(220),
+    marginLeft: scaledSize(10),
+    padding: scaledSize(10),
     borderRadius: 20,
     backgroundColor: "#ffffff",
     marginBottom: 10,
