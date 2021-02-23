@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
     width: "100%",
     fontFamily: "Poppins-Regular",
     color: "#1b1b1b",
-    fontSize: 8,
+    fontSize: scaledSize(7),
   },
   flatList: {
     alignItems: "center",
