@@ -426,7 +426,7 @@ const styles = StyleSheet.create({
     marginRight: 0,
     marginLeft: 10,
     padding: 10,
-    height: 210,
+    height: scaledSize(220),
     borderRadius: 20,
     backgroundColor: "#ffffff",
     marginBottom: 10,
