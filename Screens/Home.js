@@ -199,7 +199,7 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     var nn = new Date();
     nn.setDate(nn.getDate() + 2);
-    console.log(nn);
+    console.log(Date.parse(nn));
   }, []);
   //EARNING THE UPDATE ALERT
   const buttonAlert = () =>

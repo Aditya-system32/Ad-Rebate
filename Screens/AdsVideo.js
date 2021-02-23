@@ -34,6 +34,7 @@ export default function AdsVideoScreen({ navigation, route }) {
   const [loop, setloop] = useState(false);
   const [currentAd, setCurrentAd] = useState(null);
   const [adDataToPlay, setadDataToPlay] = useState([]);
+  const [secondAd, setsecondAd] = useState();
   const { user, setUserData, setBannerData, userData } = useContext(
     AuthContext
   );
@@ -117,7 +118,9 @@ export default function AdsVideoScreen({ navigation, route }) {
     let clientAdList = adCategoryData.filter(
       (client) => client.client === selectedClient
     );
-    fetchPlayableLink(clientAdList[randomNumber].link);
+    if (clientAdList !== undefined) {
+      fetchPlayableLink(clientAdList[randomNumber].link);
+    }
   }, [adCategoryData]);
   useEffect(() => {
     if (qAnswered) {
@@ -128,6 +131,10 @@ export default function AdsVideoScreen({ navigation, route }) {
     } else {
     }
   }, [qAnswered]);
+
+  useEffect(() => {
+    videoRef.current?.setStatusAsync({ progressUpdateIntervalMillis: 1 });
+  }, [currentAd]);
 
   async function fetchPlayableLink(link) {
     setLoading(true);
@@ -144,13 +151,56 @@ export default function AdsVideoScreen({ navigation, route }) {
         setLoading(false);
       });
   }
+  async function fetchLink(link) {
+    fetch(`https://adrebate.herokuapp.com/api/getAd?adLink=${link}`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setsecondAd(responseJson.link);
+        console.log(responseJson.link);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
-  useEffect(() => {
-    console.log(currentAd);
-  }, [currentAd]);
+  async function unload() {
+    await videoRef.current.unloadAsync();
+    videoRef.current.loadAsync({ uri: secondAd }, { shouldPlay: true });
+  }
   async function onPlaybackStatusUpdate(playbackStatus) {
     if (playbackStatus.isPlaying) {
-      // Update your UI for the playing state
+      // Update your UI for the playing state console.log("hello2");
+      if (
+        playbackStatus.positionMillis >= 15000 &&
+        playbackStatus.positionMillis <= 16500
+      ) {
+        if (currentAdIndex === 0) {
+          let adsExSelCli = adCategoryData.filter(
+            (client) => client.client !== selectedClient
+          );
+          const randomAd =
+            adsExSelCli[Math.floor(Math.random() * adsExSelCli.length)];
+          await fetchLink(randomAd.link);
+        } else if (currentAdIndex === 1) {
+          console.log("ran");
+          let adsExSelCli = adCategoryData.filter(
+            (client) => client.client !== selectedClient
+          );
+          const randomAd =
+            adsExSelCli[Math.floor(Math.random() * adsExSelCli.length)];
+          setqNa({
+            id: randomAd.id,
+            client: randomAd.client,
+            question: randomAd.question,
+            correctAnswer: randomAd.correctAnswer,
+            option1: randomAd.option1,
+            option2: randomAd.option2,
+          });
+          await fetchLink(randomAd.link);
+        }
+      }
       //console.log((playbackStatus.positionMillis / 30000).toFixed(2));
       setProgressBarStatus(playbackStatus.positionMillis / 30000);
     } else {
@@ -161,32 +211,10 @@ export default function AdsVideoScreen({ navigation, route }) {
         setPlay(false);
         setshowQnA(true);
       } else if (currentAdIndex === 1) {
-        setLoading(true);
-        let adsExSelCli = adCategoryData.filter(
-          (client) => client.client !== selectedClient
-        );
-        const randomAd =
-          adsExSelCli[Math.floor(Math.random() * adsExSelCli.length)];
-        setqNa({
-          id: randomAd.id,
-          client: randomAd.client,
-          question: randomAd.question,
-          correctAnswer: randomAd.correctAnswer,
-          option1: randomAd.option1,
-          option2: randomAd.option2,
-        });
-        await fetchPlayableLink(randomAd.link);
-        setLoading(false);
+        unload();
         setCurrentAdIndex(currentAdIndex + 1);
       } else if (currentAdIndex === 0) {
-        setLoading(true);
-        let adsExSelCli = adCategoryData.filter(
-          (client) => client.client !== selectedClient
-        );
-        const randomAd =
-          adsExSelCli[Math.floor(Math.random() * adsExSelCli.length)];
-        await fetchPlayableLink(randomAd.link);
-        setLoading(false);
+        unload();
         setCurrentAdIndex(currentAdIndex + 1);
       }
     }
@@ -246,6 +274,7 @@ export default function AdsVideoScreen({ navigation, route }) {
             onPlaybackStatusUpdate={(playbackStatus) =>
               onPlaybackStatusUpdate(playbackStatus)
             }
+            progressUpdateIntervalMillis={1000}
             rate={1.0}
             ref={videoRef}
             volume={1.0}

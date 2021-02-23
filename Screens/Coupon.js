@@ -69,6 +69,9 @@ export default function CouponScreen({ navigation }) {
               setCouponArray((prev) => [...prev, doc.data()]);
           });
         })
+        .catch((err) => {
+          console.log(err);
+        })
         .then(() => {
           setLoading(false);
         });
@@ -79,23 +82,29 @@ export default function CouponScreen({ navigation }) {
     setLoading(true);
     setCouponArray([]);
     var current = new Date();
-    nextPage.get().then((snap) => {
-      var lastVisible = snap.docs[snap.docs.length - 1];
-      setNextPage(
-        db
-          .collectionGroup("Coupons")
-          .where("allotedTo", "==", user.uid)
-          .where("isRedeemed", "==", false)
-          .where("expiryDateMs", ">=", Date.parse(current))
-          .startAfter(lastVisible)
-          .limit(8)
-      );
-      snap.forEach((doc) => {
-        if (doc.data().activeFrom <= Date.parse(current))
-          setCouponArray((prev) => [...prev, doc.data()]);
+    nextPage
+      .get()
+      .then((snap) => {
+        var lastVisible = snap.docs[snap.docs.length - 1];
+        setNextPage(
+          db
+            .collectionGroup("Coupons")
+            .where("allotedTo", "==", user.uid)
+            .where("isRedeemed", "==", false)
+            .where("expiryDateMs", ">=", Date.parse(current))
+            .startAfter(lastVisible)
+            .limit(8)
+        );
+        snap.forEach((doc) => {
+          if (doc.data().activeFrom <= Date.parse(current))
+            setCouponArray((prev) => [...prev, doc.data()]);
+        });
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
       });
-      setLoading(false);
-    });
   }
   // for getting active users
   async function getActiveCoupons() {
@@ -124,6 +133,10 @@ export default function CouponScreen({ navigation }) {
           if (doc.data().activeFrom <= Date.parse(current))
             setCouponArray((prev) => [...prev, doc.data()]);
         });
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
         setLoading(false);
       });
   }
@@ -154,6 +167,10 @@ export default function CouponScreen({ navigation }) {
             setCouponArray((prev) => [...prev, doc.data()]);
         });
         setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
       });
   }
   async function getAllCoupons() {
@@ -176,6 +193,10 @@ export default function CouponScreen({ navigation }) {
         snap.forEach((doc) => {
           setCouponArray((prev) => [...prev, doc.data()]);
         });
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
         setLoading(false);
       });
   }
@@ -201,6 +222,10 @@ export default function CouponScreen({ navigation }) {
         snap.forEach((doc) => {
           setCouponArray((prev) => [...prev, doc.data()]);
         });
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
         setLoading(false);
       });
   }
@@ -314,7 +339,12 @@ export default function CouponScreen({ navigation }) {
               if (item.activeFromTime)
                 return (
                   <View style={styles.coupon}>
-                    <Image style={styles.couponImage} source={test}></Image>
+                    <Image
+                      style={styles.couponImage}
+                      source={{
+                        uri: item.clientLogo,
+                      }}
+                    ></Image>
                     <Text style={styles.couponTitle}>{item.clientName}</Text>
                     <Text style={styles.couponId}>{"#" + item.id}</Text>
                     <Text style={styles.couponActiveFrom}>

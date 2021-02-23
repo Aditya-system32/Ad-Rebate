@@ -14,8 +14,7 @@ import test from "../assets/images/test.jpg";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
 export default function GetCoupon({ navigation, route }) {
-  //const id = route.params.paramKey;
-  const id = "chocolateStoryBhilai";
+  const id = route.params.paramKey;
   const [coupon, setCoupon] = useState(null);
   const [amPm, setamPm] = useState(null);
   const [timetoShow, settimetoShow] = useState(null);
@@ -119,7 +118,10 @@ export default function GetCoupon({ navigation, route }) {
       <View style={styles.container}>
         {coupon && coupon.id !== undefined ? (
           <View style={styles.coupon}>
-            <Image style={styles.couponImage} source={test}></Image>
+            <Image
+              style={styles.couponImage}
+              source={{ uri: coupon.clientLogo }}
+            ></Image>
             <Text style={styles.couponTitle}>{coupon.clientName}</Text>
             <Text style={styles.couponId}>{"#" + coupon.id}</Text>
             <Text style={styles.couponActiveFrom}>
