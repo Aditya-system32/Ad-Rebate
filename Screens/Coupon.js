@@ -399,7 +399,7 @@ const styles = StyleSheet.create({
   couponTitle: {
     textAlign: "left",
     width: "100%",
-    height: scaledSize(22),
+    height: scaledSize(24),
     fontFamily: "Poppins-SemiBold",
     color: "#000000",
     fontSize: scaledSize(16),
