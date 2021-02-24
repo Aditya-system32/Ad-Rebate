@@ -76,7 +76,7 @@ export default function SignUpScreen({ navigation }) {
 
   //Link to Terms and Conditions Page
   const handleTermsAndConditions = () => {
-    Linking.openURL("https://ad-rebate.netlify.app/");
+    Linking.openURL("http://adrebate.ml/");
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
