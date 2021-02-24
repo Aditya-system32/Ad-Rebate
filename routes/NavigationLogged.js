@@ -5,7 +5,7 @@ import {
   HeaderBackButton,
 } from "@react-navigation/stack";
 import CouponScreen from "../Screens/Coupon";
-import HomeScreen from "../Screens/Home";
+import HomeScreen, { scaledSize } from "../Screens/Home";
 import ReferAndEarn from "../Screens/ReferAndEarn";
 import AboutScreen from "../Screens/About";
 import ProfileScreen from "../Screens/ProfileUpdate";
@@ -270,9 +270,9 @@ export default function NavigationLogged() {
 
 const styles = StyleSheet.create({
   icons: {
-    marginLeft: 10,
+    marginLeft: scaledSize(10),
   },
   barcodeIcon: {
-    marginRight: 10,
+    marginRight: scaledSize(10),
   },
 });

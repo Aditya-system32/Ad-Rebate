@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import CouponScreen from "../Screens/Coupon";
-import HomeScreen from "../Screens/Home";
+import HomeScreen, { scaledSize } from "../Screens/Home";
 import LogInScreen from "../Screens/LogIn";
 import SignUpScreen from "../Screens/SignUp";
 import VerificationScreen from "../Screens/Verification";
@@ -152,6 +152,6 @@ export default function Navigation() {
 
 const styles = StyleSheet.create({
   icons: {
-    marginLeft: 10,
+    marginLeft: scaledSize(10),
   },
 });

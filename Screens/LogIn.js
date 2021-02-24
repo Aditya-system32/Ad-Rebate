@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { globalstyles } from "../styles/global";
 import BannerImages from "./BannerImages";
-
+import { scaledSize } from "./Home";
 export default function LogInScreen({ navigation }) {
   const [phoneNumber, setPhoneNumber] = useState();
   const [disabled, setDisabled] = useState(true);
@@ -106,12 +106,12 @@ export default function LogInScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   loginWrapper: {
-    marginTop: 70,
+    marginTop: scaledSize(70),
   },
   registerHere: {
     color: "#D3D3D3",
     alignSelf: "center",
-    marginTop: 10,
+    marginTop: scaledSize(10),
   },
   erText: {
     color: "red",
@@ -123,32 +123,32 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: 178,
-    borderRadius: 20,
-    height: 58,
+    width: scaledSize(178),
+    borderRadius: scaledSize(20),
+    height: scaledSize(58),
     borderColor: "#fff",
     borderStyle: "solid",
-    borderWidth: 1,
+    borderWidth: scaledSize(1),
   },
   loginButtonTitle: {
     color: "#ffffff",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Medium",
   },
   banner: {
     height: "20%",
-    marginTop: 5,
+    marginTop: scaledSize(5),
     width: "90%",
     alignItems: "center",
     alignSelf: "center",
     marginBottom: "2%",
   },
   welcomeBackWrapper: {
-    marginBottom: 57,
-    marginTop: 57,
+    marginBottom: scaledSize(57),
+    marginTop: scaledSize(57),
   },
   welcomeBack: {
-    fontSize: 28,
+    fontSize: scaledSize(28),
     fontFamily: "Poppins-Medium",
     color: "#EDEDED",
     alignSelf: "center",
@@ -157,25 +157,25 @@ const styles = StyleSheet.create({
   textinput: {
     backgroundColor: "#1A1A1A",
     borderColor: "#424242",
-    borderWidth: 1,
-    borderRadius: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
+    borderWidth: scaledSize(1),
+    borderRadius: scaledSize(20),
+    paddingLeft: scaledSize(20),
+    paddingRight: scaledSize(20),
     width: "80%",
-    height: 61,
+    height: scaledSize(61),
     alignSelf: "center",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Regular",
-    marginBottom: 24,
+    marginBottom: scaledSize(24),
   },
   textPassword: {
-    marginBottom: 16,
+    marginBottom: scaledSize(16),
   },
   forgetPass: {
     color: "#fff",
     alignSelf: "center",
     width: "80%",
-    margin: 0,
-    marginTop: 10,
+    margin: scaledSize(0),
+    marginTop: scaledSize(10),
   },
 });
