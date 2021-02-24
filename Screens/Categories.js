@@ -56,7 +56,6 @@ export default function CategoriesScreen({ navigation, route }) {
     }
   }, []);
   //console.log(categorySelectedData);
-  console.log(categorySelectedData);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
