@@ -12,7 +12,8 @@ import {
   ScrollView,
   TouchableNativeFeedback,
 } from "react-native-gesture-handler";
-
+import { View as MotiView } from "moti";
+import { AnimatePresence } from "moti";
 export default function HelpScreen({ navigation }) {
   const [queries, setQueries] = useState([
     {
@@ -51,14 +52,74 @@ export default function HelpScreen({ navigation }) {
         {queries.map((item, index) => {
           const [visi, setvisi] = useState(false);
           return (
-            <TouchableNativeFeedback
+            <MotiView
               style={[styles.query]}
-              key={index}
-              onPress={() => setvisi(!visi)}
+              from={{
+                opacity: 0,
+                scaleY: 0,
+              }}
+              animate={{
+                opacity: 1,
+                scaleY: 1,
+              }}
+              transition={{
+                type: "spring",
+              }}
+              exit={{
+                opacity: 0,
+              }}
             >
-              <Text style={[styles.que]}>{item.question}</Text>
-              {visi ? <Text style={[styles.ans]}>{item.answer}</Text> : null}
-            </TouchableNativeFeedback>
+              <TouchableNativeFeedback
+                key={index}
+                onPress={() => setvisi(!visi)}
+              >
+                <AnimatePresence>
+                  <MotiView
+                    from={{
+                      opacity: 0,
+                      translateY: -50,
+                      scaleX: 50,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      translateY: 0,
+                    }}
+                    transition={{
+                      type: "spring",
+                    }}
+                    exit={{
+                      opacity: 0,
+                      translateY: -50,
+                    }}
+                  >
+                    <Text style={[styles.que]}>{item.question}</Text>
+                  </MotiView>
+                </AnimatePresence>
+                <AnimatePresence>
+                  {visi ? (
+                    <MotiView
+                      from={{
+                        opacity: 0,
+                        translateY: -50,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        translateY: 0,
+                      }}
+                      transition={{
+                        type: "timing",
+                      }}
+                      exit={{
+                        opacity: 0,
+                        translateY: -50,
+                      }}
+                    >
+                      <Text style={[styles.ans]}>{item.answer}</Text>
+                    </MotiView>
+                  ) : null}
+                </AnimatePresence>
+              </TouchableNativeFeedback>
+            </MotiView>
           );
         })}
       </ScrollView>
