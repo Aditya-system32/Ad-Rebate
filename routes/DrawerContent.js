@@ -52,19 +52,19 @@ export function DrawerContent(props) {
         {!user ? (
           <Drawer.Section
             style={{
-              marginTop: 80,
+              marginTop: scaledSize(80),
               justifyContent: "center",
               alignContent: "center",
               borderColor: "#1a1a1a",
-              borderWidth: 1,
-              height: 58,
+              borderWidth: scaledSize(1),
+              height: scaledSize(58),
             }}
           >
             <DrawerItem
               label="HOME"
               labelStyle={{
                 color: "#EDEDED",
-                fontSize: 14,
+                fontSize: scaledSize(14),
                 alignSelf: "center",
                 fontFamily: "Poppins-Medium",
               }}
@@ -79,7 +79,7 @@ export function DrawerContent(props) {
               label="HOME"
               labelStyle={{
                 color: "#EDEDED",
-                fontSize: 14,
+                fontSize: scaledSize(14),
                 alignSelf: "center",
                 fontFamily: "Poppins-Medium",
               }}
@@ -95,9 +95,9 @@ export function DrawerContent(props) {
               label="COUPONS"
               labelStyle={{
                 color: "#EDEDED",
-                fontSize: 14,
+                fontSize: scaledSize(14),
                 alignSelf: "center",
-                paddingLeft: 6,
+                paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
               onPress={() => {
@@ -112,9 +112,9 @@ export function DrawerContent(props) {
               label="SHARE COUPON"
               labelStyle={{
                 color: "#EDEDED",
-                fontSize: 14,
+                fontSize: scaledSize(14),
                 alignSelf: "center",
-                paddingLeft: 6,
+                paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
               onPress={() => {
@@ -129,9 +129,9 @@ export function DrawerContent(props) {
               label="INVITE AND EARN"
               labelStyle={{
                 color: "#EDEDED",
-                fontSize: 14,
+                fontSize: scaledSize(14),
                 alignSelf: "center",
-                paddingLeft: 6,
+                paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
               onPress={() => {
@@ -146,9 +146,9 @@ export function DrawerContent(props) {
               label="SCANNER"
               labelStyle={{
                 color: "#EDEDED",
-                fontSize: 14,
+                fontSize: scaledSize(14),
                 alignSelf: "center",
-                paddingLeft: 6,
+                paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
               onPress={() => {
@@ -163,9 +163,9 @@ export function DrawerContent(props) {
               label="TRANSACTIONS"
               labelStyle={{
                 color: "#EDEDED",
-                fontSize: 14,
+                fontSize: scaledSize(14),
                 alignSelf: "center",
-                paddingLeft: 6,
+                paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
               onPress={() => {
@@ -179,9 +179,9 @@ export function DrawerContent(props) {
             label="HELP"
             labelStyle={{
               color: "#EDEDED",
-              fontSize: 14,
+              fontSize: scaledSize(14),
               alignSelf: "center",
-              paddingLeft: 6,
+              paddingLeft: scaledSize(6),
               fontFamily: "Poppins-Medium",
             }}
             onPress={() => {
@@ -194,9 +194,9 @@ export function DrawerContent(props) {
             label="ABOUT US"
             labelStyle={{
               color: "#EDEDED",
-              fontSize: 14,
+              fontSize: scaledSize(14),
               alignSelf: "center",
-              paddingLeft: 6,
+              paddingLeft: scaledSize(6),
               fontFamily: "Poppins-Medium",
             }}
             onPress={() => {
@@ -210,9 +210,9 @@ export function DrawerContent(props) {
               label="LOG OUT"
               labelStyle={{
                 color: "#EDEDED",
-                fontSize: 14,
+                fontSize: scaledSize(14),
                 alignSelf: "center",
-                paddingLeft: 6,
+                paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
               onPress={() =>
@@ -258,8 +258,8 @@ const styles = StyleSheet.create({
     color: "#EDEDED",
   },
   caption: {
-    fontSize: 14,
-    lineHeight: 14,
+    fontSize: scaledSize(14),
+    lineHeight: scaledSize(14),
     color: "#EDEDED",
   },
   drawerSection: {
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     borderColor: "#111111",
     borderBottomWidth: 1,
     marginRight: 0,
-    height: 58,
+    height: scaledSize(58),
   },
   profileWrapper: {
     marginTop: scaledSize(10),
@@ -277,23 +277,23 @@ const styles = StyleSheet.create({
   },
   bottomDrawerWrapper: {
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: scaledSize(20),
   },
   bottomDrawer: {
-    fontSize: 12,
+    fontSize: scaledSize(12),
     color: "#808080",
   },
   Edit: {
     color: "#EDEDED",
     backgroundColor: "#000000",
     fontSize: scaledSize(12),
-    margin: 10,
-    width: 60,
+    margin: scaledSize(10),
+    width: scaledSize(60),
     textAlign: "center",
     fontFamily: "Poppins-Regular",
     borderWidth: 1,
     borderColor: "#525252",
-    borderRadius: 3,
-    paddingTop: 4,
+    borderRadius: scaledSize(3),
+    paddingTop: scaledSize(4),
   },
 });

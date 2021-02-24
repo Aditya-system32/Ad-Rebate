@@ -18,6 +18,7 @@ import {
 import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
 import * as firebase from "firebase";
 import { firebaseConfig } from "../firebases";
+import { scaledSize } from "./Home";
 
 export default function VerificationScreen({ route, navigation }) {
   const recaptchaVerifier = useRef(null);
@@ -147,7 +148,7 @@ export default function VerificationScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: scaledSize(20),
     backgroundColor: "black",
   },
   sendButton: {
@@ -155,17 +156,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     width: "80%",
-    borderRadius: 20,
-    height: 58,
+    borderRadius: scaledSize(20),
+    height: scaledSize(58),
     backgroundColor: "#ffffff",
     borderColor: "#8d8d8d",
     borderStyle: "solid",
     borderWidth: 1,
-    marginBottom: 24,
+    marginBottom: scaledSize(24),
   },
   sendButtonText: {
     color: "#000000",
-    fontSize: 16,
+    fontSize: scaledSize(16),
     fontFamily: "Poppins-Medium",
   },
   confirmButton: {
@@ -173,8 +174,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     width: "80%",
-    borderRadius: 20,
-    height: 58,
+    borderRadius: scaledSize(20),
+    height: scaledSize(58),
     backgroundColor: "#000000",
     borderColor: "#ffffff",
     borderStyle: "solid",
@@ -183,31 +184,31 @@ const styles = StyleSheet.create({
   },
   confirmButtonText: {
     color: "#ffffff",
-    fontSize: 16,
+    fontSize: scaledSize(16),
     fontFamily: "Poppins-Medium",
   },
   content: {
-    marginTop: 50,
+    marginTop: scaledSize(50),
   },
   title: {
-    marginBottom: 50,
-    fontSize: 29,
+    marginBottom: scaledSize(50),
+    fontSize: scaledSize(29),
     fontWeight: "bold",
     color: "white",
     fontFamily: "Poppins-Regular",
   },
   subtitle: {
-    marginBottom: 10,
+    marginBottom: scaledSize(10),
     opacity: 0.35,
     fontWeight: "bold",
     color: "white",
     fontFamily: "Poppins-Regular",
   },
   text: {
-    marginTop: 30,
-    marginBottom: 4,
+    marginTop: scaledSize(30),
+    marginBottom: scaledSize(4),
     color: "#EDEDED",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Medium",
   },
   textInput: {
@@ -215,36 +216,36 @@ const styles = StyleSheet.create({
     borderColor: "#424242",
     borderWidth: 1,
     color: "#EDEDED",
-    fontSize: 18,
-    borderRadius: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
+    fontSize: scaledSize(18),
+    borderRadius: scaledSize(20),
+    paddingLeft: scaledSize(20),
+    paddingRight: scaledSize(20),
     width: "80%",
-    height: 61,
+    height: scaledSize(61),
     alignSelf: "center",
     justifyContent: "center",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Regular",
-    marginBottom: 24,
+    marginBottom: scaledSize(24),
   },
   error: {
     marginTop: 0,
-    marginBottom: 24,
+    marginBottom: scaledSize(24),
     color: "#ff6666",
-    fontSize: 14,
+    fontSize: scaledSize(14),
     fontFamily: "Poppins-Medium",
     alignSelf: "center",
   },
   success: {
     marginTop: 0,
-    marginBottom: 24,
+    marginBottom: scaledSize(24),
     color: "#3edb65",
     fontFamily: "Poppins-Medium",
-    fontSize: 14,
+    fontSize: scaledSize(14),
     alignSelf: "center",
   },
   loader: {
-    marginTop: 10,
+    marginTop: scaledSize(10),
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

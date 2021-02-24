@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import CouponScreen from "../Screens/Coupon";
-import HomeScreen from "../Screens/Home";
+import HomeScreen, { scaledSize } from "../Screens/Home";
 import LogInScreen from "../Screens/LogIn";
 import SignUpScreen from "../Screens/SignUp";
 import VerificationScreen from "../Screens/Verification";
@@ -32,11 +32,12 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(20),
           },
           headerLeft: () => (
             <FontAwesome
               name="navicon"
-              size={24}
+              size={scaledSize(18)}
               color="white"
               style={styles.icons}
               onPress={() => navigation.openDrawer()}
@@ -54,6 +55,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -67,6 +69,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -80,6 +83,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -93,6 +97,10 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+          headerLeftContainerStyle: {
+            padding: scaledSize(4),
           },
         }}
       />
@@ -106,6 +114,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -152,6 +161,6 @@ export default function Navigation() {
 
 const styles = StyleSheet.create({
   icons: {
-    marginLeft: 10,
+    marginLeft: scaledSize(10),
   },
 });

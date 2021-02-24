@@ -4,6 +4,7 @@ import Onboarding from "react-native-onboarding-swiper";
 import coupons from "../assets/images/couponcolor.png";
 import thank from "../assets/images/thank.png";
 import enjoy from "../assets/images/enjoy.png";
+import { scaledSize } from "./Home";
 export default function AppIntroSliders({ navigation }) {
   useEffect(() => {
     const backAction = () => {
@@ -56,17 +57,17 @@ export default function AppIntroSliders({ navigation }) {
 const styles = StyleSheet.create({
   title: {
     fontFamily: "Poppins-SemiBold",
-    fontSize: 20,
-    paddingHorizontal: 10,
-    marginTop: 60,
+    fontSize: scaledSize(20),
+    paddingHorizontal: scaledSize(10),
+    marginTop: scaledSize(60),
   },
   subtitle: {
     fontFamily: "Poppins-Regular",
-    fontSize: 15,
-    paddingHorizontal: 30,
+    fontSize: scaledSize(15),
+    paddingHorizontal: scaledSize(30),
     textAlign: "left",
-    lineHeight: 25,
-    marginTop: 20,
+    lineHeight: scaledSize(25),
+    marginTop: scaledSize(20),
   },
   imageContainer: {
     width: "100%",
@@ -75,13 +76,12 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   image: {
-    height: 200,
-    width: 200,
+    height: scaledSize(200),
+    width: scaledSize(200),
     resizeMode: "contain",
-
     position: "absolute",
     alignSelf: "center",
-    marginTop: 80,
+    marginTop: scaledSize(80),
     top: 0,
   },
   container: {
