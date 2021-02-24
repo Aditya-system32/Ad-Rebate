@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DarkTheme } from "@react-navigation/native";
 import Navigation from "./routes/Navigation";
 import * as Font from "expo-font";
 import { AuthContext } from "./routes/AuthProvider";
@@ -92,7 +92,7 @@ export default function MainRoute() {
     );
   }
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={DarkTheme}>
       {user ? <NavigationLogged /> : <Navigation />}
     </NavigationContainer>
   );
