@@ -152,6 +152,20 @@ export default function RedeemScreen({ navigation, route }) {
       (current.getMonth() + 1) +
       "-" +
       current.getFullYear();
+    let months = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUNE",
+      "JULY",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
     db.collection("ClientData")
       .doc(route.params.paramKey)
       .collection("Coupons")
@@ -165,6 +179,8 @@ export default function RedeemScreen({ navigation, route }) {
           userBill: userBill,
           dateRedeemed: d,
           timeRedeemed: x,
+          month: months[current.getMonth()],
+          year: current.getFullYear(),
         },
         { merge: true }
       )

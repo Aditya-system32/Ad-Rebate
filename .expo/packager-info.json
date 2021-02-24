@@ -1,5 +1,5 @@
 {
-  "expoServerPort": 19000,
+  "expoServerPort": null,
   "expoServerNgrokUrl": "https://q9-fb8.adrebateadmin.ad-rebate.exp.direct",
   "packagerNgrokUrl": "https://packager.q9-fb8.adrebateadmin.ad-rebate.exp.direct",
   "ngrokPid": 13192,
