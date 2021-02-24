@@ -32,11 +32,12 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(20),
           },
           headerLeft: () => (
             <FontAwesome
               name="navicon"
-              size={24}
+              size={scaledSize(18)}
               color="white"
               style={styles.icons}
               onPress={() => navigation.openDrawer()}
@@ -54,6 +55,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -67,6 +69,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -80,6 +83,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -93,6 +97,10 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+          headerLeftContainerStyle: {
+            padding: scaledSize(4),
           },
         }}
       />
@@ -106,6 +114,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />

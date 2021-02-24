@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     height: scaledSize(200),
     width: scaledSize(200),
     resizeMode: "contain",
-
     position: "absolute",
     alignSelf: "center",
     marginTop: scaledSize(80),

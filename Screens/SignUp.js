@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import BannerImages from "./BannerImages";
 import { set } from "react-native-reanimated";
+import { scaledSize } from "./Home";
 
 export default function SignUpScreen({ navigation }) {
   const [phoneNumber, setPhoneNumber] = useState();
@@ -90,17 +91,15 @@ export default function SignUpScreen({ navigation }) {
           <Text style={styles.welcomeBack}>Create</Text>
           <Text style={styles.welcomeBack}>Account</Text>
         </View>
-        <View>
-          <TextInput
-            style={styles.textinput}
-            placeholder="Phone no."
-            placeholderTextColor="#EDEDED"
-            keyboardType="phone-pad"
-            color="#fff"
-            onChangeText={checkingPhoneNumber}
-          ></TextInput>
-          {<Text style={styles.erText}>{errorText}</Text>}
-        </View>
+        <TextInput
+          style={styles.textinput}
+          placeholder="Phone no."
+          placeholderTextColor="#EDEDED"
+          keyboardType="phone-pad"
+          color="#fff"
+          onChangeText={checkingPhoneNumber}
+        ></TextInput>
+        {<Text style={styles.erText}>{errorText}</Text>}
         <View style={styles.termsCondition}>
           <CheckBox
             tintColors={{ true: "#F15927", false: "#Fff" }}
@@ -156,27 +155,29 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   loginWrapper: {
-    marginTop: 70,
+    marginTop: scaledSize(40),
   },
   registerHere: {
     color: "#D3D3D3",
     alignSelf: "center",
-    marginTop: 10,
+    marginTop: scaledSize(10),
+    fontFamily: "Poppins-Regular",
+    fontSize: scaledSize(15),
   },
   loginButton: {
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: 178,
-    borderRadius: 20,
-    height: 58,
+    width: scaledSize(178),
+    borderRadius: scaledSize(20),
+    height: scaledSize(58),
     borderColor: "#fff",
     borderStyle: "solid",
     borderWidth: 1,
   },
   loginButtonTitle: {
     color: "#ffffff",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Medium",
   },
   banner: {
@@ -188,11 +189,11 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
   },
   welcomeBackWrapper: {
-    marginBottom: 57,
-    marginTop: 57,
+    marginBottom: scaledSize(45),
+    marginTop: scaledSize(57),
   },
   welcomeBack: {
-    fontSize: 28,
+    fontSize: scaledSize(28),
     fontFamily: "Poppins-Medium",
     color: "#EDEDED",
     alignSelf: "center",
@@ -202,20 +203,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#1A1A1A",
     borderColor: "#424242",
     borderWidth: 1,
-    borderRadius: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
+    borderRadius: scaledSize(20),
+    paddingLeft: scaledSize(20),
+    paddingRight: scaledSize(20),
     width: "80%",
-    height: 61,
+    height: scaledSize(61),
     alignSelf: "center",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Regular",
-    marginBottom: 24,
+    marginBottom: scaledSize(24),
   },
   forgetPass: {
     color: "#fff",
     alignSelf: "center",
+    fontFamily: "Poppins-Regular",
     width: "80%",
     margin: 0,
+    fontSize: scaledSize(15),
   },
 });

@@ -74,6 +74,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -87,6 +88,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -100,6 +102,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
           headerLeft: () => {
             return null;
@@ -116,6 +119,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -129,6 +133,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -142,6 +147,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -162,6 +168,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -175,6 +182,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -188,6 +196,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -201,6 +210,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -214,6 +224,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
         }}
       />
@@ -227,6 +238,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
           },
           headerLeft: () => {
             return null;
