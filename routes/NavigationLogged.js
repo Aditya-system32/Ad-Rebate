@@ -43,11 +43,12 @@ const HomeStackScreen = ({ navigation }) => {
           headerTintColor: "#FFFFFF",
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(20),
           },
           headerLeft: () => (
             <FontAwesome
               name="navicon"
-              size={28}
+              size={scaledSize(25)}
               color="white"
               style={styles.icons}
               onPress={() => navigation.openDrawer()}
@@ -56,7 +57,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerRight: () => (
             <MaterialIcons
               name="qr-code-scanner"
-              size={27}
+              size={scaledSize(25)}
               color="white"
               style={styles.barcodeIcon}
               onPress={() => navigation.navigate("Barcode")}

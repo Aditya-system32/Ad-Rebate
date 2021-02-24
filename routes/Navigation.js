@@ -37,7 +37,7 @@ const HomeStackScreen = ({ navigation }) => {
           headerLeft: () => (
             <FontAwesome
               name="navicon"
-              size={scaledSize(18)}
+              size={scaledSize(25)}
               color="white"
               style={styles.icons}
               onPress={() => navigation.openDrawer()}

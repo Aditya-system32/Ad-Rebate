@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   View,
@@ -8,6 +8,7 @@ import {
   StatusBar,
   BackHandler,
 } from "react-native";
+import { View as MotiView } from "moti";
 
 export default function AboutScreen({ navigation }) {
   useEffect(() => {
@@ -23,10 +24,19 @@ export default function AboutScreen({ navigation }) {
       backHandler.remove();
     };
   }, []);
+  const [x, setx] = useState(false);
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="white" barStyle="dark-content" />
-      <Text>About</Text>
+      <StatusBar backgroundColor="black" barStyle="light-content" />
+      <Text onPress={() => setx(!x)}>About</Text>
+      {x ? (
+        <MotiView
+          style={{ backgroundColor: "yellow", width: 200, height: 200 }}
+          from={{ opacity: 0, translateX: -100 }}
+          animate={{ opacity: 1, translateX: 0 }}
+          transition={{ type: "timing", duration: 500 }}
+        />
+      ) : null}
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );

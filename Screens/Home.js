@@ -25,9 +25,11 @@ import restauraunt from "../assets/images/Restaurant.png";
 import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
+import { View as MotiView } from "moti";
 import BannerImages from "./BannerImages";
 import celeb1 from "../assets/images/celebration1.png";
 import * as firebase from "firebase";
+import { AnimatePresence } from "moti";
 import end from "../assets/images/end.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -265,38 +267,80 @@ export default function HomeScreen({ navigation }) {
           </Text>
         </View>
       }
-      {userData && userData.couponsReceived.length > 0 ? (
-        userData.couponsReceived.length === 1 ? (
-          <View style={styles.popUpCoupon}>
-            <TouchableNativeFeedback onPress={skipAll}>
-              <Image style={styles.popUpEnd} source={end}></Image>
-            </TouchableNativeFeedback>
+      <AnimatePresence>
+        {userData && userData.couponsReceived.length > 0 ? (
+          userData.couponsReceived.length === 1 ? (
+            <MotiView
+              from={{
+                opacity: 0,
+                scale: 0.9,
+                translateY: 200,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                translateY: 0,
+              }}
+              transition={{
+                type: "timing",
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0.9,
+                translateY: 200,
+              }}
+              style={styles.popUpCoupon}
+            >
+              <TouchableNativeFeedback onPress={skipAll}>
+                <Image style={styles.popUpEnd} source={end}></Image>
+              </TouchableNativeFeedback>
 
-            <Text style={styles.bingo}>Bingoo!!</Text>
-            <Text style={styles.popuptext}>Coupon Recieved</Text>
-            <Text style={styles.popuptext2}>
-              From : {userData.couponsReceived[0]}
-            </Text>
-            <Image style={styles.celeb} source={celeb1}></Image>
-          </View>
-        ) : userData.couponsReceived.length > 1 ? (
-          <View style={styles.popUpCoupon}>
-            <TouchableNativeFeedback onPress={skipAll}>
-              <Image style={styles.popUpEnd} source={end}></Image>
-            </TouchableNativeFeedback>
+              <Text style={styles.bingo}>Bingoo!!</Text>
+              <Text style={styles.popuptext}>Coupon Recieved</Text>
+              <Text style={styles.popuptext2}>
+                From : {userData.couponsReceived[0]}
+              </Text>
+              <Image style={styles.celeb} source={celeb1}></Image>
+            </MotiView>
+          ) : userData.couponsReceived.length > 1 ? (
+            <MotiView
+              from={{
+                opacity: 0,
+                scale: 0.9,
+                translateY: 200,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                translateY: 0,
+              }}
+              transition={{
+                type: "timing",
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0.9,
+                translateY: 200,
+              }}
+              style={styles.popUpCoupon}
+            >
+              <TouchableNativeFeedback onPress={skipAll}>
+                <Image style={styles.popUpEnd} source={end}></Image>
+              </TouchableNativeFeedback>
 
-            <Text style={styles.bingo}>Bingoo!!</Text>
-            <Text style={styles.popuptext}>Coupon Recieved</Text>
-            <Text style={styles.popuptext2}>From :</Text>
-            <ScrollView style={styles.popupmultiview}>
-              {userData.couponsReceived.map((e) => {
-                console.log(e);
-                return <Text style={styles.popuptext3}>{e}</Text>;
-              })}
-            </ScrollView>
-          </View>
-        ) : null
-      ) : null}
+              <Text style={styles.bingo}>Bingoo!!</Text>
+              <Text style={styles.popuptext}>Coupon Recieved</Text>
+              <Text style={styles.popuptext2}>From :</Text>
+              <ScrollView style={styles.popupmultiview}>
+                {userData.couponsReceived.map((e) => {
+                  console.log(e);
+                  return <Text style={styles.popuptext3}>{e}</Text>;
+                })}
+              </ScrollView>
+            </MotiView>
+          ) : null
+        ) : null}
+      </AnimatePresence>
       <View style={styles.wrapper}>
         <TouchableNativeFeedback onPress={buttonAlert}>
           <View style={[styles.card, styles.cashCard]}>
@@ -309,7 +353,7 @@ export default function HomeScreen({ navigation }) {
           }
         >
           <View style={styles.card}>
-            <Image source={coupons}></Image>
+            <Image style={styles.imgg} source={coupons}></Image>
           </View>
         </TouchableNativeFeedback>
       </View>
@@ -431,6 +475,11 @@ const styles = StyleSheet.create({
   img: {
     width: scaledSize(125),
     resizeMode: "cover",
+    height: scaledSize(125),
+  },
+  imgg: {
+    width: scaledSize(125),
+    resizeMode: "contain",
     height: scaledSize(125),
   },
   categoryItemTitle: { color: "white" },
