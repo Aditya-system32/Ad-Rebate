@@ -20,7 +20,7 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { scaledSize } from "./Home";
-
+import { View as MotiView } from "moti";
 export default function TransactionScreen({ navigation }) {
   const { user } = useContext(AuthContext);
   const [redeemCouponArray, setRedeemCouponArray] = useState([]);
@@ -132,7 +132,20 @@ export default function TransactionScreen({ navigation }) {
                   activeOpacity={0.7}
                   background={TouchableNativeFeedback.Ripple("red", false)}
                 >
-                  <View style={styles.transactionItem}>
+                  <MotiView
+                    from={{
+                      opacity: 0,
+                      translateX: -50,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      translateX: 0,
+                    }}
+                    transition={{
+                      type: "spring",
+                    }}
+                    style={styles.transactionItem}
+                  >
                     <Text style={styles.itemTitle}>{item.clientName}</Text>
                     <Text style={styles.itemId}>{"#" + item.couponId}</Text>
 
@@ -145,7 +158,7 @@ export default function TransactionScreen({ navigation }) {
                     <Text style={styles.itemDate}>
                       {item.dateRedeemed + " " + timetoShow + " " + amPm}
                     </Text>
-                  </View>
+                  </MotiView>
                 </TouchableOpacity>
               );
             }}

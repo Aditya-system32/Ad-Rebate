@@ -13,7 +13,7 @@ import {
   FlatList,
   SafeAreaView,
 } from "react-native";
-import test from "../assets/images/test.jpg";
+import { View as MotiView } from "moti";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
 export default function CategoriesScreen({ navigation, route }) {
@@ -76,7 +76,17 @@ export default function CategoriesScreen({ navigation, route }) {
               numColumns={1}
               data={categorySelectedData}
               renderItem={({ item }) => (
-                <View style={styles.itemWrapper}>
+                <MotiView
+                  from={{
+                    opacity: 0,
+                    translateX: -50,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    translateX: 0,
+                  }}
+                  style={styles.itemWrapper}
+                >
                   <TouchableNativeFeedback
                     style={{ borderRadius: 20 }}
                     background={TouchableNativeFeedback.Ripple("#464646")}
@@ -95,7 +105,7 @@ export default function CategoriesScreen({ navigation, route }) {
                       <Text style={styles.categoryItemTitle}>{item.name}</Text>
                     </View>
                   </TouchableNativeFeedback>
-                </View>
+                </MotiView>
               )}
             />
           )}

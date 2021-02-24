@@ -53,6 +53,7 @@ export default function HelpScreen({ navigation }) {
           const [visi, setvisi] = useState(false);
           return (
             <MotiView
+              key={index}
               style={[styles.query]}
               from={{
                 opacity: 0,
@@ -69,10 +70,7 @@ export default function HelpScreen({ navigation }) {
                 opacity: 0,
               }}
             >
-              <TouchableNativeFeedback
-                key={index}
-                onPress={() => setvisi(!visi)}
-              >
+              <TouchableNativeFeedback onPress={() => setvisi(!visi)}>
                 <AnimatePresence>
                   <MotiView
                     from={{

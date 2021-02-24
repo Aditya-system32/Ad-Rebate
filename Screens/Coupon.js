@@ -17,6 +17,7 @@ import { AuthContext } from "../routes/AuthProvider";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import test from "../assets/images/test.jpg";
 import { scaledSize } from "./Home";
+import { View as MotiView } from "moti";
 export default function CouponScreen({ navigation }) {
   const { user } = useContext(AuthContext);
   const [couponArray, setCouponArray] = useState([]);
@@ -338,7 +339,17 @@ export default function CouponScreen({ navigation }) {
               const timetoShow = hour + ":" + item.activeFromTime.split("-")[1];
               if (item.activeFromTime)
                 return (
-                  <View style={styles.coupon}>
+                  <MotiView
+                    from={{
+                      opacity: 0,
+                      translateY: -50,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      translateY: 0,
+                    }}
+                    style={styles.coupon}
+                  >
                     <Image
                       style={styles.couponImage}
                       source={{
@@ -361,7 +372,7 @@ export default function CouponScreen({ navigation }) {
                     <Text style={styles.couponDiscount}>
                       {"Discount upto : " + item.userDiscount5 + "%"}
                     </Text>
-                  </View>
+                  </MotiView>
                 );
             }}
           />
