@@ -133,6 +133,7 @@ export default function RedeemScreen({ navigation, route }) {
     setSelectedCoupon(coupons[0]);
   }, [coupons]);
   async function handleSubmit() {
+    setDisable(true);
     if (selectedCoupon === null) {
       Alert.alert("check details again");
       return;
