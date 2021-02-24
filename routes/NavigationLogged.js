@@ -283,7 +283,7 @@ export default function NavigationLogged() {
 
 const styles = StyleSheet.create({
   icons: {
-    marginLeft: scaledSize(10),
+    marginLeft: scaledSize(20),
   },
   barcodeIcon: {
     marginRight: scaledSize(10),
