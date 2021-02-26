@@ -27,7 +27,8 @@
      },
      "android": {
        "adaptiveIcon":{
-         "foregroundImage":"./assets/images/adaptive-icon.png"
+         "foregroundImage":"./assets/images/adaptive-icon.png",
+         "backgroundColor":"#000000"
        },
       "googleServicesFile": "./google-services.json",
        "package": "com.adrebate.adrebate",
