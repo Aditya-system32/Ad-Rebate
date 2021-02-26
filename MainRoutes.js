@@ -83,7 +83,7 @@ export default function MainRoute() {
       />
     );
   }
-  if (true || (initializing && !appIsReady)) {
+  if (initializing && !appIsReady) {
     return (
       <View style={styles.container}>
         <Image style={styles.logoB} source={logoB}></Image>

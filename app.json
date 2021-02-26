@@ -1,7 +1,7 @@
 {
     "expo": {
      "name": "Ad-Rebate",
-     "icon": "./assets/images/logo.png",
+     "icon": "./assets/images/logoBlack.png",
      "version": "1.0.0",
      "slug": "ad-rebate-app-new",
      "orientation":"portrait",
@@ -12,7 +12,7 @@
       "backgroundColor":"#000000"
     },
     "notification":{
-      "icon":"./assets/images/logo.png"
+      "icon":"./assets/images/logoBlack.png"
     },
     "updates":{
       "fallbackToCacheTimeout":30000
@@ -26,6 +26,9 @@
        "buildNumber": "1.0.0"
      },
      "android": {
+       "adaptiveIcon":{
+         "foregroundImage":"./assets/images/adaptive-icon.png"
+       },
       "googleServicesFile": "./google-services.json",
        "package": "com.adrebate.adrebate",
        "versionCode": 1
