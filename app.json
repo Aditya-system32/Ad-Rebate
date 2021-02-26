@@ -11,6 +11,12 @@
       "resizeMode": "contain",
       "backgroundColor":"#000000"
     },
+    "notification":{
+      "icon":"./assets/images/logo.png"
+    },
+    "updates":{
+      "fallbackToCacheTimeout":30000
+    },
     "androidNavigationBar":{
       "barStyle":"light-content",
       "backgroundColor":"#000000"
