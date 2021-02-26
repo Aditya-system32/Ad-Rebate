@@ -9,7 +9,7 @@ import NavigationLogged from "./routes/NavigationLogged";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { cos } from "react-native-reanimated";
 import AppLoading from "expo-app-loading";
-import logoB from "./assets/images/logoB.png";
+import logoB from "./assets/images/logoBlack.png";
 import logoA from "./assets/images/logoA.png";
 import { scaledSize } from "./Screens/Home";
 const fetchFonts = () => {
@@ -83,11 +83,11 @@ export default function MainRoute() {
       />
     );
   }
-  if (initializing && !appIsReady) {
+  if (true || (initializing && !appIsReady)) {
     return (
       <View style={styles.container}>
         <Image style={styles.logoB} source={logoB}></Image>
-        <Text style={styles.text}>Ad-Rebate loading...</Text>
+        <Text style={styles.text}>Loading...</Text>
       </View>
     );
   }
@@ -103,8 +103,11 @@ async function downloadAssets() {}
 
 const styles = StyleSheet.create({
   logoB: {
-    width: 200,
-    height: 200,
+    width: scaledSize(150),
+    height: scaledSize(150),
+    resizeMode: "contain",
+    position: "absolute",
+    top: scaledSize(300),
   },
   container: {
     flex: 1,
@@ -113,9 +116,11 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   text: {
-    color: "white",
-    marginTop: scaledSize(40),
-    fontFamily: "Poppins-Medium",
-    fontSize: scaledSize(14),
+    color: "#8d8d8d",
+    fontFamily: "Poppins-Regular",
+    fontWeight: "600",
+    fontSize: scaledSize(12),
+    position: "absolute",
+    bottom: scaledSize(180),
   },
 });

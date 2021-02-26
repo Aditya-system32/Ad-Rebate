@@ -11,6 +11,7 @@ import {
   Dimensions,
   BackHandler,
   ActivityIndicator,
+  ToastAndroid,
 } from "react-native";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
@@ -25,7 +26,8 @@ export default function CouponScreen({ navigation }) {
   const [currentOption, setcurrentOption] = useState("active");
   const [loading, setLoading] = useState(false);
   const [nextPage, setNextPage] = useState(null);
-  const [last, setlast] = useState(undefined);
+  const [last, setlast] = useState(null);
+  const [hideLoadMore, setHideLoadMore] = useState(false);
   useEffect(() => {
     const backAction = () => {
       navigation.goBack();
@@ -40,9 +42,7 @@ export default function CouponScreen({ navigation }) {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(showLoadMore);
-  }, [showLoadMore]);
+
   useEffect(() => {
     if (user) {
       setLoading(true);
@@ -81,12 +81,12 @@ export default function CouponScreen({ navigation }) {
 
   async function nextpageFunction() {
     setLoading(true);
-    setCouponArray([]);
     var current = new Date();
     nextPage
       .get()
       .then((snap) => {
         var lastVisible = snap.docs[snap.docs.length - 1];
+        setlast(lastVisible);
         setNextPage(
           db
             .collectionGroup("Coupons")
@@ -107,6 +107,17 @@ export default function CouponScreen({ navigation }) {
         setLoading(false);
       });
   }
+
+  useEffect(() => {
+    if (last === undefined) {
+      ToastAndroid.showWithGravity(
+        "No more coupons found",
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+      setHideLoadMore(true);
+    }
+  }, [last]);
   // for getting active users
   async function getActiveCoupons() {
     if (currentOption === "active") return;
@@ -314,7 +325,7 @@ export default function CouponScreen({ navigation }) {
             }
             onEndReached={() => setShowLoadMore(true)}
             ListFooterComponent={
-              couponArray.length < 8 ? null : (
+              couponArray.length < 8 || hideLoadMore ? null : (
                 <TouchableOpacity
                   onPress={nextpageFunction}
                   style={styles.loadMore}

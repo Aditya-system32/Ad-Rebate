@@ -64,27 +64,21 @@ export default function HomeScreen({ navigation }) {
   const responseListener = useRef();
   const [notification, setNotifiaction] = useState();
   const [backPressed, setBackPressed] = useState(0);
-  const [categoriesButtons, setCategoriesButtons] = useState([
-    {
-      name: "Cafe",
-      value: "cafe",
-      img: coffee,
-      key: "1",
-    },
-    {
-      name: "Restaurant",
-      value: "restaurant",
-      img: restauraunt,
-      key: "5",
-    },
-    {
-      name: "Salon",
-      value: "salon",
-      img: restauraunt,
-      key: "3",
-    },
-  ]);
+  const [categoriesButtons, setCategoriesButtons] = useState([]);
 
+  useEffect(() => {
+    if (userData === null) return;
+    const unsubscribe = db
+      .collection("Admins")
+      .doc("yIIxCnpmkjYUCupGgQNiCyNNZ9s2")
+      .onSnapshot((doc) => {
+        let location = userData.location ?? "null";
+        let x = doc.data().categories[location];
+        setCategoriesButtons(x);
+      });
+
+    return () => unsubscribe();
+  }, [userData]);
   useEffect(() => {
     const backAction = () => {
       /*if (backPressed > 0) {
@@ -377,7 +371,10 @@ export default function HomeScreen({ navigation }) {
                     }
                   >
                     <View style={styles.categoryTile}>
-                      <Image style={styles.tileLogo} source={item.img}></Image>
+                      <Image
+                        style={styles.tileLogo}
+                        source={{ uri: item.img }}
+                      ></Image>
                     </View>
                   </TouchableNativeFeedback>
                   <Text style={styles.categoryItemTitle}>{item.name}</Text>
