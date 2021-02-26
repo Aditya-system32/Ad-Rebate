@@ -84,7 +84,7 @@ export default function MainRoute() {
     );
   }
   if (initializing && !appIsReady) {
-    return <AppLoading />;
+    return <AppLoading autoHideSplash />;
   }
   return (
     <NavigationContainer theme={DarkTheme}>

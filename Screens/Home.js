@@ -15,28 +15,20 @@ import {
   Button,
   View,
 } from "react-native";
-import { View as MView } from "moti";
 import * as Notifications from "expo-notifications";
 import TextTicker from "react-native-text-ticker";
 import { globalstyles } from "../styles/global";
 import cash from "../assets/images/currency.png";
-import coffee from "../assets/images/coffee.png";
-import restauraunt from "../assets/images/Restaurant.png";
 import coupons from "../assets/svgs/coupons.png";
 import { AuthContext } from "../routes/AuthProvider";
 import { db } from "../firebases";
 import { View as MotiView } from "moti";
 import BannerImages from "./BannerImages";
 import celeb1 from "../assets/images/celebration1.png";
-import * as firebase from "firebase";
 import { AnimatePresence } from "moti";
 import end from "../assets/images/end.png";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ScrollView,
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -219,8 +211,23 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     console.log(userData?.couponsReceived);
   }, [userData]);
+  const [hidefade, sethidefade] = useState(false);
   return (
     <View style={globalstyles.container}>
+      {hidefade ? null : (
+        <MotiView
+          from={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{
+            // default settings for all style values
+            type: "timing",
+            duration: 500,
+            // set a custom transition for scale
+          }}
+          onDidAnimate={() => sethidefade(true)}
+          style={styles.bigCircle}
+        ></MotiView>
+      )}
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.banner}>
         <BannerImages />
@@ -409,6 +416,13 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  bigCircle: {
+    width: 1000,
+    height: "100%",
+    alignSelf: "center",
+    zIndex: 10,
+    backgroundColor: "#1b1b1b",
+  },
   celeb: {
     width: scaledSize(160),
     height: scaledSize(160),
