@@ -1,8 +1,8 @@
 {
-  "expoServerPort": null,
+  "expoServerPort": 19000,
   "devToolsPort": 19002,
   "packagerPort": 19000,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://xm-mwq.adrebateadmin.ad-rebate.exp.direct",
+  "packagerNgrokUrl": "https://packager.xm-mwq.adrebateadmin.ad-rebate.exp.direct",
+  "ngrokPid": 5672
 }
