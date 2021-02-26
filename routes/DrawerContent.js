@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { View, StyleSheet, TouchableNativeFeedback, Image } from "react-native";
-import { Avatar, Title, Caption, Drawer, Text } from "react-native-paper";
+import { Title, Drawer, Text } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { globalstyles } from "../styles/global";
 import { AuthContext } from "../routes/AuthProvider";
@@ -186,21 +186,6 @@ export function DrawerContent(props) {
             }}
             onPress={() => {
               props.navigation.navigate("Help");
-            }}
-          />
-        </Drawer.Section>
-        <Drawer.Section style={styles.drawerSection}>
-          <DrawerItem
-            label="ABOUT US"
-            labelStyle={{
-              color: "#EDEDED",
-              fontSize: scaledSize(14),
-              alignSelf: "center",
-              paddingLeft: scaledSize(6),
-              fontFamily: "Poppins-Medium",
-            }}
-            onPress={() => {
-              props.navigation.navigate("About");
             }}
           />
         </Drawer.Section>

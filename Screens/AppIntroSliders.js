@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View, Text, Image, BackHandler } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import coupons from "../assets/images/couponcolor.png";

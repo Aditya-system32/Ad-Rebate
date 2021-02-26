@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   Dimensions,
   BackHandler,
@@ -10,7 +9,6 @@ import {
   Image,
 } from "react-native";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
-import test from "../assets/images/test.jpg";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
 export default function GetCoupon({ navigation, route }) {
@@ -18,9 +16,7 @@ export default function GetCoupon({ navigation, route }) {
   const [coupon, setCoupon] = useState(null);
   const [amPm, setamPm] = useState(null);
   const [timetoShow, settimetoShow] = useState(null);
-  const { user, setUserData, setBannerData, userData } = useContext(
-    AuthContext
-  );
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     if (coupon === null) return;

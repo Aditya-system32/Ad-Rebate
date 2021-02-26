@@ -1,16 +1,6 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Dimensions,
-  Image,
-  StatusBar,
-  FlatList,
-  Animated,
-  Share,
-} from "react-native";
+import { StyleSheet, View, Dimensions, StatusBar, Share } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { useSelector } from "react-redux";
 import { AuthContext } from "../routes/AuthProvider";
@@ -25,16 +15,21 @@ const bannerImages = [
 export default function BannerImages() {
   const { user } = useContext(AuthContext);
   const bannerData = useSelector((state) => state.bannerData.banners);
-  const [shareMessage, setShareMessage] = useState("Play Store Link");
+  const [shareMessage, setShareMessage] = useState(
+    "https://play.google.com/store/apps/details?id=com.adrebate.adreabate" +
+      "\n\nAd-Rebate\nAdvertisement On Your Control"
+  );
 
   useEffect(() => {
     if (user) {
       setShareMessage(
-        "Ad-Rebate\n\nReferral Id - \n" +
-          user.uid +
-          "\n\nuse this Id to get Coupon\n\n" +
-          "https://play.google.com/store/apps/details?id=" +
-          "com.adrebate.adreabate"
+        "https://play.google.com/store/apps/details?id=" +
+          "com.adrebate.adreabate" +
+          "\n\n" +
+          "Ad-Rebate\n\n" +
+          "Use My Referral Id to get Coupon\n\n" +
+          "Referral Id - " +
+          user.uid
       );
     }
   }, []);
@@ -82,7 +77,6 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     width: "100%",
-
   },
   image: {
     height: Dimensions.get("screen").height * 0.2,

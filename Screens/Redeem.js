@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 
 import {
-  Button,
   View,
   Text,
   StyleSheet,

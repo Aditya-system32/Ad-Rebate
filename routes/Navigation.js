@@ -5,7 +5,6 @@ import HomeScreen, { scaledSize } from "../Screens/Home";
 import LogInScreen from "../Screens/LogIn";
 import SignUpScreen from "../Screens/SignUp";
 import VerificationScreen from "../Screens/Verification";
-import AboutScreen from "../Screens/About";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { DrawerContent } from "./DrawerContent";
@@ -115,19 +114,6 @@ const HomeStackScreen = ({ navigation }) => {
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
             fontSize: scaledSize(18),
-          },
-        }}
-      />
-      <HomeStack.Screen
-        name="About"
-        component={AboutScreen}
-        options={{
-          headerStyle: {
-            backgroundColor: "#000000",
-          },
-          headerTintColor: "#FFFFFF",
-          headerTitleStyle: {
-            fontFamily: "Poppins-SemiBold",
           },
         }}
       />

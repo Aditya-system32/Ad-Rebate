@@ -5,7 +5,6 @@ import {
   Text,
   StyleSheet,
   TouchableNativeFeedback,
-  Image,
   TouchableWithoutFeedback,
   Keyboard,
   StatusBar,

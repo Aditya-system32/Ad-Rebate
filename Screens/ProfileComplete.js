@@ -2,11 +2,9 @@ import "react-native-gesture-handler";
 import React, { useState, useEffect, useContext } from "react";
 import { Picker } from "@react-native-picker/picker";
 import {
-  Button,
   View,
   Text,
   StyleSheet,
-  Image,
   StatusBar,
   BackHandler,
   TextInput,
@@ -17,11 +15,9 @@ import {
 } from "react-native-gesture-handler";
 import { AuthContext } from "../routes/AuthProvider";
 import { globalstyles } from "../styles/global";
-import { app, db } from "../firebases";
-import { addPushTokenListener } from "expo-notifications";
+import { db } from "../firebases";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import { useSelector } from "react-redux";
 import BannerImages from "./BannerImages";
 
 Notifications.setNotificationHandler({
@@ -36,9 +32,7 @@ export default function ProfileComplete({ navigation }) {
   const [location, setLocation] = useState("bhilai");
   const [fullName, setFullName] = useState();
   const [age, setAge] = useState();
-  const [couponArray, setCouponArray] = useState(null);
   const [token, setToken] = useState();
-  const [nativesToken, setNativesToken] = useState();
   const [gender, setGender] = useState("male");
   const { user } = useContext(AuthContext);
   const [expoPushToken, setExpoPushToken] = useState("");
@@ -90,7 +84,6 @@ export default function ProfileComplete({ navigation }) {
         id: user.uid,
         expoToken: token,
         location: location,
-        //nativeToken: nativesToken,
         age: age,
         gender: gender,
         phone: user.phoneNumber,
@@ -199,8 +192,6 @@ export default function ProfileComplete({ navigation }) {
           return;
         }
         tokenss = (await Notifications.getDevicePushTokenAsync()).data;
-        //natiToken = await app.getInstance().getToken()
-        console.log(tokenss);
         setToken(tokenss);
       } else {
         alert("Must use physical device for Push Notifications");

@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect, useContext } from "react";
 import {
-  Button,
   View,
   Text,
   StyleSheet,
@@ -17,7 +16,7 @@ import { View as MotiView } from "moti";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
 export default function CategoriesScreen({ navigation, route }) {
-  const { user, setUserData, userData } = useContext(AuthContext);
+  const { userData } = useContext(AuthContext);
   const [value, setValue] = useState(route.params.paramKey);
   const [categorySelectedData, setCategorySelectedData] = useState([]);
   const [loading, setloading] = useState(false);
@@ -43,7 +42,6 @@ export default function CategoriesScreen({ navigation, route }) {
         .get()
         .then(function (doc) {
           if (doc.exists) {
-            //console.log(doc.data().clients);
             setCategorySelectedData(doc.data()[userData.location]);
             setloading(false);
           } else {
@@ -55,7 +53,7 @@ export default function CategoriesScreen({ navigation, route }) {
         });
     }
   }, []);
-  //console.log(categorySelectedData);
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />

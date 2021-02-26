@@ -1,35 +1,24 @@
 import "react-native-gesture-handler";
 import React, { useState, useContext, useEffect } from "react";
-import { Picker } from "@react-native-picker/picker";
 import {
-  Button,
   View,
   Text,
   TextInput,
   StyleSheet,
   StatusBar,
-  Alert,
   BackHandler,
   Share,
-  ActivityIndicator,
 } from "react-native";
-import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import BannerImages from "./BannerImages";
 
 export default function ReferScreen({ navigation }) {
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [disabled, setDisabled] = useState(true);
-  const [errorText, setErrorText] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [selectedCoupon, setSelectedCoupon] = useState(null);
-  const [coupons, setCoupons] = useState([]);
-  const [shareUser, setShareUser] = useState();
-  const [shareMessage, setShareMessage] = useState("Play Store Link");
-  const { user, setUserData, setBannerData, userData } = useContext(
-    AuthContext
+  const [shareMessage, setShareMessage] = useState(
+    "https://play.google.com/store/apps/details?id=com.adrebate.adreabate" +
+      "\n\nAd-Rebate\nAdvertisement On Your Control"
   );
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const backAction = () => {
@@ -48,11 +37,13 @@ export default function ReferScreen({ navigation }) {
   useEffect(() => {
     if (user) {
       setShareMessage(
-        "Ad-Rebate\n\nReferral Id - \n" +
-          user.uid +
-          "\n\nuse this Id to get Coupon\n\n" +
-          "https://play.google.com/store/apps/details?id=" +
-          "com.adrebate.adreabate"
+        "https://play.google.com/store/apps/details?id=" +
+          "com.adrebate.adreabate" +
+          "\n\n" +
+          "Ad-Rebate\n\n" +
+          "Use My Referral Id to get Coupon\n\n" +
+          "Referral Id - " +
+          user.uid
       );
     }
   }, []);

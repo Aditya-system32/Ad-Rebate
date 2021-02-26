@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useContext, useEffect, useState } from "react";
 import {
-  Button,
   View,
   Text,
   StyleSheet,
@@ -14,8 +13,6 @@ import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
 import {
   FlatList,
-  ScrollView,
-  TouchableHighlight,
   TouchableNativeFeedback,
   TouchableOpacity,
 } from "react-native-gesture-handler";
@@ -65,7 +62,7 @@ export default function TransactionScreen({ navigation }) {
       }
     }
   }, [user]);
-  //console.log(redeemCouponArray);
+
   function refresh() {
     const tempCouponArray = [];
     if (user) {
@@ -78,7 +75,6 @@ export default function TransactionScreen({ navigation }) {
         .get()
         .then((res) => {
           res.forEach((doc) => {
-            //console.log(doc.data());
             tempCouponArray.push(doc.data());
           });
           setRedeemCouponArray(tempCouponArray);
