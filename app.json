@@ -1,7 +1,7 @@
 {
     "expo": {
      "name": "Ad-Rebate",
-     "icon": "./assets/images/logoBlack.png",
+     "icon": "./assets/images/icon.png",
      "version": "1.0.0",
      "slug": "ad-rebate-app-new",
      "orientation":"portrait",
@@ -12,7 +12,7 @@
       "backgroundColor":"#000000"
     },
     "notification":{
-      "icon":"./assets/images/logoBlack.png"
+      "icon":"./assets/images/icon.png"
     },
     "updates":{
       "fallbackToCacheTimeout":30000
