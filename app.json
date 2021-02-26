@@ -6,6 +6,11 @@
      "slug": "ad-rebate-app-new",
      "orientation":"portrait",
      "backgroundColor":"#000000",
+     "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },    
     "androidNavigationBar":{
       "barStyle":"light-content",
       "backgroundColor":"#000000"
