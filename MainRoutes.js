@@ -84,12 +84,7 @@ export default function MainRoute() {
     );
   }
   if (initializing && !appIsReady) {
-    return (
-      <View style={styles.container}>
-        <Image style={styles.logoB} source={logoB}></Image>
-        <Text style={styles.text}>Loading...</Text>
-      </View>
-    );
+    return <AppLoading />;
   }
   return (
     <NavigationContainer theme={DarkTheme}>
