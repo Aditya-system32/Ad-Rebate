@@ -207,7 +207,6 @@ export default function ProfileComplete({ navigation }) {
       .then((doc) => {
         if (doc.exists) {
           setChecker(true);
-          alert("Referral Id Verified");
         } else {
           if (referralId == "") {
             console.log("User Not Enter Referral Id");
