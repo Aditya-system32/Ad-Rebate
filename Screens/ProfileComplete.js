@@ -7,7 +7,9 @@ import {
   StyleSheet,
   StatusBar,
   BackHandler,
+  Alert,
   TextInput,
+  ToastAndroid,
 } from "react-native";
 import {
   ScrollView,
@@ -35,6 +37,7 @@ export default function ProfileComplete({ navigation }) {
   const [token, setToken] = useState();
   const [gender, setGender] = useState("male");
   const { user } = useContext(AuthContext);
+  const [flag, setFlag] = useState(1);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [referralId, setReferralId] = useState("");
   const [clientName, setClientName] = useState(null);
@@ -88,6 +91,7 @@ export default function ProfileComplete({ navigation }) {
         age: age,
         gender: gender,
         phone: user.phoneNumber,
+        coins: 0,
       };
       checkingReferralId();
       setUserData();
@@ -156,7 +160,7 @@ export default function ProfileComplete({ navigation }) {
                 .collection("Coupons")
                 .doc(coupon.id)
                 .set(datas, { merge: true })
-                .then(() => console.log("done"))
+                //.then(() => console.log("done"))
                 .catch((err) => {
                   console.log(err);
                 });
@@ -201,18 +205,28 @@ export default function ProfileComplete({ navigation }) {
 
   //CHECKING THE USER MOBILE ( USING EMULATOR OR NOT ) IF NOT TAKING THE TOKEN FROM THE USER
   const checkingTheUserMobile = async () => {
-    db.collection("Users")
+    await db
+      .collection("Users")
       .doc(referralId == "" ? "No Referral Id" : referralId)
       .get()
       .then((doc) => {
         if (doc.exists) {
           setChecker(true);
+          if (flag === 1) {
+            Alert.alert("Verification", "Referral Id Verified");
+            setFlag(2);
+          }
+          if (flag === 2) {
+            Alert.alert("Welcome To Ad-Rebate", "Coupon Received");
+            alert;
+          }
         } else {
           if (referralId == "") {
             console.log("User Not Enter Referral Id");
+            ToastAndroid.show("Tap Again", ToastAndroid.SHORT);
             setChecker(true);
           } else {
-            alert("Not Valid Id");
+            Alert.alert("Ad-Rebate", "Not Valid Id");
             setChecker(false);
           }
         }
