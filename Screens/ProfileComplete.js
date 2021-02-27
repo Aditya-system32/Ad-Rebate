@@ -201,6 +201,26 @@ export default function ProfileComplete({ navigation }) {
 
   //CHECKING THE USER MOBILE ( USING EMULATOR OR NOT ) IF NOT TAKING THE TOKEN FROM THE USER
   const checkingTheUserMobile = async () => {
+    db.collection("Users")
+      .doc(referralId == "" ? "No Referral Id" : referralId)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setChecker(true);
+          alert("Referral Id Verified");
+        } else {
+          if (referralId == "") {
+            console.log("User Not Enter Referral Id");
+            setChecker(true);
+          } else {
+            alert("Not Valid Id");
+            setChecker(false);
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     registerForPushNotificationsAsync().then((tokenss) =>
       setExpoPushToken(tokenss)
     );
@@ -219,25 +239,6 @@ export default function ProfileComplete({ navigation }) {
           alert("Failed to get push token for push notification!");
           return;
         }
-        db.collection("Users")
-          .doc(referralId == "" ? "No Referral Id" : referralId)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              setChecker(true);
-            } else {
-              if (referralId == "") {
-                console.log("User Not Enter Referral Id");
-                setChecker(true);
-              } else {
-                alert("Not Valid Id");
-                setChecker(false);
-              }
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
         if (checker) {
           tokenss = (await Notifications.getDevicePushTokenAsync()).data;
           setToken(tokenss);
