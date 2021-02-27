@@ -38,6 +38,7 @@ export default function ProfileComplete({ navigation }) {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [referralId, setReferralId] = useState("");
   const [clientName, setClientName] = useState(null);
+  const [checker, setChecker] = useState(false);
   const [locationOptions, setLocationOptions] = useState([
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },
     { value: "raipur", label: "Raipur", key: "Raipur" },
@@ -143,6 +144,13 @@ export default function ProfileComplete({ navigation }) {
           });
       }
       async function checkingReferralId() {
+        if (referralId == "") {
+          console.log("User Not Enter Referral Id");
+        } else {
+          giveCoupons();
+        }
+      }
+      /*async function checkingReferralId() {
         db.collection("Users")
           .doc(referralId == "" ? "No Referral Id" : referralId)
           .get()
@@ -157,7 +165,7 @@ export default function ProfileComplete({ navigation }) {
               }
             }
           });
-      }
+      }*/
       async function setUserData() {
         const userDoc = db.collection("Users").doc(user.uid);
         userDoc
@@ -191,8 +199,29 @@ export default function ProfileComplete({ navigation }) {
           alert("Failed to get push token for push notification!");
           return;
         }
-        tokenss = (await Notifications.getDevicePushTokenAsync()).data;
-        setToken(tokenss);
+        db.collection("Users")
+          .doc(referralId == "" ? "No Referral Id" : referralId)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setChecker(true);
+            } else {
+              if (referralId == "") {
+                console.log("User Not Enter Referral Id");
+                setChecker(true);
+              } else {
+                alert("Not Valid Id");
+                setChecker(false);
+              }
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        if (checker) {
+          tokenss = (await Notifications.getDevicePushTokenAsync()).data;
+          setToken(tokenss);
+        }
       } else {
         alert("Must use physical device for Push Notifications");
       }
