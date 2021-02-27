@@ -113,14 +113,34 @@ export default function ProfileComplete({ navigation }) {
 
               var current = new Date();
               current.setHours(current.getHours());
-              const x = current.getHours() + "-" + current.getMinutes();
+              const x =
+                (current.getHours() < 10 ? "0" : "") +
+                current.getHours() +
+                "-" +
+                (current.getMinutes() < 10 ? "0" : "") +
+                current.getMinutes();
               const d =
+                (current.getDate() < 10 ? "0" : "") +
                 current.getDate() +
                 "-" +
+                (current.getMonth() + 1 < 10 ? "0" : "") +
                 (current.getMonth() + 1) +
                 "-" +
                 current.getFullYear();
+              var nn = new Date();
+              nn.setDate(nn.getDate() + 2);
+              const ed =
+                (nn.getDate() < 10 ? "0" : "") +
+                nn.getDate() +
+                "-" +
+                (nn.getMonth() + 1 < 10 ? "0" : "") +
+                (nn.getMonth() + 1) +
+                "-" +
+                nn.getFullYear();
               const datas = {
+                expiryDate: ed,
+                expiryDateMs: Date.parse(nn),
+                activeFrom: Date.parse(current),
                 activeFromTime: x,
                 activeFromDate: d,
                 isAlloted: true,

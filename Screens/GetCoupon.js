@@ -71,7 +71,7 @@ export default function GetCoupon({ navigation, route }) {
             "-" +
             current.getFullYear();
           var nn = new Date();
-          nn.setDate(nn.getDate() + 3);
+          nn.setDate(nn.getDate() + 2);
           const ed =
             (nn.getDate() < 10 ? "0" : "") +
             nn.getDate() +
