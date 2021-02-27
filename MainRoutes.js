@@ -6,11 +6,8 @@ import * as Font from "expo-font";
 import { AuthContext } from "./routes/AuthProvider";
 import * as firebase from "firebase";
 import NavigationLogged from "./routes/NavigationLogged";
-import { View, Text, StyleSheet, Image } from "react-native";
-import { cos } from "react-native-reanimated";
+import { StyleSheet } from "react-native";
 import AppLoading from "expo-app-loading";
-import logoB from "./assets/images/logoBlack.png";
-import logoA from "./assets/images/logoA.png";
 import { scaledSize } from "./Screens/Home";
 const fetchFonts = () => {
   return Font.loadAsync({

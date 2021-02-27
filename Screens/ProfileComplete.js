@@ -2,11 +2,9 @@ import "react-native-gesture-handler";
 import React, { useState, useEffect, useContext } from "react";
 import { Picker } from "@react-native-picker/picker";
 import {
-  Button,
   View,
   Text,
   StyleSheet,
-  Image,
   StatusBar,
   BackHandler,
   TextInput,
@@ -17,11 +15,9 @@ import {
 } from "react-native-gesture-handler";
 import { AuthContext } from "../routes/AuthProvider";
 import { globalstyles } from "../styles/global";
-import { app, db } from "../firebases";
-import { addPushTokenListener } from "expo-notifications";
+import { db } from "../firebases";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import { useSelector } from "react-redux";
 import BannerImages from "./BannerImages";
 
 Notifications.setNotificationHandler({
@@ -36,14 +32,13 @@ export default function ProfileComplete({ navigation }) {
   const [location, setLocation] = useState("bhilai");
   const [fullName, setFullName] = useState();
   const [age, setAge] = useState();
-  const [couponArray, setCouponArray] = useState(null);
   const [token, setToken] = useState();
-  const [nativesToken, setNativesToken] = useState();
   const [gender, setGender] = useState("male");
   const { user } = useContext(AuthContext);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [referralId, setReferralId] = useState("");
   const [clientName, setClientName] = useState(null);
+  const [checker, setChecker] = useState(false);
   const [locationOptions, setLocationOptions] = useState([
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },
     { value: "raipur", label: "Raipur", key: "Raipur" },
@@ -90,7 +85,6 @@ export default function ProfileComplete({ navigation }) {
         id: user.uid,
         expoToken: token,
         location: location,
-        //nativeToken: nativesToken,
         age: age,
         gender: gender,
         phone: user.phoneNumber,
@@ -119,14 +113,34 @@ export default function ProfileComplete({ navigation }) {
 
               var current = new Date();
               current.setHours(current.getHours());
-              const x = current.getHours() + "-" + current.getMinutes();
+              const x =
+                (current.getHours() < 10 ? "0" : "") +
+                current.getHours() +
+                "-" +
+                (current.getMinutes() < 10 ? "0" : "") +
+                current.getMinutes();
               const d =
+                (current.getDate() < 10 ? "0" : "") +
                 current.getDate() +
                 "-" +
+                (current.getMonth() + 1 < 10 ? "0" : "") +
                 (current.getMonth() + 1) +
                 "-" +
                 current.getFullYear();
+              var nn = new Date();
+              nn.setDate(nn.getDate() + 2);
+              const ed =
+                (nn.getDate() < 10 ? "0" : "") +
+                nn.getDate() +
+                "-" +
+                (nn.getMonth() + 1 < 10 ? "0" : "") +
+                (nn.getMonth() + 1) +
+                "-" +
+                nn.getFullYear();
               const datas = {
+                expiryDate: ed,
+                expiryDateMs: Date.parse(nn),
+                activeFrom: Date.parse(current),
                 activeFromTime: x,
                 activeFromDate: d,
                 isAlloted: true,
@@ -150,6 +164,13 @@ export default function ProfileComplete({ navigation }) {
           });
       }
       async function checkingReferralId() {
+        if (referralId == "") {
+          console.log("User Not Enter Referral Id");
+        } else {
+          giveCoupons();
+        }
+      }
+      /*async function checkingReferralId() {
         db.collection("Users")
           .doc(referralId == "" ? "No Referral Id" : referralId)
           .get()
@@ -164,7 +185,7 @@ export default function ProfileComplete({ navigation }) {
               }
             }
           });
-      }
+      }*/
       async function setUserData() {
         const userDoc = db.collection("Users").doc(user.uid);
         userDoc
@@ -198,10 +219,29 @@ export default function ProfileComplete({ navigation }) {
           alert("Failed to get push token for push notification!");
           return;
         }
-        tokenss = (await Notifications.getDevicePushTokenAsync()).data;
-        //natiToken = await app.getInstance().getToken()
-        console.log(tokenss);
-        setToken(tokenss);
+        db.collection("Users")
+          .doc(referralId == "" ? "No Referral Id" : referralId)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setChecker(true);
+            } else {
+              if (referralId == "") {
+                console.log("User Not Enter Referral Id");
+                setChecker(true);
+              } else {
+                alert("Not Valid Id");
+                setChecker(false);
+              }
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        if (checker) {
+          tokenss = (await Notifications.getDevicePushTokenAsync()).data;
+          setToken(tokenss);
+        }
       } else {
         alert("Must use physical device for Push Notifications");
       }

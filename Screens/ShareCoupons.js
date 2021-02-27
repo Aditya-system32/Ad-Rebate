@@ -2,7 +2,6 @@ import "react-native-gesture-handler";
 import React, { useState, useContext, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import {
-  Button,
   View,
   Text,
   TextInput,
@@ -26,8 +25,10 @@ export default function ShareCouponScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [selectedCoupon, setSelectedCoupon] = useState(null);
   const [coupons, setCoupons] = useState([]);
-  const [shareUser, setShareUser] = useState();
-  const [shareMessage, setShareMessage] = useState("Play Store Link");
+  const [shareMessage, setShareMessage] = useState(
+    "https://play.google.com/store/apps/details?id=com.adrebate.adreabate" +
+      "\n\nAd-Rebate\nAdvertisement On Your Control"
+  );
   const { user, userData } = useContext(AuthContext);
 
   useEffect(() => {
@@ -64,11 +65,13 @@ export default function ShareCouponScreen({ navigation }) {
   useEffect(() => {
     if (user) {
       setShareMessage(
-        "Ad-Rebate\n\nReferral Id - \n" +
-          user.uid +
-          "\n\nuse this Id to get Coupon\n\n" +
-          "https://play.google.com/store/apps/details?id=" +
-          "appPackageName"
+        "https://play.google.com/store/apps/details?id=" +
+          "com.adrebate.adreabate" +
+          "\n\n" +
+          "Ad-Rebate\n\n" +
+          "Use My Referral Id to get Coupon\n\n" +
+          "Referral Id - " +
+          user.uid
       );
     }
   }, []);

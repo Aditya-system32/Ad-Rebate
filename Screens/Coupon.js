@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useContext, useEffect, useState } from "react";
 import {
-  Button,
   View,
   Text,
   StyleSheet,
@@ -16,7 +15,6 @@ import {
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
-import test from "../assets/images/test.jpg";
 import { scaledSize } from "./Home";
 import { View as MotiView } from "moti";
 export default function CouponScreen({ navigation }) {
@@ -41,7 +39,6 @@ export default function CouponScreen({ navigation }) {
       backHandler.remove();
     };
   }, []);
-
 
   useEffect(() => {
     if (user) {

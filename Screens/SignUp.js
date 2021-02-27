@@ -10,12 +10,10 @@ import {
   StatusBar,
   TextInput,
   BackHandler,
-  Image,
   TouchableNativeFeedback,
   Linking,
 } from "react-native";
 import BannerImages from "./BannerImages";
-import { set } from "react-native-reanimated";
 import { scaledSize } from "./Home";
 
 export default function SignUpScreen({ navigation }) {

@@ -1,13 +1,9 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
-import {
-  createStackNavigator,
-  HeaderBackButton,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import CouponScreen from "../Screens/Coupon";
 import HomeScreen, { scaledSize } from "../Screens/Home";
 import ReferAndEarn from "../Screens/ReferAndEarn";
-import AboutScreen from "../Screens/About";
 import ProfileScreen from "../Screens/ProfileUpdate";
 import ProfileComplete from "../Screens/ProfileComplete";
 import { FontAwesome } from "@expo/vector-icons";
@@ -251,19 +247,6 @@ const HomeStackScreen = ({ navigation }) => {
         component={AppIntroSliders}
         options={{
           headerShown: false,
-        }}
-      />
-      <HomeStack.Screen
-        name="About"
-        component={AboutScreen}
-        options={{
-          headerStyle: {
-            backgroundColor: "#000000",
-          },
-          headerTintColor: "#FFFFFF",
-          headerTitleStyle: {
-            fontFamily: "Poppins-SemiBold",
-          },
         }}
       />
     </HomeStack.Navigator>

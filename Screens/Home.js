@@ -9,10 +9,8 @@ import {
   StatusBar,
   SafeAreaView,
   Dimensions,
-  ToastAndroid,
   BackHandler,
   FlatList,
-  Button,
   View,
 } from "react-native";
 import * as Notifications from "expo-notifications";
@@ -264,7 +262,11 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.location}>
           <Text style={styles.locationText}>
             Current location :{" "}
-            {userData ? userData.location : "not specified yet"}
+            {user
+              ? userData
+                ? userData.location
+                : "not specified yet"
+              : "not specified yet"}
           </Text>
         </View>
       }

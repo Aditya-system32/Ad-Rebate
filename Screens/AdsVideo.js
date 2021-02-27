@@ -14,10 +14,8 @@ import {
 } from "react-native";
 import { Video } from "expo-av";
 import { db } from "../firebases";
-import { color } from "react-native-reanimated";
 import { ProgressBar, Colors } from "react-native-paper";
 import { AuthContext } from "../routes/AuthProvider";
-import { isLoaded } from "expo-font";
 
 export default function AdsVideoScreen({ navigation, route }) {
   const [selectedClient, setselectedClient] = useState(route.params.paramKey);
@@ -33,11 +31,8 @@ export default function AdsVideoScreen({ navigation, route }) {
   const [play, setPlay] = useState(true);
   const [loop, setloop] = useState(false);
   const [currentAd, setCurrentAd] = useState(null);
-  const [adDataToPlay, setadDataToPlay] = useState([]);
   const [secondAd, setsecondAd] = useState();
-  const { user, setUserData, setBannerData, userData } = useContext(
-    AuthContext
-  );
+  const { user, userData } = useContext(AuthContext);
   const videoRef = useRef();
   useEffect(() => {
     const backAction = () => {

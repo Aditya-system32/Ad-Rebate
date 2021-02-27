@@ -1,13 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  BackHandler,
-} from "react-native";
+import { View, Text, StyleSheet, StatusBar, BackHandler } from "react-native";
 import {
   ScrollView,
   TouchableNativeFeedback,
