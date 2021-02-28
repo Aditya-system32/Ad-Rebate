@@ -25,7 +25,7 @@ export default function HelpScreen({ navigation }) {
         "Your Coupon Will activate after 1 hour , you can see your coupon in all section.",
     },
     {
-      question: "If you find any bug. Contact us on",
+      question: "Found a bug ?, Contact us at",
       answer: "adrebate2020@gmail.com",
     },
   ]);

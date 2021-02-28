@@ -43,7 +43,6 @@ export default function RedeemScreen({ navigation, route }) {
   }, []);
   //for bill calc
   useEffect(() => {
-    console.log(selectedCoupon);
     if (selectedCoupon === null) return;
     if (userBill <= 99 || userBill === "") {
       setDisable(true);
@@ -95,7 +94,6 @@ export default function RedeemScreen({ navigation, route }) {
           : "" + current.getHours() + "-" + current.getMinutes() < 10
           ? "0"
           : "" + current.getMinutes();
-      console.log(x);
       const d =
         (current.getDate() < 10 ? "0" : "") +
         current.getDate() +
@@ -127,8 +125,6 @@ export default function RedeemScreen({ navigation, route }) {
     if (coupons.length < 1) {
       return;
     }
-    console.log("ccc");
-    console.log(coupons[0]);
     setSelectedCoupon(coupons[0]);
   }, [coupons]);
   async function handleSubmit() {
@@ -229,7 +225,6 @@ export default function RedeemScreen({ navigation, route }) {
               }}
               dropdownIconColor="gray"
               onValueChange={(itemValue, itemIndex) => {
-                console.log("ote," + itemValue);
                 setSelectedCoupon(itemValue);
               }}
             >

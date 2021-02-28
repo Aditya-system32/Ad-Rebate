@@ -179,7 +179,7 @@ export default function HomeScreen({ navigation }) {
   // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
   responseListener.current = Notifications.addNotificationResponseReceivedListener(
     (response) => {
-      console.log(response);
+      // console.log(response);
     }
   );
   useEffect(() => {
@@ -195,7 +195,6 @@ export default function HomeScreen({ navigation }) {
       { cancelable: false }
     );
   const skipAll = () => {
-    console.log("aaa");
     setUserData({
       ...userData,
       couponsReceived: [],
@@ -204,9 +203,6 @@ export default function HomeScreen({ navigation }) {
       .doc(user.uid)
       .set({ couponsReceived: [] }, { merge: true });
   };
-  useEffect(() => {
-    console.log(userData?.couponsReceived);
-  }, [userData]);
   const [hidefade, sethidefade] = useState(false);
   return (
     <View style={globalstyles.container}>
