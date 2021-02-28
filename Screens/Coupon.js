@@ -77,8 +77,10 @@ export default function CouponScreen({ navigation }) {
   }, [user]);
 
   async function nextpageFunction() {
+    if (last === undefined) return;
     setLoading(true);
     var current = new Date();
+
     nextPage
       .get()
       .then((snap) => {
@@ -170,9 +172,7 @@ export default function CouponScreen({ navigation }) {
             .limit(8)
         );
         snap.forEach((doc) => {
-          let x = [];
-          x.push(doc.data());
-          if (doc.data().expiryDate <= Date.parse(current))
+          if (doc.data().expiryDateMs <= Date.parse(current))
             setCouponArray((prev) => [...prev, doc.data()]);
         });
         setLoading(false);

@@ -79,6 +79,7 @@ const HomeStackScreen = ({ navigation }) => {
         name="AdsVideo"
         component={AdsVideoScreen}
         options={{
+          title: "Ads",
           headerStyle: {
             backgroundColor: "#000000",
           },
