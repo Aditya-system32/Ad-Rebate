@@ -7,7 +7,9 @@ import {
   StyleSheet,
   StatusBar,
   BackHandler,
+  Alert,
   TextInput,
+  ToastAndroid,
 } from "react-native";
 import {
   ScrollView,
@@ -35,10 +37,10 @@ export default function ProfileComplete({ navigation }) {
   const [token, setToken] = useState();
   const [gender, setGender] = useState("male");
   const { user } = useContext(AuthContext);
+  const [flag, setFlag] = useState(1);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [referralId, setReferralId] = useState("");
   const [clientName, setClientName] = useState(null);
-  const [checker, setChecker] = useState(false);
   const [locationOptions, setLocationOptions] = useState([
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },
     { value: "raipur", label: "Raipur", key: "Raipur" },
@@ -88,6 +90,7 @@ export default function ProfileComplete({ navigation }) {
         age: age,
         gender: gender,
         phone: user.phoneNumber,
+        coins: 0,
       };
       checkingReferralId();
       setUserData();
@@ -201,62 +204,68 @@ export default function ProfileComplete({ navigation }) {
 
   //CHECKING THE USER MOBILE ( USING EMULATOR OR NOT ) IF NOT TAKING THE TOKEN FROM THE USER
   const checkingTheUserMobile = async () => {
+    var checker = false;
     db.collection("Users")
       .doc(referralId == "" ? "No Referral Id" : referralId)
       .get()
       .then((doc) => {
         if (doc.exists) {
-          setChecker(true);
+          checker = true;
+          if (flag === 1) {
+            Alert.alert("Welcome To Ad-Rebate", "Coupon Received");
+          }
         } else {
           if (referralId == "") {
             console.log("User Not Enter Referral Id");
-            setChecker(true);
+            checker = true;
           } else {
-            alert("Not Valid Id");
-            setChecker(false);
+            Alert.alert("Ad-Rebate", "Not Valid Id");
+            checker = false;
           }
+        }
+      })
+      .then(() => {
+        registerForPushNotificationsAsync().then((tokenss) =>
+          setExpoPushToken(tokenss)
+        );
+        async function registerForPushNotificationsAsync() {
+          let tokenss;
+          if (Constants.isDevice) {
+            const {
+              status: existingStatus,
+            } = await Notifications.getPermissionsAsync();
+            let finalStatus = existingStatus;
+            if (existingStatus !== "granted") {
+              const { status } = await Notifications.requestPermissionsAsync();
+              finalStatus = status;
+            }
+            if (finalStatus !== "granted") {
+              alert("Failed to get push token for push notification!");
+              return;
+            }
+            if (checker) {
+              tokenss = (await Notifications.getDevicePushTokenAsync()).data;
+              setToken(tokenss);
+            }
+          } else {
+            alert("Must use physical device for Push Notifications");
+          }
+
+          if (Platform.OS === "android") {
+            Notifications.setNotificationChannelAsync("default", {
+              name: "default",
+              importance: Notifications.AndroidImportance.MAX,
+              vibrationPattern: [0, 250, 250, 250],
+              lightColor: "#FF231F7C",
+            });
+          }
+
+          return tokenss;
         }
       })
       .catch((err) => {
         console.log(err);
       });
-    registerForPushNotificationsAsync().then((tokenss) =>
-      setExpoPushToken(tokenss)
-    );
-    async function registerForPushNotificationsAsync() {
-      let tokenss;
-      if (Constants.isDevice) {
-        const {
-          status: existingStatus,
-        } = await Notifications.getPermissionsAsync();
-        let finalStatus = existingStatus;
-        if (existingStatus !== "granted") {
-          const { status } = await Notifications.requestPermissionsAsync();
-          finalStatus = status;
-        }
-        if (finalStatus !== "granted") {
-          alert("Failed to get push token for push notification!");
-          return;
-        }
-        if (checker) {
-          tokenss = (await Notifications.getDevicePushTokenAsync()).data;
-          setToken(tokenss);
-        }
-      } else {
-        alert("Must use physical device for Push Notifications");
-      }
-
-      if (Platform.OS === "android") {
-        Notifications.setNotificationChannelAsync("default", {
-          name: "default",
-          importance: Notifications.AndroidImportance.MAX,
-          vibrationPattern: [0, 250, 250, 250],
-          lightColor: "#FF231F7C",
-        });
-      }
-
-      return tokenss;
-    }
   };
 
   return (

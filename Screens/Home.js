@@ -185,7 +185,6 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     var nn = new Date();
     nn.setDate(nn.getDate() + 2);
-    console.log(Date.parse(nn));
   }, []);
   //EARNING THE UPDATE ALERT
   const buttonAlert = () =>
@@ -201,7 +200,6 @@ export default function HomeScreen({ navigation }) {
       ...userData,
       couponsReceived: [],
     });
-    console.log("run");
     db.collection("Users")
       .doc(user.uid)
       .set({ couponsReceived: [] }, { merge: true });
@@ -336,7 +334,7 @@ export default function HomeScreen({ navigation }) {
               <Text style={styles.popuptext2}>From :</Text>
               <ScrollView style={styles.popupmultiview}>
                 {userData.couponsReceived.map((e) => {
-                  console.log(e);
+                  //console.log(e);
                   return <Text style={styles.popuptext3}>{e}</Text>;
                 })}
               </ScrollView>
