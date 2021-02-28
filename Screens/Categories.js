@@ -16,7 +16,7 @@ import { View as MotiView } from "moti";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
 export default function CategoriesScreen({ navigation, route }) {
-  const { userData } = useContext(AuthContext);
+  const { userData, user } = useContext(AuthContext);
   const [value, setValue] = useState(route.params.paramKey);
   const [categorySelectedData, setCategorySelectedData] = useState([]);
   const [loading, setloading] = useState(false);
@@ -34,6 +34,7 @@ export default function CategoriesScreen({ navigation, route }) {
     };
   }, []);
   useEffect(() => {
+
     getCategory();
     async function getCategory() {
       setloading(true);
