@@ -34,6 +34,7 @@ export const AuthProvider = ({ children }) => {
         },
         logout: async () => {
           try {
+            setShowLogged(false);
             await firebase.auth().signOut();
           } catch (e) {
             console.log(e);

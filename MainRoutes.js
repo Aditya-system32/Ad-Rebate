@@ -85,7 +85,7 @@ export default function MainRoute() {
   }
   return (
     <NavigationContainer theme={DarkTheme}>
-      {showLogged ? <NavigationLogged /> : <Navigation />}
+      {user && showLogged ? <NavigationLogged /> : <Navigation />}
     </NavigationContainer>
   );
 }

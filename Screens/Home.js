@@ -97,11 +97,9 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     let isMounted = true; // note this flag denote mount status
     checkUser();
-    let xyz = "";
     async function checkUser() {
       if (user !== null && isMounted) {
         const userDoc = db.collection("Users").doc(user.uid);
-
         userDoc.onSnapshot(function (doc) {
           if (doc.exists) {
             setUserData(doc.data());
@@ -113,7 +111,6 @@ export default function HomeScreen({ navigation }) {
     }
     return () => {
       isMounted = false;
-      xyz();
     };
   }, []);
 
