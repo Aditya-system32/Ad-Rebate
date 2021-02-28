@@ -41,7 +41,6 @@ export default function ProfileComplete({ navigation }) {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [referralId, setReferralId] = useState("");
   const [clientName, setClientName] = useState(null);
-  const [checker, setChecker] = useState(false);
   const [locationOptions, setLocationOptions] = useState([
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },
     { value: "raipur", label: "Raipur", key: "Raipur" },
@@ -160,7 +159,7 @@ export default function ProfileComplete({ navigation }) {
                 .collection("Coupons")
                 .doc(coupon.id)
                 .set(datas, { merge: true })
-                //.then(() => console.log("done"))
+                .then(() => console.log("done"))
                 .catch((err) => {
                   console.log(err);
                 });
@@ -205,72 +204,68 @@ export default function ProfileComplete({ navigation }) {
 
   //CHECKING THE USER MOBILE ( USING EMULATOR OR NOT ) IF NOT TAKING THE TOKEN FROM THE USER
   const checkingTheUserMobile = async () => {
-    await db
-      .collection("Users")
+    var checker = false;
+    db.collection("Users")
       .doc(referralId == "" ? "No Referral Id" : referralId)
       .get()
       .then((doc) => {
         if (doc.exists) {
-          setChecker(true);
+          checker = true;
           if (flag === 1) {
-            Alert.alert("Verification", "Referral Id Verified");
-            setFlag(2);
-          }
-          if (flag === 2) {
             Alert.alert("Welcome To Ad-Rebate", "Coupon Received");
-            alert;
           }
         } else {
           if (referralId == "") {
             console.log("User Not Enter Referral Id");
-            ToastAndroid.show("Tap Again", ToastAndroid.SHORT);
-            setChecker(true);
+            checker = true;
           } else {
             Alert.alert("Ad-Rebate", "Not Valid Id");
-            setChecker(false);
+            checker = false;
           }
+        }
+      })
+      .then(() => {
+        registerForPushNotificationsAsync().then((tokenss) =>
+          setExpoPushToken(tokenss)
+        );
+        async function registerForPushNotificationsAsync() {
+          let tokenss;
+          if (Constants.isDevice) {
+            const {
+              status: existingStatus,
+            } = await Notifications.getPermissionsAsync();
+            let finalStatus = existingStatus;
+            if (existingStatus !== "granted") {
+              const { status } = await Notifications.requestPermissionsAsync();
+              finalStatus = status;
+            }
+            if (finalStatus !== "granted") {
+              alert("Failed to get push token for push notification!");
+              return;
+            }
+            if (checker) {
+              tokenss = (await Notifications.getDevicePushTokenAsync()).data;
+              setToken(tokenss);
+            }
+          } else {
+            alert("Must use physical device for Push Notifications");
+          }
+
+          if (Platform.OS === "android") {
+            Notifications.setNotificationChannelAsync("default", {
+              name: "default",
+              importance: Notifications.AndroidImportance.MAX,
+              vibrationPattern: [0, 250, 250, 250],
+              lightColor: "#FF231F7C",
+            });
+          }
+
+          return tokenss;
         }
       })
       .catch((err) => {
         console.log(err);
       });
-    registerForPushNotificationsAsync().then((tokenss) =>
-      setExpoPushToken(tokenss)
-    );
-    async function registerForPushNotificationsAsync() {
-      let tokenss;
-      if (Constants.isDevice) {
-        const {
-          status: existingStatus,
-        } = await Notifications.getPermissionsAsync();
-        let finalStatus = existingStatus;
-        if (existingStatus !== "granted") {
-          const { status } = await Notifications.requestPermissionsAsync();
-          finalStatus = status;
-        }
-        if (finalStatus !== "granted") {
-          alert("Failed to get push token for push notification!");
-          return;
-        }
-        if (checker) {
-          tokenss = (await Notifications.getDevicePushTokenAsync()).data;
-          setToken(tokenss);
-        }
-      } else {
-        alert("Must use physical device for Push Notifications");
-      }
-
-      if (Platform.OS === "android") {
-        Notifications.setNotificationChannelAsync("default", {
-          name: "default",
-          importance: Notifications.AndroidImportance.MAX,
-          vibrationPattern: [0, 250, 250, 250],
-          lightColor: "#FF231F7C",
-        });
-      }
-
-      return tokenss;
-    }
   };
 
   return (
