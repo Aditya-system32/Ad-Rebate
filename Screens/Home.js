@@ -57,7 +57,10 @@ export default function HomeScreen({ navigation }) {
   const [categoriesButtons, setCategoriesButtons] = useState([]);
 
   useEffect(() => {
-    if (userData === null) return;
+    if (user === null) {
+      setCategoriesButtons([]);
+      return;
+    }
     const unsubscribe = db
       .collection("Admins")
       .doc("yIIxCnpmkjYUCupGgQNiCyNNZ9s2")
@@ -95,22 +98,20 @@ export default function HomeScreen({ navigation }) {
   }, [bannerData]);
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
-    let isMounted = true; // note this flag denote mount status
-    checkUser();
-    async function checkUser() {
-      if (user !== null && isMounted) {
-        const userDoc = db.collection("Users").doc(user.uid);
-        userDoc.onSnapshot(function (doc) {
-          if (doc.exists) {
-            setUserData(doc.data());
-          } else {
-            navigation.navigate("ProfileComplete");
-          }
-        });
+    if (user === null) return;
+
+    let xyz = (userDoc = db.collection("Users").doc(user.uid));
+
+    userDoc.onSnapshot(function (doc) {
+      if (doc.exists) {
+        setUserData(doc.data());
+      } else {
+        navigation.navigate("ProfileComplete");
       }
-    }
+    });
+
     return () => {
-      isMounted = false;
+      xyz();
     };
   }, []);
 
