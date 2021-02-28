@@ -57,10 +57,7 @@ export default function HomeScreen({ navigation }) {
   const [categoriesButtons, setCategoriesButtons] = useState([]);
 
   useEffect(() => {
-    if (user === null) {
-      setCategoriesButtons([]);
-      return;
-    }
+    if (userData === null) return;
     const unsubscribe = db
       .collection("Admins")
       .doc("yIIxCnpmkjYUCupGgQNiCyNNZ9s2")
@@ -98,20 +95,22 @@ export default function HomeScreen({ navigation }) {
   }, [bannerData]);
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
-    if (user === null) return;
-
-    let xyz = (userDoc = db.collection("Users").doc(user.uid));
-
-    userDoc.onSnapshot(function (doc) {
-      if (doc.exists) {
-        setUserData(doc.data());
-      } else {
-        navigation.navigate("ProfileComplete");
+    let isMounted = true; // note this flag denote mount status
+    checkUser();
+    async function checkUser() {
+      if (user !== null && isMounted) {
+        const userDoc = db.collection("Users").doc(user.uid);
+        userDoc.onSnapshot(function (doc) {
+          if (doc.exists) {
+            setUserData(doc.data());
+          } else {
+            navigation.navigate("ProfileComplete");
+          }
+        });
       }
-    });
-
+    }
     return () => {
-      xyz();
+      isMounted = false;
     };
   }, []);
 
@@ -180,14 +179,14 @@ export default function HomeScreen({ navigation }) {
   // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
   responseListener.current = Notifications.addNotificationResponseReceivedListener(
     (response) => {
-      // console.log(response);
+      console.log(response);
     }
   );
   useEffect(() => {
     var nn = new Date();
     nn.setDate(nn.getDate() + 2);
   }, []);
-  //EARNING THE UPDATE ALERT
+  //EARNING SECTION UPDATE ALERT
   const buttonAlert = () =>
     Alert.alert(
       "Update Alert",
@@ -196,6 +195,7 @@ export default function HomeScreen({ navigation }) {
       { cancelable: false }
     );
   const skipAll = () => {
+    console.log("aaa");
     setUserData({
       ...userData,
       couponsReceived: [],
@@ -204,6 +204,9 @@ export default function HomeScreen({ navigation }) {
       .doc(user.uid)
       .set({ couponsReceived: [] }, { merge: true });
   };
+  useEffect(() => {
+    console.log(userData?.couponsReceived);
+  }, [userData]);
   const [hidefade, sethidefade] = useState(false);
   return (
     <View style={globalstyles.container}>
