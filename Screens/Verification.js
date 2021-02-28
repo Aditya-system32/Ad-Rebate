@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import {
   Text,
   View,
@@ -17,8 +17,11 @@ import * as FirebaseRecaptcha from "expo-firebase-recaptcha";
 import * as firebase from "firebase";
 import { firebaseConfig } from "../firebases";
 import { scaledSize } from "./Home";
+import { AuthContext } from "../routes/AuthProvider";
+import { set } from "react-native-reanimated";
 
 export default function VerificationScreen({ route, navigation }) {
+  const { user, showLogged, setShowLogged } = useContext(AuthContext);
   const recaptchaVerifier = useRef(null);
   const verificationCodeTextInput = useRef(null);
   const [phoneNumber, setPhoneNumber] = useState(route.params.paramKey);
@@ -121,6 +124,7 @@ export default function VerificationScreen({ route, navigation }) {
                 setVerificationCode("");
                 verificationCodeTextInput.current?.clear();
                 Alert.alert("Phone authentication successful!");
+                setShowLogged(true);
               } catch (err) {
                 setConfirmError(err);
                 setConfirmInProgress(false);

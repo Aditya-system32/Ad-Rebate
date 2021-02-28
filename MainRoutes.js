@@ -24,7 +24,7 @@ const _onError = () => {
 
 export default function MainRoute() {
   const [fontLoaded, setFontLoaded] = React.useState(false);
-  const { user, setUser } = React.useContext(AuthContext);
+  const { user, setUser, showLogged } = React.useContext(AuthContext);
   const [initializing, setInitializing] = React.useState(true);
   const [appIsReady, setAppIsReady] = React.useState(false);
 
@@ -85,7 +85,7 @@ export default function MainRoute() {
   }
   return (
     <NavigationContainer theme={DarkTheme}>
-      {user ? <NavigationLogged /> : <Navigation />}
+      {showLogged ? <NavigationLogged /> : <Navigation />}
     </NavigationContainer>
   );
 }
