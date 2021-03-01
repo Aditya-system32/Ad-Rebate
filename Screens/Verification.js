@@ -119,7 +119,6 @@ export default function VerificationScreen({ route, navigation }) {
                   .signInWithCredential(credential);
 
                 verificationCodeTextInput.current?.clear();
-                Alert.alert("Phone authentication successful!");
               } catch (err) {
                 setConfirmError(err);
                 setConfirmInProgress(false);
