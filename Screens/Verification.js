@@ -119,7 +119,7 @@ export default function VerificationScreen({ route, navigation }) {
                   .signInWithCredential(credential);
 
                 verificationCodeTextInput.current?.clear();
-                Alert.alert("Phone authentication successful!");
+                ToastAndroid.show("Login Successful", ToastAndroid.SHORT);
               } catch (err) {
                 setConfirmError(err);
                 setConfirmInProgress(false);
