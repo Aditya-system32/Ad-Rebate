@@ -54,21 +54,33 @@ export default function HomeScreen({ navigation }) {
   const responseListener = useRef();
   const [notification, setNotifiaction] = useState();
   const [backPressed, setBackPressed] = useState(0);
-  const [categoriesButtons, setCategoriesButtons] = useState([]);
+  const [categoriesButtons, setCategoriesButtons] = useState([
+    {
+      img: "https://i.ibb.co/dm6LWgx/coffee.png",
+      key: "cafe",
+      name: "Cafe",
+      value: "cafe",
+    },
+    {
+      img: "https://i.ibb.co/60L7sbV/Restaurant.png",
+      key: "restaurant",
+      name: "Restaurant",
+      value: "restaurant",
+    },
+  ]);
 
   useEffect(() => {
-    if (userData === null) return;
+    if (userData === null || user === null) return;
     const unsubscribe = db
       .collection("Admins")
       .doc("yIIxCnpmkjYUCupGgQNiCyNNZ9s2")
-      .onSnapshot((doc) => {
+      .onSnapshot((doc, onError) => {
         let location = userData.location ?? "null";
         let x = doc.data().categories[location];
         setCategoriesButtons(x);
       });
-
     return () => unsubscribe();
-  }, [userData]);
+  }, [userData, user]);
   useEffect(() => {
     const backAction = () => {
       /*if (backPressed > 0) {
@@ -95,24 +107,21 @@ export default function HomeScreen({ navigation }) {
   }, [bannerData]);
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
-    let isMounted = true; // note this flag denote mount status
-    checkUser();
-    async function checkUser() {
-      if (user !== null && isMounted) {
-        const userDoc = db.collection("Users").doc(user.uid);
-        userDoc.onSnapshot(function (doc) {
-          if (doc.exists) {
-            setUserData(doc.data());
-          } else {
-            navigation.navigate("ProfileComplete");
-          }
-        });
-      }
-    }
+    if (user === null) return;
+    let unsub = db
+      .collection("Users")
+      .doc(user.uid)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          setUserData(doc.data());
+        } else {
+          navigation.navigate("ProfileComplete");
+        }
+      });
     return () => {
-      isMounted = false;
+      unsub();
     };
-  }, []);
+  }, [user]);
 
   //NOTIFICATION BAR IN THE HOME SCREEN
   useEffect(() => {
