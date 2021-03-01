@@ -27,18 +27,6 @@ export default function MainRoute() {
   const { user, setUser } = React.useContext(AuthContext);
   const [initializing, setInitializing] = React.useState(true);
   const [appIsReady, setAppIsReady] = React.useState(false);
-
-  //Fonts Loading From Assests
-  /*React.useEffect(() => {
-    (async () =>
-      await Font.loadAsync({
-        "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
-        "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
-        "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
-        "Poppins-Light": require("./assets/fonts/Poppins-Light.ttf"),
-      }))();
-  }, []);*/
-
   const onAuthStateChanged = async (user) => {
     setUser(user);
     if (initializing) setInitializing(false);
@@ -70,6 +58,7 @@ export default function MainRoute() {
       });
     }
   };
+
 
   if (!fontLoaded) {
     return (
