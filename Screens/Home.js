@@ -102,9 +102,6 @@ export default function HomeScreen({ navigation }) {
     };
   }, []);
 
-  useEffect(() => {
-    //console.log(bannerData);
-  }, [bannerData]);
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
     if (user === null) return;
@@ -204,7 +201,6 @@ export default function HomeScreen({ navigation }) {
       { cancelable: false }
     );
   const skipAll = () => {
-    console.log("aaa");
     setUserData({
       ...userData,
       couponsReceived: [],
@@ -213,9 +209,6 @@ export default function HomeScreen({ navigation }) {
       .doc(user.uid)
       .set({ couponsReceived: [] }, { merge: true });
   };
-  useEffect(() => {
-    console.log(userData?.couponsReceived);
-  }, [userData]);
   const [hidefade, sethidefade] = useState(false);
   return (
     <View style={globalstyles.container}>
