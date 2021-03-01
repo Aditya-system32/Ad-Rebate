@@ -104,48 +104,32 @@ export default function HomeScreen({ navigation }) {
 
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
-    if (user === null) return;
-    let unsub = db
+    if (user === null && !isMounted) {
+      return;
+    }
+    let isMounted = true; // note this flag denote mount status
+
+    var userDoc = db
       .collection("Users")
       .doc(user.uid)
-      .onSnapshot((doc) => {
+      .onSnapshot(function (doc) {
         if (doc.exists) {
           setUserData(doc.data());
         } else {
           navigation.navigate("ProfileComplete");
         }
       });
+
     return () => {
-      unsub();
+      userDoc();
+      isMounted = false;
     };
   }, [user]);
 
-  //NOTIFICATION BAR IN THE HOME SCREEN
   useEffect(() => {
-    let isMounted = true;
-    const noti = db.collection("Notification").doc("notifications");
-    noti
-      .get()
-      .then(function (doc) {
-        if (doc.exists && isMounted) {
-          setNotifiaction(doc.data().notification);
-        } else {
-          //navigation.navigate("ProfileComplete");
-        }
-      })
-      .catch(function (error) {
-        console.log("Error getting document:", error);
-      });
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  //TAKING THE BANNERS DATA FROM DATABASE
-  useEffect(() => {
-    let isMounted = true;
-    if (true) {
-      const bannerDoc = db
+    getBannerData();
+    async function getBannerData() {
+      var bannerDoc = db
         .collection("Banners")
         .doc(
           userData == undefined
@@ -157,7 +141,7 @@ export default function HomeScreen({ navigation }) {
       bannerDoc
         .get()
         .then(function (doc) {
-          if (doc.exists && isMounted) {
+          if (doc.exists) {
             dispatch({
               type: "updateBanner",
               array: doc.data().banners,
@@ -170,11 +154,28 @@ export default function HomeScreen({ navigation }) {
           console.log("Error getting document:", error);
         });
     }
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
+  //NOTIFICATION BAR IN THE HOME SCREEN
+  useEffect(() => {
+    xx();
+    async function xx() {
+      db.collection("Notification")
+        .doc("notifications")
+        .get()
+        .then((doc) => {
+          if (doc.exists && isMounted) {
+            setNotifiaction(doc.data().notification);
+          } else {
+          }
+        })
+        .catch(function (error) {
+          console.log("Error getting document:", error);
+        });
+    }
+  }, []);
+
+  //TAKING THE BANNERS DATA FROM DATABASE
   // This listener is fired when user receive notification
   notificationListener.current = Notifications.addNotificationReceivedListener(
     (notification) => {
@@ -188,10 +189,6 @@ export default function HomeScreen({ navigation }) {
       console.log(response);
     }
   );
-  useEffect(() => {
-    var nn = new Date();
-    nn.setDate(nn.getDate() + 2);
-  }, []);
   //EARNING SECTION UPDATE ALERT
   const buttonAlert = () =>
     Alert.alert(

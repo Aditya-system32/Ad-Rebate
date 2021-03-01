@@ -5,13 +5,6 @@ import { SliderBox } from "react-native-image-slider-box";
 import { useSelector } from "react-redux";
 import { AuthContext } from "../routes/AuthProvider";
 
-const bannerImages = [
-  "https://i.ibb.co/0DBMMw6/sam-moqadam-W8-Cyjblr-F8-U-unsplash.jpg",
-  "https://i.ibb.co/dGwGN37/clem-onojeghuo-NT3q-P7-Wbmz-E-unsplash.jpg",
-  "https://i.ibb.co/fv933B7/sharon-mccutcheon-8a5e-J1-mm-Q-unsplash.jpg",
-  "https://i.ibb.co/G3vpZ0S/maximilian-bruck-4-SKd-Rc-Y13j4-unsplash.jpg",
-];
-
 export default function BannerImages() {
   const { user } = useContext(AuthContext);
   const bannerData = useSelector((state) => state.bannerData.banners);
