@@ -119,7 +119,6 @@ export default function VerificationScreen({ route, navigation }) {
                   .signInWithCredential(credential);
 
                 verificationCodeTextInput.current?.clear();
-                ToastAndroid.show("Login Successful", ToastAndroid.SHORT);
               } catch (err) {
                 setConfirmError(err);
                 setConfirmInProgress(false);
