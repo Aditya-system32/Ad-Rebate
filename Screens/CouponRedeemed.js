@@ -31,7 +31,8 @@ export default function CouponRedeemed({ navigation, route }) {
   }, []);
   const handleRateUs = () => {
     Linking.openURL(
-      "https://play.google.com/store/apps/details?id=" + "com.adrebate.adrebate"
+      "https://play.google.com/store/apps/details?id=" +
+        "com.adverttonlineservices.adrebate"
     );
   };
   var current = new Date();

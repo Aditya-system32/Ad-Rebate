@@ -15,7 +15,7 @@ import BannerImages from "./BannerImages";
 
 export default function ReferScreen({ navigation }) {
   const [shareMessage, setShareMessage] = useState(
-    "https://play.google.com/store/apps/details?id=com.adrebate.adreabate" +
+    "https://play.google.com/store/apps/details?id=com.adverttonlineservices.adreabate" +
       "\n\nAd-Rebate\nAdvertisement On Your Control"
   );
   const { user } = useContext(AuthContext);
@@ -38,7 +38,7 @@ export default function ReferScreen({ navigation }) {
     if (user) {
       setShareMessage(
         "https://play.google.com/store/apps/details?id=" +
-          "com.adrebate.adreabate" +
+          "com.adverttonlineservices.adreabate" +
           "\n\n" +
           "Ad-Rebate\n\n" +
           "Use My Referral Id to get Coupon\n\n" +

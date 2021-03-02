@@ -1,9 +1,9 @@
 {
-  "hostType": "lan",
+  "hostType": "tunnel",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "xm-mwq",
+  "urlRandomness": "g7-fst",
   "https": false,
   "scheme": null,
   "devClient": false

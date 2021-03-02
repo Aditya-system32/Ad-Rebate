@@ -38,13 +38,11 @@ export default function ProfileComplete({ navigation }) {
   const [token, setToken] = useState();
   const [gender, setGender] = useState("male");
   const { user } = useContext(AuthContext);
-  const [flag, setFlag] = useState(1);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [referralId, setReferralId] = useState("");
   const [clientName, setClientName] = useState(null);
   const [locationOptions, setLocationOptions] = useState([
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },
-    { value: "raipur", label: "Raipur", key: "Raipur" },
   ]);
   const [genderOptions, setgenderOptions] = useState([
     { value: "male", label: "male", key: "male" },
@@ -160,7 +158,7 @@ export default function ProfileComplete({ navigation }) {
                 .collection("Coupons")
                 .doc(coupon.id)
                 .set(datas, { merge: true })
-                .then(() => console.log("done"))
+                //.then(() => console.log("done"))
                 .catch((err) => {
                   console.log(err);
                 });
@@ -212,9 +210,7 @@ export default function ProfileComplete({ navigation }) {
       .then((doc) => {
         if (doc.exists) {
           checker = true;
-          if (flag === 1) {
-            Alert.alert("Welcome To Ad-Rebate", "Coupon Received");
-          }
+          Alert.alert("Welcome To Ad-Rebate", "Coupon Received");
         } else {
           if (referralId == "") {
             console.log("User Not Enter Referral Id");
