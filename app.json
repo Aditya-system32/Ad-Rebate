@@ -22,7 +22,7 @@
       "backgroundColor":"#000000"
     },
      "ios": {
-       "bundleIdentifier": "com.yourcompany.yourappname",
+       "bundleIdentifier": "com.adverttonlineservices.adrebate",
        "buildNumber": "1.0.0"
      },
      "android": {
@@ -31,7 +31,7 @@
          "backgroundColor":"#000000"
        },
       "googleServicesFile": "./google-services.json",
-       "package": "com.adrebate.adrebate",
+       "package": "com.adverttonlineservices.adrebate",
        "versionCode": 1
      }
     }

@@ -22,7 +22,6 @@ export default function ProfileScreen({ navigation }) {
   const { user } = useContext(AuthContext);
   const [locationOptions, setLocationOptions] = useState([
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },
-    { value: "raipur", label: "Raipur", key: "Raipur" },
   ]);
   useEffect(() => {
     const backAction = () => {

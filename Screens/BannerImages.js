@@ -9,7 +9,7 @@ export default function BannerImages() {
   const { user } = useContext(AuthContext);
   const bannerData = useSelector((state) => state.bannerData.banners);
   const [shareMessage, setShareMessage] = useState(
-    "https://play.google.com/store/apps/details?id=com.adrebate.adreabate" +
+    "https://play.google.com/store/apps/details?id=com.adverttonlineservices.adreabate" +
       "\n\nAd-Rebate\nAdvertisement On Your Control"
   );
 
@@ -17,7 +17,7 @@ export default function BannerImages() {
     if (user) {
       setShareMessage(
         "https://play.google.com/store/apps/details?id=" +
-          "com.adrebate.adreabate" +
+          "com.adverttonlineservices.adreabate" +
           "\n\n" +
           "Ad-Rebate\n\n" +
           "Use My Referral Id to get Coupon\n\n" +
