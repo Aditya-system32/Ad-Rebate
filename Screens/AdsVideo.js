@@ -20,6 +20,7 @@ import { AuthContext } from "../routes/AuthProvider";
 export default function AdsVideoScreen({ navigation, route }) {
   const [selectedClient, setselectedClient] = useState(route.params.paramKey);
   const [loading, setLoading] = useState(false);
+  const [cat, setCat] = useState(route.params.categ);
   const [adCategoryData, setadCategoryData] = useState(null);
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
   const [progressBarStatus, setProgressBarStatus] = useState(0.0);
@@ -58,7 +59,7 @@ export default function AdsVideoScreen({ navigation, route }) {
         (current.getMonth() + 1) +
         "-" +
         current.getFullYear();
-      console.log(d);
+      //console.log(d);
       db.collection("ClientData")
         .doc(qNa.client)
         .collection("Ads")
@@ -94,8 +95,8 @@ export default function AdsVideoScreen({ navigation, route }) {
     initiateAd();
     async function initiateAd() {
       db.collectionGroup("Ads")
-        .where("city", "==", "bhilai")
-        .where("category", "==", "cafe")
+        .where("city", "==", userData.location)
+        .where("category", "==", cat)
         .get()
         .then((snap) => {
           let x = [];
@@ -153,7 +154,7 @@ export default function AdsVideoScreen({ navigation, route }) {
       .then((response) => response.json())
       .then((responseJson) => {
         setsecondAd(responseJson.link);
-        console.log(responseJson.link);
+        //console.log(responseJson.link);
       })
       .catch((error) => {
         console.error(error);
@@ -179,7 +180,7 @@ export default function AdsVideoScreen({ navigation, route }) {
             adsExSelCli[Math.floor(Math.random() * adsExSelCli.length)];
           await fetchLink(randomAd.link);
         } else if (currentAdIndex === 1) {
-          console.log("ran");
+          //console.log("ran");
           let adsExSelCli = adCategoryData.filter(
             (client) => client.client !== selectedClient
           );

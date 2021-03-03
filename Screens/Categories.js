@@ -92,6 +92,7 @@ export default function CategoriesScreen({ navigation, route }) {
                     onPress={() =>
                       navigation.navigate("AdsVideo", {
                         paramKey: item.id,
+                        categ: value,
                       })
                     }
                   >
