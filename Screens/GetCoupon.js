@@ -51,7 +51,6 @@ export default function GetCoupon({ navigation, route }) {
           querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             xx = doc.data();
-            console.log(xx);
           });
         })
         .then(() => {
@@ -251,12 +250,12 @@ const styles = StyleSheet.create({
     paddingTop: scaledSize(10),
   },
   coupon: {
-    width: Dimensions.get("window").width * 0.65,
+    width: scaledSize(300),
+    height: scaledSize(350),
     marginRight: 0,
     marginTop: scaledSize(30),
     marginLeft: scaledSize(10),
     padding: scaledSize(10),
-    height: scaledSize(350),
     borderRadius: scaledSize(20),
     backgroundColor: "#f0f0f0",
     marginBottom: scaledSize(10),

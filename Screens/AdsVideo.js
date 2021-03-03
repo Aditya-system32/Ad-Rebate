@@ -16,6 +16,7 @@ import { Video } from "expo-av";
 import { db } from "../firebases";
 import { ProgressBar, Colors } from "react-native-paper";
 import { AuthContext } from "../routes/AuthProvider";
+import { scaledSize } from "./Home";
 
 export default function AdsVideoScreen({ navigation, route }) {
   const [selectedClient, setselectedClient] = useState(route.params.paramKey);
@@ -292,9 +293,9 @@ const styles = StyleSheet.create({
   },
   option: {
     width: "90%",
-    borderRadius: 10,
+    borderRadius: scaledSize(10),
     height: "22%",
-    fontSize: 15,
+    fontSize: scaledSize(15),
     fontFamily: "Poppins-Medium",
     backgroundColor: "transparent",
     color: "rgba(255, 255, 255, 0.651)",
@@ -304,16 +305,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 15,
+    marginTop: scaledSize(15),
   },
   question: {
     width: "100%",
     display: "flex",
-    borderRadius: 20,
+    borderRadius: scaledSize(20),
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
     height: "30%",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-SemiBold",
     color: "rgba(255, 255, 255, 0.842)",
     paddingTop: "8%",
@@ -329,7 +330,7 @@ const styles = StyleSheet.create({
     height: "30%",
     top: 0,
     backgroundColor: "#000000",
-    borderRadius: 15,
+    borderRadius: scaledSize(15),
     borderColor: "rgba(255, 255, 255, 0.842)",
     borderWidth: 1,
     position: "absolute",
@@ -357,21 +358,21 @@ const styles = StyleSheet.create({
   adCurrentIndex: {
     zIndex: 1,
     position: "absolute",
-    top: 10,
+    top: scaledSize(10),
     alignSelf: "center",
-    right: 10,
+    right: scaledSize(10),
     backgroundColor: "rgba(209, 209, 209, 0.301)",
-    width: 40,
-    height: 40,
+    width: scaledSize(40),
+    height: scaledSize(40),
     flexDirection: "row",
-    borderRadius: 50,
+    borderRadius: scaledSize(50),
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
     fontFamily: "Poppins-Medium",
   },
   adCurrentFont: {
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Medium",
   },
   container: {

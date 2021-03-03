@@ -74,5 +74,6 @@ const styles = StyleSheet.create({
   image: {
     height: Dimensions.get("screen").height * 0.2,
     width: Dimensions.get("screen").width * 0.9,
+    resizeMode: "contain",
   },
 });
