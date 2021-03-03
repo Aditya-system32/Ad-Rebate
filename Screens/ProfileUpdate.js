@@ -15,10 +15,12 @@ import { Picker } from "@react-native-picker/picker";
 import { globalstyles } from "../styles/global";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
+import { scaledSize } from "./Home";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function ProfileScreen({ navigation }) {
   const [location, setLocation] = useState("bhilai");
-  const [fullName, setFullName] = useState();
+  const [fullName, setFullName] = useState("");
   const { user } = useContext(AuthContext);
   const [locationOptions, setLocationOptions] = useState([
     { value: "bhilai", label: "Bhilai", key: "Bhilai" },
@@ -38,7 +40,10 @@ export default function ProfileScreen({ navigation }) {
   }, []);
 
   const update = () => {
-    if (fullName != undefined) {
+    if (fullName === "") {
+      ToastAndroid.show("Full name cannot be empty", ToastAndroid.SHORT);
+      return;
+    } else if (fullName != undefined) {
       db.collection("Users")
         .doc(user.uid)
         .set(
@@ -92,7 +97,7 @@ export default function ProfileScreen({ navigation }) {
         </View>
         <View style={styles.picker}>
           <Picker
-            style={{ width: "100%", height: 61, color: "#fff" }}
+            style={{ width: "100%", height: scaledSize(61), color: "#fff" }}
             selectedValue={location}
             onValueChange={(itemValue, itemIndex) => setLocation(itemValue)}
           >
@@ -108,11 +113,11 @@ export default function ProfileScreen({ navigation }) {
           </Picker>
         </View>
         <View style={styles.ProfileCompleteWrapper}>
-          <TouchableNativeFeedback useForeground={true} onPress={update}>
+          <TouchableOpacity onPress={update}>
             <View style={styles.ProfileCompleteButton}>
               <Text style={styles.ProfileCompleteButtonTitle}>Update</Text>
             </View>
-          </TouchableNativeFeedback>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -121,22 +126,23 @@ export default function ProfileScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   ProfileCompleteWrapper: {
-    marginTop: 10,
+    marginTop: scaledSize(10),
+    marginBottom: scaledSize(10),
   },
   ProfileCompleteButton: {
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: 178,
-    borderRadius: 20,
-    height: 58,
+    width: scaledSize(178),
+    borderRadius: scaledSize(20),
+    height: scaledSize(60),
     borderColor: "#fff",
     borderStyle: "solid",
     borderWidth: 1,
   },
   ProfileCompleteButtonTitle: {
     color: "#ffffff",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Medium",
   },
   picker: {
@@ -144,22 +150,22 @@ const styles = StyleSheet.create({
     borderColor: "#424242",
     color: "#ffffff",
     borderWidth: 1,
-    borderRadius: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
+    borderRadius: scaledSize(20),
+    paddingLeft: scaledSize(20),
+    paddingRight: scaledSize(20),
     width: "80%",
-    height: 61,
+    height: scaledSize(61),
     alignSelf: "center",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Regular",
-    marginBottom: 24,
+    marginBottom: scaledSize(24),
   },
   welcomeBackWrapper: {
-    marginBottom: 30,
-    marginTop: 20,
+    marginBottom: scaledSize(30),
+    marginTop: scaledSize(20),
   },
   welcomeBack: {
-    fontSize: 28,
+    fontSize: scaledSize(28),
     fontFamily: "Poppins-Medium",
     color: "#EDEDED",
     alignSelf: "center",
@@ -169,14 +175,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#1A1A1A",
     borderColor: "#424242",
     borderWidth: 1,
-    borderRadius: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
+    borderRadius: scaledSize(20),
+    paddingLeft: scaledSize(20),
+    paddingRight: scaledSize(20),
     width: "80%",
-    height: 61,
+    height: scaledSize(61),
     alignSelf: "center",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Regular",
-    marginBottom: 24,
+    marginBottom: scaledSize(24),
   },
 });

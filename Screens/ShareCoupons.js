@@ -158,7 +158,6 @@ export default function ShareCouponScreen({ navigation }) {
           res.forEach((user) => {
             tempUser.push(user.data());
           });
-          console.log(tempUser);
           //console.log(selectedCoupon);
         })
         .then(() => {
@@ -197,7 +196,6 @@ export default function ShareCouponScreen({ navigation }) {
 
         .catch(function (error) {
           Alert.alert("Not a Valid user in Ad-Rebate");
-          console.log("Not a valid User ", error);
         });
     }
   };
@@ -246,7 +244,6 @@ export default function ShareCouponScreen({ navigation }) {
             dropdownIconColor="gray"
             selectedValue={selectedCoupon}
             onValueChange={(itemValue, itemIndex) => {
-              console.log(itemValue);
               setSelectedCoupon(itemValue);
             }}
           >
