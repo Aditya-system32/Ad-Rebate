@@ -7,6 +7,7 @@ import {
 } from "react-native-gesture-handler";
 import { View as MotiView } from "moti";
 import { AnimatePresence } from "moti";
+import { scaledSize } from "./Home";
 export default function HelpScreen({ navigation }) {
   const [queries, setQueries] = useState([
     {
@@ -125,13 +126,13 @@ export default function HelpScreen({ navigation }) {
 const styles = StyleSheet.create({
   query: {
     backgroundColor: "black",
-    borderRadius: 10,
+    borderRadius: scaledSize(10),
     width: "80%",
     borderColor: "#424242",
     borderWidth: 1,
     alignSelf: "center",
-    margin: 10,
-    minHeight: 60,
+    margin: scaledSize(10),
+    minHeight: scaledSize(60),
   },
   hidden: {
     width: 0,
@@ -139,20 +140,20 @@ const styles = StyleSheet.create({
   },
   que: {
     width: "100%",
-    height: 60,
-    paddingHorizontal: 20,
+    height: scaledSize(60),
+    paddingHorizontal: scaledSize(20),
     color: "white",
     fontFamily: "Poppins-SemiBold",
-    fontSize: 15,
+    fontSize: scaledSize(15),
     textAlignVertical: "center",
   },
   ans: {
     width: "100%",
     backgroundColor: "#2c2c2c",
     color: "#eeeeee",
-    fontSize: 13,
-    lineHeight: 30,
-    padding: 20,
+    fontSize: scaledSize(13),
+    lineHeight: scaledSize(30),
+    padding: scaledSize(20),
     textAlignVertical: "center",
     fontFamily: "Poppins-Regular",
   },

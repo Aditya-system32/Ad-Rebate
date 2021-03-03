@@ -15,7 +15,7 @@ export function DrawerContent(props) {
     <View style={globalstyles.container}>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
-          <View style={{ alignItems: "flex-end", marginRight: 15 }}>
+          <View style={{ alignItems: "flex-end", marginRight: scaledSize(15) }}>
             <AntDesign
               name="close"
               size={25}
@@ -67,10 +67,13 @@ export function DrawerContent(props) {
                 fontSize: scaledSize(14),
                 alignSelf: "center",
                 fontFamily: "Poppins-Medium",
+                textAlign: "center",
+                textAlignVertical: "center",
               }}
               onPress={() => {
                 props.navigation.navigate("Home");
               }}
+              style={styles.labelStyle}
             />
           </Drawer.Section>
         ) : (
@@ -82,10 +85,12 @@ export function DrawerContent(props) {
                 fontSize: scaledSize(14),
                 alignSelf: "center",
                 fontFamily: "Poppins-Medium",
+                textAlignVertical: "center",
               }}
               onPress={() => {
                 props.navigation.navigate("Home");
               }}
+              style={styles.labelStyle}
             />
           </Drawer.Section>
         )}
@@ -97,9 +102,9 @@ export function DrawerContent(props) {
                 color: "#EDEDED",
                 fontSize: scaledSize(14),
                 alignSelf: "center",
-                paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
+              style={styles.labelStyle}
               onPress={() => {
                 props.navigation.navigate("Coupon");
               }}
@@ -117,6 +122,7 @@ export function DrawerContent(props) {
                 paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
+              style={styles.labelStyle}
               onPress={() => {
                 props.navigation.navigate("ShareCoupons");
               }}
@@ -137,6 +143,7 @@ export function DrawerContent(props) {
               onPress={() => {
                 props.navigation.navigate("Invite and earn");
               }}
+              style={styles.labelStyle}
             />
           </Drawer.Section>
         )}
@@ -151,6 +158,7 @@ export function DrawerContent(props) {
                 paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
+              style={styles.labelStyle}
               onPress={() => {
                 props.navigation.navigate("Barcode");
               }}
@@ -168,6 +176,7 @@ export function DrawerContent(props) {
                 paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
+              style={styles.labelStyle}
               onPress={() => {
                 props.navigation.navigate("Transactions");
               }}
@@ -181,9 +190,9 @@ export function DrawerContent(props) {
               color: "#EDEDED",
               fontSize: scaledSize(14),
               alignSelf: "center",
-              paddingLeft: scaledSize(6),
               fontFamily: "Poppins-Medium",
             }}
+            style={styles.labelStyle}
             onPress={() => {
               props.navigation.navigate("Help");
             }}
@@ -197,9 +206,9 @@ export function DrawerContent(props) {
                 color: "#EDEDED",
                 fontSize: scaledSize(14),
                 alignSelf: "center",
-                paddingLeft: scaledSize(6),
                 fontFamily: "Poppins-Medium",
               }}
+              style={styles.labelStyle}
               onPress={() =>
                 logout()
                   ? props.navigation.closeDrawer()
@@ -210,13 +219,24 @@ export function DrawerContent(props) {
         )}
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerWrapper}>
-        <Text style={styles.bottomDrawer}>version v0.1</Text>
+        <Text style={styles.bottomDrawer}>version v1.0</Text>
+        <Text style={styles.bottomDrawer}>Made with ❤ in India</Text>
       </Drawer.Section>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  labelStyle: {
+    height: scaledSize(58),
+    color: "#EDEDED",
+    fontSize: scaledSize(14),
+    alignSelf: "center",
+    width: "100%",
+    fontFamily: "Poppins-Medium",
+    justifyContent: "center",
+    paddingBottom: scaledSize(5),
+  },
   image: {
     width: scaledSize(60),
     height: scaledSize(60),
@@ -228,16 +248,17 @@ const styles = StyleSheet.create({
 
   drawerContent: {
     flex: 1,
+    backgroundColor: "#0c0c0c",
   },
   userInfoSection: {
     padding: scaledSize(10),
     paddingLeft: scaledSize(25),
     flexDirection: "row",
-    marginTop: 10,
+    marginTop: scaledSize(10),
   },
   title: {
     fontSize: scaledSize(15),
-    marginTop: 3,
+    marginTop: scaledSize(3),
     fontFamily: "Poppins-Medium",
     marginLeft: scaledSize(10),
     color: "#EDEDED",
@@ -248,11 +269,8 @@ const styles = StyleSheet.create({
     color: "#EDEDED",
   },
   drawerSection: {
-    marginTop: -6,
-    justifyContent: "flex-start",
+    marginTop: -scaledSize(6),
     alignContent: "center",
-    borderColor: "#111111",
-    borderBottomWidth: 1,
     marginRight: 0,
     height: scaledSize(58),
   },
@@ -263,10 +281,13 @@ const styles = StyleSheet.create({
   bottomDrawerWrapper: {
     alignItems: "center",
     marginBottom: scaledSize(20),
+    width: "100%",
   },
   bottomDrawer: {
     fontSize: scaledSize(12),
     color: "#808080",
+    textAlign: "center",
+    paddingRight: scaledSize(20),
   },
   Edit: {
     color: "#EDEDED",

@@ -65,6 +65,7 @@ const HomeStackScreen = ({ navigation }) => {
         name="Barcode"
         component={BarcodeScanner}
         options={{
+          headerTitle: "",
           headerStyle: {
             backgroundColor: "#000000",
           },

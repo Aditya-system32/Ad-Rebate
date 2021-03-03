@@ -15,6 +15,7 @@ import {
 import { View as MotiView } from "moti";
 import { db } from "../firebases";
 import { AuthContext } from "../routes/AuthProvider";
+import { scaledSize } from "./Home";
 export default function CategoriesScreen({ navigation, route }) {
   const { userData, user } = useContext(AuthContext);
   const [value, setValue] = useState(route.params.paramKey);
@@ -34,7 +35,6 @@ export default function CategoriesScreen({ navigation, route }) {
     };
   }, []);
   useEffect(() => {
-
     getCategory();
     async function getCategory() {
       setloading(true);
@@ -118,33 +118,33 @@ const styles = StyleSheet.create({
   err: {
     color: "#ff6d6d",
     fontFamily: "Poppins-Regular",
-    paddingHorizontal: 20,
-    lineHeight: 30,
+    paddingHorizontal: scaledSize(20),
+    lineHeight: scaledSize(30),
     textAlign: "center",
   },
   categoryItemTitle: {
     color: "white",
     textAlign: "center",
     fontFamily: "Poppins-Regular",
-    fontSize: 15,
+    fontSize: scaledSize(15),
     flex: 1,
   },
   categoryTile: {
     backgroundColor: "rgba(50,50,50,0.2)",
-    borderRadius: 30,
+    borderRadius: scaledSize(30),
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    padding: 20,
+    padding: scaledSize(20),
   },
   itemWrapper: {
     backgroundColor: "rgba(50,50,50,0.2)",
-    borderRadius: 30,
+    borderRadius: scaledSize(30),
     borderColor: "#2e2e2e",
     borderWidth: 0.5,
     overflow: "hidden",
-    height: 85,
+    height: scaledSize(85),
     width: "100%",
     flexDirection: "row",
     marginVertical: 7,
@@ -155,30 +155,30 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 10,
+    paddingVertical: scaledSize(10),
   },
   clientImage: {
     resizeMode: "cover",
-    borderRadius: 100,
-    width: 70,
-    height: 70,
+    borderRadius: scaledSize(100),
+    width: scaledSize(70),
+    height: scaledSize(70),
   },
   clientItem: {
     alignItems: "center",
     flexDirection: "row",
   },
   clientName: {
-    width: 100,
+    width: scaledSize(100),
     color: "white",
     textAlign: "center",
-    fontSize: 19,
+    fontSize: scaledSize(19),
     flex: 1,
     backgroundColor: "white",
   },
   clientsWrapper: {
     width: "90%",
     height: "90%",
-    borderRadius: 20,
+    borderRadius: scaledSize(20),
     padding: 17,
     backgroundColor: "rgba(0,0,0,0.4)",
     flexDirection: "column",
@@ -186,15 +186,15 @@ const styles = StyleSheet.create({
   },
   registerButtonTitle: {
     color: "#000",
-    fontSize: 18,
+    fontSize: scaledSize(18),
     fontFamily: "Poppins-Medium",
   },
   registerButton: {
     justifyContent: "center",
     alignItems: "center",
-    width: 100,
-    borderRadius: 100,
-    height: 100,
+    width: scaledSize(100),
+    borderRadius: scaledSize(100),
+    height: scaledSize(100),
     margin: 6,
     backgroundColor: "#000000",
   },
