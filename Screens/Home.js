@@ -104,12 +104,10 @@ export default function HomeScreen({ navigation }) {
 
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
-    let isMounted = true;
-    if (user === null && !isMounted) {
+    if (user === null) {
       return;
     }
     // note this flag denote mount status
-
     var userDoc = db
       .collection("Users")
       .doc(user.uid)
@@ -123,7 +121,6 @@ export default function HomeScreen({ navigation }) {
 
     return () => {
       userDoc();
-      isMounted = false;
     };
   }, [user]);
 

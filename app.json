@@ -25,14 +25,13 @@
        "bundleIdentifier": "com.adverttonlineservices.adrebate",
        "buildNumber": "1.0.0"
      },
-     "android": {
+     "android": {"enableDangerousExperimentalLeanBuilds": true,
        "adaptiveIcon":{
          "foregroundImage":"./assets/images/adaptive-icon.png",
          "backgroundColor":"#000000"
        },
       "googleServicesFile": "./google-services.json",
-       "package": "com.adverttonlineservices.adrebate",
-       "versionCode": 1
+       "package": "com.adverttonlineservices.adrebate"
      }
     }
   }
