@@ -113,10 +113,10 @@ const styles = StyleSheet.create({
     marginTop: scaledSize(10),
   },
   erText: {
-    color: "red",
-    width: "75%",
+    color: "#ffa2a2",
+    fontFamily: "Poppins-Regular",
     alignSelf: "center",
-    marginTop: -18,
+    marginTop: -scaledSize(18),
   },
   loginButton: {
     justifyContent: "center",

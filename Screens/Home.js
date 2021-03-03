@@ -104,10 +104,11 @@ export default function HomeScreen({ navigation }) {
 
   //TAKING THE USER DATA FROM DATABASE
   useEffect(() => {
+    let isMounted = true;
     if (user === null && !isMounted) {
       return;
     }
-    let isMounted = true; // note this flag denote mount status
+    // note this flag denote mount status
 
     var userDoc = db
       .collection("Users")
@@ -164,7 +165,7 @@ export default function HomeScreen({ navigation }) {
         .doc("notifications")
         .get()
         .then((doc) => {
-          if (doc.exists && isMounted) {
+          if (doc.exists) {
             setNotifiaction(doc.data().notification);
           } else {
           }
@@ -567,7 +568,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#161616",
     padding: scaledSize(20),
     paddingBottom: scaledSize(25),
-    width: scaledSize(390),
     flexWrap: "wrap",
     flexDirection: "row",
     borderRadius: scaledSize(20),

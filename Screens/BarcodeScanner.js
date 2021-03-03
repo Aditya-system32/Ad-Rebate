@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Dimensions, BackHandler } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
+import { scaledSize } from "./Home";
 export default function BarcodeScanner({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -74,16 +75,21 @@ export default function BarcodeScanner({ navigation }) {
 
 const opacity = "rgba(0, 0, 0, .7)";
 const styles = StyleSheet.create({
-  cont: { width: "100%", height: "100%", position: "relative" },
+  qricon: {
+    position: "absolute",
+    alignSelf: "center",
+    top: scaledSize(250),
+  },
+  cont: { width: "100%", flex: 1 },
   title: {
     position: "absolute",
     color: "white",
     width: "100%",
-    height: 30,
+    height: scaledSize(30),
     fontFamily: "Poppins-Regular",
     textAlign: "center",
-    fontSize: 20,
-    marginTop: 120,
+    fontSize: scaledSize(20),
+    marginTop: scaledSize(120),
   },
   text: {
     color: "#cacaca",
@@ -96,10 +102,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderWidth: 2,
     borderColor: "#4b4b4b",
-    width: 130,
-    marginBottom: 20,
-    height: 50,
-    borderRadius: 50,
+    width: scaledSize(130),
+    marginBottom: scaledSize(20),
+    height: scaledSize(50),
+    borderRadius: scaledSize(50),
     alignSelf: "center",
     backgroundColor: "black",
   },
