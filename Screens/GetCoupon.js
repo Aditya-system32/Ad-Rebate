@@ -234,6 +234,7 @@ const styles = StyleSheet.create({
   couponId: {
     textAlign: "left",
     width: "100%",
+    overflow: "hidden",
     fontFamily: "Poppins-Regular",
     color: "#1b1b1b",
     fontSize: scaledSize(12),
