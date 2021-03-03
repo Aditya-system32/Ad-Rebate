@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: "Poppins-Light",
     margin: scaledSize(10),
-    fontSize: scaledSize(12),
+    fontSize: scaledSize(10),
     textAlign: "center",
     color: "#6e6e6e",
     paddingTop: "3%",
