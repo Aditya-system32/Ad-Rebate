@@ -238,6 +238,7 @@ export default function CouponScreen({ navigation }) {
         setLoading(false);
       });
   }
+  console.log("done");
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
