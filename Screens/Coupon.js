@@ -184,21 +184,14 @@ export default function CouponScreen({ navigation }) {
   }
   async function getAllCoupons() {
     if (currentOption === "all") return;
+    setHideLoadMore(true);
     setLoading(true);
     setCouponArray([]);
     db.collectionGroup("Coupons")
       .where("allotedTo", "==", user.uid)
-      .limit(8)
+      .orderBy("activeFrom", "desc")
       .get()
       .then((snap) => {
-        var lastVisible = snap.docs[snap.docs.length - 1];
-        setNextPage(
-          db
-            .collectionGroup("Coupons")
-            .where("allotedTo", "==", user.uid)
-            .startAfter(lastVisible)
-            .limit(8)
-        );
         snap.forEach((doc) => {
           setCouponArray((prev) => [...prev, doc.data()]);
         });
@@ -238,7 +231,6 @@ export default function CouponScreen({ navigation }) {
         setLoading(false);
       });
   }
-  console.log("done");
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
