@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     fontFamily: "Poppins-Regular",
     color: "#1b1b1b",
-    fontSize: scaledSize(12),
+    fontSize: scaledSize(10),
   },
   flatList: {
     alignItems: "center",
