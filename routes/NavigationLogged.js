@@ -20,6 +20,7 @@ import GetCoupon from "../Screens/GetCoupon";
 import CouponRedeemed from "../Screens/CouponRedeemed";
 import AppIntroSliders from "../Screens/AppIntroSliders";
 import ShareCoupons from "../Screens/ShareCoupons";
+import GiftCoupon from "../Screens/GiftCoupon";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -217,6 +218,21 @@ const HomeStackScreen = ({ navigation }) => {
         name="Profile"
         component={ProfileScreen}
         options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="GiftCoupon"
+        component={GiftCoupon}
+        options={{
+          title: "Gift Coupon",
           headerStyle: {
             backgroundColor: "#000000",
           },

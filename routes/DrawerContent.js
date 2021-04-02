@@ -132,6 +132,24 @@ export function DrawerContent(props) {
         {!user ? null : (
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
+              label="Gift Coupon"
+              labelStyle={{
+                color: "#EDEDED",
+                fontSize: scaledSize(14),
+                alignSelf: "center",
+                paddingLeft: scaledSize(6),
+                fontFamily: "Poppins-Medium",
+              }}
+              style={styles.labelStyle}
+              onPress={() => {
+                props.navigation.navigate("GiftCoupon");
+              }}
+            />
+          </Drawer.Section>
+        )}
+        {!user ? null : (
+          <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
               label="INVITE AND EARN"
               labelStyle={{
                 color: "#EDEDED",
