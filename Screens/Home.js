@@ -188,13 +188,7 @@ export default function HomeScreen({ navigation }) {
     }
   );
   //EARNING SECTION UPDATE ALERT
-  const buttonAlert = () =>
-    Alert.alert(
-      "Update Alert",
-      "This section will be available soon!",
-      [{ text: "OK" }],
-      { cancelable: false }
-    );
+
   const skipAll = () => {
     setUserData({
       ...userData,
@@ -340,7 +334,9 @@ export default function HomeScreen({ navigation }) {
         ) : null}
       </AnimatePresence>
       <View style={styles.wrapper}>
-        <TouchableNativeFeedback onPress={buttonAlert}>
+        <TouchableNativeFeedback
+          onPress={() => navigation.navigate("Essentials")}
+        >
           <View style={[styles.card, styles.cashCard]}>
             <Image style={styles.img} source={cash}></Image>
           </View>

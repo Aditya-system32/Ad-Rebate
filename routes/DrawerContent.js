@@ -132,7 +132,7 @@ export function DrawerContent(props) {
         {!user ? null : (
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
-              label="Gift Coupon"
+              label="Essentials"
               labelStyle={{
                 color: "#EDEDED",
                 fontSize: scaledSize(14),
@@ -142,7 +142,7 @@ export function DrawerContent(props) {
               }}
               style={styles.labelStyle}
               onPress={() => {
-                props.navigation.navigate("GiftCoupon");
+                props.navigation.navigate("Essentials");
               }}
             />
           </Drawer.Section>

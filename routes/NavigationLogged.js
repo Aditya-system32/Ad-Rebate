@@ -20,7 +20,7 @@ import GetCoupon from "../Screens/GetCoupon";
 import CouponRedeemed from "../Screens/CouponRedeemed";
 import AppIntroSliders from "../Screens/AppIntroSliders";
 import ShareCoupons from "../Screens/ShareCoupons";
-import GiftCoupon from "../Screens/GiftCoupon";
+import Essentials from "../Screens/Essentials";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -229,10 +229,10 @@ const HomeStackScreen = ({ navigation }) => {
         }}
       />
       <HomeStack.Screen
-        name="GiftCoupon"
-        component={GiftCoupon}
+        name="Essentials"
+        component={Essentials}
         options={{
-          title: "Gift Coupon",
+          title: "Essentials",
           headerStyle: {
             backgroundColor: "#000000",
           },
