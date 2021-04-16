@@ -132,24 +132,6 @@ export function DrawerContent(props) {
         {!user ? null : (
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
-              label="Essentials"
-              labelStyle={{
-                color: "#EDEDED",
-                fontSize: scaledSize(14),
-                alignSelf: "center",
-                paddingLeft: scaledSize(6),
-                fontFamily: "Poppins-Medium",
-              }}
-              style={styles.labelStyle}
-              onPress={() => {
-                props.navigation.navigate("Essentials");
-              }}
-            />
-          </Drawer.Section>
-        )}
-        {!user ? null : (
-          <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
               label="INVITE AND EARN"
               labelStyle={{
                 color: "#EDEDED",
@@ -237,7 +219,7 @@ export function DrawerContent(props) {
         )}
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerWrapper}>
-        <Text style={styles.bottomDrawer}>version v1.1</Text>
+        <Text style={styles.bottomDrawer}>version v1.2</Text>
         <Text style={styles.bottomDrawer}>Made with ❤ in India</Text>
       </Drawer.Section>
     </View>

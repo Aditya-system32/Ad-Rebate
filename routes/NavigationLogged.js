@@ -20,7 +20,6 @@ import GetCoupon from "../Screens/GetCoupon";
 import CouponRedeemed from "../Screens/CouponRedeemed";
 import AppIntroSliders from "../Screens/AppIntroSliders";
 import ShareCoupons from "../Screens/ShareCoupons";
-import Essentials from "../Screens/Essentials";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -218,21 +217,6 @@ const HomeStackScreen = ({ navigation }) => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          headerStyle: {
-            backgroundColor: "#000000",
-          },
-          headerTintColor: "#FFFFFF",
-          headerTitleStyle: {
-            fontFamily: "Poppins-SemiBold",
-            fontSize: scaledSize(18),
-          },
-        }}
-      />
-      <HomeStack.Screen
-        name="Essentials"
-        component={Essentials}
-        options={{
-          title: "Essentials",
           headerStyle: {
             backgroundColor: "#000000",
           },
