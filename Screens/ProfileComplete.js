@@ -298,7 +298,7 @@ export default function ProfileComplete({ navigation }) {
           Alert.alert("Welcome To Ad-Rebate", "Coupon Received");
         } else {
           if (referralId == "") {
-            console.log("User Not Enter Referral Id");
+            //console.log("User Not Enter Referral Id");
             checker = true;
           } else {
             Alert.alert("Ad-Rebate", "Not Valid Id");
