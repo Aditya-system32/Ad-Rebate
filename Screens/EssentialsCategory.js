@@ -31,18 +31,33 @@ function EssentialsCategory({ navigation, route }) {
   }, []);
   return (
     <View>
-      <FlatList
-        data={array}
-        keyExtractor={(item) => item.number}
-        numColumns={2}
-        renderItem={({ item }) => (
-          <EssDetail
-            name={item.name}
-            ph={item.number}
-            availability={item.availability}
-          ></EssDetail>
-        )}
-      ></FlatList>
+      {category !== "Medical" ? (
+        <FlatList
+          data={array}
+          keyExtractor={(item) => item.number}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <EssDetail
+              name={item.name}
+              ph={item.number}
+              availability={item.availability}
+            ></EssDetail>
+          )}
+        ></FlatList>
+      ) : (
+        <FlatList
+          data={array}
+          keyExtractor={(item) => item.number}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <EssDetail
+              name={item.name}
+              ph={item.number}
+              availability={item.availability}
+            ></EssDetail>
+          )}
+        ></FlatList>
+      )}
     </View>
   );
 }

@@ -17,10 +17,10 @@ import EssCard from "./EssCard";
 
 function Essentials({ navigation }) {
   const array = [
-    { color: "#43A4BA", text: "Grocery" },
-    { color: "#FF9B9B", text: "Medical" },
-    { color: "#7D5DD8", text: "Tiffin" },
-    { color: "#44BD41", text: "Vegetables" },
+    { color: "#43A4BA", text: "Grocery", img: coupons },
+    { color: "#FF9B9B", text: "Medical", img: coupons },
+    { color: "#7D5DD8", text: "Tiffin", img: coupons },
+    { color: "#44BD41", text: "Vegetables", img: coupons },
   ];
   return (
     <View style={styles.cardHolder}>
@@ -31,7 +31,7 @@ function Essentials({ navigation }) {
         renderItem={({ item }) => (
           <EssCard
             navigation={navigation}
-            img={coupons}
+            img={item.img}
             color={item.color}
             text={item.text}
           ></EssCard>
