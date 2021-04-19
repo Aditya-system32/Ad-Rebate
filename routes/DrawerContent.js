@@ -49,51 +49,24 @@ export function DrawerContent(props) {
             </View>
           )}
         </View>
-        {!user ? (
-          <Drawer.Section
-            style={{
-              marginTop: scaledSize(80),
-              justifyContent: "center",
-              alignContent: "center",
-              borderColor: "#1a1a1a",
-              borderWidth: scaledSize(1),
-              height: scaledSize(58),
+
+        <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
+            label="HOME"
+            labelStyle={{
+              color: "#EDEDED",
+              fontSize: scaledSize(14),
+              alignSelf: "center",
+              fontFamily: "Poppins-Medium",
+              textAlignVertical: "center",
             }}
-          >
-            <DrawerItem
-              label="HOME"
-              labelStyle={{
-                color: "#EDEDED",
-                fontSize: scaledSize(14),
-                alignSelf: "center",
-                fontFamily: "Poppins-Medium",
-                textAlign: "center",
-                textAlignVertical: "center",
-              }}
-              onPress={() => {
-                props.navigation.navigate("Home");
-              }}
-              style={styles.labelStyle}
-            />
-          </Drawer.Section>
-        ) : (
-          <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
-              label="HOME"
-              labelStyle={{
-                color: "#EDEDED",
-                fontSize: scaledSize(14),
-                alignSelf: "center",
-                fontFamily: "Poppins-Medium",
-                textAlignVertical: "center",
-              }}
-              onPress={() => {
-                props.navigation.navigate("Home");
-              }}
-              style={styles.labelStyle}
-            />
-          </Drawer.Section>
-        )}
+            onPress={() => {
+              props.navigation.navigate("Home");
+            }}
+            style={styles.labelStyle}
+          />
+        </Drawer.Section>
+
         {!user ? null : (
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
@@ -107,6 +80,24 @@ export function DrawerContent(props) {
               style={styles.labelStyle}
               onPress={() => {
                 props.navigation.navigate("Coupon");
+              }}
+            />
+          </Drawer.Section>
+        )}
+        {!user ? null : (
+          <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
+              label="ESSENTIALS"
+              labelStyle={{
+                color: "#EDEDED",
+                fontSize: scaledSize(14),
+                alignSelf: "center",
+                paddingLeft: scaledSize(6),
+                fontFamily: "Poppins-Medium",
+              }}
+              style={styles.labelStyle}
+              onPress={() => {
+                props.navigation.navigate("Essentials");
               }}
             />
           </Drawer.Section>
