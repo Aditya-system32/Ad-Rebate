@@ -22,7 +22,6 @@ import AppIntroSliders from "../Screens/AppIntroSliders";
 import ShareCoupons from "../Screens/ShareCoupons";
 import Essentials from "../Screens/Essentials";
 import EssentialsCategory from "../Screens/EssentialsCategory";
-import EssentialsDetails from "../Screens/EssentialsDetails";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -265,20 +264,6 @@ const HomeStackScreen = ({ navigation }) => {
       <HomeStack.Screen
         name="EssentialsCategory"
         component={EssentialsCategory}
-        options={{
-          headerStyle: {
-            backgroundColor: "#000000",
-          },
-          headerTintColor: "#FFFFFF",
-          headerTitleStyle: {
-            fontFamily: "Poppins-SemiBold",
-            fontSize: scaledSize(18),
-          },
-        }}
-      />
-      <HomeStack.Screen
-        name="EssentialsDetails"
-        component={EssentialsDetails}
         options={{
           headerStyle: {
             backgroundColor: "#000000",

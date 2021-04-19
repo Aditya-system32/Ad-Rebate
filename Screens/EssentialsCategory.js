@@ -13,22 +13,53 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { db } from "../firebases";
 import EssDetail from "./EssDetail";
+import EssMed from "./EssMed";
 
 function EssentialsCategory({ navigation, route }) {
   const { category } = route.params;
   const [array, setArray] = useState([]);
-  const [medi, setMedi] = useState([]);
+  const medi = ["Ambulance", "Oxygen", "Rtpcr"];
   useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
+  useEffect(() => {
+    let cat = JSON.parse(JSON.stringify(category));
+    if (
+      category === "oxygen" ||
+      category === "ambulance" ||
+      category === "rtpcr"
+    ) {
+      cat = "Medical";
+    }
     db.collection("Essentials")
-      .doc(category)
+      .doc(cat)
       .get()
       .then((doc) => {
-        if (category === "Medical") setMedi(doc.data());
-        else {
-          setArray(doc.data().items);
+        let data = doc.data();
+
+        if (
+          category === "oxygen" ||
+          category === "ambulance" ||
+          category === "rtpcr"
+        ) {
+          console.log(category);
+          setArray(data[category]);
+          console.log(data[category]);
+        } else {
+          setArray(data.items);
         }
       });
-  }, []);
+  }, [category]);
   return (
     <View>
       {category !== "Medical" ? (
@@ -46,15 +77,11 @@ function EssentialsCategory({ navigation, route }) {
         ></FlatList>
       ) : (
         <FlatList
-          data={array}
-          keyExtractor={(item) => item.number}
+          data={medi}
+          keyExtractor={(item) => item}
           numColumns={2}
           renderItem={({ item }) => (
-            <EssDetail
-              name={item.name}
-              ph={item.number}
-              availability={item.availability}
-            ></EssDetail>
+            <EssMed text={item} navigation={navigation}></EssMed>
           )}
         ></FlatList>
       )}

@@ -3,15 +3,16 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { scaledSize } from "./Home";
 
-const EssMed = ({ navigation, text, img, color }) => {
+const EssMed = ({ navigation, text }) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate("EssentialsCategory", { sub: text })
+        navigation.navigate("EssentialsCategory", {
+          category: text.toLowerCase(),
+        })
       }
-      style={[styles.card, { backgroundColor: color }]}
+      style={styles.card}
     >
-      <Image style={styles.img} source={img}></Image>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
@@ -23,13 +24,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins-SemiBold",
     color: "white",
-    marginTop: scaledSize(40),
     fontSize: scaledSize(15),
-  },
-  img: {
-    resizeMode: "contain",
-    width: scaledSize(130),
-    height: scaledSize(130),
   },
   card: {
     width: scaledSize(190),
@@ -38,5 +33,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 20,
     margin: scaledSize(8),
+    backgroundColor: "#202020",
+    paddingTop: 5,
   },
 });
