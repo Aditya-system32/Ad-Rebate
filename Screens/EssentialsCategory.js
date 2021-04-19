@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
-  Text,
+  FlatList,
   StyleSheet,
   StatusBar,
   BackHandler,
@@ -10,30 +10,56 @@ import {
   ToastAndroid,
   TouchableNativeFeedback,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { db } from "../firebases";
+import EssDetail from "./EssDetail";
 
-function EssentialsCategory({ navigation }) {
+function EssentialsCategory({ navigation, route }) {
+  const { category } = route.params;
+  const [array, setArray] = useState([]);
+  const [medi, setMedi] = useState([]);
   useEffect(() => {
-    const backAction = () => {
-      navigation.goBack();
-      return true;
-    };
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-    return () => {
-      backHandler.remove();
-    };
+    db.collection("Essentials")
+      .doc(category)
+      .get()
+      .then((doc) => {
+        if (category === "Medical") setMedi(doc.data());
+        else {
+          setArray(doc.data().items);
+        }
+      });
   }, []);
   return (
     <View>
-      <TouchableNativeFeedback
-        onPress={() => navigation.navigate("EssentialsDetails")}
-      >
-        <Text style={{ color: "white" }}>EssentialsCategory</Text>
-      </TouchableNativeFeedback>
+      {category !== "Medical" ? (
+        <FlatList
+          data={array}
+          keyExtractor={(item) => item.number}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <EssDetail
+              name={item.name}
+              ph={item.number}
+              availability={item.availability}
+            ></EssDetail>
+          )}
+        ></FlatList>
+      ) : (
+        <FlatList
+          data={array}
+          keyExtractor={(item) => item.number}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <EssDetail
+              name={item.name}
+              ph={item.number}
+              availability={item.availability}
+            ></EssDetail>
+          )}
+        ></FlatList>
+      )}
     </View>
   );
 }
-
+//         onPress={() => navigation.navigate("EssentialsDetails")}
 export default EssentialsCategory;
