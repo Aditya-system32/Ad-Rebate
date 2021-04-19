@@ -16,7 +16,6 @@ import hospitalicon from "../assets/images/hospital.png";
 import vegitableicon from "../assets/images/veggi.png";
 import tiffin from "../assets/images/tiffin.png";
 import grocery from "../assets/images/grocery.png";
-import coupons from "../assets/svgs/coupons.png";
 import EssCard from "./EssCard";
 
 function Essentials({ navigation }) {
