@@ -12,15 +12,19 @@ import {
   FlatList,
 } from "react-native";
 import { db } from "../firebases";
+import hospitalicon from "../assets/images/hospital.png";
+import vegitableicon from "../assets/images/veggi.png";
+import tiffin from "../assets/images/tiffin.png";
+import grocery from "../assets/images/grocery.png";
 import coupons from "../assets/svgs/coupons.png";
 import EssCard from "./EssCard";
 
 function Essentials({ navigation }) {
   const array = [
-    { color: "#43A4BA", text: "Grocery", img: coupons },
-    { color: "#FF9B9B", text: "Medical", img: coupons },
-    { color: "#7D5DD8", text: "Tiffin", img: coupons },
-    { color: "#44BD41", text: "Vegetables", img: coupons },
+    { color: "#43A4BA", text: "Grocery", img: grocery },
+    { color: "#FF9B9B", text: "Medical", img: hospitalicon },
+    { color: "#7D5DD8", text: "Tiffin", img: tiffin },
+    { color: "#44BD41", text: "Vegetables", img: vegitableicon },
   ];
   return (
     <View style={styles.cardHolder}>
