@@ -67,6 +67,12 @@ export default function HomeScreen({ navigation }) {
       name: "Restaurant",
       value: "restaurant",
     },
+    {
+      img: "https://i.ibb.co/Scnxtmt/Group-172.png",
+      key: "essentials",
+      name: "Essentials",
+      value: "essentials",
+    },
   ]);
 
   useEffect(() => {
@@ -363,7 +369,9 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.itemWrapper}>
                   <TouchableNativeFeedback
                     onPress={() =>
-                      user
+                      item.value == "essentials"
+                        ? navigation.navigate("Essentials")
+                        : user
                         ? navigation.navigate("Categories", {
                             paramKey: item.value,
                           })

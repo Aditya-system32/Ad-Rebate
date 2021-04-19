@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,19 @@ import {
 } from "react-native";
 
 function EssentialsDetails() {
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   const openDialScreen = () => {
     let number = "";
     if (Platform.OS === "ios") {
