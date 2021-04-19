@@ -19,7 +19,19 @@ function EssentialsCategory({ navigation, route }) {
   const { category } = route.params;
   const [array, setArray] = useState([]);
   const medi = ["Ambulance", "Oxygen", "Rtpcr"];
-  console.log(category);
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   useEffect(() => {
     let cat = JSON.parse(JSON.stringify(category));
     if (

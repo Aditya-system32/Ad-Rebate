@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -22,6 +22,19 @@ function Essentials({ navigation }) {
     { color: "#7D5DD8", text: "Tiffin", img: coupons },
     { color: "#44BD41", text: "Vegetables", img: coupons },
   ];
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   return (
     <View style={styles.cardHolder}>
       <FlatList
