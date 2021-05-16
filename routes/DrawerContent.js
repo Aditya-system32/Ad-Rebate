@@ -84,24 +84,24 @@ export function DrawerContent(props) {
             />
           </Drawer.Section>
         )}
-        {!user ? null : (
-          <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
-              label="ESSENTIALS"
-              labelStyle={{
-                color: "#EDEDED",
-                fontSize: scaledSize(14),
-                alignSelf: "center",
-                paddingLeft: scaledSize(6),
-                fontFamily: "Poppins-Medium",
-              }}
-              style={styles.labelStyle}
-              onPress={() => {
-                props.navigation.navigate("Essentials");
-              }}
-            />
-          </Drawer.Section>
-        )}
+
+        <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
+            label="ESSENTIALS"
+            labelStyle={{
+              color: "#EDEDED",
+              fontSize: scaledSize(14),
+              alignSelf: "center",
+              paddingLeft: scaledSize(6),
+              fontFamily: "Poppins-Medium",
+            }}
+            style={styles.labelStyle}
+            onPress={() => {
+              props.navigation.navigate("Essentials");
+            }}
+          />
+        </Drawer.Section>
+
         {!user ? null : (
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
