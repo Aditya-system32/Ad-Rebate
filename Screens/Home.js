@@ -188,11 +188,10 @@ export default function HomeScreen({ navigation }) {
   );
 
   // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-  responseListener.current = Notifications.addNotificationResponseReceivedListener(
-    (response) => {
+  responseListener.current =
+    Notifications.addNotificationResponseReceivedListener((response) => {
       console.log(response);
-    }
-  );
+    });
   //EARNING SECTION UPDATE ALERT
 
   const skipAll = () => {
@@ -223,7 +222,7 @@ export default function HomeScreen({ navigation }) {
       )}
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.banner}>
-        <BannerImages />
+        <BannerImages navigation={navigation} />
       </View>
       {notification === null ||
       notification === "" ||
