@@ -2,7 +2,7 @@
     "expo": {
      "name": "Ad-Rebate",
      "icon": "./assets/images/icon.png",
-     "version": "1.0.2",
+     "version": "1.4.0",
      "slug": "ad-rebate-app-new",
      "orientation":"portrait",
      "backgroundColor":"#000000",
@@ -25,14 +25,14 @@
        "bundleIdentifier": "com.adverttonlineservices.adrebate",
        "buildNumber": "1.0.0"
      },
-     "android": {"enableDangerousExperimentalLeanBuilds": true,
+     "android": {
        "adaptiveIcon":{
          "foregroundImage":"./assets/images/adaptive-icon.png",
          "backgroundColor":"#000000"
        },
       "googleServicesFile": "./google-services.json",
        "package": "com.adverttonlineservices.adrebate",
-       "versionCode": 3
+       "versionCode": 4
      }
     }
   }

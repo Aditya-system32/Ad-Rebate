@@ -60,7 +60,7 @@ export default function BannerImages({ navigation }) {
         sliderBoxHeight={Dimensions.get("screen").height * 0.2}
         parentWidth={Dimensions.get("screen").width * 0.9}
         onCurrentImagePressed={(index) => {
-          if (index === 0) {
+          if (index === 0 && user) {
             navigation.navigate("Request");
           } else {
             onShare();
