@@ -73,6 +73,13 @@ export default function HomeScreen({ navigation }) {
       name: "Essentials",
       value: "essentials",
     },
+    ,
+    {
+      img: "https://i.ibb.co/dQVn3fh/req.png",
+      key: "request",
+      name: "Request",
+      value: "request",
+    },
   ]);
 
   useEffect(() => {
@@ -373,13 +380,15 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.itemWrapper}>
                   <TouchableNativeFeedback
                     onPress={() =>
-                      item.value == "essentials"
+                      (item.value = "request"
+                        ? navigation.navigate("Request")
+                        : item.value == "essentials"
                         ? navigation.navigate("Essentials")
                         : user
                         ? navigation.navigate("Categories", {
                             paramKey: item.value,
                           })
-                        : alert("Login First")
+                        : alert("Login First"))
                     }
                   >
                     <View style={styles.categoryTile}>

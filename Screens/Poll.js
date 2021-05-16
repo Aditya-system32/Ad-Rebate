@@ -134,6 +134,15 @@ const Poll = () => {
             );
           });
       }
+      setheading(
+        `You voted for ${
+          selectedOption.response !== "Jewellery" &&
+          selectedOption.response !== "Electronics" &&
+          selectedOption.response !== "Real estate"
+            ? "Other(" + selectedOption.response + ")"
+            : selectedOption.response
+        }`
+      );
       settotal((prev) => prev + 1);
     }
   }
@@ -144,7 +153,7 @@ const Poll = () => {
         <View style={styles.result}>
           {data.map((item) => {
             return (
-              <View style={styles.item}>
+              <View style={styles.item} key={item.name}>
                 <MotiView
                   delay={100}
                   transition={{
