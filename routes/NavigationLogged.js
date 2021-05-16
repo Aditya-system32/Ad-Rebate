@@ -22,6 +22,7 @@ import AppIntroSliders from "../Screens/AppIntroSliders";
 import ShareCoupons from "../Screens/ShareCoupons";
 import Essentials from "../Screens/Essentials";
 import EssentialsCategory from "../Screens/EssentialsCategory";
+import Poll from "../Screens/Poll";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -272,6 +273,22 @@ const HomeStackScreen = ({ navigation }) => {
           headerTitleStyle: {
             fontFamily: "Poppins-SemiBold",
             fontSize: scaledSize(18),
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Request"
+        component={Poll}
+        options={{
+          title: "Poll",
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+            paddingTop: scaledSize(3),
           },
         }}
       />
