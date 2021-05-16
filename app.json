@@ -32,7 +32,7 @@
        },
       "googleServicesFile": "./google-services.json",
        "package": "com.adverttonlineservices.adrebate",
-       "versionCode": 4
+       "versionCode": 5
      }
     }
   }
