@@ -8,13 +8,14 @@ import {
   TouchableNativeFeedback,
   View,
   Dimensions,
+  BackHandler,
 } from "react-native";
 import { db } from "../firebases";
 import { View as MotiView, AnimatePresence } from "moti";
 import { scaledSize } from "./Home";
 import { AuthContext } from "../routes/AuthProvider";
 import firebase from "firebase";
-const Poll = () => {
+const Poll = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const [showResult, setshowResult] = useState(false);
   const [total, settotal] = useState(0);
@@ -65,6 +66,20 @@ const Poll = () => {
       }
     });
   }, [responses]);
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
 
   useEffect(() => {
     if (other !== "") setSelectedOption({ user: user.uid, response: other });

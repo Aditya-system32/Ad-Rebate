@@ -380,7 +380,7 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.itemWrapper}>
                   <TouchableNativeFeedback
                     onPress={() =>
-                      (item.value = "request"
+                      item.value === "request"
                         ? navigation.navigate("Request")
                         : item.value == "essentials"
                         ? navigation.navigate("Essentials")
@@ -388,7 +388,7 @@ export default function HomeScreen({ navigation }) {
                         ? navigation.navigate("Categories", {
                             paramKey: item.value,
                           })
-                        : alert("Login First"))
+                        : alert("Login First")
                     }
                   >
                     <View style={styles.categoryTile}>
