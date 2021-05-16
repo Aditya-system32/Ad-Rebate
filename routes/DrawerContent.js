@@ -84,24 +84,24 @@ export function DrawerContent(props) {
             />
           </Drawer.Section>
         )}
-        {!user ? null : (
-          <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
-              label="ESSENTIALS"
-              labelStyle={{
-                color: "#EDEDED",
-                fontSize: scaledSize(14),
-                alignSelf: "center",
-                paddingLeft: scaledSize(6),
-                fontFamily: "Poppins-Medium",
-              }}
-              style={styles.labelStyle}
-              onPress={() => {
-                props.navigation.navigate("Essentials");
-              }}
-            />
-          </Drawer.Section>
-        )}
+
+        <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
+            label="ESSENTIALS"
+            labelStyle={{
+              color: "#EDEDED",
+              fontSize: scaledSize(14),
+              alignSelf: "center",
+              paddingLeft: scaledSize(6),
+              fontFamily: "Poppins-Medium",
+            }}
+            style={styles.labelStyle}
+            onPress={() => {
+              props.navigation.navigate("Essentials");
+            }}
+          />
+        </Drawer.Section>
+
         {!user ? null : (
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
@@ -210,7 +210,7 @@ export function DrawerContent(props) {
         )}
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerWrapper}>
-        <Text style={styles.bottomDrawer}>version v1.2</Text>
+        <Text style={styles.bottomDrawer}>version v1.3</Text>
         <Text style={styles.bottomDrawer}>Made with ❤ in India</Text>
       </Drawer.Section>
     </View>

@@ -52,9 +52,7 @@ function EssentialsCategory({ navigation, route }) {
           category === "ambulance" ||
           category === "rtpcr"
         ) {
-          console.log(category);
           setArray(data[category]);
-          console.log(data[category]);
         } else {
           setArray(data.items);
         }
