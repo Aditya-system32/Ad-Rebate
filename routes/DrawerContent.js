@@ -123,6 +123,24 @@ export function DrawerContent(props) {
         {!user ? null : (
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
+              label="REGISTER WITH US"
+              labelStyle={{
+                color: "#EDEDED",
+                fontSize: scaledSize(14),
+                alignSelf: "center",
+                paddingLeft: scaledSize(6),
+                fontFamily: "Poppins-Medium",
+              }}
+              style={styles.labelStyle}
+              onPress={() => {
+                props.navigation.navigate("RegisterWithUs");
+              }}
+            />
+          </Drawer.Section>
+        )}
+        {!user ? null : (
+          <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
               label="INVITE AND EARN"
               labelStyle={{
                 color: "#EDEDED",
