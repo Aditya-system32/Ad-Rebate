@@ -71,6 +71,7 @@ export default function AdsVideoScreen({ navigation, route }) {
     let clientAdList = adCategoryData.filter(
       (client) => client.client === selectedClient
     );
+    console.log(clientAdList);
     if (clientAdList !== undefined) {
       fetchPlayableLink(clientAdList[randomNumber].link);
     }

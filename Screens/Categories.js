@@ -89,12 +89,19 @@ export default function CategoriesScreen({ navigation, route }) {
                   <TouchableNativeFeedback
                     style={{ borderRadius: 20 }}
                     background={TouchableNativeFeedback.Ripple("#464646")}
-                    onPress={() =>
-                      navigation.navigate("AdsVideo", {
-                        paramKey: item.id,
-                        categ: value,
-                      })
-                    }
+                    onPress={() => {
+                      console.log("test");
+                      navigation.navigate("Details", {
+                        id: item.id,
+                        name: item.name,
+                        category: value,
+                        logo: item.logo,
+                      });
+                      // navigation.navigate("AdsVideo", {
+                      //   paramKey: item.id,
+                      //   categ: value,
+                      // });
+                    }}
                   >
                     <View style={styles.categoryTile}>
                       <Image

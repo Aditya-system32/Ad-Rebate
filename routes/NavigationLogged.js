@@ -23,6 +23,7 @@ import ShareCoupons from "../Screens/ShareCoupons";
 import Essentials from "../Screens/Essentials";
 import EssentialsCategory from "../Screens/EssentialsCategory";
 import Poll from "../Screens/Poll";
+import DetailsPage from "../Screens/DetailsPage";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -281,6 +282,23 @@ const HomeStackScreen = ({ navigation }) => {
         component={Poll}
         options={{
           title: "Poll",
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+            paddingTop: scaledSize(3),
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Details"
+        component={DetailsPage}
+        options={{
+          headerTransparent: true,
+          title: "",
           headerStyle: {
             backgroundColor: "#000000",
           },
