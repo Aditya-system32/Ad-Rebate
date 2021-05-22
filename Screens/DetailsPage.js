@@ -294,7 +294,7 @@ const DetailsPage = ({ navigation, route }) => {
               onPress={() =>
                 Linking.openURL(
                   "http://api.whatsapp.com/send?phone=" +
-                    "+917987606986" +
+                    `+91${data.clientPhone}` +
                     `&text=Hello, i want to place an order \n- sent from Ad-Rebate`
                 )
               }
