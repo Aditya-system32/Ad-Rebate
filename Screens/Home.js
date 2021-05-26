@@ -60,18 +60,21 @@ export default function HomeScreen({ navigation }) {
       key: "cafe",
       name: "Cafe",
       value: "cafe",
+      inDevelopment: false,
     },
     {
       img: "https://i.ibb.co/60L7sbV/Restaurant.png",
       key: "restaurant",
       name: "Restaurant",
       value: "restaurant",
+      inDevelopment: false,
     },
     {
       img: "https://i.ibb.co/Scnxtmt/Group-172.png",
       key: "essentials",
       name: "Essentials",
       value: "essentials",
+      inDevelopment: false,
     },
     ,
     {
@@ -79,6 +82,7 @@ export default function HomeScreen({ navigation }) {
       key: "request",
       name: "Request",
       value: "request",
+      inDevelopment: false,
     },
   ]);
 
@@ -376,31 +380,33 @@ export default function HomeScreen({ navigation }) {
               style={styles.category}
               data={categoriesButtons}
               numColumns={4}
-              renderItem={({ item }) => (
-                <View style={styles.itemWrapper}>
-                  <TouchableNativeFeedback
-                    onPress={() =>
-                      item.value === "request"
-                        ? navigation.navigate("Request")
-                        : item.value == "essentials"
-                        ? navigation.navigate("Essentials")
-                        : user
-                        ? navigation.navigate("Categories", {
-                            paramKey: item.value,
-                          })
-                        : alert("Login First")
-                    }
-                  >
-                    <View style={styles.categoryTile}>
-                      <Image
-                        style={styles.tileLogo}
-                        source={{ uri: item.img }}
-                      ></Image>
-                    </View>
-                  </TouchableNativeFeedback>
-                  <Text style={styles.categoryItemTitle}>{item.name}</Text>
-                </View>
-              )}
+              renderItem={({ item }) =>
+                item.inDevelopment ? null : (
+                  <View style={styles.itemWrapper}>
+                    <TouchableNativeFeedback
+                      onPress={() =>
+                        item.value === "request"
+                          ? navigation.navigate("Request")
+                          : item.value == "essentials"
+                          ? navigation.navigate("Essentials")
+                          : user
+                          ? navigation.navigate("Categories", {
+                              paramKey: item.value,
+                            })
+                          : alert("Login First")
+                      }
+                    >
+                      <View style={styles.categoryTile}>
+                        <Image
+                          style={styles.tileLogo}
+                          source={{ uri: item.img }}
+                        ></Image>
+                      </View>
+                    </TouchableNativeFeedback>
+                    <Text style={styles.categoryItemTitle}>{item.name}</Text>
+                  </View>
+                )
+              }
             />
           </SafeAreaView>
         </View>
