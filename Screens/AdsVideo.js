@@ -111,7 +111,7 @@ export default function AdsVideoScreen({ navigation, route }) {
         //setCurrentAdIndex(currentAdIndex + 1);
         navigation.navigate("GetCoupon", {
           paramKey: selectedClient,
-          categ: category,
+          categ: cat,
         });
       }
     }

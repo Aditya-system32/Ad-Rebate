@@ -34,6 +34,7 @@ export default function CategoriesScreen({ navigation, route }) {
       backHandler.remove();
     };
   }, []);
+
   useEffect(() => {
     getCategory();
     async function getCategory() {
@@ -90,7 +91,6 @@ export default function CategoriesScreen({ navigation, route }) {
                     style={{ borderRadius: 20 }}
                     background={TouchableNativeFeedback.Ripple("#464646")}
                     onPress={() => {
-                      console.log("test");
                       navigation.navigate("Details", {
                         id: item.id,
                         name: item.name,

@@ -146,7 +146,9 @@ export default function GetCoupon({ navigation, route }) {
           </View>
         )}
       </View>
-      <Text style={styles.noti}>You can only redeem this after an hour</Text>
+      {cat === "cake" ? null : (
+        <Text style={styles.noti}>You can only redeem this after an hour</Text>
+      )}
 
       <TouchableNativeFeedback
         style={styles.gohome}
