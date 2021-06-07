@@ -27,6 +27,7 @@ import ImageViewer from "react-native-image-zoom-viewer";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DiscountCake from "../Components/DiscountCake";
+import { MaterialIcons } from "@expo/vector-icons";
 const DetailsPage = ({ navigation, route }) => {
   const { user, setUserData, userData } = useContext(AuthContext);
   const { id, name, category, logo } = route.params;
@@ -192,24 +193,47 @@ const DetailsPage = ({ navigation, route }) => {
           </View>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("AdsVideo", {
-            paramKey: id,
-            categ: category,
-          });
-        }}
-      >
-        <View style={styles.watch}>
-          <Text style={styles.watchtext}>Watch Video</Text>
-          <FontAwesome5
-            name="play"
-            size={scaledSize(12)}
-            color="white"
-            style={{ paddingRight: scaledSize(3) }}
-          />
-        </View>
-      </TouchableOpacity>
+      <View style={styles.buttonWrapper}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("AdsVideo", {
+              paramKey: id,
+              categ: category,
+            });
+          }}
+        >
+          <View style={styles.watch}>
+            <Text style={styles.watchtext}>Watch Video</Text>
+            <FontAwesome5
+              name="play"
+              size={scaledSize(12)}
+              color="white"
+              style={{ paddingRight: scaledSize(3) }}
+            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Menu", {
+              clientid: id,
+              category: category,
+              name: name,
+            });
+          }}
+        >
+          <View style={[styles.watch, { width: scaledSize(100) }]}>
+            <Text style={styles.watchtext}>Menu</Text>
+            <MaterialIcons
+              name="menu-book"
+              size={scaledSize(16)}
+              color="white"
+              style={{
+                paddingBottom: scaledSize(1),
+              }}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
       <View style={styles.review}>
         <Text style={styles.reviewHeading}>Ratings</Text>
         <View style={styles.lineartop} pointerEvents="none"></View>
@@ -318,6 +342,10 @@ const DetailsPage = ({ navigation, route }) => {
 export default DetailsPage;
 
 const styles = StyleSheet.create({
+  buttonWrapper: {
+    flexDirection: "row",
+    width: "100%",
+  },
   ratingtext: {
     color: "#a7a7a7",
     fontFamily: "Poppins-Regular",

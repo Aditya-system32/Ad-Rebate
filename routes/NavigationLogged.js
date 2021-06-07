@@ -25,6 +25,7 @@ import EssentialsCategory from "../Screens/EssentialsCategory";
 import Poll from "../Screens/Poll";
 import DetailsPage from "../Screens/DetailsPage";
 import RegisterWithUs from "../Screens/RegisterWithUs";
+import Menu from "../Screens/Menu";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -86,6 +87,21 @@ const HomeStackScreen = ({ navigation }) => {
         component={AdsVideoScreen}
         options={{
           title: "Ads",
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Menu"
+        component={Menu}
+        options={{
+          title: "Menu",
           headerStyle: {
             backgroundColor: "#000000",
           },
