@@ -150,7 +150,20 @@ const DetailsPage = ({ navigation, route }) => {
           />
         </View>
       </TouchableOpacity>
-      <Text style={styles.heading}>{name}</Text>
+      <Text
+        style={[
+          styles.heading,
+          name.length > 15
+            ? {
+                fontSize: scaledSize(22),
+                textAlignVertical: "center",
+                marginTop: scaledSize(12),
+              }
+            : null,
+        ]}
+      >
+        {name}
+      </Text>
       <View style={styles.locationbar}>
         <Entypo name="location-pin" size={scaledSize(14)} color="white" />
         <Text style={styles.locationtext}>{data?.clientAddress}</Text>
