@@ -225,27 +225,29 @@ const DetailsPage = ({ navigation, route }) => {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Menu", {
-              clientid: id,
-              category: category,
-              name: name,
-            });
-          }}
-        >
-          <View style={[styles.watch, { width: scaledSize(100) }]}>
-            <Text style={styles.watchtext}>Menu</Text>
-            <MaterialIcons
-              name="menu-book"
-              size={scaledSize(16)}
-              color="white"
-              style={{
-                paddingBottom: scaledSize(1),
-              }}
-            />
-          </View>
-        </TouchableOpacity>
+        {data?.hasMenu ? (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Menu", {
+                clientid: id,
+                category: category,
+                name: name,
+              });
+            }}
+          >
+            <View style={[styles.watch, { width: scaledSize(100) }]}>
+              <Text style={styles.watchtext}>Menu</Text>
+              <MaterialIcons
+                name="menu-book"
+                size={scaledSize(16)}
+                color="white"
+                style={{
+                  paddingBottom: scaledSize(1),
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+        ) : null}
       </View>
       <View style={styles.review}>
         <Text style={styles.reviewHeading}>Ratings</Text>
