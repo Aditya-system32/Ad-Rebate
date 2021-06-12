@@ -56,11 +56,9 @@ export default function GetCoupon({ navigation, route }) {
         })
         .then(() => {
           var current = new Date();
-          if (cat === "cake") {
-            current.setHours(current.getHours());
-          } else {
-            current.setHours(current.getHours() + 1);
-          }
+
+          current.setHours(current.getHours());
+
           const x =
             (current.getHours() < 10 ? "0" : "") +
             current.getHours() +
@@ -146,9 +144,6 @@ export default function GetCoupon({ navigation, route }) {
           </View>
         )}
       </View>
-      {cat === "cake" ? null : (
-        <Text style={styles.noti}>You can only redeem this after an hour</Text>
-      )}
 
       <TouchableNativeFeedback
         style={styles.gohome}

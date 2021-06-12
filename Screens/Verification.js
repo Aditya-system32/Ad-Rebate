@@ -48,6 +48,7 @@ export default function VerificationScreen({ route, navigation }) {
         <StatusBar backgroundColor="black" barStyle="light-content" />
         <View style={styles.content}>
           <FirebaseRecaptcha.FirebaseRecaptchaVerifierModal
+            attemptInvisibleVerification={true}
             ref={recaptchaVerifier}
             firebaseConfig={firebaseConfig}
             title="Prove you are hooman!"
