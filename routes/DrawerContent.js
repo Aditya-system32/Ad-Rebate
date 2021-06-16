@@ -228,7 +228,7 @@ export function DrawerContent(props) {
         )}
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerWrapper}>
-        <Text style={styles.bottomDrawer}>version v1.6</Text>
+        <Text style={styles.bottomDrawer}>version v1.7</Text>
         <Text style={styles.bottomDrawer}>Made with ❤ in India</Text>
       </Drawer.Section>
     </View>

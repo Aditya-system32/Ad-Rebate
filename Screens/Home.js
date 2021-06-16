@@ -385,7 +385,9 @@ export default function HomeScreen({ navigation }) {
                   <View style={styles.itemWrapper}>
                     <TouchableNativeFeedback
                       onPress={() =>
-                        item.value === "request"
+                        item.value === "clothesCategories"
+                          ? navigation.navigate("ClothesCategories")
+                          : item.value === "request"
                           ? navigation.navigate("Request")
                           : item.value == "essentials"
                           ? navigation.navigate("Essentials")

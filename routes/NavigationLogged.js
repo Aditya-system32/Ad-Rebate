@@ -26,6 +26,7 @@ import Poll from "../Screens/Poll";
 import DetailsPage from "../Screens/DetailsPage";
 import RegisterWithUs from "../Screens/RegisterWithUs";
 import Menu from "../Screens/Menu";
+import ClothesCategory from "../Screens/ClothesCategory";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -226,6 +227,21 @@ const HomeStackScreen = ({ navigation }) => {
         name="Categories"
         component={CategoriesScreen}
         options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="ClothesCategories"
+        component={ClothesCategory}
+        options={{
+          title: "Clothes Categories",
           headerStyle: {
             backgroundColor: "#000000",
           },
