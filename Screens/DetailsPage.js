@@ -180,7 +180,7 @@ const DetailsPage = ({ navigation, route }) => {
           styles.heading,
           name.length > 15
             ? {
-                fontSize: scaledSize(22),
+                fontSize: scaledSize(20),
                 textAlignVertical: "center",
                 marginTop: scaledSize(12),
               }
