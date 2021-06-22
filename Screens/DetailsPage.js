@@ -33,11 +33,13 @@ const DetailsPage = ({ navigation, route }) => {
   const { id, name, category, logo } = route.params;
   const [data, setdata] = useState(null);
   const [showimage, setshowimage] = useState(false);
+  const [showmenu, setshowmenu] = useState(false);
   const [imagearray, setimagearray] = useState([]);
   const [openreview, setopenreview] = useState(false);
   const [mainrating, setmainrating] = useState(0);
   const [reviews, setreviews] = useState([]);
   const [openDiscount, setopenDiscount] = useState(false);
+  const [menuarray, setmenuarray] = useState([]);
   useEffect(() => {
     if (!id) return;
     x();
@@ -53,6 +55,7 @@ const DetailsPage = ({ navigation, route }) => {
   useEffect(() => {
     if (!data) return;
     let arr = [];
+    let menarr = [];
     if (data.images) {
       data.images.forEach((url) => {
         arr.push({ url: url });
@@ -60,6 +63,12 @@ const DetailsPage = ({ navigation, route }) => {
     } else {
       arr.push({ url: logo });
     }
+    if (data.menuImages) {
+      data.menuImages.forEach((url) => {
+        menarr.push({ url: url });
+      });
+    }
+    setmenuarray(menarr);
     setmainrating(data.rating);
     setreviews(data.reviews);
     setimagearray(arr);
@@ -84,20 +93,36 @@ const DetailsPage = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <Modal
-        onRequestClose={() => setshowimage(false)}
-        animationType="slide"
-        visible={showimage}
-        transparent={true}
-      >
-        <TouchableOpacity
-          onPress={() => setshowimage(false)}
-          style={styles.down}
+      {showimage ? (
+        <Modal
+          onRequestClose={() => setshowimage(false)}
+          animationType="slide"
+          transparent={true}
         >
-          <AntDesign name="down" size={scaledSize(20)} color="#aaaaaa" />
-        </TouchableOpacity>
-        <ImageViewer imageUrls={imagearray} />
-      </Modal>
+          <TouchableOpacity
+            onPress={() => setshowimage(false)}
+            style={styles.down}
+          >
+            <AntDesign name="down" size={scaledSize(20)} color="#aaaaaa" />
+          </TouchableOpacity>
+          <ImageViewer saveToLocalByLongPress={false} imageUrls={imagearray} />
+        </Modal>
+      ) : null}
+      {showmenu ? (
+        <Modal
+          onRequestClose={() => setshowmenu(false)}
+          animationType="slide"
+          transparent={true}
+        >
+          <TouchableOpacity
+            onPress={() => setshowmenu(false)}
+            style={styles.down}
+          >
+            <AntDesign name="down" size={scaledSize(20)} color="#aaaaaa" />
+          </TouchableOpacity>
+          <ImageViewer saveToLocalByLongPress={false} imageUrls={menuarray} />
+        </Modal>
+      ) : null}
       <AnimatePresence>
         {openreview ? (
           <ReviewDrawer
@@ -225,16 +250,8 @@ const DetailsPage = ({ navigation, route }) => {
             />
           </View>
         </TouchableOpacity>
-        {data?.hasMenu ? (
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Menu", {
-                clientid: id,
-                category: category,
-                name: name,
-              });
-            }}
-          >
+        {menuarray.length > 0 ? (
+          <TouchableOpacity onPress={() => setshowmenu(true)}>
             <View style={[styles.watch, { width: scaledSize(100) }]}>
               <Text style={styles.watchtext}>Menu</Text>
               <MaterialIcons
