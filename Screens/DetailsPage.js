@@ -241,7 +241,7 @@ const DetailsPage = ({ navigation, route }) => {
           }}
         >
           <View style={styles.watch}>
-            <Text style={styles.watchtext}>Watch Video</Text>
+            <Text style={styles.watchtext}>Click to get reward</Text>
             <FontAwesome5
               name="play"
               size={scaledSize(12)}
@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#707070",
     borderRadius: scaledSize(50),
-    width: scaledSize(125),
+    width: scaledSize(150),
     flexDirection: "row",
     height: scaledSize(35),
     alignItems: "center",

@@ -609,7 +609,7 @@ const styles = StyleSheet.create({
     height: scaledSize(20),
   },
   banner: {
-    height: "20%",
+    height: "25%",
     marginTop: 5,
     width: "90%",
     alignItems: "center",

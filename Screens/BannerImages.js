@@ -57,7 +57,7 @@ export default function BannerImages({ navigation }) {
         dotColor="#FFF"
         inactiveDotColor="#90A4AE"
         resizeMethod="auto"
-        sliderBoxHeight={Dimensions.get("screen").height * 0.2}
+        sliderBoxHeight={Dimensions.get("screen").height*0.1}
         parentWidth={Dimensions.get("screen").width * 0.9}
         onCurrentImagePressed={(index) => {
           if (index === 0 && user) {
