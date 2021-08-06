@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#707070",
     borderRadius: scaledSize(50),
-    width: scaledSize(150),
+    width: scaledSize(175),
     flexDirection: "row",
     height: scaledSize(35),
     alignItems: "center",
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
   callWrapper: {
     position: "absolute",
     right: scaledSize(25),
-    top: scaledSize(185),
+    top: scaledSize(193),
     width: scaledSize(75),
     height: scaledSize(30),
     zIndex: 5,
@@ -588,7 +588,7 @@ const styles = StyleSheet.create({
   buttontext: {
     color: "#ffffff",
     fontFamily: "Poppins-Medium",
-    fontSize: scaledSize(13),
+    fontSize: scaledSize(11),
     marginRight: scaledSize(10),
   },
   button: {
