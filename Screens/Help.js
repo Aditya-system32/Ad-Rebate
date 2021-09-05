@@ -18,7 +18,7 @@ export default function HelpScreen({ navigation }) {
     {
       question: "How to Get Coupon?",
       answer:
-        "Step 1 - Go to home screen.\nStep 2 -Select the category whose coupon you want.\nStep 3 - Select the café and restaurant whose coupon you want.\nStep 4 - Watch 3 Ads and answer one question.\nStep 5 - You'll get coupon and the coupon will active after 1 hour.",
+        "Step 1 - Go to home screen.\nStep 2 -Select the category whose coupon you want.\nStep 3 - Select the café and restaurant whose coupon you want.\nStep 4 - Watch 1 Ads.\nStep 5 - You'll get coupon and the coupon will active after 1 hour.",
     },
     {
       question: "Why I Can't See My Coupon?",

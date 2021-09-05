@@ -5,7 +5,7 @@ import { SliderBox } from "react-native-image-slider-box";
 import { useSelector } from "react-redux";
 import { AuthContext } from "../routes/AuthProvider";
 
-export default function BannerImages() {
+export default function BannerImages({ navigation }) {
   const { user } = useContext(AuthContext);
   const bannerData = useSelector((state) => state.bannerData.banners);
   const [shareMessage, setShareMessage] = useState(
@@ -57,9 +57,15 @@ export default function BannerImages() {
         dotColor="#FFF"
         inactiveDotColor="#90A4AE"
         resizeMethod="auto"
-        sliderBoxHeight={Dimensions.get("screen").height * 0.2}
+        sliderBoxHeight={Dimensions.get("screen").height*0.1}
         parentWidth={Dimensions.get("screen").width * 0.9}
-        onCurrentImagePressed={onShare}
+        onCurrentImagePressed={(index) => {
+          if (index === 0 && user) {
+            navigation.navigate("Request");
+          } else {
+            onShare();
+          }
+        }}
         ImageComponentStyle={styles.image}
       />
     </View>

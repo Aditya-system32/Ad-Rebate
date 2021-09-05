@@ -11,6 +11,8 @@ import { DrawerContent } from "./DrawerContent";
 import { FontAwesome } from "@expo/vector-icons";
 import HelpScreen from "../Screens/Help";
 import CategoriesScreen from "../Screens/Categories";
+import Essentials from "../Screens/Essentials";
+import EssentialsCategory from "../Screens/EssentialsCategory";
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -86,6 +88,35 @@ const HomeStackScreen = ({ navigation }) => {
           },
         }}
       />
+      <HomeStack.Screen
+        name="Essentials"
+        component={Essentials}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="EssentialsCategory"
+        component={EssentialsCategory}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+        }}
+      />
+
       <HomeStack.Screen
         name="LogIn"
         component={LogInScreen}

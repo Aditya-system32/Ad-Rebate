@@ -22,6 +22,7 @@ import { db } from "../firebases";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import BannerImages from "./BannerImages";
+import * as firebase from "firebase";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -165,9 +166,93 @@ export default function ProfileComplete({ navigation }) {
             });
           });
       }
+      const firstCouponArray = [];
+      async function firstCoupon() {
+        const ranNumber = Math.floor(Math.random() * clientName.length);
+        db.collection("ClientData")
+          .doc(clientName[ranNumber])
+          .collection("Coupons")
+          .where("isAlloted", "==", false)
+          .limit(1)
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              // doc.data() is never undefined for query doc snapshots
+              firstCouponArray.push(doc.data());
+            });
+          })
+          .then(() => {
+            //console.log(tempCouponArray);
+            firstCouponArray.map((coupon, index) => {
+              //console.log(coupon.id);
+
+              var current = new Date();
+              current.setHours(current.getHours());
+              const x =
+                (current.getHours() < 10 ? "0" : "") +
+                current.getHours() +
+                "-" +
+                (current.getMinutes() < 10 ? "0" : "") +
+                current.getMinutes();
+              const d =
+                (current.getDate() < 10 ? "0" : "") +
+                current.getDate() +
+                "-" +
+                (current.getMonth() + 1 < 10 ? "0" : "") +
+                (current.getMonth() + 1) +
+                "-" +
+                current.getFullYear();
+              var nn = new Date();
+              nn.setDate(nn.getDate() + 2);
+              const ed =
+                (nn.getDate() < 10 ? "0" : "") +
+                nn.getDate() +
+                "-" +
+                (nn.getMonth() + 1 < 10 ? "0" : "") +
+                (nn.getMonth() + 1) +
+                "-" +
+                nn.getFullYear();
+              const datas = {
+                expiryDate: ed,
+                expiryDateMs: Date.parse(nn),
+                activeFrom: Date.parse(current),
+                activeFromTime: x,
+                activeFromDate: d,
+                isAlloted: true,
+                allotedTo: user.uid,
+              };
+
+              //console.log(datas);
+              db.collection("ClientData")
+                .doc(coupon.client)
+                .collection("Coupons")
+                .doc(coupon.id)
+                .set(datas, { merge: true })
+                //.then(() => console.log("done"))
+                .catch((err) => {
+                  console.log(err);
+                });
+
+              db.collection("Users")
+                .doc(user.uid)
+                .set(
+                  {
+                    couponsReceived: firebase.firestore.FieldValue.arrayUnion(
+                      "Ad-Rebate"
+                    ),
+                  },
+                  { merge: true }
+                )
+                .catch((err) => {
+                  console.log(err);
+                });
+            });
+          });
+      }
       async function checkingReferralId() {
         if (referralId == "") {
           console.log("User Not Enter Referral Id");
+          firstCoupon();
         } else {
           giveCoupons();
         }
@@ -213,7 +298,7 @@ export default function ProfileComplete({ navigation }) {
           Alert.alert("Welcome To Ad-Rebate", "Coupon Received");
         } else {
           if (referralId == "") {
-            console.log("User Not Enter Referral Id");
+            //console.log("User Not Enter Referral Id");
             checker = true;
           } else {
             Alert.alert("Ad-Rebate", "Not Valid Id");

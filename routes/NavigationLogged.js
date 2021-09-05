@@ -20,6 +20,13 @@ import GetCoupon from "../Screens/GetCoupon";
 import CouponRedeemed from "../Screens/CouponRedeemed";
 import AppIntroSliders from "../Screens/AppIntroSliders";
 import ShareCoupons from "../Screens/ShareCoupons";
+import Essentials from "../Screens/Essentials";
+import EssentialsCategory from "../Screens/EssentialsCategory";
+import Poll from "../Screens/Poll";
+import DetailsPage from "../Screens/DetailsPage";
+import RegisterWithUs from "../Screens/RegisterWithUs";
+import Menu from "../Screens/Menu";
+import ClothesCategory from "../Screens/ClothesCategory";
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -92,6 +99,21 @@ const HomeStackScreen = ({ navigation }) => {
         }}
       />
       <HomeStack.Screen
+        name="Menu"
+        component={Menu}
+        options={{
+          title: "Menu",
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+        }}
+      />
+      <HomeStack.Screen
         name="CouponRedeemed"
         component={CouponRedeemed}
         options={{
@@ -136,10 +158,26 @@ const HomeStackScreen = ({ navigation }) => {
           },
         }}
       />
+
       <HomeStack.Screen
         name="Redeem"
         component={RedeemScreen}
         options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="RegisterWithUs"
+        component={RegisterWithUs}
+        options={{
+          title: "Register With Us",
           headerStyle: {
             backgroundColor: "#000000",
           },
@@ -200,6 +238,21 @@ const HomeStackScreen = ({ navigation }) => {
         }}
       />
       <HomeStack.Screen
+        name="ClothesCategories"
+        component={ClothesCategory}
+        options={{
+          title: "Clothes Categories",
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+        }}
+      />
+      <HomeStack.Screen
         name="Coupon"
         component={CouponScreen}
         options={{
@@ -241,6 +294,67 @@ const HomeStackScreen = ({ navigation }) => {
           },
           headerLeft: () => {
             return null;
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Essentials"
+        component={Essentials}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="EssentialsCategory"
+        component={EssentialsCategory}
+        options={{
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Request"
+        component={Poll}
+        options={{
+          title: "Poll",
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+            paddingTop: scaledSize(3),
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="Details"
+        component={DetailsPage}
+        options={{
+          headerTransparent: true,
+          title: "",
+          headerStyle: {
+            backgroundColor: "#000000",
+          },
+          headerTintColor: "#FFFFFF",
+          headerTitleStyle: {
+            fontFamily: "Poppins-SemiBold",
+            fontSize: scaledSize(18),
+            paddingTop: scaledSize(3),
           },
         }}
       />

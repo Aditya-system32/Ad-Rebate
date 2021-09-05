@@ -15,6 +15,7 @@ import { scaledSize } from "./Home";
 export default function GetCoupon({ navigation, route }) {
   const id = route.params.paramKey;
   const [coupon, setCoupon] = useState(null);
+  const [cat, setCat] = useState(route.params.categ);
   const [amPm, setamPm] = useState(null);
   const [timetoShow, settimetoShow] = useState(null);
   const { user } = useContext(AuthContext);
@@ -55,7 +56,9 @@ export default function GetCoupon({ navigation, route }) {
         })
         .then(() => {
           var current = new Date();
-          current.setHours(current.getHours() + 1);
+
+          current.setHours(current.getHours());
+
           const x =
             (current.getHours() < 10 ? "0" : "") +
             current.getHours() +
@@ -141,7 +144,6 @@ export default function GetCoupon({ navigation, route }) {
           </View>
         )}
       </View>
-      <Text style={styles.noti}>You can only redeem this after an hour</Text>
 
       <TouchableNativeFeedback
         style={styles.gohome}
